@@ -289,7 +289,6 @@ p { margin: 0 0 1em; }
 .section-concrete { background: var(--concrete); }
 
 /* Upoutávka na vedlejší službu (gastropůjčovna) — tmavá karta na světlé stránce, oddělená od kontaktu */
-.promo { padding-top: 0; }
 .promo-card {
   position: relative;
   overflow: hidden;
