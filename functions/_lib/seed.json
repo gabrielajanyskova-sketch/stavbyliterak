@@ -38,7 +38,8 @@
       "promo_title": "Gastropůjčovna",
       "promo_text": "Chystáte oslavu narozenin, svatbu, posezení s přáteli nebo párty? Půjčím pivní sety, výčep, kotlík na guláš, rožeň, ohřevné vany, reproduktor a další vybavení.",
       "promo_button": "Co se dá půjčit",
-      "hero_photo": "/assets/img/foto/zimni-zahrada-zahrada.webp"
+      "hero_photo": "/assets/img/foto/zimni-zahrada-zahrada.webp",
+      "promo_photo": "/assets/img/foto/gastro-vycep-oslava.webp"
     },
     "contact": {
       "title": "Zavolejte, nebo napište",

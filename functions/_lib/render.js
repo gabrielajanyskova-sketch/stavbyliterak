@@ -448,13 +448,13 @@ ${principles}
 ${promo ? `<section class="section promo">
 <div class="wrap">
 <div class="promo-card reveal${h.promo_photo ? ' has-photo' : ''}">
-<div>
+<div class="promo-text">
 <span class="label">${esc(h.promo_label)}</span>
 <h2>${esc(h.promo_title)}</h2>
 ${paragraphs(h.promo_text)}
 <a class="btn" href="${pageUrl(promo.slug)}">${esc(h.promo_button || 'Více')}</a>
 </div>
-${h.promo_photo ? `<img src="${esc(thumb(h.promo_photo))}" alt="${esc(h.promo_title)}" loading="lazy" decoding="async">` : ''}
+${h.promo_photo ? `<img src="${esc(safeUrl(h.promo_photo))}" alt="" loading="lazy" decoding="async">` : ''}
 </div>
 </div>
 </section>` : ''}` +

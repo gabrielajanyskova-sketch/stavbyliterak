@@ -47,6 +47,7 @@ const BUILTIN_IMAGES = [
   { url: "/assets/img/foto/proverena-spolecnost-2023.webp", name: "Prověřená společnost 2023" },
   { url: "/assets/img/foto/certifikat-autocad.webp", name: "Autodesk — AutoCAD, 2D dokumentace (2010)" },
   { url: "/assets/img/foto/certifikat-vysazeni-stromu.webp", name: "Gala dřevo — certifikát o vysazení stromu (2025)" },
+  { url: "/assets/img/foto/gastro-vycep-oslava.webp", name: "Výčep na oslavě (gastropůjčovna)" },
 ];
 
 const BLOCK_TYPES = {
