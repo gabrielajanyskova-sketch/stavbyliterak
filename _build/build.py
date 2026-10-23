@@ -145,20 +145,27 @@ def ask(service, extra=""):
     </aside>"""
 
 
-def page_hero(crumb, title, lead, facts, cls=""):
+def page_hero(crumb, title, lead, facts, cls="", photo=None):
+    """photo = (cesta, popisek); použije se jen pokud soubor existuje."""
     rows = "\n".join(f"        <div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in facts)
     scale = '\n      <div class="scale"><span>−5 °C</span><i></i><span>+22 °C</span></div>' if cls == "thermal" else ""
+    facts_html = f"""      <dl class="facts">
+{rows}
+      </dl>"""
+    if photo and (OUT / photo[0]).exists():
+        left_extra = "\n" + facts_html
+        right = f"""      <figure class="hero-photo"><img src="{photo[0]}" alt="{photo[1]}"><figcaption class="label">{photo[1]}</figcaption></figure>"""
+    else:
+        left_extra, right = "", facts_html
     return f"""<section class="page-hero {cls}">
   <div class="wrap">
     <span class="label crumbs"><a href="index.html">Úvod</a> / {crumb}</span>
     <div class="page-hero-grid">
       <div>
         <h1>{title}</h1>
-        <p class="lead">{lead}</p>{scale}
+        <p class="lead">{lead}</p>{scale}{left_extra}
       </div>
-      <dl class="facts">
-{rows}
-      </dl>
+{right}
     </div>
   </div>
 </section>
@@ -325,6 +332,7 @@ pages["zemni-prace.html"] = service_page(
             ("Nakladač", "Traktor Kubota s čelním nakladačem"),
             ("Cena", "Hodinová sazba za skutečně odpracovaný čas"),
         ],
+        photo=("assets/img/bagr.jpg", "Vlastní minibagr Kubota KX016-4"),
     ),
     """      <p>Správně provedené zemní práce jsou předpokladem pro založení stavby, uložení inženýrských sítí, zpevněné plochy i konečné úpravy zahrady. Před zahájením si domluvíme způsob provedení, vaše požadavky, reálné možnosti na místě a další náležitosti — včetně využití výkopku na pozemku nebo rozsahu odvozu. Promyšlená organizace omezuje zbytečné přesuny materiálu a může výrazně ušetřit výsledné náklady.</p>
 
