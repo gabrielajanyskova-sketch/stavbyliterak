@@ -1,0 +1,13 @@
+/assets/js/*
+  Cache-Control: no-cache
+
+/assets/css/*
+  Cache-Control: no-cache
+
+/assets/img/*
+  Cache-Control: public, max-age=604800
+
+/admin*
+  Cache-Control: no-store
+  X-Robots-Tag: noindex
+  X-Frame-Options: DENY
