@@ -19,6 +19,7 @@ public/                     statické soubory (výstupní složka Pages)
   assets/js/admin.js        logika administrace
   assets/fonts/             woff2 písma + licence (SIL OFL)
   assets/img/               logo, favicon, obrázek pro sdílení (og.jpg), fotka bagru
+  assets/img/foto/          fotky realizací (max. 1400 px) + foto/sm/ zmenšeniny (800 px)
   _headers                  cache a bezpečnostní hlavičky statických souborů
 functions/
   [[path]].js               router: stránky, /api/*, /img/*, robots.txt, sitemap.xml,
@@ -106,3 +107,14 @@ Pozdější změny se dělají v administraci, ne v tomto souboru.
 - [ ] Stavební práce — které drobné práce dál nabízet (žlutá poznámka na stránce)
 - [ ] Stránky Certifikáty a Reference z původního webu — lze přidat v adminu jako nové stránky
 - [ ] Další vlastní fotky ke službám
+
+## Fotky
+
+- Nejjednodušší je nahrávat fotky v adminu (**Fotky** nebo přímo v bloku **Galerie**):
+  automaticky se zmenší (1600 px + náhled 800 px) a převedou na WebP. Jdou nahrát i PDF
+  (certifikáty).
+- Fotky přidané přímo do repozitáře patří do `public/assets/img/foto/` (max. 1400 px, WebP)
+  a ke každé musí existovat zmenšenina se stejným názvem v `foto/sm/` (800 px) —
+  web v galeriích a hlavičkách načítá právě ji. Aby je šlo vybrat v adminu, přidat je
+  do `BUILTIN_IMAGES` v `assets/js/admin.js`.
+

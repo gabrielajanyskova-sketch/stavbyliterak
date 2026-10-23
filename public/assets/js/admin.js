@@ -2,8 +2,36 @@
 "use strict";
 
 const TOKEN_KEY = "admin_token";
+// Fotky uložené přímo v repozitáři (public/assets/img/foto, zmenšeniny v foto/sm)
 const BUILTIN_IMAGES = [
-  { url: "/assets/img/bagr.webp", name: "Minibagr Kubota (původní fotka)" },
+  { url: "/assets/img/bagr.webp", name: "Minibagr Kubota KX016-4" },
+  { url: "/assets/img/foto/hlinikova-pergola.webp", name: "Hliníková pergola" },
+  { url: "/assets/img/foto/hlinikove-zabradli-balkon.webp", name: "Hliníkové zábradlí na balkoně" },
+  { url: "/assets/img/foto/hlinikove-zabradli-dum.webp", name: "Hliníkové zábradlí balkonu" },
+  { url: "/assets/img/foto/hlinikove-zabradli-terasa.webp", name: "Hliníkové zábradlí na terase" },
+  { url: "/assets/img/foto/leseni-doprava-dodavkou.webp", name: "Lešení — doprava dodávkou" },
+  { url: "/assets/img/foto/leseni-fasada-rodinny-dum.webp", name: "Lešení na fasádě rodinného domu" },
+  { url: "/assets/img/foto/leseni-ramova-sestava.webp", name: "Rámová sestava lešení (schéma)" },
+  { url: "/assets/img/foto/leseni-ramove-pozinkovane.webp", name: "Rámové pozinkované lešení" },
+  { url: "/assets/img/foto/logo-nullifire.webp", name: "Logo Nullifire" },
+  { url: "/assets/img/foto/logo-pyroplex.webp", name: "Logo Pyroplex" },
+  { url: "/assets/img/foto/minibagr-a-traktor-kubota.webp", name: "Minibagr a traktor Kubota" },
+  { url: "/assets/img/foto/pyroplex-manzeta-eta.webp", name: "Pyroplex — manžeta s ETA" },
+  { url: "/assets/img/foto/pyroplex-protipozarni-manzety.webp", name: "Pyroplex — protipožární manžety" },
+  { url: "/assets/img/foto/pyroplex-protipozarni-paska.webp", name: "Pyroplex — protipožární páska" },
+  { url: "/assets/img/foto/pyroplex-protipozarni-polstar.webp", name: "Pyroplex — protipožární polštář" },
+  { url: "/assets/img/foto/terenni-upravy-operna-zed.webp", name: "Terénní úpravy a opěrná zeď" },
+  { url: "/assets/img/foto/traktor-kubota-celni-nakladac.webp", name: "Traktor Kubota s čelním nakladačem" },
+  { url: "/assets/img/foto/vykop-zakladova-deska.webp", name: "Výkop pro základy" },
+  { url: "/assets/img/foto/zakladac-travniku.webp", name: "Zakladač trávníku" },
+  { url: "/assets/img/foto/zakladac-zpracovani-pudy.webp", name: "Zpracování půdy zakladačem" },
+  { url: "/assets/img/foto/zasklena-pergola-dreveny-dum.webp", name: "Zasklená pergola u dřevěného domu" },
+  { url: "/assets/img/foto/zasklena-terasa-dreveny-dum.webp", name: "Zasklená terasa u dřevostavby" },
+  { url: "/assets/img/foto/zaskleni-pergoly.webp", name: "Zasklení pergoly" },
+  { url: "/assets/img/foto/zaskleni-terasy.webp", name: "Zasklení terasy" },
+  { url: "/assets/img/foto/zimni-zahrada-interier.webp", name: "Zimní zahrada zevnitř" },
+  { url: "/assets/img/foto/zimni-zahrada-rodinny-dum.webp", name: "Zimní zahrada u rodinného domu" },
+  { url: "/assets/img/foto/zimni-zahrada-zahrada.webp", name: "Zimní zahrada na zahradě" },
 ];
 
 const BLOCK_TYPES = {
@@ -21,6 +49,7 @@ const BLOCK_TYPES = {
   },
   note: { label: "Zvýrazněná poznámka" },
   image: { label: "Fotka" },
+  gallery: { label: "Galerie (fotky, certifikáty)" },
 };
 
 let token = null;
@@ -70,6 +99,11 @@ function markClean(text = "Vše uloženo.") {
   msg.classList.remove("dirty");
 }
 
+const isPdf = (url) => /\.pdf$/i.test(url);
+// náhled: zmenšenina (stejná konvence jako na webu), PDF jako dlaždice
+const thumbUrl = (url) => url.replace(/^(\/assets\/img\/foto\/|\/img\/)(?!sm\/)/, "$1sm/");
+const preview = (url, alt = "") => (isPdf(url) ? h("div", { class: "none" }, "PDF") : h("img", { src: thumbUrl(url), alt, loading: "lazy" }));
+
 const lines = (text) => text.split("\n").map((s) => s.trim()).filter(Boolean);
 
 function slugify(s) {
@@ -92,7 +126,7 @@ const ERRORS = {
   invalid_slug: "Adresa stránky smí obsahovat jen malá písmena bez diakritiky, číslice a pomlčky.",
   slug_exists: "Stránka s touto adresou už existuje.",
   images_not_configured: "Úložiště fotek (KV IMAGES) není v Cloudflare napojené.",
-  unsupported_type: "Tento typ souboru nejde nahrát. Použijte JPG, PNG nebo WebP.",
+  unsupported_type: "Tento typ souboru nejde nahrát. Použijte JPG, PNG, WebP nebo PDF.",
   too_large: "Fotka je příliš velká (max. 10 MB).",
   db_not_configured: "Databáze (D1) není v Cloudflare napojená.",
 };
@@ -208,7 +242,7 @@ function photoField(obj, key, label) {
     wrap.replaceChildren(
       h("span", { class: "lbl" }, label),
       h("div", { class: "photo-pick" },
-        obj[key] ? h("img", { src: obj[key], alt: "" }) : h("div", { class: "none" }, "bez fotky"),
+        obj[key] ? preview(obj[key]) : h("div", { class: "none" }, "bez fotky"),
         h("div", { class: "row-actions", style: "flex-direction:column;align-items:flex-start;gap:8px" },
           h("button", {
             class: "btn btn-line btn-small", type: "button",
@@ -248,6 +282,9 @@ function blockEditor(blocks) {
             area(b, "text", "Text poznámky", { hint: FORMAT_HINT, rows: 3 }),
             select(b, "style", "Barva", [["todo", "Žlutá (upozornění)"], ["info", "Šedá (informace)"]]),
           );
+        } else if (b.type === "gallery") {
+          b.items = b.items || [];
+          body = galleryEditor(b);
         } else if (b.type === "image") {
           body = h("div", {}, photoField(b, "src", "Fotka"), text(b, "caption", "Popisek pod fotkou"));
         } else {
@@ -271,6 +308,7 @@ function blockEditor(blocks) {
             if (BLOCK_TYPES[t].fields) b.items = [Object.fromEntries(BLOCK_TYPES[t].fields.map(([k]) => [k, ""]))];
             else if (t === "note") Object.assign(b, { text: "", style: "todo" });
             else if (t === "image") Object.assign(b, { src: "", caption: "" });
+            else if (t === "gallery") b.items = [];
             else b.text = "";
             blocks.push(b);
             markDirty();
@@ -278,6 +316,30 @@ function blockEditor(blocks) {
             wrap.lastElementChild.previousElementSibling.scrollIntoView({ behavior: "smooth", block: "center" });
           },
         }, "Přidat")),
+    );
+  };
+  render();
+  return wrap;
+}
+
+function galleryEditor(b) {
+  const wrap = h("div");
+  const render = () => {
+    wrap.replaceChildren(
+      check({ get v() { return b.fit === "contain"; }, set v(x) { b.fit = x ? "contain" : undefined; } }, "v", "Zobrazit celé, neořezávat (certifikáty, loga, výrobky)"),
+      ...b.items.map((item, i) =>
+        h("div", { class: "item" },
+          h("div", { class: "photo-pick" },
+            preview(item.src),
+            h("div", { class: "fields", style: "flex:1" }, text(item, "caption", "Popisek")),
+          ),
+          rowButtons(b.items, i, render),
+        )),
+      h("div", { class: "add-row" },
+        h("button", {
+          class: "btn btn-line btn-small", type: "button",
+          onclick: () => pickImage((url, name) => { b.items.push({ src: url, caption: name || "" }); markDirty(); render(); }),
+        }, "+ fotka nebo PDF")),
     );
   };
   render();
@@ -488,7 +550,7 @@ function settingsView(s) {
 
 function imagesView() {
   const wrap = h("div", {}, h("h2", {}, "Fotky"),
-    h("p", { class: "help" }, "Nahrané fotky se automaticky zmenší (max. 2000 px) a převedou do formátu WebP, takže se web načítá rychle i s fotkami z mobilu. Fotku pak vyberete u stránky (hlavička nebo blok „Fotka“)."));
+    h("p", { class: "help" }, "Nahrané fotky se automaticky zmenší a převedou do formátu WebP (plná velikost max. 1600 px + náhled), takže se web načítá rychle i s fotkami z mobilu. Nahrát jde i PDF (certifikáty). Fotku pak vyberete u stránky — v hlavičce nebo v bloku „Fotka“ či „Galerie“."));
   const gallery = h("div", { class: "gallery" });
   const load = async () => {
     gallery.replaceChildren(h("p", {}, "Načítám…"));
@@ -497,7 +559,7 @@ function imagesView() {
       gallery.replaceChildren(
         ...images.map((img) =>
           h("figure", {},
-            h("img", { src: img.url, alt: img.name || "", loading: "lazy" }),
+            preview(img.url, img.name || ""),
             h("figcaption", {},
               h("span", { title: img.name }, img.name || img.key),
               h("button", {
@@ -520,16 +582,16 @@ function imagesView() {
 
 // ---------- fotky: nahrání a výběr ----------
 
-async function shrink(file) {
+async function shrink(file, max) {
   if (file.type === "image/gif") return file;
   try {
     const bmp = await createImageBitmap(file);
-    const scale = Math.min(1, 2000 / Math.max(bmp.width, bmp.height));
+    const scale = Math.min(1, max / Math.max(bmp.width, bmp.height));
     const canvas = document.createElement("canvas");
     canvas.width = Math.round(bmp.width * scale);
     canvas.height = Math.round(bmp.height * scale);
     canvas.getContext("2d").drawImage(bmp, 0, 0, canvas.width, canvas.height);
-    const blob = await new Promise((r) => canvas.toBlob(r, "image/webp", 0.85));
+    const blob = await new Promise((r) => canvas.toBlob(r, "image/webp", 0.8));
     return blob && blob.size < file.size ? blob : file;
   } catch {
     return file;
@@ -539,18 +601,23 @@ async function shrink(file) {
 function uploadControl(onDone) {
   const status = h("span", { class: "hint" });
   const input = h("input", {
-    type: "file", accept: "image/*", multiple: true, hidden: true,
+    type: "file", accept: "image/*,application/pdf", multiple: true, hidden: true,
     onchange: async () => {
       const files = [...input.files];
       let last = null;
       for (const [i, f] of files.entries()) {
         status.textContent = `Nahrávám ${i + 1} z ${files.length}…`;
         try {
-          const blob = await shrink(f);
           const form = new FormData();
           const base = f.name.replace(/\.[^.]+$/, "");
-          form.append("file", blob, base + (blob.type === "image/webp" ? ".webp" : ""));
-          form.append("name", f.name);
+          if (f.type === "application/pdf") {
+            form.append("file", f, f.name);
+          } else {
+            const [full, small] = await Promise.all([shrink(f, 1600), shrink(f, 800)]);
+            form.append("file", full, base + ".webp");
+            form.append("thumb", small, base + "-sm.webp");
+          }
+          form.append("name", base);
           last = await api("images", { method: "POST", form });
         } catch (e) {
           toast(f.name + ": " + e.message, true);
@@ -562,7 +629,7 @@ function uploadControl(onDone) {
     },
   });
   return h("div", { class: "add-row" },
-    h("button", { class: "btn", type: "button", onclick: () => input.click() }, "Nahrát fotky"),
+    h("button", { class: "btn", type: "button", onclick: () => input.click() }, "Nahrát fotky / PDF"),
     input, status);
 }
 
@@ -570,10 +637,10 @@ function pickImage(onPick) {
   const modal = $("#modal");
   const body = $("#modal-body");
   const gallery = h("div", { class: "gallery" });
-  const choose = (url) => { modal.hidden = true; onPick(url); };
+  const choose = (url, name) => { modal.hidden = true; onPick(url, name); };
   const tile = (url, name) =>
-    h("figure", {}, h("button", { class: "pick", type: "button", onclick: () => choose(url) },
-      h("img", { src: url, alt: name || "" }), h("figcaption", {}, h("span", {}, name || url))));
+    h("figure", {}, h("button", { class: "pick", type: "button", onclick: () => choose(url, name) },
+      preview(url, name || ""), h("figcaption", {}, h("span", {}, name || url))));
   const load = async () => {
     gallery.replaceChildren(h("p", {}, "Načítám…"));
     let images = [];
@@ -581,7 +648,7 @@ function pickImage(onPick) {
     gallery.replaceChildren(...images.map((i) => tile(i.url, i.name)), ...BUILTIN_IMAGES.map((i) => tile(i.url, i.name)));
   };
   body.replaceChildren(
-    uploadControl((last) => (last ? choose(last.url) : load())),
+    uploadControl((last) => (last ? choose(last.url, last.name) : load())),
     h("p", { class: "hint" }, "Nahrajte novou fotku, nebo vyberte z již nahraných:"),
     gallery,
   );

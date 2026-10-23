@@ -639,3 +639,43 @@ p { margin: 0 0 1em; }
 .content-photo { margin: 0 0 2em; }
 .content-photo img { width: 100%; border-bottom: 4px solid var(--amber); }
 .content-photo figcaption { margin-top: 8px; }
+
+/* Galerie (fotky realizací, certifikáty) — náhledy, po kliknutí zvětšení */
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin: 0 0 2em; }
+.gallery-item { display: block; text-decoration: none; background: var(--white); border: 1px solid var(--line); }
+.gallery-item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: opacity 0.15s ease; }
+.gallery.is-contain .gallery-item img { object-fit: contain; padding: 10px; aspect-ratio: 1; }
+.gallery-item:hover img { opacity: 0.85; }
+.gallery-item:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+.gallery-item .caption { display: block; padding: 8px 10px; font-size: 0.85rem; color: var(--muted); line-height: 1.35; }
+.gallery-item.is-doc { display: flex; flex-direction: column; justify-content: space-between; min-height: 150px; }
+.gallery-item .doc {
+  margin: 16px 10px 0;
+  align-self: flex-start;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  padding: 6px 12px;
+  background: var(--graphite);
+  color: var(--amber);
+}
+
+.lightbox { max-width: min(1200px, 94vw); max-height: 94vh; padding: 0; border: 0; background: transparent; overflow: visible; }
+.lightbox::backdrop { background: rgba(14, 16, 19, 0.92); }
+.lightbox img { max-width: min(1200px, 94vw); max-height: 84vh; width: auto; margin: 0 auto; }
+.lightbox p { margin: 10px 0 0; color: #d9dde0; text-align: center; font-size: 0.95rem; }
+.lightbox button {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 64px;
+  border: 0;
+  background: rgba(29, 33, 38, 0.8);
+  color: var(--white);
+  font-size: 2rem;
+  cursor: pointer;
+}
+.lightbox button:hover { color: var(--amber); }
+.lightbox .lb-prev { left: 8px; }
+.lightbox .lb-next { right: 8px; }
+.lightbox .lb-close { top: 32px; right: 8px; height: 48px; }

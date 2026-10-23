@@ -199,6 +199,7 @@ const ITEM_FIELDS = {
   grid: ['title', 'text'],
   faq: ['title', 'text'],
   catalog: ['title', 'text', 'spec', 'count'],
+  gallery: ['src', 'caption'],
 };
 
 function cleanBlock(b) {
@@ -214,6 +215,9 @@ function cleanBlock(b) {
   } else if (b.type === 'note') {
     out.text = str(b.text, 5000);
     out.style = b.style === 'info' ? 'info' : 'todo';
+  } else if (b.type === 'gallery') {
+    out.items = cleanItems(b.items, ITEM_FIELDS.gallery).filter((i) => i.src);
+    if (b.fit === 'contain') out.fit = 'contain';
   } else if (b.type === 'image') {
     out.src = str(b.src, 500).trim();
     out.caption = str(b.caption, 300).trim();
@@ -349,10 +353,11 @@ async function orderPages(request, env) {
   return json({ ok: true });
 }
 
-// ---------- fotky (Workers KV) ----------
+// ---------- fotky a dokumenty (Workers KV) ----------
+// Ke každé fotce se ukládá i zmenšenina pod klíčem sm/<klíč> (na náhledy v galeriích).
 
-const IMAGE_TYPES = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'image/gif': 'gif', 'image/avif': 'avif' };
-const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
+const FILE_TYPES = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'image/gif': 'gif', 'image/avif': 'avif', 'application/pdf': 'pdf' };
+const MAX_FILE_BYTES = 10 * 1024 * 1024;
 
 async function listImages(env) {
   const { results } = await env.DB.prepare('SELECT key, name, content_type, size, created_at FROM images ORDER BY created_at DESC').all();
@@ -364,26 +369,33 @@ async function uploadImage(request, env) {
   const form = await request.formData();
   const file = form.get('file');
   if (!file || typeof file === 'string') return json({ error: 'missing_file' }, 400);
-  const ext = IMAGE_TYPES[file.type];
+  const ext = FILE_TYPES[file.type];
   if (!ext) return json({ error: 'unsupported_type' }, 415);
-  if (file.size > MAX_IMAGE_BYTES) return json({ error: 'too_large' }, 413);
+  if (file.size > MAX_FILE_BYTES) return json({ error: 'too_large' }, 413);
   const key = `${Date.now()}-${crypto.randomUUID().slice(0, 8)}.${ext}`;
   await env.IMAGES.put(key, await file.arrayBuffer(), { metadata: { contentType: file.type } });
+  const thumb = form.get('thumb');
+  if (thumb && typeof thumb !== 'string' && FILE_TYPES[thumb.type] && thumb.size <= MAX_FILE_BYTES) {
+    await env.IMAGES.put('sm/' + key, await thumb.arrayBuffer(), { metadata: { contentType: thumb.type } });
+  }
+  const name = str(form.get('name') || file.name, 200);
   await env.DB.prepare('INSERT INTO images (key, name, content_type, size, created_at) VALUES (?, ?, ?, ?, ?)')
-    .bind(key, str(form.get('name') || file.name, 200), file.type, file.size, new Date().toISOString())
+    .bind(key, name, file.type, file.size, new Date().toISOString())
     .run();
-  return json({ ok: true, key, url: '/img/' + key });
+  return json({ ok: true, key, name, url: '/img/' + key });
 }
 
 async function deleteImage(env, key) {
-  if (env.IMAGES) await env.IMAGES.delete(key);
+  if (env.IMAGES) await Promise.all([env.IMAGES.delete(key), env.IMAGES.delete('sm/' + key)]);
   await env.DB.prepare('DELETE FROM images WHERE key = ?').bind(key).run();
   return json({ ok: true });
 }
 
 export async function serveImage(env, key) {
   if (!env.IMAGES) return new Response('Not found', { status: 404 });
-  const obj = await env.IMAGES.getWithMetadata(key, 'arrayBuffer');
+  let obj = await env.IMAGES.getWithMetadata(key, 'arrayBuffer');
+  // starší soubory bez zmenšeniny → plná velikost
+  if ((!obj || !obj.value) && key.startsWith('sm/')) obj = await env.IMAGES.getWithMetadata(key.slice(3), 'arrayBuffer');
   if (!obj || !obj.value) return new Response('Not found', { status: 404 });
   return new Response(obj.value, {
     headers: {

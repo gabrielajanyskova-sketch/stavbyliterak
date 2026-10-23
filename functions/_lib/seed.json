@@ -37,7 +37,8 @@
       "promo_label": "Oslavy, svatby, párty",
       "promo_title": "Gastropůjčovna",
       "promo_text": "Chystáte oslavu narozenin, svatbu, posezení s přáteli nebo párty? Půjčím pivní sety, výčep, kotlík na guláš, rožeň, ohřevné vany, reproduktor a další vybavení.",
-      "promo_button": "Co se dá půjčit"
+      "promo_button": "Co se dá půjčit",
+      "hero_photo": "/assets/img/foto/leseni-fasada-rodinny-dum.webp"
     },
     "contact": {
       "title": "Zavolejte, nebo napište",
@@ -304,6 +305,27 @@
           ]
         },
         {
+          "type": "gallery",
+          "items": [
+            {
+              "src": "/assets/img/foto/vykop-zakladova-deska.webp",
+              "caption": "Výkop pro základy"
+            },
+            {
+              "src": "/assets/img/foto/terenni-upravy-operna-zed.webp",
+              "caption": "Terénní úpravy a opěrná zeď"
+            },
+            {
+              "src": "/assets/img/foto/minibagr-a-traktor-kubota.webp",
+              "caption": "Minibagr a traktor Kubota"
+            },
+            {
+              "src": "/assets/img/foto/traktor-kubota-celni-nakladac.webp",
+              "caption": "Traktor Kubota s čelním nakladačem"
+            }
+          ]
+        },
+        {
           "type": "heading",
           "text": "Odvoz zeminy a dodávky materiálu"
         },
@@ -359,6 +381,19 @@
             {
               "title": "Nový trávník",
               "text": "Příprava pozemku pro založení."
+            }
+          ]
+        },
+        {
+          "type": "gallery",
+          "items": [
+            {
+              "src": "/assets/img/foto/zakladac-travniku.webp",
+              "caption": "Zakladač trávníku"
+            },
+            {
+              "src": "/assets/img/foto/zakladac-zpracovani-pudy.webp",
+              "caption": "Zpracování půdy zakladačem"
             }
           ]
         },
@@ -425,8 +460,8 @@
           "value": "Podle možností systému a profilů"
         }
       ],
-      "photo": "",
-      "photo_caption": "",
+      "photo": "/assets/img/foto/zimni-zahrada-zahrada.webp",
+      "photo_caption": "Hliníková zimní zahrada",
       "ask_title": "Hliníkový program",
       "ask_note": "",
       "form_service": "Hliníkový program",
@@ -476,6 +511,59 @@
             {
               "title": "Individuální konstrukce",
               "text": "podle konkrétního prostoru"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Ukázky realizací"
+        },
+        {
+          "type": "gallery",
+          "items": [
+            {
+              "src": "/assets/img/foto/zimni-zahrada-rodinny-dum.webp",
+              "caption": "Zimní zahrada u rodinného domu"
+            },
+            {
+              "src": "/assets/img/foto/zasklena-terasa-dreveny-dum.webp",
+              "caption": "Zasklená terasa u dřevostavby"
+            },
+            {
+              "src": "/assets/img/foto/zasklena-pergola-dreveny-dum.webp",
+              "caption": "Zasklená pergola u dřevěného domu"
+            },
+            {
+              "src": "/assets/img/foto/zaskleni-pergoly.webp",
+              "caption": "Zasklení pergoly"
+            },
+            {
+              "src": "/assets/img/foto/zimni-zahrada-interier.webp",
+              "caption": "Zimní zahrada zevnitř"
+            },
+            {
+              "src": "/assets/img/foto/zaskleni-terasy.webp",
+              "caption": "Zasklení terasy"
+            },
+            {
+              "src": "/assets/img/foto/hlinikova-pergola.webp",
+              "caption": "Hliníková pergola"
+            },
+            {
+              "src": "/assets/img/foto/zimni-zahrada-zahrada.webp",
+              "caption": "Zimní zahrada na zahradě"
+            },
+            {
+              "src": "/assets/img/foto/hlinikove-zabradli-dum.webp",
+              "caption": "Hliníkové zábradlí balkonu"
+            },
+            {
+              "src": "/assets/img/foto/hlinikove-zabradli-terasa.webp",
+              "caption": "Hliníkové zábradlí na terase"
+            },
+            {
+              "src": "/assets/img/foto/hlinikove-zabradli-balkon.webp",
+              "caption": "Hliníkové zábradlí na balkoně"
             }
           ]
         },
@@ -590,8 +678,8 @@
           "value": "Stavební stojky"
         }
       ],
-      "photo": "",
-      "photo_caption": "",
+      "photo": "/assets/img/foto/leseni-doprava-dodavkou.webp",
+      "photo_caption": "Lešení — doprava dodávkou až na stavbu",
       "ask_title": "Půjčovna lešení",
       "ask_note": "",
       "form_service": "Půjčovna lešení",
@@ -631,6 +719,23 @@
             {
               "title": "Řešení na míru",
               "text": "podle rozměrů a tvaru objektu"
+            }
+          ]
+        },
+        {
+          "type": "gallery",
+          "items": [
+            {
+              "src": "/assets/img/foto/leseni-fasada-rodinny-dum.webp",
+              "caption": "Lešení na fasádě rodinného domu"
+            },
+            {
+              "src": "/assets/img/foto/leseni-ramove-pozinkovane.webp",
+              "caption": "Rámové pozinkované lešení"
+            },
+            {
+              "src": "/assets/img/foto/leseni-ramova-sestava.webp",
+              "caption": "Rámová sestava lešení (schéma)"
             }
           ]
         },
@@ -798,6 +903,41 @@
         {
           "type": "text",
           "text": "**Každý prostup má své řešení.** Rozhoduje, čím je prostup veden, jeho rozměr, zda jde o kabely nebo potrubí, materiál konstrukce, zda jde o stěnu nebo strop a požadovaná požární odolnost. Nestačí použít „protipožární materiál“ — musí to být odpovídající systém ve správné skladbě, aplikovaný podle technických podmínek výrobce."
+        },
+        {
+          "type": "gallery",
+          "fit": "contain",
+          "items": [
+            {
+              "src": "/assets/img/foto/logo-pyroplex.webp",
+              "caption": "Logo Pyroplex"
+            },
+            {
+              "src": "/assets/img/foto/logo-nullifire.webp",
+              "caption": "Logo Nullifire"
+            },
+            {
+              "src": "/assets/img/foto/pyroplex-protipozarni-paska.webp",
+              "caption": "Pyroplex — protipožární páska"
+            },
+            {
+              "src": "/assets/img/foto/pyroplex-protipozarni-polstar.webp",
+              "caption": "Pyroplex — protipožární polštář"
+            },
+            {
+              "src": "/assets/img/foto/pyroplex-protipozarni-manzety.webp",
+              "caption": "Pyroplex — protipožární manžety"
+            },
+            {
+              "src": "/assets/img/foto/pyroplex-manzeta-eta.webp",
+              "caption": "Pyroplex — manžeta s ETA"
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "style": "info",
+          "text": "Ilustrační fotografie výrobků — majetkem výrobců Pyroplex a Nullifire."
         },
         {
           "type": "heading",
@@ -1068,6 +1208,43 @@
               "text": "Bluetooth reproduktor JBL s výkonem 400 W RMS zvládne akci zhruba pro 50 lidí, i s karaoke — k dispozici jsou 2 bezdrátové mikrofony."
             }
           ]
+        }
+      ]
+    },
+    {
+      "slug": "certifikaty",
+      "published": false,
+      "in_nav": false,
+      "nav_label": "Certifikáty",
+      "in_chooser": false,
+      "chooser_title": "",
+      "chooser_hint": "",
+      "meta_title": "Certifikáty a školení | Stavby Literák, Frýdek-Místek",
+      "meta_description": "Certifikáty, osvědčení o školeních a oprávnění pro termovizní měření, protipožární systémy Pyroplex a Nullifire a další práce. Jan Literák, Frýdek-Místek.",
+      "crumb": "Certifikáty",
+      "title": "Certifikáty a školení",
+      "lead": "Osvědčení o školeních, certifikace výrobců a oprávnění, se kterými pracuji. Kliknutím certifikát zvětšíte.",
+      "theme": "",
+      "facts": [],
+      "photo": "",
+      "photo_caption": "",
+      "ask_title": "Máte dotaz?",
+      "ask_note": "",
+      "form_service": "",
+      "aliases": [
+        "/certifikaty/",
+        "/certifikaty"
+      ],
+      "blocks": [
+        {
+          "type": "gallery",
+          "fit": "contain",
+          "items": []
+        },
+        {
+          "type": "note",
+          "style": "todo",
+          "text": "Nahrajte certifikáty (sken, fotka nebo PDF) tlačítkem „+ fotka nebo PDF“ v bloku Galerie, ke každému napište popisek (např. „Termovize — školení, 2023“) a stránku zveřejněte. Tuto poznámku pak smažte."
         }
       ]
     }

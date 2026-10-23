@@ -35,6 +35,19 @@ function paragraphs(text, cls = '') {
     .join('\n');
 }
 
+// Zmenšenina fotky (max. 800 px) — u fotek z repozitáře v /assets/img/foto/sm/,
+// u nahraných z adminu pod /img/sm/. Plná velikost jen ve zvětšení galerie.
+function thumb(src) {
+  const u = safeUrl(src);
+  const m = u.match(/^(\/assets\/img\/foto\/|\/img\/)(?!sm\/)(.+)$/);
+  return m && !isPdf(u) ? `${m[1]}sm/${m[2]}` : u;
+}
+const isPdf = (src) => /\.pdf$/i.test(src);
+
+// Služba = stránka, ze které jde poptávka (má předvybranou službu ve formuláři);
+// ostatní stránky (např. Certifikáty) jsou jen informační.
+const isService = (p) => !!p.form_service;
+
 const tel = (phone) => String(phone || '').replace(/[^+\d]/g, '');
 const abs = (base, url) => (/^https?:\/\//.test(url) ? url : base + url);
 export const pageUrl = (slug) => (slug ? `/${slug}` : '/');
@@ -75,7 +88,7 @@ function businessNode(ctx) {
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Služby',
-      itemListElement: pages.map((p) => ({ '@type': 'Offer', itemOffered: { '@id': `${base}${pageUrl(p.slug)}#sluzba` } })),
+      itemListElement: pages.filter(isService).map((p) => ({ '@type': 'Offer', itemOffered: { '@id': `${base}${pageUrl(p.slug)}#sluzba` } })),
     },
   };
 }
@@ -100,7 +113,9 @@ function pageSchema(ctx, p) {
     provider: { '@id': `${base}/#firma` },
     areaServed: businessNode(ctx).areaServed,
   };
-  if (p.photo) service.image = abs(base, p.photo);
+  const photos = [p.photo, ...blocks.filter((b) => b.type === 'gallery' || b.type === 'image').flatMap((b) => (b.items || [b]).map((i) => i.src))]
+    .filter((src) => src && !isPdf(src));
+  if (photos.length) service.image = [...new Set(photos)].slice(0, 10).map((src) => abs(base, src));
   if (catalog.length) {
     service.hasOfferCatalog = {
       '@type': 'OfferCatalog',
@@ -117,11 +132,11 @@ function pageSchema(ctx, p) {
       description: plain(p.meta_description || p.lead),
       inLanguage: 'cs',
       isPartOf: { '@id': `${base}/#web` },
-      about: { '@id': `${url}#sluzba` },
+      about: isService(p) ? { '@id': `${url}#sluzba` } : { '@id': `${base}/#firma` },
       breadcrumb: { '@id': `${url}#drobecky` },
       dateModified: p.updated_at || undefined,
     },
-    service,
+    ...(isService(p) ? [service] : []),
     {
       '@type': 'BreadcrumbList',
       '@id': `${url}#drobecky`,
@@ -281,9 +296,15 @@ const BLOCKS = {
     list('ul', 'catalog', items(b).map((i) =>
       `<li><h3>${esc(i.title)}</h3><div><p>${inline(i.text)}</p>${i.spec ? `<p class="spec">${esc(i.spec)}</p>` : ''}</div>${
         i.count ? `<span class="count">${esc(i.count)}</span>` : ''}</li>`)),
+  gallery: (b) =>
+    list(`div`, `gallery${b.fit === 'contain' ? ' is-contain' : ''}`, items(b).filter((i) => i.src).map((i) =>
+      isPdf(i.src)
+        ? `<a class="gallery-item is-doc" href="${esc(safeUrl(i.src))}" target="_blank" rel="noopener"><span class="doc" aria-hidden="true">PDF</span><span class="caption">${esc(i.caption || 'Dokument')}</span></a>`
+        : `<a class="gallery-item" href="${esc(safeUrl(i.src))}" data-lightbox><img src="${esc(thumb(i.src))}" alt="${esc(i.caption)}" loading="lazy" decoding="async">${
+            i.caption ? `<span class="caption">${esc(i.caption)}</span>` : ''}</a>`)),
   image: (b) =>
     b.src
-      ? `<figure class="content-photo"><img src="${esc(safeUrl(b.src))}" alt="${esc(b.caption)}" loading="lazy" decoding="async">${
+      ? `<figure class="content-photo"><img src="${esc(thumb(b.src))}" alt="${esc(b.caption)}" loading="lazy" decoding="async">${
           b.caption ? `<figcaption class="label">${esc(b.caption)}</figcaption>` : ''}</figure>`
       : '',
 };
@@ -299,7 +320,7 @@ function pageHero(p) {
     : '';
   const thermal = p.theme === 'thermal';
   const photo = p.photo
-    ? `<figure class="hero-photo"><img src="${esc(safeUrl(p.photo))}" alt="${esc(p.photo_caption || p.title)}" fetchpriority="high">${
+    ? `<figure class="hero-photo"><img src="${esc(thumb(p.photo))}" alt="${esc(p.photo_caption || p.title)}" fetchpriority="high">${
         p.photo_caption ? `<figcaption class="label">${esc(p.photo_caption)}</figcaption>` : ''}</figure>`
     : '';
   return `<section class="page-hero${thermal ? ' thermal' : ''}">
@@ -341,7 +362,7 @@ export function renderPage(ctx, p) {
       path,
       image: p.photo,
       schema: pageSchema(ctx, p),
-      preload: p.photo ? `<link rel="preload" href="${esc(safeUrl(p.photo))}" as="image" fetchpriority="high">\n` : '',
+      preload: p.photo ? `<link rel="preload" href="${esc(thumb(p.photo))}" as="image" fetchpriority="high">\n` : '',
     }) +
     header(ctx, p.slug) +
     pageHero(p) +
@@ -382,12 +403,12 @@ export function renderHome(ctx) {
       description,
       path: '/',
       schema,
-      preload: h.hero_photo ? `<link rel="preload" href="${esc(safeUrl(h.hero_photo))}" as="image" fetchpriority="high">\n` : '',
+      preload: h.hero_photo ? `<link rel="preload" href="${esc(thumb(h.hero_photo))}" as="image" fetchpriority="high">\n` : '',
     }) +
     header(ctx, '') +
     `<section class="hero">
 <div class="hero-panel">
-${h.hero_photo ? `<img class="hero-bg" src="${esc(safeUrl(h.hero_photo))}" alt="" fetchpriority="high">\n` : ''}<h1>${esc(h.hero_title)} <span>${esc(h.hero_accent)}</span></h1>
+${h.hero_photo ? `<img class="hero-bg" src="${esc(thumb(h.hero_photo))}" alt="" fetchpriority="high">\n` : ''}<h1>${esc(h.hero_title)} <span>${esc(h.hero_accent)}</span></h1>
 <p class="hero-meta">${esc(h.hero_meta)}</p>
 ${RIDGE}
 </div>
@@ -417,7 +438,7 @@ ${promo ? `<section class="section promo">
 ${paragraphs(h.promo_text)}
 <a class="btn" href="${pageUrl(promo.slug)}">${esc(h.promo_button || 'Více')}</a>
 </div>
-${h.promo_photo ? `<img class="promo-photo reveal" src="${esc(safeUrl(h.promo_photo))}" alt="${esc(h.promo_title)}" loading="lazy" decoding="async">` : ''}
+${h.promo_photo ? `<img class="promo-photo reveal" src="${esc(thumb(h.promo_photo))}" alt="${esc(h.promo_title)}" loading="lazy" decoding="async">` : ''}
 </div>
 </section>` : ''}` +
     contact(site, '') +

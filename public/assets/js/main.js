@@ -25,6 +25,40 @@
     items.forEach((el) => el.classList.add("in"));
   }
 
+  // Galerie: zvětšení fotky v <dialog>, šipky přepínají v rámci jedné galerie
+  if (document.querySelector("[data-lightbox]") && window.HTMLDialogElement) {
+    const dlg = document.createElement("dialog");
+    dlg.className = "lightbox";
+    dlg.innerHTML = '<img alt=""><p></p><button class="lb-prev" type="button" aria-label="Předchozí fotka">‹</button><button class="lb-next" type="button" aria-label="Další fotka">›</button><button class="lb-close" type="button" aria-label="Zavřít">×</button>';
+    document.body.append(dlg);
+    const img = dlg.querySelector("img");
+    const caption = dlg.querySelector("p");
+    let group = [];
+    let index = 0;
+    const show = (i) => {
+      index = (i + group.length) % group.length;
+      const link = group[index];
+      img.src = link.href;
+      img.alt = caption.textContent = link.querySelector("img").alt;
+    };
+    document.addEventListener("click", (e) => {
+      const link = e.target.closest("[data-lightbox]");
+      if (!link) return;
+      e.preventDefault();
+      group = [...link.closest(".gallery").querySelectorAll("[data-lightbox]")];
+      show(group.indexOf(link));
+      dlg.showModal();
+    });
+    dlg.querySelector(".lb-prev").addEventListener("click", () => show(index - 1));
+    dlg.querySelector(".lb-next").addEventListener("click", () => show(index + 1));
+    dlg.querySelector(".lb-close").addEventListener("click", () => dlg.close());
+    dlg.addEventListener("click", (e) => e.target === dlg && dlg.close());
+    dlg.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") show(index - 1);
+      if (e.key === "ArrowRight") show(index + 1);
+    });
+  }
+
   // Odesílá se přes /api/contact; když e-mail na serveru není nastavený nebo selže,
   // otevře se e-mailový klient s vyplněnou zprávou — poptávka se nikdy neztratí.
   const form = document.querySelector("#poptavka");
