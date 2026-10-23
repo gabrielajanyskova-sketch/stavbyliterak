@@ -24,7 +24,7 @@ function respond(body, type, { status = 200, noindex = false } = {}) {
 const OLD_URL_HINTS = [
   [/termo|tepeln/, 'termovize'],
   [/zakladac|travnik/, 'zemni-prace', '#zakladac'],
-  [/zemni|vykop/, 'zemni-prace'],
+  [/zemni|vykop|autodoprav/, 'zemni-prace'],
   [/hlinik|pergol|zimni-zahrad|zabradl|oploc|zaskl/, 'hlinikovy-program'],
   [/lesen/, 'leseni'],
   [/protipozar|pozarn/, 'stavebni-prace', '#protipozarni'],
