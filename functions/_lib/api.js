@@ -1,5 +1,5 @@
 // API pro poptávkový formulář a administraci (/admin).
-import { BLOCK_TYPES } from './render.js';
+import { BLOCK_TYPES, esc } from './render.js';
 import { getSite, getPages, saveSite, savePage, renamePage, deletePage, reorderPages } from './db.js';
 
 export function json(data, status = 200) {
@@ -15,10 +15,6 @@ async function body(request) {
   } catch {
     return {};
   }
-}
-
-function escapeHtml(value) {
-  return String(value ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 }
 
 function mailConfigured(env) {
@@ -54,12 +50,12 @@ async function submitContact(request, env) {
     ['Telefon', phone],
     ['Místo', field('misto')],
   ]
-    .map(([k, v]) => `<tr><td style="padding:4px 12px 4px 0;color:#5b636c">${k}</td><td style="padding:4px 0"><strong>${escapeHtml(v)}</strong></td></tr>`)
+    .map(([k, v]) => `<tr><td style="padding:4px 12px 4px 0;color:#5b636c">${k}</td><td style="padding:4px 0"><strong>${esc(v)}</strong></td></tr>`)
     .join('');
   try {
     await sendMail(env, {
       subject: `Poptávka z webu — ${field('sluzba')} — ${name}`,
-      html: `<table style="font-family:sans-serif;font-size:15px">${rows}</table><p style="font-family:sans-serif;font-size:15px;white-space:pre-wrap">${escapeHtml(field('zprava', 5000))}</p>`,
+      html: `<table style="font-family:sans-serif;font-size:15px">${rows}</table><p style="font-family:sans-serif;font-size:15px;white-space:pre-wrap">${esc(field('zprava', 5000))}</p>`,
     });
   } catch (err) {
     console.error('contact mail failed', err);
@@ -182,7 +178,7 @@ async function logout(request, env) {
 
 // ---------- čištění obsahu z adminu ----------
 
-const RESERVED = new Set(['api', 'admin', 'assets', 'img', 'sitemap.xml', 'robots.txt', 'index']);
+const RESERVED = new Set(['api', 'admin', 'assets', 'img', 'index']);
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 const str = (v, max = 2000) => String(v ?? '').slice(0, max);

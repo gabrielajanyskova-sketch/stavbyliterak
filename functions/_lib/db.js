@@ -71,5 +71,3 @@ export async function deletePage(env, slug) {
 export async function reorderPages(env, slugs) {
   await env.DB.batch(slugs.map((s, i) => env.DB.prepare('UPDATE pages SET position = ? WHERE slug = ?').bind(i, s)));
 }
-
-export { seed };

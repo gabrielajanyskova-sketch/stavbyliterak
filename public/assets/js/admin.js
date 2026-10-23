@@ -70,6 +70,8 @@ function markClean(text = "Vše uloženo.") {
   msg.classList.remove("dirty");
 }
 
+const lines = (text) => text.split("\n").map((s) => s.trim()).filter(Boolean);
+
 function slugify(s) {
   return String(s)
     .normalize("NFD")
@@ -353,7 +355,6 @@ function pageView(p) {
   p.facts = p.facts || [];
   p.blocks = p.blocks || [];
   p.aliases = p.aliases || [];
-  const aliasHolder = { text: p.aliases.join("\n") };
   const services = (content.site.contact && content.site.contact.services) || [];
   return h("div", {},
     h("h2", {}, p.title || "Stránka"),
@@ -400,8 +401,8 @@ function pageView(p) {
       h("div", { class: "field" },
         h("label", { for: "aliases" }, "Staré adresy, které mají přesměrovat sem"),
         (() => {
-          const ta = h("textarea", { id: "aliases", rows: 2, oninput: (e) => { aliasHolder.text = e.target.value; p.aliases = e.target.value.split("\n").map((s) => s.trim()).filter(Boolean); markDirty(); } });
-          ta.value = aliasHolder.text;
+          const ta = h("textarea", { id: "aliases", rows: 2, oninput: (e) => { p.aliases = lines(e.target.value); markDirty(); } });
+          ta.value = p.aliases.join("\n");
           return ta;
         })(),
         h("p", { class: "hint" }, "Jedna na řádek, např. /mereni-tepelnych-uniku/ — aby fungovaly odkazy na původní web."),
@@ -452,7 +453,6 @@ function homeView(s) {
 function settingsView(s) {
   const c = (s.contact = s.contact || {});
   c.services = c.services || [];
-  const servicesHolder = { text: c.services.join("\n") };
   return h("div", {},
     h("h2", {}, "Kontakty a formulář"),
     h("div", { class: "panel" },
@@ -474,8 +474,8 @@ function settingsView(s) {
       h("div", { class: "field" },
         h("label", { for: "services" }, "Možnosti „O co jde“ ve formuláři"),
         (() => {
-          const ta = h("textarea", { id: "services", rows: 8, oninput: (e) => { c.services = e.target.value.split("\n").map((x) => x.trim()).filter(Boolean); markDirty(); } });
-          ta.value = servicesHolder.text;
+          const ta = h("textarea", { id: "services", rows: 8, oninput: (e) => { c.services = lines(e.target.value); markDirty(); } });
+          ta.value = c.services.join("\n");
           return ta;
         })(),
         h("p", { class: "hint" }, "Jedna možnost na řádek."),

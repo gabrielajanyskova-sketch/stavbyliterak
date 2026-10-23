@@ -6,9 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Administrace webu</title>
 <link rel="icon" href="/assets/img/favicon.png" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/fonts.css">
 <style>
   :root {
     --graphite: #1d2126; --graphite-2: #2a3037; --ink: #1b1f24; --muted: #5b636c;
@@ -36,7 +34,7 @@
 
   .layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); min-height: calc(100vh - 66px); }
   .side { background: var(--concrete); border-right: 1px solid var(--line); padding: 20px 14px; }
-  .side h4 { font: 500 .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 18px 6px 8px; }
+  .side h4 { font: .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 18px 6px 8px; }
   .side ul { list-style: none; margin: 0; padding: 0; }
   .side li { display: flex; align-items: center; gap: 2px; }
   .side li button.nav { flex: 1; text-align: left; background: none; border: 0; padding: 8px 8px; cursor: pointer; border-left: 3px solid transparent; }
@@ -58,7 +56,7 @@
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 18px; }
   @media (max-width: 640px) { .grid2 { grid-template-columns: 1fr; } }
   .field { margin-bottom: 14px; }
-  .field > label, .lbl { display: block; font: 500 .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-bottom: 5px; }
+  .field > label, .lbl { display: block; font: .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-bottom: 5px; }
   input[type=text], input[type=password], input[type=email], input:not([type]), select, textarea {
     width: 100%; padding: 9px 11px; border: 1px solid var(--line); background: #fff; border-radius: 0;
   }
@@ -82,7 +80,7 @@
 
   .block { border: 1px solid var(--line); border-left: 4px solid var(--amber); background: var(--paper); padding: 14px; margin-bottom: 12px; }
   .block-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-  .block-head .type { font: 600 .78rem var(--font-mono); text-transform: uppercase; letter-spacing: .07em; flex: 1; }
+  .block-head .type { font: .78rem var(--font-mono); text-transform: uppercase; letter-spacing: .07em; flex: 1; }
   .item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; padding: 10px; background: #fff; border: 1px solid var(--line); margin-bottom: 8px; }
   .item .fields { display: grid; gap: 6px; }
   .item textarea { min-height: 60px; }
@@ -122,7 +120,7 @@
 <body>
 
 <section id="login-view" class="login" hidden>
-  <img src="/assets/img/logo.png" alt="Stavby Literák">
+  <img src="/assets/img/logo.webp" alt="Stavby Literák">
   <h2>Administrace</h2>
   <form id="login-form">
     <div class="field"><label for="pw">Heslo</label><input id="pw" type="password" autocomplete="current-password" required></div>
@@ -140,7 +138,7 @@
 
 <div id="app" hidden>
   <header class="topbar">
-    <img src="/assets/img/logo.png" alt="">
+    <img src="/assets/img/logo.webp" alt="">
     <span class="title">Administrace webu</span>
     <span class="spacer"></span>
     <a href="/" target="_blank" rel="noopener">Otevřít web ↗</a>

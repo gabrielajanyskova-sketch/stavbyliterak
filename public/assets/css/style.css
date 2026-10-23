@@ -106,7 +106,7 @@ p { margin: 0 0 1em; }
   gap: 4px;
   font-family: var(--font-display);
   font-size: 1.12rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
@@ -135,7 +135,7 @@ p { margin: 0 0 1em; }
   color: var(--white);
   font-family: var(--font-display);
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   padding: 6px 12px;
   cursor: pointer;
@@ -200,6 +200,7 @@ p { margin: 0 0 1em; }
   font-size: 0.82rem;
   color: #aeb5bb;
   letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .hero-index {
@@ -207,7 +208,7 @@ p { margin: 0 0 1em; }
   background: var(--paper);
 }
 
-.hero-index .label { margin-bottom: 14px; display: block; }
+.hero-index .label { margin: 0 0 14px; display: block; font-weight: 400; }
 
 .chooser { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
 
@@ -294,40 +295,6 @@ p { margin: 0 0 1em; }
   .principles > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
 }
 
-/* Ostatní nabídka — rozpočtová tabulka */
-.ledger { width: 100%; border-collapse: collapse; }
-.ledger th,
-.ledger td {
-  text-align: left;
-  vertical-align: top;
-  padding: 18px 16px 18px 0;
-  border-bottom: 1px solid var(--line);
-}
-.ledger thead th {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-  border-bottom: 2px solid var(--ink);
-}
-.ledger td:first-child {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  width: 30%;
-  line-height: 1.1;
-}
-.ledger td:last-child { width: 1%; white-space: nowrap; }
-
-@media (max-width: 700px) {
-  .ledger thead { display: none; }
-  .ledger tr { display: block; padding: 14px 0; border-bottom: 1px solid var(--line); }
-  .ledger td { display: block; border: 0; padding: 4px 0; width: auto !important; }
-}
-
 /* Tlačítka a odkazy */
 .btn {
   display: inline-block;
@@ -347,7 +314,6 @@ p { margin: 0 0 1em; }
 
 .btn-line { background: transparent; color: inherit; border-color: currentColor; }
 .btn-line:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
-.section-dark .btn-line:hover { background: var(--white); color: var(--ink); border-color: var(--white); }
 
 .textlink {
   font-weight: 600;
@@ -440,6 +406,7 @@ p { margin: 0 0 1em; }
 
 .prose h2 { margin-top: 1.6em; }
 .prose h2:first-child { margin-top: 0; }
+.prose > h3 { margin-top: 1.4em; }
 .prose ul { padding-left: 1.1em; }
 .prose li { margin-bottom: 0.4em; }
 .prose li::marker { color: var(--amber-deep); }
@@ -504,7 +471,9 @@ p { margin: 0 0 1em; }
   padding: 28px;
   border-top: 4px solid var(--amber);
 }
-.ask h3 { margin-bottom: 10px; }
+.ask h2 { font-size: 1.55rem; margin-bottom: 10px; }
+.ask .label { color: #9aa3ab; }
+.ask .ask-note { margin-top: 14px; }
 .ask p { color: #c6ccd1; font-size: 0.97rem; }
 .ask .phone {
   display: block;
@@ -549,6 +518,7 @@ p { margin: 0 0 1em; }
   font-size: 0.9rem;
   color: #6a4a00;
 }
+.todo.is-info { background: #eef0f1; border-color: var(--muted); color: #3a4148; }
 
 /* ---------- Kontakt ---------- */
 
@@ -559,6 +529,7 @@ p { margin: 0 0 1em; }
 }
 @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; gap: 40px; } }
 
+.contact-intro { color: #bfc6cc; }
 .contact-lines { margin: 0; }
 .contact-lines div { padding: 14px 0; border-bottom: 1px solid #3a424b; }
 .contact-lines dt { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #9aa3ab; }

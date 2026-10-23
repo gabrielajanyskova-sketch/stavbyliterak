@@ -14,7 +14,10 @@ database_id = "bb7e2e11-4003-4dc1-b909-bc4f49f9a8ae"
 binding = "IMAGES"
 id = "d07e7e8c1dd34e2cbba047ab8fdf6a97"
 
+[vars]
+# Hlavní adresa webu: canonical, sitemap, schema.org. Jiné adresy (*.pages.dev)
+# dostanou noindex, stavbyliterak.cz bez www se přesměruje sem.
+SITE_URL = "https://www.stavbyliterak.cz"
 # Volitelně e-maily přes Resend (k tomu secret RESEND_API_KEY):
-# [vars]
 # MAIL_FROM = "Web Stavby Literák <web@stavbyliterak.cz>"
 # NOTIFY_EMAIL = "stavbyliterak@email.cz"

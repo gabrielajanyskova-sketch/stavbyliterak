@@ -13,18 +13,37 @@ katalog gastropůjčovny, kontakty, SEO) se upravuje v **`/admin`**.
 ```
 public/                     statické soubory (výstupní složka Pages)
   admin.html                administrace
+  assets/css/fonts.css      písma hostovaná u nás (bez Google Fonts)
   assets/css/style.css      styly webu
   assets/js/main.js         menu, animace, poptávkový formulář
   assets/js/admin.js        logika administrace
-  assets/img/               logo, favicon, výchozí fotka bagru
-  robots.txt, _headers
+  assets/fonts/             woff2 písma + licence (SIL OFL)
+  assets/img/               logo, favicon, obrázek pro sdílení (og.jpg), fotka bagru
+  _headers                  cache a bezpečnostní hlavičky statických souborů
 functions/
-  [[path]].js               router: stránky, /api/*, /img/*, sitemap.xml, přesměrování
-  _lib/render.js            HTML šablony stránek (design)
+  [[path]].js               router: stránky, /api/*, /img/*, robots.txt, sitemap.xml,
+                            llms.txt, přesměrování starých adres a domény bez www
+  _lib/render.js            HTML šablony, meta tagy, schema.org
   _lib/db.js                práce s D1, automatické vytvoření tabulek
   _lib/api.js               API administrace a formuláře, přihlášení, fotky
   _lib/seed.json            výchozí obsah — nahraje se do prázdné databáze
+wrangler.toml               napojení D1/KV, SITE_URL
 ```
+
+## SEO, schema.org a AI vyhledávače
+
+- Hlavní adresa je `SITE_URL` ve `wrangler.toml` (`https://www.stavbyliterak.cz`):
+  z ní se skládá canonical, sitemap, Open Graph a schema.org. Na jiných adresách
+  (`*.pages.dev`) web běží s `noindex`, `stavbyliterak.cz` bez www se přesměruje.
+- Každá stránka má title, description, canonical, Open Graph (obrázek = fotka stránky,
+  jinak `og.jpg`) a JSON-LD graf: `HomeAndConstructionBusiness` (NAP, IČO, oblast),
+  `WebSite`, `WebPage`, `Service`, `BreadcrumbList`, `FAQPage` z bloků „Časté otázky“
+  a `OfferCatalog` z bloků „Katalog“.
+- `/sitemap.xml` a `/robots.txt` se generují z obsahu, `/llms.txt` je stručný
+  přehled firmy, služeb a odpovědí pro AI vyhledávače (ChatGPT, Perplexity, Gemini…).
+- Po spuštění domény: přidat web do Google Search Console a Bing Webmaster Tools,
+  odeslat sitemapu a založit/aktualizovat Firemní profil Google se stejným názvem,
+  adresou a telefonem jako na webu.
 
 ## Nasazení na Cloudflare
 

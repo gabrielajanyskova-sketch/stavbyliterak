@@ -1,38 +1,36 @@
-// Stavby Literák — drobné chování stránky
-document.documentElement.classList.add("js");
+// Stavby Literák — mobilní menu, odhalení sekcí, poptávkový formulář
+(() => {
+  const toggle = document.querySelector(".nav-toggle");
+  const nav = document.querySelector(".nav");
+  if (toggle && nav) {
+    const setOpen = (open) => {
+      nav.classList.toggle("open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+    };
+    toggle.addEventListener("click", () => setOpen(!nav.classList.contains("open")));
+    nav.addEventListener("click", (e) => e.target.closest("a") && setOpen(false));
+  }
 
-// Mobilní menu
-const toggle = document.querySelector(".nav-toggle");
-const nav = document.querySelector(".nav");
-if (toggle && nav) {
-  toggle.addEventListener("click", () => {
-    const open = nav.classList.toggle("open");
-    toggle.setAttribute("aria-expanded", open);
-  });
-}
-
-// Odhalení sekcí při posunu
-const items = document.querySelectorAll(".reveal");
-if ("IntersectionObserver" in window) {
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) {
+  const items = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
         e.target.classList.add("in");
         io.unobserve(e.target);
       }
-    });
-  }, { rootMargin: "0px 0px -8% 0px" });
-  items.forEach((el) => io.observe(el));
-} else {
-  items.forEach((el) => el.classList.add("in"));
-}
+    }, { rootMargin: "0px 0px -8% 0px" });
+    items.forEach((el) => io.observe(el));
+  } else {
+    items.forEach((el) => el.classList.add("in"));
+  }
 
-// Poptávkový formulář — odešle se přes /api/contact; když e-mail na serveru
-// není nastavený nebo selže, otevře se e-mailový klient s vyplněnou zprávou.
-const form = document.querySelector("#poptavka");
-if (form) {
+  // Odesílá se přes /api/contact; když e-mail na serveru není nastavený nebo selže,
+  // otevře se e-mailový klient s vyplněnou zprávou — poptávka se nikdy neztratí.
+  const form = document.querySelector("#poptavka");
+  if (!form) return;
   const service = new URLSearchParams(location.search).get("sluzba");
-  if (service && form.sluzba) form.sluzba.value = service;
+  if (service) form.sluzba.value = service;
   const status = form.querySelector("[data-status]");
   const button = form.querySelector("button[type=submit]");
 
@@ -61,11 +59,11 @@ if (form) {
       });
       if (!res.ok) throw new Error(res.status);
       form.reset();
-      if (status) status.textContent = "Díky, poptávka odešla. Ozvu se co nejdřív.";
+      status.textContent = "Díky, poptávka odešla. Ozvu se co nejdřív.";
     } catch {
       mailto(d);
     } finally {
       button.disabled = false;
     }
   });
-}
+})();
