@@ -383,7 +383,7 @@ function reviewsSection(r) {
   const list = (r && r.items || []).filter((i) => i.text);
   if (!r || (!list.length && !r.rating)) return '';
   const summary = r.rating
-    ? `<p class="reviews-score"><strong>${esc(String(r.rating).replace('.', ','))}</strong> ${stars(r.rating)}${r.count ? ` <span>${esc(r.count)} recenzí na Googlu</span>` : ''}</p>`
+    ? `<p class="reviews-score"><strong>${esc(String(r.rating).replace('.', ','))}</strong> ${stars(r.rating)}<span>${r.count ? `${esc(r.count)} recenzí na Googlu` : 'hodnocení na Googlu'}</span></p>`
     : '';
   const links = [
     r.google_url && `<a class="btn btn-line" href="${esc(safeUrl(r.google_url))}" target="_blank" rel="noopener">Všechny recenze na Googlu</a>`,

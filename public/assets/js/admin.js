@@ -546,7 +546,7 @@ function reviewsView(s) {
       h("h3", {}, "Celkové hodnocení na Googlu"),
       h("div", { class: "grid2" },
         text(r, "rating", "Průměr (např. 4,9)"),
-        text(r, "count", "Počet recenzí (např. 23)"),
+        text(r, "count", "Počet recenzí (nepovinné)", { hint: "Počet se na Googlu mění — když ho necháte prázdný, web napíše jen „hodnocení na Googlu“." }),
       ),
       text(r, "title", "Nadpis sekce", { placeholder: "Co o mně říkají zákazníci" }),
       text(r, "google_url", "Odkaz na recenze na Googlu", { hint: "Google Mapy → Stavby Literák → Sdílet → Kopírovat odkaz" }),
