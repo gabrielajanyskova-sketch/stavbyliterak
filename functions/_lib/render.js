@@ -377,11 +377,17 @@ export function renderHome(ctx) {
   ];
 
   return (
-    head(ctx, { title: h.meta_title || site.name, description, path: '/', schema }) +
+    head(ctx, {
+      title: h.meta_title || site.name,
+      description,
+      path: '/',
+      schema,
+      preload: h.hero_photo ? `<link rel="preload" href="${esc(safeUrl(h.hero_photo))}" as="image" fetchpriority="high">\n` : '',
+    }) +
     header(ctx, '') +
     `<section class="hero">
 <div class="hero-panel">
-<h1>${esc(h.hero_title)} <span>${esc(h.hero_accent)}</span></h1>
+${h.hero_photo ? `<img class="hero-bg" src="${esc(safeUrl(h.hero_photo))}" alt="" fetchpriority="high">\n` : ''}<h1>${esc(h.hero_title)} <span>${esc(h.hero_accent)}</span></h1>
 <p class="hero-meta">${esc(h.hero_meta)}</p>
 ${RIDGE}
 </div>
@@ -403,13 +409,15 @@ ${principles}
 </div>
 </div>
 </section>
-${promo ? `<section class="section section-concrete">
-<div class="wrap">
-<div class="section-head reveal">
-<div><span class="label">${esc(h.promo_label)}</span><h2>${esc(h.promo_title)}</h2></div>
-<div>${paragraphs(h.promo_text)}</div>
+${promo ? `<section class="section promo">
+<div class="wrap promo-grid${h.promo_photo ? '' : ' no-photo'}">
+<div class="reveal">
+<span class="label">${esc(h.promo_label)}</span>
+<h2>${esc(h.promo_title)}</h2>
+${paragraphs(h.promo_text)}
+<a class="btn" href="${pageUrl(promo.slug)}">${esc(h.promo_button || 'Více')}</a>
 </div>
-<a class="btn btn-line reveal" href="${pageUrl(promo.slug)}">${esc(h.promo_button || 'Více')}</a>
+${h.promo_photo ? `<img class="promo-photo reveal" src="${esc(safeUrl(h.promo_photo))}" alt="${esc(h.promo_title)}" loading="lazy" decoding="async">` : ''}
 </div>
 </section>` : ''}` +
     contact(site, '') +

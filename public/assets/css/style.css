@@ -12,7 +12,7 @@
   --paper: #f4f5f5;
   --line: #c3c8cc;
   --amber: #f39a1e;
-  --amber-deep: #c86a04;
+  --amber-deep: #a35800;
   --white: #ffffff;
 
   --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
@@ -182,6 +182,7 @@ p { margin: 0 0 1em; }
 
 .hero-panel .ridge {
   position: absolute;
+  z-index: 1;
   left: 0;
   right: 0;
   bottom: 0;
@@ -190,12 +191,22 @@ p { margin: 0 0 1em; }
   pointer-events: none;
 }
 
-.hero-panel h1 { position: relative; z-index: 1; max-width: 11ch; }
+.hero-panel h1 { position: relative; z-index: 2; max-width: 11ch; }
+
+/* Volitelná fotka na pozadí úvodu — ztmavená, aby nadpis zůstal čitelný */
+.hero-bg { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero-panel:has(.hero-bg)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(29, 33, 38, 0.82) 0%, rgba(29, 33, 38, 0.55) 55%, rgba(29, 33, 38, 0.9) 100%);
+}
 .hero-panel h1 span { color: var(--amber); }
 
 .hero-panel .hero-meta {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   font-family: var(--font-mono);
   font-size: 0.82rem;
   color: #aeb5bb;
@@ -263,6 +274,17 @@ p { margin: 0 0 1em; }
 
 .section { padding: clamp(56px, 8vw, 104px) 0; }
 .section-concrete { background: var(--concrete); }
+
+/* Upoutávka mimo stavební služby (gastropůjčovna) — teplý pruh, ať je jasné, že jde o „něco navíc“ */
+.promo { background: #fbe7c8; border-top: 4px solid var(--amber); }
+.promo .label { color: #6a4300; }
+.promo p { max-width: 52ch; font-size: 1.125rem; line-height: 1.65; color: #3a2a12; }
+.promo .btn { margin-top: 8px; background: var(--graphite); border-color: var(--graphite); color: var(--white); }
+.promo .btn:hover { background: var(--ink); border-color: var(--ink); }
+.promo-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
+.promo-grid.no-photo { grid-template-columns: 1fr; }
+.promo-photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-bottom: 4px solid var(--graphite); }
+@media (max-width: 800px) { .promo-grid { grid-template-columns: 1fr; gap: 28px; } }
 .section-dark { background: var(--graphite); color: var(--white); }
 .section-dark .label { color: #9aa3ab; }
 
@@ -273,7 +295,7 @@ p { margin: 0 0 1em; }
   align-items: end;
   margin-bottom: 48px;
 }
-.section-head p { color: var(--muted); max-width: 52ch; margin: 0; }
+.section-head p { color: var(--muted); max-width: 52ch; margin: 0; font-size: 1.125rem; line-height: 1.65; }
 .section-dark .section-head p { color: #bfc6cc; }
 
 @media (max-width: 800px) {

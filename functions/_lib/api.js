@@ -267,6 +267,7 @@ function cleanSite(s) {
       hero_title: str(h.hero_title, 100),
       hero_accent: str(h.hero_accent, 100),
       hero_meta: str(h.hero_meta, 150),
+      hero_photo: str(h.hero_photo, 500).trim(),
       chooser_label: str(h.chooser_label, 100),
       about_label: str(h.about_label, 100),
       about_title: str(h.about_title, 200),
@@ -277,6 +278,7 @@ function cleanSite(s) {
       promo_title: str(h.promo_title, 150),
       promo_text: str(h.promo_text, 2000),
       promo_button: str(h.promo_button, 60),
+      promo_photo: str(h.promo_photo, 500).trim(),
     },
     contact: {
       title: str(c.title, 150),

@@ -171,6 +171,39 @@
           "type": "note",
           "text": "K ověření: průběh měření a podoba výstupu (protokol?) — tato část na původním webu nebyla, je to návrh.",
           "style": "todo"
+        },
+        {
+          "type": "heading",
+          "text": "Časté otázky"
+        },
+        {
+          "type": "faq",
+          "items": [
+            {
+              "title": "Kdy je nejlepší doba na termovizní měření?",
+              "text": "Obálku domu (fasádu, okna, střechu) je potřeba měřit v topné sezóně, ideálně v chladném počasí, kdy je venku výrazně chladněji než uvnitř. Elektrorozvaděče nebo podlahové topení lze změřit kdykoli."
+            },
+            {
+              "title": "Vyplatí se termovizní měření?",
+              "text": "Investice se obvykle rychle vrátí díky úsporám za vytápění a včasnému řešení stavebních či technických problémů. Zjištěním a odstraněním úniků tepla můžete snížit náklady na vytápění až o desítky procent."
+            },
+            {
+              "title": "Pro koho je měření vhodné?",
+              "text": "Pro majitele rodinných domů a bytů, SVJ i majitele novostaveb. U novostaveb slouží jako kontrola správného provedení prací a může být podkladem pro reklamaci u dodavatele."
+            },
+            {
+              "title": "Co všechno termokamera odhalí?",
+              "text": "Špatně zateplené fasády, netěsnící okna, tepelné mosty v rozích a napojeních konstrukcí i místa, kde hrozí kondenzace vlhkosti a plísně. Mimo stavbu odhalí také přehřáté spoje v elektrickém rozvaděči nebo problém v podlahovém topení."
+            },
+            {
+              "title": "Umíte nalezené problémy i opravit?",
+              "text": "Ano. Na základě měření navrhnu vhodné řešení a ve většině případů potřebná opatření také zrealizuji, nebo doporučím prověřené partnery, se kterými dlouhodobě spolupracuji."
+            },
+            {
+              "title": "Jakou techniku používáte?",
+              "text": "Pouze kvalitní značkovou německou termokameru — to je základní předpoklad pro správnou diagnostiku. Samozřejmostí jsou potřebná školení."
+            }
+          ]
         }
       ]
     },
@@ -1000,6 +1033,39 @@
             },
             {
               "text": "Nájemce používá veškeré vybavení na vlastní odpovědnost."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Časté otázky"
+        },
+        {
+          "type": "faq",
+          "items": [
+            {
+              "title": "Na jak dlouho si mohu vybavení půjčit?",
+              "text": "Minimální doba pronájmu je 1 den. Delší pronájem je samozřejmě možný."
+            },
+            {
+              "title": "Kolik pronájem stojí?",
+              "text": "Cena je individuální podle délky pronájmu a dalších okolností. Napište termín akce a co byste chtěli půjčit — ověřím dostupnost a pošlu cenu."
+            },
+            {
+              "title": "Dovezete vybavení až na místo?",
+              "text": "Ano, podle potřeby zajistím dopravu, sestavení i zprovoznění."
+            },
+            {
+              "title": "Jaké sudy jdou napojit na výčep?",
+              "text": "Výčep má dva kohouty, takže můžete mít současně pivo i nealko. Narážecí hlavy jsou na Radegast nebo Kofolu (bajonet / žehlička). Výčep má vlastní vzduchový kompresor, nebo se dá připojit na CO₂."
+            },
+            {
+              "title": "Můžu v termosu nebo várnici ohřívat polévku či guláš?",
+              "text": "Ne, termos i várnice jsou pouze na nápoje. Na polévky, omáčky a guláš je určený elektrický kotlík nebo ohřevná vana (chafing) — oba ohřívají ve vodní lázni, takže se nic nepřipeče."
+            },
+            {
+              "title": "Kolik lidí ozvučí reproduktor?",
+              "text": "Bluetooth reproduktor JBL s výkonem 400 W RMS zvládne akci zhruba pro 50 lidí, i s karaoke — k dispozici jsou 2 bezdrátové mikrofony."
             }
           ]
         }
