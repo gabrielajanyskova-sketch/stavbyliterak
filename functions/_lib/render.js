@@ -54,15 +54,25 @@ export const pageUrl = (slug) => (slug ? `/${slug}` : '/');
 
 const OG_IMAGE = '/assets/img/og.jpg';
 
-// Beskydy z Frýdku-Místku (pohled na jih): Travný, Lysá hora s vysílačem, Smrk, vpředu Ondřejník.
-// SVG drží poměr stran (výška podle šířky), takže se hory nikdy nezploští ani neořežou.
-const RIDGE_LINE =
-  'M0 186C30 180 58 166 84 140C98 126 108 104 118 96C124 91 129 92 134 98C146 112 160 134 178 142C192 148 204 146 216 138C240 120 262 86 288 66C300 57 312 50 326 47C338 45 350 47 362 53C384 64 404 86 424 104C438 116 448 120 462 116C482 110 500 92 518 80C528 74 538 71 548 74C556 76 562 80 568 80C576 79 584 75 592 77C604 80 616 94 632 110C656 132 686 148 720 156C752 163 780 166 800 168';
+// Beskydy z Frýdku-Místku (pohled na jih), stylizované podle polohy vrcholů:
+// vzadu Travný a Lysá hora s vysílačem, vpředu bližší hřbet Ondřejníku se Skalkou.
+// SVG drží poměr stran (výška podle šířky), takže se hory nezploští ani neořežou.
+const RIDGE_BACK =
+  'M0 172C36 164 70 140 94 112C102 102 108 96 113 96C119 96 124 104 132 114C150 134 170 142 190 138C214 133 238 100 262 74C274 61 286 54 300 52C314 54 326 61 338 72C362 94 392 112 430 118C470 124 520 126 800 140';
+const RIDGE_FRONT =
+  'M300 238C360 226 410 190 448 140C468 112 486 90 508 78C522 71 536 70 552 72C574 75 594 70 616 62C630 57 642 56 656 60C690 70 722 104 756 128C774 140 788 146 800 148';
 const RIDGE = `<svg class="ridge" viewBox="0 0 800 260" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
-<path d="${RIDGE_LINE}V260H0Z" fill="#252a30"/>
-<path class="ridge-line" d="${RIDGE_LINE}" fill="none" stroke="#f39a1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
-<path d="M327 46V24M323 31H331M324 38H330" fill="none" stroke="#f39a1e" stroke-width="1.5" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
-<path d="M0 224C50 218 100 210 150 213C210 217 270 228 340 224C400 220 450 206 500 194C540 185 580 176 620 175C660 175 690 182 720 190C750 197 780 202 800 204V260H0Z" fill="#2c323a"/>
+<path d="${RIDGE_BACK}V260H0Z" fill="#2b3138"/>
+<path class="ridge-line" d="${RIDGE_BACK}" fill="none" stroke="#f39a1e" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<g class="tower" fill="#f39a1e">
+<path d="M296.5 54 298.6 21H301.4L303.5 54Z"/>
+<rect x="294" y="20" width="12" height="6" rx="1.5"/>
+<rect x="299.3" y="5" width="1.4" height="16"/>
+<circle class="tower-light" cx="300" cy="4.5" r="2.6" fill="#ff4a2b"/>
+</g>
+<path d="${RIDGE_FRONT}V260H300Z" fill="#22262c"/>
+<clipPath id="ridge-sky"><rect x="458" width="342" height="260"/></clipPath>
+<path d="${RIDGE_FRONT}" clip-path="url(#ridge-sky)" fill="none" stroke="#f39a1e" stroke-opacity="0.55" stroke-width="1.5" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
 </svg>`;
 
 // ---------- schema.org ----------
