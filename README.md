@@ -26,23 +26,17 @@ functions/
   _lib/seed.json            výchozí obsah — nahraje se do prázdné databáze
 ```
 
-## Nasazení na Cloudflare (jednou)
+## Nasazení na Cloudflare
 
-1. **D1 databáze:** Workers & Pages → D1 → Create → název `stavbyliterak`.
-   Tabulky se vytvoří a naplní výchozím obsahem samy při první návštěvě webu.
-2. **KV pro fotky:** Workers & Pages → KV → Create namespace → `stavbyliterak-images`.
-3. **Pages projekt:** Workers & Pages → Create → Pages → Connect to Git → tento repozitář.
-   - Production branch: `main`
-   - Build command: *(prázdné)*
-   - Build output directory: `public`
-4. V projektu **Settings → Bindings**:
-   - D1 database → název proměnné `DB` → databáze `stavbyliterak`
-   - KV namespace → název proměnné `IMAGES` → `stavbyliterak-images`
-5. **Settings → Variables and Secrets** (typ *Secret*):
-   - `ADMIN_PASSWORD` — heslo do administrace (dlouhé, ne „Bublina90“)
-6. **Doména:** Custom domains → `stavbyliterak.cz` a `www.stavbyliterak.cz`
-   (doména musí mít DNS na Cloudflare — přesun z Webnode).
-7. Po změně bindingů/proměnných je potřeba nové nasazení (Deployments → Retry deployment).
+- Pages projekt `stavbyliterak` je napojený na tento repozitář, nasazuje se
+  automaticky při každém pushi do `main` (výstupní složka `public`, bez build příkazu).
+- D1 databáze `stavbyliterak` a KV `stavbyliterak-images` jsou napojené přes
+  `wrangler.toml` — bindingy se v dashboardu neklikají. Tabulky se vytvoří a naplní
+  výchozím obsahem samy při první návštěvě webu.
+- Heslo do adminu je Secret `ADMIN_PASSWORD` v dashboardu
+  (Pages → stavbyliterak → Settings → Variables and Secrets) — do repozitáře nepatří.
+- Doména: Custom domains → `stavbyliterak.cz` a `www.stavbyliterak.cz`
+  (DNS domény musí být na Cloudflare — přesun z Webnode).
 
 Kontrola: `https://<web>/api/health` vrátí `{"ok":true,"db":true,"images":true,...}`.
 
