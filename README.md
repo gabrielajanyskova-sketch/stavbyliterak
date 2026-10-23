@@ -12,6 +12,7 @@ nebo zapnout GitHub Pages.
 | `zemni-prace.html` | Zemní a výkopové práce + zakladač trávníku (`#zakladac`) |
 | `hlinikovy-program.html` | Ploty, brány, zábradlí, pergoly, zimní zahrady… |
 | `leseni.html` | Půjčovna lešení |
+| `gastropujcovna.html` | Gastropůjčovna — katalog vybavení (odkaz z úvodu a patičky) |
 | `stavebni-prace.html` | Protipožární pasivní systémy (`#protipozarni`) + další stavební práce |
 | `assets/` | styly, skript, logo (`logo.png` = původní logo s průhledným pozadím) |
 | `_build/build.py` | generátor stránek — společná hlavička, patička a kontakt na jednom místě |
@@ -29,7 +30,6 @@ nebo zapnout GitHub Pages.
 
 Texty jsou převzaté z původního webu (opravené překlepy, rozčleněné do seznamů a otázek).
 
-- [ ] Gastropůjčovna — text a rozhodnutí, zda zůstane na tomto webu
 - [ ] Termovize — průběh měření a podoba výstupu (na původním webu nebylo, je to návrh)
 - [ ] Stavební práce — které z prací (elektro, malby, podlahy, hodinový manžel…) dál nabízet
 - [ ] Stránky Certifikáty a Reference z původního webu — zatím nepřevzaté

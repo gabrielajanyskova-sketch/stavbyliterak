@@ -113,7 +113,7 @@ def contact(preselect=""):
 
 
 def footer():
-    links = "\n".join(f'      <a href="{h}">{l}</a>' for h, l in NAV)
+    links = "\n".join(f'      <a href="{h}">{l}</a>' for h, l in NAV + [("gastropujcovna.html", "Gastropůjčovna")])
     return f"""</main>
 <footer class="site-footer">
   <div class="wrap">
@@ -255,11 +255,10 @@ pages["index.html"] = head(
     <div class="section-head reveal">
       <div><span class="label">Oslavy, svatby, párty</span><h2>Gastropůjčovna</h2></div>
       <div>
-        <p>Pořádáte oslavu, svatbu nebo firemní akci? Zapůjčím vybavení, abyste nemuseli nic kupovat.</p>
-        <p class="todo" style="margin-top:16px">K doplnění: text ze stránky Gastropůjčovna a rozhodnutí, zda zůstane tady, nebo dostane vlastní web.</p>
+        <p>Chystáte oslavu narozenin, svatbu, posezení s přáteli nebo párty? Půjčím pivní sety, výčep, kotlík na guláš, rožeň, ohřevné vany, reproduktor a další vybavení.</p>
       </div>
     </div>
-    <a class="btn btn-line reveal" href="?sluzba=Gastropůjčovna#kontakt">Zeptat se na termín</a>
+    <a class="btn btn-line reveal" href="gastropujcovna.html">Co se dá půjčit</a>
   </div>
 </section>
 """ + contact() + footer()
@@ -549,6 +548,75 @@ pages["stavebni-prace.html"] = service_page(
 """,
     ask("Stavební práce"),
     "Protipožární systémy",
+)
+
+# ================================================================ gastropůjčovna
+
+
+def catalog(items):
+    """Katalog půjčovny: (název, popis, parametry, počet kusů)."""
+    rows = []
+    for name, desc, spec, count in items:
+        spec_html = f'<p class="spec">{spec}</p>' if spec else ""
+        rows.append(
+            f"""        <li>
+          <h3>{name}</h3>
+          <div><p>{desc}</p>{spec_html}</div>
+          <span class="count">{count}</span>
+        </li>"""
+        )
+    return '<ul class="catalog">\n' + "\n".join(rows) + "\n      </ul>"
+
+
+pages["gastropujcovna.html"] = service_page(
+    "gastropujcovna.html",
+    "Gastropůjčovna — oslavy, svatby, párty | Stavby Literák, Frýdek-Místek",
+    "Půjčovna vybavení na oslavy, svatby a párty: pivní sety, výčep na 2 sudy, kotlík na guláš, rožeň, ohřevné vany, várnice, hotdogovač, reproduktor JBL. Frýdek-Místek.",
+    page_hero(
+        "Gastropůjčovna",
+        "Gastropůjčovna",
+        "Chystáte oslavu narozenin, svatbu, posezení s přáteli nebo párty? Půjčím vybavení, které celou akci zpříjemní a posune na vyšší úroveň.",
+        [
+            ("Pronájem", "Minimálně na 1 den"),
+            ("Cena", "Individuálně podle délky pronájmu"),
+            ("Doprava", "Podle domluvy i se sestavením a zprovozněním"),
+            ("Dostupnost", "Ověřte telefonicky nebo e-mailem"),
+        ],
+    ),
+    """      <h2>Pití</h2>
+      """ + catalog([
+        ("Výčep na pivo a limo — 2 kohouty", "Na jedné pípě pivo, na druhé nealko pro děti. Výčepní zařízení s vlastním vzduchovým kompresorem, nebo lze připojit na CO<sub>2</sub>.", "Narážecí hlavy na Radegast nebo Kofolu (bajonet / žehlička)", "1 ks"),
+        ("Elektrický termos s kohoutem", "Horký čaj, káva nebo svařák stále po ruce. Pro studené pití stačí nezapínat ohřev.", "Objem 20 l · pouze pro nápoje, ne na omáčky, polévky ani guláš", "1 ks"),
+        ("Nerezová várnice s kohoutem", "Připravený nápoj stačí nalít do várnice a máte vystaráno.", "Pouze pro nápoje, ne na omáčky, polévky ani guláš", "1 ks"),
+        ("Termobox", "Polystyrenový termobox pro převoz a uchování potravin a nápojů.", "", "2 ks"),
+    ]) + """
+
+      <h2>Vaření a ohřev</h2>
+      """ + catalog([
+        ("Kotlík na guláš", "Lehký přenosný set nerezového kotlíku s poklicí a ocelového topeniště. Ideální na svařák, pravý kotlíkový guláš nebo vaječinu. Stačí pár drobných polínek a zavaříte celý objem — nízká spotřeba paliva.", "Objem cca 27 l", "1 ks"),
+        ("Rožeň s elektrickou otočí", "Celonerezový rožeň na dřevěné uhlí nebo brikety na drůbež, špízy, zeleninu i menší kýtu. Zadní topeniště s popelníkem, nastavitelná vzdálenost od topeniště, motorek 230 V. Vejdou se 2–4 kuřata — ideálně kolem 1,2 kg, větší se dělají zbytečně dlouho.", "Do 7 kg · rozměry 100 × 119 × 67 cm", "1 ks"),
+        ("Elektrický kotlík na polévku a guláš", "Nerezový varný kotlík pro udržování a výdej teplých polévek, omáček a guláše. Ohřev ve vodní lázni, takže se nic nepřipeče.", "Objem 10 l", "2 ks"),
+        ("Chafing — elektrická ohřevná vana", "Neodhadli jste množství masa na grilu? V ohřevné vaně udržíte jídlo teplé a čerstvé, jak dlouho potřebujete. Ohřev ve vodní lázni, nic se nepřipeče.", "Objem 8,5 l · včetně GN 1/1 a víka", "2 ks"),
+        ("Hotdogovač se 2 trny", "Napařovací skleněný válec s děleným nerezovým košem pro 2 druhy párků a dva trny na nahřívání rohlíků. Rychlá svačina pro dospělé i děti.", "", "1 ks"),
+        ("Stojan na přílohy", "Nerezový set 4 gastronádob na přílohy, omáčky a dochucovadla.", "4 × 0,9 l · 47 × 19 × 15 cm", "2 ks"),
+    ]) + """
+
+      <h2>Sezení a hudba</h2>
+      """ + catalog([
+        ("Pivní set — stůl a 2 lavice", "Co by byla oslava, kdybyste měli sedět na mokré zemi? Čundr je romantika, ale není pro každého.", "Stůl 200 × 50 × 77 cm, nosnost 150 kg · lavice 200 × 25 × 46 cm, nosnost 250 kg", "5 sad"),
+        ("Bluetooth reproduktor JBL — partybox", "Posezení bez hudby není ono. Zvládne akci pro zhruba 50 lidí, karaoke není problém — k dispozici jsou i 2 bezdrátové mikrofony JBL.", "400 W RMS · baterie až 15 hodin, nebo ze sítě", "1 ks"),
+    ]) + """
+
+      <h2>Ceny a podmínky pronájmu</h2>
+      <ul>
+        <li>Ceny jsou individuální podle délky pronájmu a dalších okolností.</li>
+        <li>Podle potřeby zajistím dopravu, sestavení a zprovoznění.</li>
+        <li>Minimální doba pronájmu je 1 den.</li>
+        <li>Nájemce používá veškeré vybavení na vlastní odpovědnost.</li>
+      </ul>
+""",
+    ask("Gastropůjčovna", '<p style="margin-top:14px">Napište termín akce a co byste chtěli půjčit — ověřím dostupnost a pošlu cenu.</p>'),
+    "Gastropůjčovna",
 )
 
 for name, html in pages.items():
