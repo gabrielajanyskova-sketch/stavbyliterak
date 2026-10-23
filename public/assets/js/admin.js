@@ -682,6 +682,8 @@ async function showApp() {
 
 let loginId = null;
 
+$("#pw-show").addEventListener("change", (e) => { $("#pw").type = e.target.checked ? "text" : "password"; });
+
 $("#login-form").addEventListener("submit", async (e) => {
   e.preventDefault();
   const err = $("#login-error");

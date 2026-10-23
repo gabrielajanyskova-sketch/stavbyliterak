@@ -117,7 +117,8 @@ async function login(request, env) {
   if (windowActive && row.attempt_count >= LOGIN_ATTEMPT_LIMIT) return json({ error: 'too_many_attempts' }, 429);
 
   const b = await body(request);
-  const ok = !!env.ADMIN_PASSWORD && typeof b.password === 'string' && b.password === env.ADMIN_PASSWORD;
+  // mezery na okrajích (častý omyl při kopírování hesla do Cloudflare) nevadí
+  const ok = !!env.ADMIN_PASSWORD && typeof b.password === 'string' && b.password.trim() === String(env.ADMIN_PASSWORD).trim();
   if (!ok) {
     if (windowActive) {
       await env.DB.prepare('UPDATE login_attempts SET attempt_count = attempt_count + 1 WHERE ip = ?').bind(ip).run();
