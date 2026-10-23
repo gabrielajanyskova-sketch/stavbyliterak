@@ -60,7 +60,7 @@ const BLOCK_TYPES = {
   faq: { label: "Časté otázky", fields: [["title", "Otázka"], ["text", "Odpověď", "area"]], add: "+ otázka" },
   catalog: {
     label: "Katalog (půjčovna)",
-    fields: [["title", "Název"], ["text", "Popis", "area"], ["spec", "Parametry (rozměry, objem…)"], ["count", "Počet kusů (např. 2 ks)"]],
+    fields: [["title", "Název"], ["text", "Popis", "area"], ["spec", "Parametry (rozměry, objem…)"], ["count", "Počet kusů (např. 2 ks)"], ["photo", "Fotka (nepovinné)", "photo"]],
     add: "+ položka",
   },
   note: { label: "Zvýrazněná poznámka" },
@@ -237,7 +237,8 @@ function itemList(list, fields, addLabel) {
       ...list.map((item, i) =>
         h("div", { class: "item" },
           h("div", { class: "fields" },
-            fields.map(([key, label, kind]) => (kind === "area" ? area(item, key, label, { rows: 3 }) : text(item, key, label))),
+            fields.map(([key, label, kind]) =>
+              kind === "area" ? area(item, key, label, { rows: 3 }) : kind === "photo" ? photoField(item, key, label) : text(item, key, label)),
           ),
           rowButtons(list, i, render),
         )),

@@ -633,10 +633,10 @@ p { margin: 0 0 1em; }
 }
 
 /* Katalog půjčovny — název | popis | počet kusů */
-.catalog { list-style: none; margin: 0 0 2.2em; padding: 0; border-top: 2px solid var(--ink); }
+ul.catalog { list-style: none; margin: 0 0 2.2em; padding: 0; border-top: 2px solid var(--ink); }
 .catalog li {
   display: grid;
-  grid-template-columns: minmax(0, 13rem) minmax(0, 1fr) auto;
+  grid-template-columns: 5.5rem minmax(0, 12rem) minmax(0, 1fr) auto;
   gap: 8px 24px;
   padding: 18px 0;
   border-bottom: 1px solid var(--line);
@@ -653,9 +653,15 @@ p { margin: 0 0 1em; }
   border: 1px solid var(--ink);
   align-self: start;
 }
+.catalog-photo { display: block; align-self: start; }
+.catalog-photo img { width: 100%; aspect-ratio: 1; object-fit: contain; background: var(--white); border: 1px solid var(--line); }
+a.catalog-photo:hover img { border-color: var(--ink); }
+a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
 @media (max-width: 700px) {
-  .catalog li { grid-template-columns: 1fr auto; }
-  .catalog li > div { grid-column: 1 / -1; }
+  .catalog li { grid-template-columns: 4.5rem 1fr auto; gap: 8px 16px; }
+  .catalog-photo { grid-row: span 2; }
+  .catalog li > div { grid-column: 2 / -1; }
+  .catalog .count { grid-column: 3; grid-row: 1; }
 }
 
 /* Fotka v hlavičce služby (fakta se pak přesunou pod úvodní text) */

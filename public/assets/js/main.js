@@ -45,7 +45,7 @@
       const link = e.target.closest("[data-lightbox]");
       if (!link) return;
       e.preventDefault();
-      group = [...link.closest(".gallery").querySelectorAll("[data-lightbox]")];
+      group = [...link.closest(".gallery, .catalog").querySelectorAll("[data-lightbox]")];
       show(group.indexOf(link));
       dlg.showModal();
     });

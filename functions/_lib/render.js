@@ -47,6 +47,7 @@ const isPdf = (src) => /\.pdf$/i.test(src);
 // Služba = stránka, ze které jde poptávka (má předvybranou službu ve formuláři);
 // ostatní stránky (např. Certifikáty) jsou jen informační.
 const isService = (p) => !!p.form_service;
+const LEGAL_SLUG = 'pravni-informace';
 
 const tel = (phone) => String(phone || '').replace(/[^+\d]/g, '');
 const abs = (base, url) => (/^https?:\/\//.test(url) ? url : base + url);
@@ -236,8 +237,10 @@ ${links}
 `;
 }
 
-function contact(site, preselect) {
+function contact(ctx, preselect) {
+  const { site } = ctx;
   const c = site.contact || {};
+  const legal = ctx.pages.find((p) => p.slug === LEGAL_SLUG);
   const opts = (c.services || []).map((s) => `<option${s === preselect ? ' selected' : ''}>${esc(s)}</option>`).join('');
   return `
 <section class="section section-dark" id="kontakt">
@@ -263,7 +266,8 @@ function contact(site, preselect) {
 <div hidden><label for="web">Nevyplňujte</label><input id="web" name="web" tabindex="-1" autocomplete="off"></div>
 <div><label for="zprava">Co potřebujete</label><textarea id="zprava" name="zprava" placeholder="Stačí pár vět — rozměry, termín, cokoli víte."></textarea></div>
 <div><button class="btn" type="submit">Odeslat poptávku</button></div>
-<p class="note" data-status role="status">Ozvu se vám co nejdřív.</p>
+<p class="note" data-status role="status">Údaje použiju jen k vyřízení poptávky.${
+      legal ? ` <a href="${pageUrl(LEGAL_SLUG)}#osobni-udaje">Ochrana osobních údajů</a>` : ''}</p>
 </form>
 </div>
 </section>
@@ -309,7 +313,9 @@ const BLOCKS = {
   faq: (b) => list('div', 'faq', items(b).map((i) => `<details><summary>${esc(i.title)}</summary>${paragraphs(i.text)}</details>`)),
   catalog: (b) =>
     list('ul', 'catalog', items(b).map((i) =>
-      `<li><h3>${esc(i.title)}</h3><div><p>${inline(i.text)}</p>${i.spec ? `<p class="spec">${esc(i.spec)}</p>` : ''}</div>${
+      `<li>${i.photo
+        ? `<a class="catalog-photo" href="${esc(safeUrl(i.photo))}" data-lightbox><img src="${esc(thumb(i.photo))}" alt="${esc(i.title)}" loading="lazy" decoding="async"></a>`
+        : '<span class="catalog-photo" aria-hidden="true"></span>'}<h3>${esc(i.title)}</h3><div><p>${inline(i.text)}</p>${i.spec ? `<p class="spec">${esc(i.spec)}</p>` : ''}</div>${
         i.count ? `<span class="count">${esc(i.count)}</span>` : ''}</li>`)),
   gallery: (b) =>
     list(`div`, `gallery${b.fit === 'contain' ? ' is-contain' : ''}`, items(b).filter((i) => i.src).map((i) =>
@@ -390,7 +396,7 @@ ${ask(ctx.site, p)}
 </div>
 </section>
 ` +
-    contact(ctx.site, p.form_service) +
+    contact(ctx, p.form_service) +
     footer(ctx)
   );
 }
@@ -458,7 +464,7 @@ ${h.promo_photo ? `<img src="${esc(safeUrl(h.promo_photo))}" alt="" loading="laz
 </div>
 </div>
 </section>` : ''}` +
-    contact(site, '') +
+    contact(ctx, '') +
     footer(ctx)
   );
 }
@@ -474,7 +480,7 @@ export function renderNotFound(ctx) {
 </div>
 </section>
 ` +
-    contact(ctx.site, '') +
+    contact(ctx, '') +
     footer(ctx)
   );
 }
