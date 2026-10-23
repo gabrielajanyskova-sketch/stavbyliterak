@@ -321,6 +321,8 @@ p { margin: 0 0 1em; }
   align-items: end;
   margin-bottom: 48px;
 }
+.section-head.is-stacked { display: block; max-width: 760px; }
+.section-head.is-stacked h2 { margin-bottom: 16px; }
 .section-head p { color: var(--muted); max-width: 52ch; margin: 0; font-size: 1.125rem; line-height: 1.65; }
 .section-dark .section-head p { color: #bfc6cc; }
 

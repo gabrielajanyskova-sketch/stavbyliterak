@@ -473,9 +473,9 @@ ${chooser}
 </section>
 <section class="section">
 <div class="wrap">
-<div class="section-head reveal">
-<div><span class="label">${esc(h.about_label)}</span><h2>${esc(h.about_title)}</h2></div>
-<div>${paragraphs(h.about_text)}</div>
+<div class="section-head is-stacked reveal">
+<span class="label">${esc(h.about_label)}</span><h2>${esc(h.about_title)}</h2>
+${paragraphs(h.about_text)}
 </div>
 <div class="principles reveal">
 ${principles}
