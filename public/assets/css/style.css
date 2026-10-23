@@ -714,3 +714,32 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 .lightbox .lb-prev { left: 8px; }
 .lightbox .lb-next { right: 8px; }
 .lightbox .lb-close { top: 32px; right: 8px; height: 48px; }
+
+/* Recenze z Google (ručně vybrané v adminu) */
+.stars { color: var(--amber-deep); letter-spacing: 0.08em; }
+.stars span { color: var(--line); }
+.reviews-score { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0; }
+.reviews-score strong { font-family: var(--font-display); font-size: 3rem; line-height: 1; color: var(--ink); }
+.reviews-score .stars { font-size: 1.4rem; }
+.reviews-score > span:last-child { color: var(--muted); }
+.review-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 2px solid var(--ink);
+}
+.review-list li { padding: 24px 28px 8px 0; display: flex; flex-direction: column; justify-content: space-between; }
+.review-list li:not(:nth-child(3n + 1)) { padding-left: 28px; border-left: 1px solid var(--line); }
+.review-list blockquote { margin: 0; }
+.review-list blockquote p { font-size: 1.05rem; line-height: 1.65; }
+.review-list blockquote p::before { content: "„"; }
+.review-list blockquote p::after { content: "“"; }
+.review-meta { font-size: 0.9rem; color: var(--muted); margin: 8px 0 16px; }
+.review-meta strong { color: var(--ink); }
+.reviews-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+@media (max-width: 800px) {
+  .review-list { grid-template-columns: 1fr; }
+  .review-list li, .review-list li:not(:nth-child(3n + 1)) { padding: 20px 0 4px; border-left: 0; border-bottom: 1px solid var(--line); }
+}

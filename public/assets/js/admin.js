@@ -48,6 +48,7 @@ const BUILTIN_IMAGES = [
   { url: "/assets/img/foto/certifikat-autocad.webp", name: "Autodesk — AutoCAD, 2D dokumentace (2010)" },
   { url: "/assets/img/foto/certifikat-vysazeni-stromu.webp", name: "Gala dřevo — certifikát o vysazení stromu (2025)" },
   { url: "/assets/img/foto/gastro-vycep-oslava.webp", name: "Výčep na oslavě (gastropůjčovna)" },
+  { url: "/assets/img/foto/gastro-termobox.webp", name: "Termobox" },
 ];
 
 const BLOCK_TYPES = {
@@ -420,6 +421,10 @@ function open(kind, slug) {
     current = { kind, draft: structuredClone(content.site) };
     view.replaceChildren(settingsView(current.draft));
     $("#preview-link").href = "/#kontakt";
+  } else if (kind === "reviews") {
+    current = { kind, draft: structuredClone(content.site) };
+    view.replaceChildren(reviewsView(current.draft));
+    $("#preview-link").href = "/";
   } else {
     current = { kind: "images" };
     view.replaceChildren(imagesView());
@@ -527,6 +532,29 @@ function homeView(s) {
       h("h3", {}, "Vyhledávače (SEO)"),
       text(hm, "meta_title", "Titulek ve vyhledávání"),
       area(hm, "meta_description", "Popis ve vyhledávání", { rows: 2 }),
+    ),
+  );
+}
+
+function reviewsView(s) {
+  const r = (s.reviews = s.reviews || {});
+  r.items = r.items || [];
+  return h("div", {},
+    h("h2", {}, "Recenze"),
+    h("p", { class: "help" }, "Sekce se zobrazí na úvodní stránce, jakmile vyplníte hodnocení nebo aspoň jednu recenzi. Recenze zkopírujte z Google (jméno, hvězdičky, text) — vyberte ty nejlepší, ideálně 3 nebo 6."),
+    h("div", { class: "panel" },
+      h("h3", {}, "Celkové hodnocení na Googlu"),
+      h("div", { class: "grid2" },
+        text(r, "rating", "Průměr (např. 4,9)"),
+        text(r, "count", "Počet recenzí (např. 23)"),
+      ),
+      text(r, "title", "Nadpis sekce", { placeholder: "Co o mně říkají zákazníci" }),
+      text(r, "google_url", "Odkaz na recenze na Googlu", { hint: "Google Mapy → Stavby Literák → Sdílet → Kopírovat odkaz" }),
+      text(r, "write_url", "Odkaz „Napsat recenzi“", { hint: "Firemní profil Google → Požádat o recenze → zkopírovat odkaz (g.page/r/…)" }),
+    ),
+    h("div", { class: "panel" },
+      h("h3", {}, "Vybrané recenze"),
+      itemList(r.items, [["name", "Jméno"], ["stars", "Hvězdičky (1–5)"], ["date", "Kdy (např. „před 2 měsíci“ nebo „březen 2025“)"], ["text", "Text recenze", "area"]], "+ recenze"),
     ),
   );
 }

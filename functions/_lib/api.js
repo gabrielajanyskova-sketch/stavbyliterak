@@ -258,6 +258,7 @@ function cleanPage(p) {
 function cleanSite(s) {
   const h = s.home || {};
   const c = s.contact || {};
+  const r = s.reviews || {};
   return {
     name: str(s.name, 100).trim(),
     owner: str(s.owner, 100).trim(),
@@ -283,6 +284,14 @@ function cleanSite(s) {
       promo_text: str(h.promo_text, 2000),
       promo_button: str(h.promo_button, 60),
       promo_photo: str(h.promo_photo, 500).trim(),
+    },
+    reviews: {
+      title: str(r.title, 150).trim(),
+      rating: str(r.rating, 4).trim().replace(',', '.'),
+      count: str(r.count, 10).trim(),
+      google_url: str(r.google_url, 1000).trim(),
+      write_url: str(r.write_url, 1000).trim(),
+      items: cleanItems(r.items, ['name', 'stars', 'date', 'text']).slice(0, 12),
     },
     contact: {
       title: str(c.title, 150),

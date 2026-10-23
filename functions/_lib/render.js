@@ -372,6 +372,37 @@ ${p.ask_note ? `<p class="ask-note">${inline(p.ask_note)}</p>` : ''}
 </aside>`;
 }
 
+// ---------- recenze (ručně vybrané z Google) ----------
+
+function stars(n) {
+  const v = Math.max(0, Math.min(5, Math.round(Number(n) || 0)));
+  return `<span class="stars" aria-label="${v} z 5 hvězdiček">${'★'.repeat(v)}<span aria-hidden="true">${'★'.repeat(5 - v)}</span></span>`;
+}
+
+function reviewsSection(r) {
+  const list = (r && r.items || []).filter((i) => i.text);
+  if (!r || (!list.length && !r.rating)) return '';
+  const summary = r.rating
+    ? `<p class="reviews-score"><strong>${esc(String(r.rating).replace('.', ','))}</strong> ${stars(r.rating)}${r.count ? ` <span>${esc(r.count)} recenzí na Googlu</span>` : ''}</p>`
+    : '';
+  const links = [
+    r.google_url && `<a class="btn btn-line" href="${esc(safeUrl(r.google_url))}" target="_blank" rel="noopener">Všechny recenze na Googlu</a>`,
+    r.write_url && `<a class="btn" href="${esc(safeUrl(r.write_url))}" target="_blank" rel="noopener">Napsat recenzi</a>`,
+  ].filter(Boolean).join('\n');
+  return `<section class="section section-concrete reviews">
+<div class="wrap">
+<div class="section-head reveal">
+<div><span class="label">Hodnocení zákazníků</span><h2>${esc(r.title || 'Co o mně říkají zákazníci')}</h2></div>
+<div>${summary}</div>
+</div>
+${list.length ? `<ul class="review-list reveal">
+${list.map((i) => `<li><blockquote><p>${esc(i.text)}</p></blockquote><p class="review-meta">${stars(i.stars || 5)} <strong>${esc(i.name)}</strong>${i.date ? ` · ${esc(i.date)}` : ''}</p></li>`).join('\n')}
+</ul>` : ''}
+${links ? `<div class="reviews-links reveal">${links}</div>` : ''}
+</div>
+</section>`;
+}
+
 // ---------- stránky ----------
 
 export function renderPage(ctx, p) {
@@ -451,6 +482,7 @@ ${principles}
 </div>
 </div>
 </section>
+${reviewsSection(site.reviews)}
 ${promo ? `<section class="section promo">
 <div class="wrap">
 <div class="promo-card reveal${h.promo_photo ? ' has-photo' : ''}">

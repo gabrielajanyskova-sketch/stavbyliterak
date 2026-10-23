@@ -55,6 +55,14 @@
         "Gastropůjčovna",
         "Něco jiného"
       ]
+    },
+    "reviews": {
+      "title": "",
+      "rating": "",
+      "count": "",
+      "google_url": "",
+      "write_url": "",
+      "items": []
     }
   },
   "pages": [
@@ -1127,7 +1135,8 @@
               "title": "Termobox",
               "text": "Polystyrenový termobox pro převoz a uchování potravin a nápojů.",
               "spec": "",
-              "count": "2 ks"
+              "count": "2 ks",
+              "photo": "/assets/img/foto/gastro-termobox.webp"
             }
           ]
         },
