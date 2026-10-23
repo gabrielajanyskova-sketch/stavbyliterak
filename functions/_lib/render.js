@@ -391,9 +391,9 @@ function reviewsSection(r) {
   ].filter(Boolean).join('\n');
   return `<section class="section section-concrete reviews">
 <div class="wrap">
-<div class="section-head reveal">
-<div><span class="label">Hodnocení zákazníků</span><h2>${esc(r.title || 'Co o mně říkají zákazníci')}</h2></div>
-<div>${summary}</div>
+<div class="reviews-head reveal">
+<span class="label">Hodnocení zákazníků</span><h2>${esc(r.title || 'Co o mně říkají zákazníci')}</h2>
+${summary}
 </div>
 ${list.length ? `<ul class="review-list reveal">
 ${list.map((i) => `<li><blockquote><p>${esc(i.text)}</p></blockquote><p class="review-meta">${stars(i.stars || 5)} <strong>${esc(i.name)}</strong>${i.date ? ` · ${esc(i.date)}` : ''}</p></li>`).join('\n')}

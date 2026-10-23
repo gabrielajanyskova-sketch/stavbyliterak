@@ -715,6 +715,8 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 /* Recenze z Google (ručně vybrané v adminu) */
 .stars { color: var(--amber-deep); letter-spacing: 0.08em; }
 .stars span { color: var(--line); }
+.reviews-head { margin-bottom: 40px; }
+.reviews-head h2 { margin-bottom: 16px; }
 .reviews-score { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0; }
 .reviews-score strong { font-family: var(--font-display); font-size: 3rem; line-height: 1; color: var(--ink); }
 .reviews-score .stars { font-size: 1.4rem; }
