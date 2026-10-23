@@ -60,7 +60,7 @@ const OG_IMAGE = '/assets/img/og.jpg';
 const RIDGE_BACK =
   'M0 172C36 164 70 140 94 112C102 102 108 96 113 96C119 96 124 104 132 114C150 134 170 142 190 138C214 133 238 100 262 74C274 61 286 54 300 52C314 54 326 61 338 72C362 94 392 112 430 118C470 124 520 126 800 140';
 const RIDGE_FRONT =
-  'M300 238C360 226 410 190 448 140C468 112 486 90 508 78C522 71 536 70 552 72C574 75 594 70 616 62C630 57 642 56 656 60C690 70 722 104 756 128C774 140 788 146 800 148';
+  'M250 260C340 248 410 190 448 140C468 112 486 90 508 78C522 71 536 70 552 72C574 75 594 70 616 62C630 57 642 56 656 60C690 70 722 104 756 128C774 140 788 146 800 148';
 const RIDGE = `<svg class="ridge" viewBox="0 0 800 260" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
 <path d="${RIDGE_BACK}V260H0Z" fill="#2b3138"/>
 <path class="ridge-line" d="${RIDGE_BACK}" fill="none" stroke="#f39a1e" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
@@ -70,7 +70,7 @@ const RIDGE = `<svg class="ridge" viewBox="0 0 800 260" preserveAspectRatio="xMi
 <rect x="299.3" y="5" width="1.4" height="16"/>
 <circle class="tower-light" cx="300" cy="4.5" r="2.6" fill="#ff4a2b"/>
 </g>
-<path d="${RIDGE_FRONT}V260H300Z" fill="#22262c"/>
+<path d="${RIDGE_FRONT}V260H250Z" fill="#22262c"/>
 <clipPath id="ridge-sky"><rect x="458" width="342" height="260"/></clipPath>
 <path d="${RIDGE_FRONT}" clip-path="url(#ridge-sky)" fill="none" stroke="#f39a1e" stroke-opacity="0.55" stroke-width="1.5" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
 </svg>`;

@@ -165,7 +165,9 @@ p { margin: 0 0 1em; }
 .hero {
   display: grid;
   grid-template-columns: 5fr 7fr;
-  min-height: min(78vh, 720px);
+  /* celá výška obrazovky pod hlavičkou (logo 81 px + 3 px linka) */
+  min-height: calc(100vh - 84px);
+  min-height: calc(100svh - 84px);
   border-bottom: 1px solid var(--line);
 }
 
@@ -226,6 +228,9 @@ p { margin: 0 0 1em; }
 .hero-index {
   padding: clamp(28px, 4vw, 56px) var(--gutter);
   background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .hero-index .label { margin: 0 0 14px; display: block; font-weight: 400; }
