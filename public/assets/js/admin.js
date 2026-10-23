@@ -32,6 +32,21 @@ const BUILTIN_IMAGES = [
   { url: "/assets/img/foto/zimni-zahrada-interier.webp", name: "Zimní zahrada zevnitř" },
   { url: "/assets/img/foto/zimni-zahrada-rodinny-dum.webp", name: "Zimní zahrada u rodinného domu" },
   { url: "/assets/img/foto/zimni-zahrada-zahrada.webp", name: "Zimní zahrada na zahradě" },
+  { url: "/assets/img/foto/certifikat-termografie-ctg.webp", name: "Centrum termografie — Termografická diagnostika budov (2026)" },
+  { url: "/assets/img/foto/osvedceni-pyroplex.webp", name: "Pyroplex — osvědčení k montáži protipožárních systémů (2024)" },
+  { url: "/assets/img/foto/certifikat-nullifire.webp", name: "Nullifire — pasivní protipožární technika, školení (2024)" },
+  { url: "/assets/img/foto/certifikat-rigips.webp", name: "Rigips — montáž suché výstavby vč. protipožárních konstrukcí (2022)" },
+  { url: "/assets/img/foto/osvedceni-dek-fermacell.webp", name: "Stavebniny DEK — systémy suché výstavby Fermacell (2022)" },
+  { url: "/assets/img/foto/osvedceni-weber.webp", name: "Weber — fasády, zateplení ETICS, sanace, obklady a podlahy (2021)" },
+  { url: "/assets/img/foto/certifikat-tytan-fgs.webp", name: "Tytan — zateplení fasád FGS (2021)" },
+  { url: "/assets/img/foto/certifikat-jub.webp", name: "JUB Academy — techniky DECOR a systém HYDROSOL (2021)" },
+  { url: "/assets/img/foto/osvedceni-dek-asfaltove-pasy.webp", name: "Stavebniny DEK — asfaltové pásy (2022)" },
+  { url: "/assets/img/foto/poptavej-spolehlivy-dodavatel-2025.webp", name: "Poptávej.cz — Certifikát spolehlivého dodavatele (2025)" },
+  { url: "/assets/img/foto/poptavej-spolehlivy-dodavatel-2022.webp", name: "Poptávej.cz — Certifikát spolehlivého dodavatele (2022)" },
+  { url: "/assets/img/foto/poptavej-doporuceno-zakazniky.webp", name: "Poptávej.cz — Doporučeno zákazníky" },
+  { url: "/assets/img/foto/proverena-spolecnost-2023.webp", name: "Prověřená společnost 2023" },
+  { url: "/assets/img/foto/certifikat-autocad.webp", name: "Autodesk — AutoCAD, 2D dokumentace (2010)" },
+  { url: "/assets/img/foto/certifikat-vysazeni-stromu.webp", name: "Gala dřevo — certifikát o vysazení stromu (2025)" },
 ];
 
 const BLOCK_TYPES = {

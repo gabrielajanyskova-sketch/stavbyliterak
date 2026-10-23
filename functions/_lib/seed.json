@@ -38,7 +38,7 @@
       "promo_title": "Gastropůjčovna",
       "promo_text": "Chystáte oslavu narozenin, svatbu, posezení s přáteli nebo párty? Půjčím pivní sety, výčep, kotlík na guláš, rožeň, ohřevné vany, reproduktor a další vybavení.",
       "promo_button": "Co se dá půjčit",
-      "hero_photo": "/assets/img/foto/leseni-fasada-rodinny-dum.webp"
+      "hero_photo": "/assets/img/foto/zimni-zahrada-zahrada.webp"
     },
     "contact": {
       "title": "Zavolejte, nebo napište",
@@ -142,6 +142,21 @@
         {
           "type": "text",
           "text": "Na základě provedeného měření vám umím navrhnout vhodná řešení a ve většině případů potřebná opatření také zrealizovat, nebo doporučit prověřené partnery, se kterými dlouhodobě spolupracuji. Samozřejmostí jsou potřebná školení. Používám pouze kvalitní značkovou německou techniku — to je základ pro správnou diagnostiku."
+        },
+        {
+          "type": "heading",
+          "text": "Školení",
+          "level": 3
+        },
+        {
+          "type": "gallery",
+          "fit": "contain",
+          "items": [
+            {
+              "src": "/assets/img/foto/certifikat-termografie-ctg.webp",
+              "caption": "Centrum termografie — Termografická diagnostika budov (2026)"
+            }
+          ]
         },
         {
           "type": "heading",
@@ -941,6 +956,29 @@
         },
         {
           "type": "heading",
+          "text": "Certifikace",
+          "level": 3
+        },
+        {
+          "type": "gallery",
+          "fit": "contain",
+          "items": [
+            {
+              "src": "/assets/img/foto/osvedceni-pyroplex.webp",
+              "caption": "Pyroplex — osvědčení k montáži protipožárních systémů (2024)"
+            },
+            {
+              "src": "/assets/img/foto/certifikat-nullifire.webp",
+              "caption": "Nullifire — pasivní protipožární technika, školení (2024)"
+            },
+            {
+              "src": "/assets/img/foto/certifikat-rigips.webp",
+              "caption": "Rigips — montáž suché výstavby vč. protipožárních konstrukcí (2022)"
+            }
+          ]
+        },
+        {
+          "type": "heading",
           "text": "Časté otázky",
           "level": 3
         },
@@ -1213,7 +1251,7 @@
     },
     {
       "slug": "certifikaty",
-      "published": false,
+      "published": true,
       "in_nav": false,
       "nav_label": "Certifikáty",
       "in_chooser": false,
@@ -1237,14 +1275,114 @@
       ],
       "blocks": [
         {
-          "type": "gallery",
-          "fit": "contain",
-          "items": []
+          "type": "heading",
+          "text": "Termovize"
         },
         {
-          "type": "note",
-          "style": "todo",
-          "text": "Nahrajte certifikáty (sken, fotka nebo PDF) tlačítkem „+ fotka nebo PDF“ v bloku Galerie, ke každému napište popisek (např. „Termovize — školení, 2023“) a stránku zveřejněte. Tuto poznámku pak smažte."
+          "type": "gallery",
+          "fit": "contain",
+          "items": [
+            {
+              "src": "/assets/img/foto/certifikat-termografie-ctg.webp",
+              "caption": "Centrum termografie — Termografická diagnostika budov (2026)"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Protipožární systémy a suchá výstavba"
+        },
+        {
+          "type": "gallery",
+          "fit": "contain",
+          "items": [
+            {
+              "src": "/assets/img/foto/osvedceni-pyroplex.webp",
+              "caption": "Pyroplex — osvědčení k montáži protipožárních systémů (2024)"
+            },
+            {
+              "src": "/assets/img/foto/certifikat-nullifire.webp",
+              "caption": "Nullifire — pasivní protipožární technika, školení (2024)"
+            },
+            {
+              "src": "/assets/img/foto/certifikat-rigips.webp",
+              "caption": "Rigips — montáž suché výstavby vč. protipožárních konstrukcí (2022)"
+            },
+            {
+              "src": "/assets/img/foto/osvedceni-dek-fermacell.webp",
+              "caption": "Stavebniny DEK — systémy suché výstavby Fermacell (2022)"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Fasády, zateplení a povrchy"
+        },
+        {
+          "type": "gallery",
+          "fit": "contain",
+          "items": [
+            {
+              "src": "/assets/img/foto/osvedceni-weber.webp",
+              "caption": "Weber — fasády, zateplení ETICS, sanace, obklady a podlahy (2021)"
+            },
+            {
+              "src": "/assets/img/foto/certifikat-tytan-fgs.webp",
+              "caption": "Tytan — zateplení fasád FGS (2021)"
+            },
+            {
+              "src": "/assets/img/foto/certifikat-jub.webp",
+              "caption": "JUB Academy — techniky DECOR a systém HYDROSOL (2021)"
+            },
+            {
+              "src": "/assets/img/foto/osvedceni-dek-asfaltove-pasy.webp",
+              "caption": "Stavebniny DEK — asfaltové pásy (2022)"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Hodnocení zákazníků"
+        },
+        {
+          "type": "gallery",
+          "fit": "contain",
+          "items": [
+            {
+              "src": "/assets/img/foto/poptavej-spolehlivy-dodavatel-2025.webp",
+              "caption": "Poptávej.cz — Certifikát spolehlivého dodavatele (2025)"
+            },
+            {
+              "src": "/assets/img/foto/poptavej-spolehlivy-dodavatel-2022.webp",
+              "caption": "Poptávej.cz — Certifikát spolehlivého dodavatele (2022)"
+            },
+            {
+              "src": "/assets/img/foto/poptavej-doporuceno-zakazniky.webp",
+              "caption": "Poptávej.cz — Doporučeno zákazníky"
+            },
+            {
+              "src": "/assets/img/foto/proverena-spolecnost-2023.webp",
+              "caption": "Prověřená společnost 2023"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Další"
+        },
+        {
+          "type": "gallery",
+          "fit": "contain",
+          "items": [
+            {
+              "src": "/assets/img/foto/certifikat-autocad.webp",
+              "caption": "Autodesk — AutoCAD, 2D dokumentace (2010)"
+            },
+            {
+              "src": "/assets/img/foto/certifikat-vysazeni-stromu.webp",
+              "caption": "Gala dřevo — certifikát o vysazení stromu (2025)"
+            }
+          ]
         }
       ]
     }
