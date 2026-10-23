@@ -88,7 +88,7 @@ def contact(preselect=""):
         <div><dt>Telefon</dt><dd><a class="big" href="tel:{PHONE_TEL}">{PHONE}</a></dd></div>
         <div><dt>E-mail</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd></div>
         <div><dt>Adresa</dt><dd>Malé náměstí 98, 738 01 Frýdek-Místek</dd></div>
-        <div><dt>Fakturační údaje</dt><dd>Jan Literák · IČ 03171949 · DIČ CZ9011025430</dd></div>
+        <div><dt>Fakturační údaje</dt><dd>Jan Literák · IČ 03171949</dd></div>
       </dl>
     </div>
     <form class="form reveal" id="poptavka" data-to="{EMAIL}">
