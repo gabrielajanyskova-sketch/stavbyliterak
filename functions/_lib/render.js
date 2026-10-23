@@ -54,10 +54,15 @@ export const pageUrl = (slug) => (slug ? `/${slug}` : '/');
 
 const OG_IMAGE = '/assets/img/og.jpg';
 
-const RIDGE = `<svg class="ridge" viewBox="0 0 600 260" preserveAspectRatio="none" aria-hidden="true">
-<path d="M0 190 70 150 120 168 190 108 240 132 300 62 318 58 336 70 400 120 450 104 520 150 600 128V260H0Z" fill="#252a30"/>
-<path d="M0 230 90 196 160 214 250 170 330 196 420 160 500 190 600 172V260H0Z" fill="#2c323a"/>
-<path d="M0 190 70 150 120 168 190 108 240 132 300 62 318 58 336 70 400 120 450 104 520 150 600 128" fill="none" stroke="#f39a1e" stroke-width="2" vector-effect="non-scaling-stroke"/>
+// Beskydy z Frýdku-Místku (pohled na jih): Travný, Lysá hora s vysílačem, Smrk, vpředu Ondřejník.
+// SVG drží poměr stran (výška podle šířky), takže se hory nikdy nezploští ani neořežou.
+const RIDGE_LINE =
+  'M0 186C30 180 58 166 84 140C98 126 108 104 118 96C124 91 129 92 134 98C146 112 160 134 178 142C192 148 204 146 216 138C240 120 262 86 288 66C300 57 312 50 326 47C338 45 350 47 362 53C384 64 404 86 424 104C438 116 448 120 462 116C482 110 500 92 518 80C528 74 538 71 548 74C556 76 562 80 568 80C576 79 584 75 592 77C604 80 616 94 632 110C656 132 686 148 720 156C752 163 780 166 800 168';
+const RIDGE = `<svg class="ridge" viewBox="0 0 800 260" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+<path d="${RIDGE_LINE}V260H0Z" fill="#252a30"/>
+<path class="ridge-line" d="${RIDGE_LINE}" fill="none" stroke="#f39a1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<path d="M327 46V24M323 31H331M324 38H330" fill="none" stroke="#f39a1e" stroke-width="1.5" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<path d="M0 224C50 218 100 210 150 213C210 217 270 228 340 224C400 220 450 206 500 194C540 185 580 176 620 175C660 175 690 182 720 190C750 197 780 202 800 204V260H0Z" fill="#2c323a"/>
 </svg>`;
 
 // ---------- schema.org ----------
