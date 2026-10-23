@@ -21,8 +21,8 @@ function mailConfigured(env) {
   return !!(env.RESEND_API_KEY && env.MAIL_FROM && env.NOTIFY_EMAIL);
 }
 
-async function sendMail(env, { subject, html, replyTo = null }) {
-  const payload = { from: env.MAIL_FROM, to: [env.NOTIFY_EMAIL], subject, html };
+async function sendMail(env, { subject, html, replyTo = null, to = env.NOTIFY_EMAIL }) {
+  const payload = { from: env.MAIL_FROM, to: [to], subject, html };
   if (replyTo) payload.reply_to = replyTo;
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
@@ -140,6 +140,8 @@ async function login(request, env) {
     .run();
   try {
     await sendMail(env, {
+      // kódy můžou chodit jinam než poptávky (LOGIN_EMAIL), např. správci webu
+      to: env.LOGIN_EMAIL || env.NOTIFY_EMAIL,
       subject: 'Přihlašovací kód do administrace webu',
       html: `<p style="font-family:sans-serif;font-size:16px">Kód pro přihlášení do administrace:</p>
 <p style="font-family:sans-serif;font-size:30px;font-weight:bold;letter-spacing:6px">${code}</p>
