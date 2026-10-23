@@ -18,6 +18,39 @@ function respond(body, type, { status = 200, noindex = false } = {}) {
   return new Response(body, { status, headers });
 }
 
+// Pojistka pro adresy z původního webu (Webnode), které nejsou v „aliases“ u stránek:
+// podle slov v adrese pošle návštěvníka i Google trvale (301) na odpovídající stránku,
+// aby se při přechodu neztratily pozice ve vyhledávání. Pořadí je důležité.
+const OLD_URL_HINTS = [
+  [/termo|tepeln/, 'termovize'],
+  [/zakladac|travnik/, 'zemni-prace', '#zakladac'],
+  [/zemni|vykop/, 'zemni-prace'],
+  [/hlinik|pergol|zimni-zahrad|zabradl|oploc|zaskl/, 'hlinikovy-program'],
+  [/lesen/, 'leseni'],
+  [/protipozar|pozarn/, 'stavebni-prace', '#protipozarni'],
+  [/gastro|oslav|svatb|party/, 'gastropujcovna'],
+  [/certifik|osvedc/, 'certifikaty'],
+  [/stavebni|elektro|instalat|malb|zednic|sadrokart|podlah|hodinovy/, 'stavebni-prace'],
+  [/kontakt/, '', '#kontakt'],
+  [/reference|recenz|o-nas|o-mne/, ''],
+];
+
+function guessOldUrl(path, pages) {
+  let p = path;
+  try {
+    p = decodeURIComponent(path);
+  } catch {
+    // poškozené kódování adresy — hledá se v ní tak, jak přišla
+  }
+  p = p.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  for (const [re, slug, hash = ''] of OLD_URL_HINTS) {
+    if (!re.test(p)) continue;
+    if (slug && !pages.some((x) => x.slug === slug)) continue;
+    return pageUrl(slug) + hash;
+  }
+  return null;
+}
+
 const redirect = (location) => new Response(null, { status: 301, headers: { Location: location } });
 
 export async function onRequest({ request, env, next }) {
@@ -61,6 +94,8 @@ export async function onRequest({ request, env, next }) {
     const norm = (s) => s.replace(/\/+$/, '').toLowerCase();
     const aliased = pages.find((p) => (p.aliases || []).some((a) => norm(a) === norm(path)));
     if (aliased) return redirect(pageUrl(aliased.slug));
+    const guessed = guessOldUrl(path, pages);
+    if (guessed) return redirect(guessed);
 
     return respond(renderNotFound(ctx), 'text/html', { status: 404, noindex: true });
   } catch (err) {
