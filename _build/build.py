@@ -332,7 +332,7 @@ pages["zemni-prace.html"] = service_page(
             ("Nakladač", "Traktor Kubota s čelním nakladačem"),
             ("Cena", "Hodinová sazba za skutečně odpracovaný čas"),
         ],
-        photo=("assets/img/bagr.jpg", "Vlastní minibagr Kubota KX016-4"),
+        photo=("assets/img/bagr.webp", "Vlastní minibagr Kubota KX016-4"),
     ),
     """      <p>Správně provedené zemní práce jsou předpokladem pro založení stavby, uložení inženýrských sítí, zpevněné plochy i konečné úpravy zahrady. Před zahájením si domluvíme způsob provedení, vaše požadavky, reálné možnosti na místě a další náležitosti — včetně využití výkopku na pozemku nebo rozsahu odvozu. Promyšlená organizace omezuje zbytečné přesuny materiálu a může výrazně ušetřit výsledné náklady.</p>
 
