@@ -551,19 +551,19 @@
             },
             {
               "src": "/assets/img/foto/zasklena-terasa-dreveny-dum.webp",
-              "caption": "Zasklená terasa u dřevostavby"
+              "caption": "Zasklená terasa u dřevěného domu"
             },
             {
               "src": "/assets/img/foto/zasklena-pergola-dreveny-dum.webp",
-              "caption": "Zasklená pergola u dřevěného domu"
+              "caption": "Zasklená terasa u dřevěného domu — pohled z boku"
+            },
+            {
+              "src": "/assets/img/foto/zimni-zahrada-interier.webp",
+              "caption": "Zasklená terasa u dřevěného domu — zevnitř"
             },
             {
               "src": "/assets/img/foto/zaskleni-pergoly.webp",
               "caption": "Zasklení pergoly"
-            },
-            {
-              "src": "/assets/img/foto/zimni-zahrada-interier.webp",
-              "caption": "Zimní zahrada zevnitř"
             },
             {
               "src": "/assets/img/foto/zaskleni-terasy.webp",
@@ -583,11 +583,11 @@
             },
             {
               "src": "/assets/img/foto/hlinikove-zabradli-terasa.webp",
-              "caption": "Hliníkové zábradlí na terase"
+              "caption": "Hliníkové zábradlí na terase přístavby"
             },
             {
               "src": "/assets/img/foto/hlinikove-zabradli-balkon.webp",
-              "caption": "Hliníkové zábradlí na balkoně"
+              "caption": "Hliníkové zábradlí na terase přístavby — z druhé strany"
             }
           ]
         },
