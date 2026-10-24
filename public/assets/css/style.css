@@ -675,7 +675,7 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 .content-photo figcaption { margin-top: 8px; }
 
 /* Galerie (fotky realizací, certifikáty) — náhledy, po kliknutí zvětšení */
-.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin: 0 0 2em; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin: 0 0 2em; }
 .gallery-item { display: block; text-decoration: none; background: var(--white); border: 1px solid var(--line); }
 .gallery-item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: opacity 0.15s ease; }
 .gallery.is-contain .gallery-item img { object-fit: contain; padding: 10px; aspect-ratio: 1; }
@@ -744,3 +744,46 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
   .review-list { grid-template-columns: 1fr; }
   .review-list li, .review-list li:not(:nth-child(3n + 1)) { padding: 20px 0 4px; border-left: 0; border-bottom: 1px solid var(--line); }
 }
+
+/* Úvod: ukázky zakázek */
+.showcase { padding-bottom: 0; }
+.showcase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.showcase-item { position: relative; display: block; overflow: hidden; text-decoration: none; background: var(--graphite); }
+.showcase-item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform 0.4s ease, opacity 0.2s ease; }
+.showcase-item span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 36px 16px 14px;
+  background: linear-gradient(180deg, rgba(29, 33, 38, 0) 0%, rgba(29, 33, 38, 0.9) 100%);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+.showcase-item i { font-style: normal; color: var(--amber); display: inline-block; transition: transform 0.15s ease; }
+.showcase-item:hover img { transform: scale(1.04); }
+.showcase-item:hover i { transform: translateX(4px); }
+.showcase-item:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+
+/* Úvod: řádek s certifikacemi */
+.trust {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 20px;
+  margin-top: 40px;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+}
+.trust .label { margin: 0; }
+.trust-names { flex: 1 1 320px; min-width: 0; font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
+.trust-names i { font-style: normal; color: var(--amber-deep); margin: 0 4px; }
+.trust-more { font-weight: 600; border-bottom: 2px solid var(--amber); }
+.trust:hover .trust-more { color: var(--amber-deep); }
+

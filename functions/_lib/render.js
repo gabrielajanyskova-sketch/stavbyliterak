@@ -404,6 +404,43 @@ ${links ? `<div class="reviews-links reveal">${links}</div>` : ''}
 </section>`;
 }
 
+// ---------- úvod: ukázky zakázek a certifikace ----------
+
+// První fotka z galerie každé služby (bez certifikátů a log) — mění se samy podle obsahu v adminu
+function showcase(pages) {
+  const tiles = pages
+    .filter((p) => p.in_chooser)
+    .map((p) => {
+      const g = (p.blocks || []).find((b) => b.type === 'gallery' && b.fit !== 'contain' && (b.items || []).some((i) => i.src && !isPdf(i.src)));
+      const src = g ? g.items.find((i) => i.src && !isPdf(i.src)).src : p.photo;
+      return src ? { p, src } : null;
+    })
+    .filter(Boolean)
+    .slice(0, 4);
+  if (tiles.length < 2) return '';
+  return `<section class="section showcase">
+<div class="wrap">
+<div class="section-head is-stacked reveal"><span class="label">Z mých zakázek</span><h2>Práce, za kterou si stojím</h2></div>
+<div class="showcase-grid reveal">
+${tiles.map(({ p, src }) => `<a class="showcase-item" href="${pageUrl(p.slug)}"><img src="${esc(thumb(src))}" alt="${esc(p.chooser_title || p.title)}" loading="lazy" decoding="async"><span>${esc(p.chooser_title || p.title)} <i aria-hidden="true">→</i></span></a>`).join('\n')}
+</div>
+</div>
+</section>`;
+}
+
+// Řádek s názvy certifikací (z popisků na stránce Certifikáty, část před „—“)
+function trustStrip(pages) {
+  const cert = pages.find((p) => p.slug === 'certifikaty');
+  if (!cert) return '';
+  const names = [...new Set((cert.blocks || [])
+    .filter((b) => b.type === 'gallery')
+    .flatMap((b) => b.items || [])
+    .map((i) => String(i.caption || '').split(' — ')[0].trim())
+    .filter((n) => n && !/^(Poptávej|Prověřená|Gala|Autodesk)/.test(n)))].slice(0, 7);
+  if (!names.length) return '';
+  return `<a class="trust reveal" href="${pageUrl(cert.slug)}"><span class="label">Školení a certifikace</span><span class="trust-names">${names.map(esc).join(' <i aria-hidden="true">·</i> ')}</span><span class="trust-more">Zobrazit certifikáty →</span></a>`;
+}
+
 // ---------- stránky ----------
 
 export function renderPage(ctx, p) {
@@ -472,6 +509,7 @@ ${chooser}
 </ul>
 </nav>
 </section>
+${showcase(pages)}
 <section class="section">
 <div class="wrap">
 <div class="section-head is-stacked reveal">
@@ -481,6 +519,7 @@ ${paragraphs(h.about_text)}
 <div class="principles reveal">
 ${principles}
 </div>
+${trustStrip(pages)}
 </div>
 </section>
 ${reviewsSection(site.reviews)}
