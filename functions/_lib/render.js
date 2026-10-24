@@ -300,8 +300,10 @@ function footer(ctx) {
 ${links}
 <a href="#kontakt">Kontakt</a>
 </nav>
+<div class="site-footer-bottom">
 <span>© ${esc(site.owner)} · <a href="tel:${esc(tel(site.phone))}">${esc(site.phone)}</a></span>
-<p class="site-footer-credit">Web: <a href="https://janyskovadigital.cz" target="_blank" rel="noopener">janyskovadigital.cz</a></p>
+<span class="site-footer-credit">Web: <a href="https://janyskovadigital.cz" target="_blank" rel="noopener">janyskovadigital.cz</a></span>
+</div>
 </div>
 </footer>
 <nav class="callbar" aria-label="Rychlý kontakt">

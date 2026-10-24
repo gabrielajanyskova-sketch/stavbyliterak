@@ -630,15 +630,15 @@ p, li, figcaption { text-wrap: pretty; }
 .site-footer {
   background: #15181c;
   color: #9aa3ab;
-  padding: 40px 0;
-  font-size: 0.9rem;
+  padding: 24px 0 20px;
+  font-size: 0.88rem;
 }
-.site-footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; align-items: center; }
-.site-footer img { width: 92px; }
+.site-footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px 24px; align-items: center; }
+.site-footer img { width: 72px; }
 .site-footer a { color: #d9dde0; text-decoration: none; }
 .site-footer a:hover { color: var(--amber); }
-.site-footer nav { display: flex; flex-wrap: wrap; gap: 6px 20px; }
-.site-footer-credit { flex-basis: 100%; margin: 0; padding-top: 16px; border-top: 1px solid #ffffff1f; font-size: 0.82rem; color: #98a0a7; }
+.site-footer nav { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+.site-footer-bottom { flex-basis: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 24px; padding-top: 12px; border-top: 1px solid #ffffff1f; font-size: 0.8rem; }
 .site-footer .site-footer-credit a { color: #c6ccd1; text-decoration: underline; text-underline-offset: 3px; }
 
 /* Při posunu stránky se pod hlavičkou odměřuje, kolik je přečteno (jen CSS) */
