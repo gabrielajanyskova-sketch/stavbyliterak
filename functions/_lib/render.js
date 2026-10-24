@@ -301,7 +301,7 @@ ${links}
 <a href="#kontakt">Kontakt</a>
 </nav>
 <div class="site-footer-bottom">
-<span>© ${esc(site.owner)} · <a href="tel:${esc(tel(site.phone))}">${esc(site.phone)}</a></span>
+<span>© ${new Date().getFullYear()} ${esc(site.owner)} · <a href="tel:${esc(tel(site.phone))}">${esc(site.phone)}</a></span>
 <span class="site-footer-credit">Web: <a href="https://janyskovadigital.cz" target="_blank" rel="noopener">janyskovadigital.cz</a></span>
 </div>
 </div>
