@@ -219,8 +219,7 @@ ${ctx.noindex ? '<meta name="robots" content="noindex">\n' : ''}<link rel="canon
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/assets/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-${preload}<link rel="stylesheet" href="/assets/css/fonts.css">
-<link rel="stylesheet" href="/assets/css/style.css">
+${preload}${ctx.assets?.css ? `<style>${ctx.assets.css}</style>` : '<link rel="stylesheet" href="/assets/css/fonts.css">\n<link rel="stylesheet" href="/assets/css/style.css">'}
 <script>document.documentElement.classList.add("js")</script>
 <script type="application/ld+json">${jsonLd(schema)}</script>
 </head>
@@ -310,7 +309,7 @@ ${links}
 <a href="tel:${esc(tel(site.phone))}">Zavolat</a>
 <a href="#kontakt">Poptávka</a>
 </nav>
-<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/main.js${ctx.assets?.js ? `?v=${ctx.assets.js}` : ''}" defer></script>
 </body>
 </html>
 `;
@@ -570,7 +569,7 @@ ${promo ? `<section class="section promo">
 ${paragraphs(h.promo_text)}
 <a class="btn" href="${pageUrl(promo.slug)}">${esc(h.promo_button || 'Více')}</a>
 </div>
-${h.promo_photo ? `<img src="${esc(safeUrl(h.promo_photo))}" alt="${esc(h.promo_photo_alt || h.promo_title)}" loading="lazy" decoding="async">` : ''}
+${h.promo_photo ? `<img src="${esc(thumb(h.promo_photo))}" alt="${esc(h.promo_photo_alt || h.promo_title)}" loading="lazy" decoding="async">` : ''}
 </div>
 </div>
 </section>` : ''}` +

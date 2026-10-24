@@ -52,6 +52,30 @@ function guessOldUrl(path, pages) {
   return null;
 }
 
+// Styly se vkládají přímo do stránky (žádný požadavek navíc, který by blokoval vykreslení)
+// a main.js dostane v adrese otisk obsahu, takže se může ukládat do mezipaměti na rok.
+// Načte se jednou na instanci Workeru — po novém nasazení vzniká instance nová.
+let assetsPromise;
+function loadAssets(env, origin) {
+  const get = (path) => env.ASSETS.fetch(new Request(origin + path)).then((r) => (r.ok ? r.text() : ''));
+  assetsPromise ??= Promise.all([get('/assets/css/fonts.css'), get('/assets/css/style.css'), get('/assets/js/main.js')])
+    .then(async ([fonts, style, js]) => {
+      const digest = await crypto.subtle.digest('SHA-1', new TextEncoder().encode(js));
+      const hash = [...new Uint8Array(digest)].slice(0, 5).map((b) => b.toString(16).padStart(2, '0')).join('');
+      const css = (fonts + style)
+        .replace(/\/\*[\s\S]*?\*\//g, '')
+        .replace(/\s+/g, ' ')
+        .replace(/\s*([{};])\s*/g, '$1')
+        .trim();
+      return { css: fonts && style ? css : '', js: js ? hash : '' };
+    })
+    .catch(() => {
+      assetsPromise = undefined;
+      return {};
+    });
+  return assetsPromise;
+}
+
 const redirect = (location) => new Response(null, { status: 301, headers: { Location: location } });
 
 export async function onRequest({ request, env, next }) {
@@ -75,8 +99,8 @@ export async function onRequest({ request, env, next }) {
     if (path.startsWith('/img/')) return await serveImage(env, decodeURIComponent(path.slice(5)));
     if (request.method !== 'GET' && request.method !== 'HEAD') return new Response('Method not allowed', { status: 405 });
 
-    const [site, pages] = await Promise.all([getSite(env), getPages(env)]);
-    const ctx = { site, pages, base: primary.origin, noindex };
+    const [site, pages, assets] = await Promise.all([getSite(env), getPages(env), loadAssets(env, url.origin)]);
+    const ctx = { site, pages, assets, base: primary.origin, noindex };
 
     if (path === '/robots.txt') return respond(renderRobots(ctx), 'text/plain');
     if (path === '/sitemap.xml') return respond(renderSitemap(ctx), 'application/xml', { noindex });
