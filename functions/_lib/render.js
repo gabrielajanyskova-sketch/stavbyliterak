@@ -516,7 +516,7 @@ export function renderHome(ctx) {
     header(ctx, '') +
     `<section class="hero">
 <div class="hero-panel">
-${h.hero_photo ? `<img class="hero-bg" src="${esc(thumb(h.hero_photo))}" alt="" fetchpriority="high">\n` : ''}<h1>${esc(h.hero_title)} <span>${esc(h.hero_accent)}</span></h1>
+${h.hero_photo ? `<img class="hero-bg" src="${esc(thumb(h.hero_photo))}" alt="${esc(h.hero_photo_alt)}" fetchpriority="high">\n` : ''}<h1>${esc(h.hero_title)} <span>${esc(h.hero_accent)}</span></h1>
 <p class="hero-meta">${esc(h.hero_meta)}</p>
 ${RIDGE}
 </div>
@@ -550,7 +550,7 @@ ${promo ? `<section class="section promo">
 ${paragraphs(h.promo_text)}
 <a class="btn" href="${pageUrl(promo.slug)}">${esc(h.promo_button || 'Více')}</a>
 </div>
-${h.promo_photo ? `<img src="${esc(safeUrl(h.promo_photo))}" alt="" loading="lazy" decoding="async">` : ''}
+${h.promo_photo ? `<img src="${esc(safeUrl(h.promo_photo))}" alt="${esc(h.promo_photo_alt || h.promo_title)}" loading="lazy" decoding="async">` : ''}
 </div>
 </div>
 </section>` : ''}` +
