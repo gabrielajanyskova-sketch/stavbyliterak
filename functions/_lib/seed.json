@@ -14,36 +14,36 @@
       "hero_meta": "Jan Literák · Frýdek-Místek a okolí",
       "chooser_label": "Co potřebujete vyřešit?",
       "about_label": "Jak pracuji",
-      "about_title": "Řešení podle místa, ne podle ceníku",
-      "about_text": "Ne každý dům, pozemek nebo prostup umožňuje použít stejné řešení. Proto se nejdřív řeší konkrétní místo a způsob využití — a teprve potom provedení a cena.",
+      "about_title": "Nejdřív se přijedu podívat",
+      "about_text": "Každý dům a každý pozemek je jiný. Cenu proto nedávám od stolu. Přijedu, podívám se, co je na místě potřeba, a teprve potom se bavíme o řešení a ceně.",
       "principles": [
         {
-          "label": "01 — Posouzení",
-          "title": "Posoudím na místě",
-          "text": "Rozhodují výškové poměry, přístup, napojení na dům a spousta dalších věcí. Ty se dají zjistit jen na místě."
+          "label": "01 — Prohlídka",
+          "title": "Přijedu na místo",
+          "text": "Výšky, přístup, napojení na dům, stav podkladu. Tohle se z fotek nepozná, musím to vidět."
         },
         {
           "label": "02 — Realizace",
-          "title": "Navrhnu i provedu",
-          "text": "Na základě měření nebo prohlídky navrhnu vhodné řešení a ve většině případů ho i zrealizuji, případně doporučím prověřené partnery."
+          "title": "Navrhnu a udělám",
+          "text": "Po měření nebo prohlídce vám řeknu, co bych doporučil, a většinou to i sám udělám. Když je potřeba jiný řemeslník, doporučím někoho, s kým mám dobrou zkušenost."
         },
         {
           "label": "03 — Cena",
-          "title": "Platíte skutečnou práci",
-          "text": "Strojní práce účtuji podle skutečně odpracovaného času. Žádné příplatky „co kdyby“."
+          "title": "Platíte odvedenou práci",
+          "text": "Strojní práce účtuji podle odpracovaných hodin. Do ceny si nepřidávám rezervu pro případ, že by se něco nepovedlo."
         }
       ],
       "promo_page": "gastropujcovna",
       "promo_label": "Oslavy, svatby, párty",
       "promo_title": "Gastropůjčovna",
-      "promo_text": "Chystáte oslavu narozenin, svatbu, posezení s přáteli nebo párty? Půjčím pivní sety, výčep, kotlík na guláš, rožeň, ohřevné vany, reproduktor a další vybavení.",
+      "promo_text": "Slavíte narozeniny, svatbu, nebo jen grilujete s přáteli? Půjčím vám pivní sety, výčep, kotlík na guláš, rožeň i reproduktor, ať nemusíte nic kupovat.",
       "promo_button": "Co se dá půjčit",
       "hero_photo": "/assets/img/foto/zimni-zahrada-zahrada.webp",
       "promo_photo": "/assets/img/foto/gastro-vycep-oslava.webp"
     },
     "contact": {
       "title": "Zavolejte, nebo napište",
-      "text": "Nejrychlejší je telefon. Když to nezvednu, ozvu se zpátky.",
+      "text": "Nejrychleji mě zastihnete na telefonu. Když to nezvednu, ozvu se zpátky.",
       "services": [
         "Termovizní měření",
         "Zemní práce",
@@ -73,17 +73,17 @@
       "nav_label": "Termovize",
       "in_chooser": true,
       "chooser_title": "Termovizní měření",
-      "chooser_hint": "Tepelné úniky, tepelné mosty, plísně, kontrola provedených prací.",
+      "chooser_hint": "Kudy z domu utíká teplo a kde hrozí plíseň.",
       "meta_title": "Termovizní měření a detekce tepelných úniků | Stavby Literák, Frýdek-Místek",
       "meta_description": "Termovizní měření domů, bytů a firem: tepelné úniky, tepelné mosty, plísně, kontrola provedených prací, elektrorozvaděče a podlahové topení. Frýdek-Místek a okolí.",
       "crumb": "Termovizní měření",
       "title": "Termovizní měření",
-      "lead": "Investice do termovizního měření se obvykle rychle vrátí díky úsporám za vytápění a včasnému řešení stavebních či technických problémů.",
+      "lead": "Termokamera ukáže, kudy z domu utíká teplo a kde se drží vlhkost. Měření se obvykle rychle zaplatí na nižších účtech za topení.",
       "theme": "thermal",
       "facts": [
         {
           "label": "Technika",
-          "value": "Kvalitní značková německá termokamera"
+          "value": "Značková německá termokamera"
         },
         {
           "label": "Kdy měřit",
@@ -109,48 +109,48 @@
       "blocks": [
         {
           "type": "heading",
-          "text": "Proč hledat tepelné úniky"
+          "text": "Proč se to vyplatí"
         },
         {
           "type": "text",
-          "text": "Hledání tepelných úniků je v dnešní době rostoucích cen obzvlášť důležité pro **snížení nákladů na vytápění**, **zvýšení komfortu bydlení** (rovnoměrná teplota, žádný průvan) a **ochranu zdraví** (prevence vzniku plísní). Odhalením a odstraněním úniků tepla také zvýšíte energetickou účinnost a hodnotu nemovitosti.\n\nTermokamera se hodí také pro SVJ nebo majitele novostaveb jako kontrola správného provedení prací — a může sloužit jako podklad pro reklamaci u dodavatele."
+          "text": "Topení je dnes drahé a každé místo, kudy utíká teplo, je znát na účtu. Únik tepla navíc často znamená studenou stěnu, na které se sráží vlhkost a časem se objeví plíseň. Když víte, kde přesně problém je, můžete ho opravit cíleně a nemusíte hned zateplovat celý dům.\n\nMěření má smysl i u novostaveb. Ukáže, jestli firma odvedla práci pořádně, a snímky můžete použít při reklamaci."
         },
         {
           "type": "numbered",
           "items": [
             {
-              "title": "Úspora peněz",
-              "text": "Tepelné ztráty vedou ke zbytečně vysokým účtům za vytápění. Zjištěním a odstraněním úniků můžete snížit náklady až o desítky procent."
+              "title": "Nižší účty za topení",
+              "text": "Když najdete a opravíte místa, kudy teplo utíká, ušetříte na vytápění. U hodně netěsných domů jde i o desítky procent."
             },
             {
-              "title": "Vyšší komfort",
-              "text": "Úniky tepla způsobují chladná místa a průvan. Jejich odstranění zajistí rovnoměrnou teplotu v celém domě a příjemnější klima."
+              "title": "Teplo v celém domě",
+              "text": "Zmizí studené kouty a průvan u oken."
             },
             {
-              "title": "Prevence plísní",
-              "text": "Tepelné mosty způsobují kondenzaci vlhkosti na povrchu stěn, což podporuje růst zdraví škodlivých plísní."
+              "title": "Méně plísní",
+              "text": "Plíseň roste tam, kde je studená stěna a sráží se na ní vlhkost. Termokamera tato místa najde dřív, než se plíseň objeví."
             },
             {
-              "title": "Vyšší hodnota nemovitosti",
-              "text": "Energeticky efektivní budovy jsou na trhu nemovitostí žádanější a cennější."
+              "title": "Vyšší hodnota domu",
+              "text": "Úsporný dům se lépe prodává i pronajímá."
             },
             {
-              "title": "Přesná diagnostika",
-              "text": "Termokamera přesně najde slabá místa — špatně zateplené fasády, netěsnící okna, tepelné mosty v rozích a napojeních konstrukcí. Proto je vhodná i pro kontrolu provedených prací a reklamace."
+              "title": "Kontrola po firmě",
+              "text": "Snímky ukážou špatně zateplenou fasádu, netěsná okna nebo tepelné mosty v rozích a napojeních. Hodí se jako podklad pro reklamaci."
             },
             {
-              "title": "Kontrola i mimo stavbu",
-              "text": "Termokamera odhalí i problém v elektrickém rozvaděči, v podlahovém topení a mnoho dalšího."
+              "title": "Nejen stavba",
+              "text": "Termokamerou zkontroluji i elektrický rozvaděč nebo podlahové topení."
             }
           ]
         },
         {
           "type": "heading",
-          "text": "Od měření k řešení"
+          "text": "Po měření"
         },
         {
           "type": "text",
-          "text": "Na základě provedeného měření vám umím navrhnout vhodná řešení a ve většině případů potřebná opatření také zrealizovat, nebo doporučit prověřené partnery, se kterými dlouhodobě spolupracuji. Samozřejmostí jsou potřebná školení. Používám pouze kvalitní značkovou německou techniku — to je základ pro správnou diagnostiku."
+          "text": "Výsledky s vámi projdu a navrhnu, co s nalezenými místy dělat. Většinu oprav udělám sám, na zbytek vám doporučím ověřené řemeslníky, se kterými dlouhodobě spolupracuji. Měřím značkovou německou termokamerou a mám na to odborné školení."
         },
         {
           "type": "heading",
@@ -175,20 +175,20 @@
           "type": "steps",
           "items": [
             {
-              "title": "Domluva termínu",
-              "text": "Termín volíme podle počasí — pro měření obálky domu je potřeba chladno, aby byl dostatečný rozdíl teplot uvnitř a venku."
+              "title": "Domluvíme termín",
+              "text": "Obvodové zdi, okna a střechu je potřeba měřit, když je venku zima a doma teplo. Termín proto domlouváme podle počasí."
             },
             {
-              "title": "Příprava domu",
-              "text": "Den předem normálně topit, před měřením nevětrat a nechat zavřená okna."
+              "title": "Připravíte dům",
+              "text": "Den předem normálně topte. Před měřením nevětrejte a nechte zavřená okna."
             },
             {
-              "title": "Měření venku i uvnitř",
-              "text": "Dům se nasnímá zvenku i zevnitř. Co je na snímcích vidět, vám rovnou ukážu."
+              "title": "Změřím dům zvenku i uvnitř",
+              "text": "Co je na snímcích vidět, vám ukážu rovnou na místě."
             },
             {
-              "title": "Výsledek a návrh řešení",
-              "text": "Dostanete výsledky měření a doporučení, co s nalezenými místy dělat."
+              "title": "Dostanete výsledky",
+              "text": "K výsledkům vám napíšu, co bych s jednotlivými místy dělal."
             }
           ]
         },
@@ -205,28 +205,28 @@
           "type": "faq",
           "items": [
             {
-              "title": "Kdy je nejlepší doba na termovizní měření?",
-              "text": "Obálku domu (fasádu, okna, střechu) je potřeba měřit v topné sezóně, ideálně v chladném počasí, kdy je venku výrazně chladněji než uvnitř. Elektrorozvaděče nebo podlahové topení lze změřit kdykoli."
+              "title": "Kdy je nejlepší měřit?",
+              "text": "V topné sezóně, když je venku chladno. Čím větší je rozdíl mezi teplotou doma a venku, tím víc snímky ukážou. Rozvaděč nebo podlahové topení změřím kdykoli."
             },
             {
-              "title": "Vyplatí se termovizní měření?",
-              "text": "Investice se obvykle rychle vrátí díky úsporám za vytápění a včasnému řešení stavebních či technických problémů. Zjištěním a odstraněním úniků tepla můžete snížit náklady na vytápění až o desítky procent."
+              "title": "Vyplatí se to?",
+              "text": "Většinou ano. Za měření zaplatíte jednou, kdežto teplo, které utíká netěsným oknem nebo špatně zateplenou stěnou, platíte každou zimu."
             },
             {
-              "title": "Pro koho je měření vhodné?",
-              "text": "Pro majitele rodinných domů a bytů, SVJ i majitele novostaveb. U novostaveb slouží jako kontrola správného provedení prací a může být podkladem pro reklamaci u dodavatele."
+              "title": "Pro koho je měření?",
+              "text": "Pro majitele domů a bytů, pro SVJ i pro ty, kdo si nechali postavit nový dům a chtějí si ověřit, že je postavený dobře."
             },
             {
-              "title": "Co všechno termokamera odhalí?",
-              "text": "Špatně zateplené fasády, netěsnící okna, tepelné mosty v rozích a napojeních konstrukcí i místa, kde hrozí kondenzace vlhkosti a plísně. Mimo stavbu odhalí také přehřáté spoje v elektrickém rozvaděči nebo problém v podlahovém topení."
+              "title": "Co termokamera najde?",
+              "text": "Špatně zateplené stěny, netěsná okna, tepelné mosty v rozích a u napojení konstrukcí a místa, kde hrozí plíseň. U elektřiny přehřáté spoje v rozvaděči."
             },
             {
               "title": "Umíte nalezené problémy i opravit?",
-              "text": "Ano. Na základě měření navrhnu vhodné řešení a ve většině případů potřebná opatření také zrealizuji, nebo doporučím prověřené partnery, se kterými dlouhodobě spolupracuji."
+              "text": "Většinu ano. Co nedělám sám, předám řemeslníkům, se kterými mám dobré zkušenosti."
             },
             {
-              "title": "Jakou techniku používáte?",
-              "text": "Pouze kvalitní značkovou německou termokameru — to je základní předpoklad pro správnou diagnostiku. Samozřejmostí jsou potřebná školení."
+              "title": "Jakou kameru používáte?",
+              "text": "Značkovou německou termokameru. Na kvalitě kamery a na správném vyhodnocení snímků záleží nejvíc, proto mám i odborné školení."
             }
           ]
         }
@@ -239,12 +239,12 @@
       "nav_label": "Zemní práce",
       "in_chooser": true,
       "chooser_title": "Zemní práce a zakladač",
-      "chooser_hint": "Výkopy, zásypy a hutnění, terénní úpravy, zpracování půdy po stavbě.",
+      "chooser_hint": "Výkopy, zásypy, terénní úpravy a zpracování půdy po stavbě.",
       "meta_title": "Zemní a výkopové práce, zakladač trávníku | Stavby Literák, Frýdek-Místek",
       "meta_description": "Výkopy pro základy, sítě, jímky, bazény a drenáže, zásypy a hutnění, terénní úpravy, odvoz zeminy a zpracování půdy zakladačem trávníku. Frýdek-Místek a okolí.",
       "crumb": "Zemní práce a zakladač trávníku",
       "title": "Zemní a výkopové práce",
-      "lead": "Rozhodující není jen odtěžit zeminu, ale dodržet projektované hloubky, spády a tvar výkopu, připravit podloží a správně provést zásypy.",
+      "lead": "Nejde jen o to vykopat díru. Výkop musí mít správnou hloubku, spád a tvar, podloží musí být připravené a zásyp pořádně zhutněný.",
       "theme": "",
       "facts": [
         {
@@ -253,7 +253,7 @@
         },
         {
           "label": "Hutnění",
-          "value": "Bomag, Weber MT — desky i pěchy do úzkých prostor"
+          "value": "Bomag a Weber MT, vibrační desky i pěchy do úzkých míst"
         },
         {
           "label": "Nakladač",
@@ -273,58 +273,58 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Správně provedené zemní práce jsou předpokladem pro založení stavby, uložení inženýrských sítí, zpevněné plochy i konečné úpravy zahrady. Před zahájením si domluvíme způsob provedení, vaše požadavky, reálné možnosti na místě a další náležitosti — včetně využití výkopku na pozemku nebo rozsahu odvozu. Promyšlená organizace omezuje zbytečné přesuny materiálu a může výrazně ušetřit výsledné náklady."
+          "text": "Na zemních pracích stojí dům, přípojky, zpevněné plochy i zahrada. Před začátkem spolu probereme, co chcete udělat, co místo dovolí a co s vykopanou zeminou: jestli ji necháme na pozemku, nebo ji odvezu. Dobrá příprava ušetří zbytečné převážení materiálu, a tím i peníze."
         },
         {
           "type": "heading",
-          "text": "S čím vám mohu pomoci"
+          "text": "S čím vám pomůžu"
         },
         {
           "type": "numbered",
           "items": [
             {
-              "title": "Výkopy pro základy, opěrné zdi a oplocení",
-              "text": "Hloubení základových pasů, patek a stavebních jam."
+              "title": "Výkopy pro základy, opěrné zdi a ploty",
+              "text": "Základové pasy, patky a stavební jámy."
             },
             {
-              "title": "Výkopy pro inženýrské sítě",
-              "text": "Rýhy pro vodovod, kanalizaci, kabelové trasy a další rozvody."
+              "title": "Výkopy pro sítě",
+              "text": "Rýhy pro vodu, kanalizaci, elektřinu a další rozvody."
             },
             {
-              "title": "Nádrže, jímky a domovní ČOV",
-              "text": "Jámy s prostorem pro osazení zařízení, podklad a připojení potrubí."
+              "title": "Jímky, nádrže a domovní ČOV",
+              "text": "Jáma s místem na osazení nádrže, podklad i napojení potrubí."
             },
             {
-              "title": "Bazény a zahradní jezírka",
-              "text": "Výkop podle půdorysu, hloubky a konstrukce, včetně prostoru pro podkladní vrstvy a rozvody."
+              "title": "Bazény a jezírka",
+              "text": "Výkop podle tvaru a hloubky, včetně místa pro podkladní vrstvy a rozvody."
             },
             {
-              "title": "Skrývka ornice a odtěžení zeminy",
-              "text": "Ornici lze převézt po pozemku a později využít při dokončovacích úpravách."
+              "title": "Skrývka ornice",
+              "text": "Ornici odložím na pozemku, abyste ji později mohli použít na zahradu."
             },
             {
-              "title": "Příjezdové cesty, stání, chodníky a terasy",
-              "text": "Výkop na požadovanou úroveň a podle domluvy i dodání, rozprostření a zhutnění podkladu."
+              "title": "Příjezdové cesty, stání a terasy",
+              "text": "Výkop na správnou výšku. Když chcete, dovezu, rozhrnu a zhutním i podkladní štěrk."
             },
             {
               "title": "Terénní úpravy a svahování",
-              "text": "Srovnání nerovností a modelace pozemku s ohledem na okolní stavby a odvod srážkové vody."
+              "text": "Srovnám nerovnosti a upravím terén tak, aby dešťová voda tekla od domu."
             },
             {
-              "title": "Drenáže a odvodnění",
-              "text": "Drážky pro drenážní potrubí se správnými výškami. Drenáž není univerzální řešení vlhkosti — umím navrhnout i zrealizovat komplexní řešení."
+              "title": "Drenáže",
+              "text": "Drážky pro drenážní trubky ve správném spádu. Drenáž sama vlhkost vždycky nevyřeší, proto vám rád pomůžu navrhnout celé řešení."
             },
             {
-              "title": "Odkopání obvodového zdiva a základů",
-              "text": "Zpřístupnění spodní stavby pro hydroizolaci, zateplení nebo sanaci."
+              "title": "Odkopání základů",
+              "text": "Když potřebujete opravit izolaci, zateplit sokl nebo sanovat vlhké zdivo."
             },
             {
               "title": "Zásypy a hutnění",
-              "text": "Ukládání materiálu po vrstvách s postupným hutněním profesionální technikou."
+              "text": "Zasypávám po vrstvách a každou zhutním. Mám vibrační desky i pěchy do úzkých míst."
             },
             {
-              "title": "Rozprostření zeminy a ornice",
-              "text": "Doplnění prohlubní a příprava ploch pro zahradní úpravy, na které může navázat zakladač."
+              "title": "Rozhrnutí zeminy a ornice",
+              "text": "Doplním prohlubně a připravím plochu pro zahradu. Potom může nastoupit zakladač."
             }
           ]
         },
@@ -351,33 +351,33 @@
         },
         {
           "type": "heading",
-          "text": "Odvoz zeminy a dodávky materiálu"
+          "text": "Odvoz zeminy a dovoz materiálu"
         },
         {
           "type": "text",
-          "text": "K zemním pracím zajistím také nakládku a odvoz přebytečné zeminy, dodávky kameniva, písku či zeminy a související bourací práce v předem domluveném rozsahu."
+          "text": "Přebytečnou zeminu naložím a odvezu. Dovezu štěrk, písek nebo ornici a po domluvě udělám i drobné bourací práce. Na nakládání mám traktor Kubota s čelním nakladačem."
         },
         {
           "type": "heading",
-          "text": "Co ovlivňuje cenu"
+          "text": "Jak počítám cenu"
         },
         {
           "type": "text",
-          "text": "**Půdní podmínky.** Kamenitost a skryté „poklady“ jako beton, železo nebo suť. Těžká jílovitá půda s kamením je časově mnohem náročnější než pěkná ornice.\n\n**Výkopy účtuji vždy v hodinové sazbě.** Nikdo dopředu neví, jaká zemina skutečně je a co se v ní skrývá — realita je v 99 % jiná než předpoklad. Účtování podle skutečně odpracovaného času je nejtransparentnější: co se udělá, to se účtuje."
+          "text": "**Výkopy účtuji vždy podle odpracovaných hodin.** Předem nikdo neví, co je v zemi. Může to být pěkná ornice, ale taky jíl plný kamení, staré betony nebo suť, a s tím se pracuje mnohem déle. Ze zkušenosti vím, že skutečnost se od odhadu liší skoro pokaždé. Hodinová sazba je proto nejférovější: zaplatíte jen to, co se opravdu udělalo."
         },
         {
           "type": "note",
-          "text": "**Aktuálně:** Kvůli kolísání cen pohonných hmot zde nemohu uvést platnou hodinovou sazbu. Sazba strojních prací se počítá podle aktuálních cen PHM. Děkuji za pochopení.",
-          "style": "info"
+          "style": "info",
+          "text": "**Aktuálně:** Ceny nafty se teď hodně mění, proto tu neuvádím pevnou hodinovou sazbu. Spočítám ji podle aktuálních cen pohonných hmot. Děkuji za pochopení."
         },
         {
           "type": "heading",
-          "text": "Zakladač trávníku — úprava pozemku a zpracování půdy",
+          "text": "Zakladač trávníku: úprava pozemku a zpracování půdy",
           "anchor": "zakladac"
         },
         {
           "type": "text",
-          "text": "Zakladač trávníku neslouží jen k přípravě plochy pro nový trávník. Využívá se hlavně pro mechanické zpracování a finální úpravu půdy — po stavbě, rekonstrukci, výkopech nebo pojezdu techniky. Půdu rozruší a rozmělní, nakypří zpracovávanou vrstvu, zapracuje drobnější kameny pod povrch a zároveň upraví povrch pozemku.\n\nPo stavbě bývá pozemek rozježděný a zhutněný bagry a nákladními auty, s kolejemi, nerovnostmi, kameny a hrudkami. Po srovnání může vypadat připravený, ale samotné rozhrnutí zeminy ještě neznamená, že je půda vhodná pro další využití."
+          "text": "Zakladač není jen na nový trávník. Hlavně se s ním zpracovává půda po stavbě, rekonstrukci nebo po bagru. Rozbije hroudy, nakypří zem, zapracuje drobné kameny pod povrch a povrch rovnou srovná.\n\nPo stavbě bývá pozemek rozježděný a udusaný od aut a bagrů, plný kolejí, kamenů a hrud. Když se jen rozhrne, vypadá hotově, ale půda pod povrchem zůstane utužená a tráva ani rostliny se v ní dobře neuchytí."
         },
         {
           "type": "grid",
@@ -423,7 +423,7 @@
         },
         {
           "type": "text",
-          "text": "Výhodou strojního zpracování je rychlost a rovnoměrnost na větších plochách, kde by ruční příprava byla časově i fyzicky náročná."
+          "text": "Strojem je to rychlejší a rovnoměrnější než ručně, hlavně na větších plochách."
         },
         {
           "type": "heading",
@@ -433,20 +433,20 @@
           "type": "faq",
           "items": [
             {
-              "title": "Děláte i malé zakázky a práce na hůře přístupných místech?",
-              "text": "Ano. Techniku volím podle rozsahu práce a přístupu, umím zajistit i stroj, který přímo nevlastním. Předem je potřeba posoudit šířku a výšku průjezdu, sklon a únosnost příjezdu a prostor pro práci a ukládání zeminy. Klidně přijedu s bagrem nebo traktorem i na půl hodiny — pak ale účtuji fixní taxu místo hodinové sazby, aby se vůbec pokryly náklady."
+              "title": "Vezmete i malou zakázku nebo místo, kam se špatně zajíždí?",
+              "text": "Ano. Stroj vybírám podle práce a přístupu, a když nemám vhodný vlastní, umím sehnat jiný. Předem ale musíme probrat šířku a výšku vjezdu, sklon a únosnost příjezdové cesty a kam se bude dávat zemina. Přijedu klidně i na půl hodiny, jen v tom případě účtuji paušál místo hodinové sazby, jinak by se mi cesta nevyplatila."
             },
             {
-              "title": "Neprodraží se hodinová sazba oproti pevné ceně?",
-              "text": "Nemusíte mít obavy, spíš naopak. U strojních výkopů je hodinová sazba férovější — úkolová cena bývá nadhodnocená pro případ „co kdyby“. V hodinové sazbě platíte skutečně odpracovaný čas, ne předpoklady."
+              "title": "Nevyjde hodinová sazba dráž než pevná cena?",
+              "text": "Spíš naopak. Kdo dává na výkop pevnou cenu, musí si do ní započítat rezervu pro případ, že narazí na beton nebo kameny. Při hodinové sazbě platíte jen skutečně odpracovaný čas."
             },
             {
-              "title": "Co je potřeba připravit před příjezdem techniky?",
-              "text": "Určit rozsah a umístění výkopů, zajistit přístup a prostor pro zeminu. Před zahájením musí být ověřeny a vytyčeny podzemní sítě a připraveny případné projekty a povolení — to je povinnost zákazníka."
+              "title": "Co mám připravit, než přijedete?",
+              "text": "Vědět, kde a jak velký výkop má být, a zajistit přístup a místo na zeminu. Před začátkem musí být ověřené a vytyčené podzemní sítě. Pokud práce potřebuje projekt nebo povolení, musíte je mít předem. To je povinnost zákazníka."
             },
             {
-              "title": "Zůstanou po technice stopy?",
-              "text": "I ten nejšetrnější pojezd na podkladu stopy zanechá. Techniku volím podle potřeby a snažím se, ale anglický trávník po práci zaručit nemohu — fyzikální zákony ohnout neumím."
+              "title": "Zůstanou po stroji stopy?",
+              "text": "Nějaké ano. Stroj volím tak, aby byl co nejšetrnější, ale anglický trávník vám po práci slíbit nemůžu. Fyzikální zákony ohnout neumím, i když se snažím."
             }
           ]
         }
@@ -459,12 +459,12 @@
       "nav_label": "Hliník",
       "in_chooser": true,
       "chooser_title": "Hliníkový program",
-      "chooser_hint": "Ploty, brány, zábradlí, pergoly, zastřešení, zimní zahrady.",
+      "chooser_hint": "Ploty, brány, zábradlí, pergoly a zimní zahrady.",
       "meta_title": "Hliníkové ploty, brány, pergoly a zimní zahrady | Stavby Literák",
       "meta_description": "Hliníkové ploty a brány, zábradlí, pergoly a altány, zastřešení teras, zimní zahrady a zasklení. Od zaměření po montáž. Frýdek-Místek a okolí.",
       "crumb": "Hliníkový program",
       "title": "Hliníkový program",
-      "lead": "Oplocení, zastřešení i další konstrukce kolem domu z hliníku. Dlouhá životnost, minimální údržba — od návrhu a zaměření po dodávku a montáž.",
+      "lead": "Ploty, zábradlí, pergoly i zimní zahrady z hliníku. Vydrží roky a nemusíte je natírat. Zaměřím, zajistím výrobu a namontuji.",
       "theme": "",
       "facts": [
         {
@@ -495,11 +495,11 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Hliníkový program využijete při stavbě, rekonstrukci i úpravě okolí domu. Může jít o jednoduchý plot a branku, ale také o kompletní řešení zahrady s navazujícím zábradlím, pergolou, zastřešením nebo zaskleným prostorem."
+          "text": "Může jít o obyčejný plot s brankou, nebo o celé okolí domu: plot, bránu, zábradlí na terase a pergolu se zasklením v jednom stylu."
         },
         {
           "type": "heading",
-          "text": "Co zajišťuji"
+          "text": "Co dělám"
         },
         {
           "type": "grid",
@@ -597,15 +597,15 @@
         },
         {
           "type": "text",
-          "text": "Hliník je lehký a pevný. Hodí se všude, kde chcete konstrukci, která dlouhodobě odolá venkovnímu prostředí a nebude vyžadovat náročnou pravidelnou údržbu. Má lehký a čistý vzhled, který sedne k moderní novostavbě i ke staršímu domu."
+          "text": "Hliník je lehký, a přitom pevný. Venku nerezaví, nemusí se natírat a barva mu vydrží. Hodí se k novostavbě i ke staršímu domu."
         },
         {
           "type": "heading",
-          "text": "Plot nemusí být jen plot"
+          "text": "Všechno v jednom stylu"
         },
         {
           "type": "text",
-          "text": "Při úpravě okolí domu dává smysl řešit jednotlivé prvky společně. Oplocení může navazovat na branku a bránu, na terase pokračovat zábradlím a pergolou a stejný vzhled lze použít i u zastřešení. Nemusíte pak jednotlivé části řešit odděleně a hledat, jak je sladit."
+          "text": "Když řešíte plot, bránu, zábradlí i pergolu najednou, můžou mít stejný vzhled. Nemusíte pak shánět každou věc jinde a doufat, že k sobě budou ladit."
         },
         {
           "type": "heading",
@@ -613,7 +613,7 @@
         },
         {
           "type": "text",
-          "text": "Zastřešený prostor pro posezení a běžné využití terasy — jednoduché zastřešení, pergola nebo samostatně stojící altán. Podle systému lze doplnit zasklení pro ochranu před větrem a počasím. Vždy je potřeba zohlednit rozměry, umístění, kotvení a návaznost na stávající stavbu, proto se konstrukce řeší přímo podle místa."
+          "text": "Zastřešená terasa, pergola nebo samostatný altán na zahradě. Podle systému je jde doplnit zasklením, aby vám tam nefoukalo ani nepršelo. U každé konstrukce je potřeba vyřešit rozměry, kotvení a napojení na dům, proto ji navrhuji až podle konkrétního místa."
         },
         {
           "type": "heading",
@@ -621,15 +621,15 @@
         },
         {
           "type": "text",
-          "text": "Zasklením můžete venkovní prostor využívat i tehdy, když samotná terasa nebo pergola už před počasím nechrání. Zasklít lze pergolu, altán, terasu, balkon nebo lodžii, u větších konstrukcí může vzniknout samostatná zimní zahrada. Možnosti se liší podle systému, rozměrů a způsobu otevírání."
+          "text": "Zasklenou terasu, pergolu nebo balkon využijete i na jaře a na podzim, kdy by se venku sedět nedalo. Z větší konstrukce může být rovnou zimní zahrada. Jaké zasklení se hodí, záleží na rozměrech a na tom, jak se má otevírat."
         },
         {
           "type": "heading",
-          "text": "Řešení podle vašeho domu"
+          "text": "Podle vašeho domu"
         },
         {
           "type": "text",
-          "text": "Ne každý pozemek umožňuje stejné řešení — rozhodují výškové poměry, podezdívka, napojení na dům, přístup a další faktory. Nejdřív proto řešíme konkrétní prostor a způsob využití, pak provedení, zaměření, výrobu a montáž. Cílem není univerzální konstrukce, ale řešení, které dává smysl právě u vašeho domu."
+          "text": "Každý dům je jiný. Liší se výška terénu, podezdívka, napojení na dům i přístup. Proto se nejdřív přijedu podívat a teprve potom spolu vybereme provedení, zaměřím a zajistím výrobu."
         },
         {
           "type": "heading",
@@ -639,32 +639,32 @@
           "type": "faq",
           "items": [
             {
-              "title": "Je hliníkový plot bezúdržbový?",
-              "text": "Zcela bezúdržbový není žádný venkovní prvek. Hliník ale nevyžaduje pravidelné natírání jako dřevo, není nasákavý a je stálobarevný. Údržba spočívá hlavně v čištění."
+              "title": "Je hliníkový plot bez údržby?",
+              "text": "Úplně bez údržby není nic, co stojí venku. Hliník ale nemusíte natírat, nenasákne vodou a nebledne. Stačí ho občas umýt."
             },
             {
-              "title": "Lze udělat plot, bránu a branku ve stejném provedení?",
-              "text": "Ano, sladění prvků je jednou z výhod hliníkového programu. Stejný vzhled lze použít i u zábradlí a dalších konstrukcí."
+              "title": "Můžou být plot, brána a branka stejné?",
+              "text": "Ano, a to je na hliníku to dobré. Ve stejném stylu udělám i zábradlí nebo pergolu."
             },
             {
-              "title": "Je možné zasklít pergolu nebo altán?",
-              "text": "Ano, pokud to konkrétní konstrukční systém umožňuje. Zasklení chrání před větrem a deštěm a prodlouží dobu, kdy prostor využijete."
+              "title": "Jde zasklít pergolu nebo altán?",
+              "text": "Ano, pokud to systém konstrukce dovolí. Zasklení chrání před větrem a deštěm, takže venku posedíte i v chladnějších měsících."
             },
             {
-              "title": "Je hliník vhodný i pro starší dům?",
-              "text": "Ano. Hliníkové prvky mohou být součástí rekonstrukce nebo postupné úpravy okolí staršího domu."
+              "title": "Hodí se hliník i ke staršímu domu?",
+              "text": "Ano. Klidně jako součást rekonstrukce nebo postupně, jednu věc po druhé."
             },
             {
-              "title": "Kolik stojí plot, pergola nebo zastřešení?",
-              "text": "Záleží na rozměrech, provedení, výplni, povrchové úpravě, kotvení a rozsahu montáže. Bez znalosti konkrétního řešení nejde určit jednu cenu."
+              "title": "Kolik to stojí?",
+              "text": "Záleží na rozměrech, výplni, barvě, kotvení a montáži. Bez zaměření cenu říct nejde. Po prohlídce vám ji spočítám."
             },
             {
-              "title": "Zajišťujete kompletní realizaci?",
-              "text": "Ano — zaměření, výrobu konstrukce i montáž."
+              "title": "Uděláte všechno od začátku do konce?",
+              "text": "Ano. Zaměřím, zajistím výrobu a namontuji."
             },
             {
-              "title": "Lze řešit i atypické provedení?",
-              "text": "Ano, pokud to umožňuje zvolený systém profilů a technické řešení. Nejdřív je potřeba posoudit konkrétní prostor."
+              "title": "Jde udělat i něco atypického?",
+              "text": "Většinou ano, pokud to systém profilů dovolí. Nejdřív se ale musím podívat na místo."
             }
           ]
         }
@@ -677,12 +677,12 @@
       "nav_label": "Lešení",
       "in_chooser": true,
       "chooser_title": "Půjčovna lešení",
-      "chooser_hint": "Rámové pozinkované lešení pro rodinné domy, i s dopravou.",
+      "chooser_hint": "Rámové lešení na rodinné domy. Dovezu ho až na místo.",
       "meta_title": "Půjčovna lešení Frýdek-Místek — rámové lešení i s dopravou | Stavby Literák",
       "meta_description": "Pronájem pozinkovaného rámového lešení s českým certifikátem pro rodinné domy a menší stavby. Doprava na stavbu, stavební stojky. Frýdek-Místek a okolí.",
       "crumb": "Půjčovna lešení",
       "title": "Půjčovna lešení",
-      "lead": "Rámové lešení s českým certifikátem na opravu fasády, zateplení, střechu nebo jinou práci kolem domu. Pro rodinné domy a menší stavby.",
+      "lead": "Rámové lešení s českým certifikátem na fasádu, zateplení, střechu a další práce kolem domu. Hodí se hlavně na rodinné domy a menší stavby.",
       "theme": "",
       "facts": [
         {
@@ -711,7 +711,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Rámové lešení je praktické všude, kde potřebujete bezpečný a stabilní pracovní prostor ve výšce a nechcete kvůli jedné stavbě kupovat vlastní. Hodí se na opravy a zateplení fasád, práce u střech, omítání, nátěry, klempířské práce a další práce kolem domu."
+          "text": "Kvůli jedné opravě fasády nebo střechy nemá smysl kupovat vlastní lešení. Půjčené máte jen na dobu, kdy ho opravdu potřebujete, a pak ho nemusíte nikde skladovat."
         },
         {
           "type": "heading",
@@ -765,11 +765,11 @@
         },
         {
           "type": "heading",
-          "text": "Proč si lešení půjčit"
+          "text": "Proč lešení, a ne žebřík"
         },
         {
           "type": "text",
-          "text": "U jednorázové opravy nedává smysl kupovat vlastní lešení. Pronájmem ho máte jen na dobu, kdy ho opravdu potřebujete, a neřešíte skladování. Po sestavení vytvoří souvislou pracovní plochu podél fasády — pohodlnější a bezpečnější než žebříky nebo improvizace."
+          "text": "Postavené lešení vytvoří podél fasády pevnou pracovní plochu. Pracuje se na něm pohodlněji, rychleji a hlavně bezpečněji než ze žebříku. Hodí se na omítání, zateplování, nátěry, klempířské práce i práci na střeše."
         },
         {
           "type": "heading",
@@ -777,40 +777,40 @@
         },
         {
           "type": "text",
-          "text": "Pokud nemáte jak lešení převézt, dopravu zajistím. Při domluvě je potřeba zohlednit přístup ke stavbě, místo pro složení dílů a možnosti manipulace na pozemku. Ne každá stavba má ideální podmínky — rozhoduje terén, výškové rozdíly, balkony, přístřešky a další překážky, proto je dobré situaci probrat předem."
+          "text": "Když nemáte čím lešení převézt, dovezu ho. Potřebuji ale vědět, jak se ke stavbě dostanu a kam díly složím. Roli hraje i terén, výškové rozdíly, balkony nebo přístřešky, proto je lepší situaci probrat předem."
         },
         {
           "type": "heading",
-          "text": "Co uvést v poptávce"
+          "text": "Co napsat do poptávky"
         },
         {
           "type": "numbered",
           "items": [
             {
               "title": "Přibližné rozměry domu",
-              "text": "Délky stran, případně u které části domu lešení potřebujete."
+              "text": "Délky stěn, případně u které části domu lešení potřebujete."
             },
             {
               "title": "Počet podlaží",
-              "text": "Výška objektu a tvar střechy."
+              "text": "Výška domu a tvar střechy."
             },
             {
               "title": "Doba pronájmu",
               "text": "Od kdy a na jak dlouho."
             },
             {
-              "title": "Účel",
+              "title": "K čemu lešení potřebujete",
               "text": "Fasáda, zateplení, střecha, nátěry…"
             }
           ]
         },
         {
           "type": "heading",
-          "text": "Bezpečnost především"
+          "text": "Bezpečnost"
         },
         {
           "type": "text",
-          "text": "Lešení musí být sestaveno a používáno v souladu s jeho určením. Kontroluje se kompletnost konstrukce, podlážky, zábradlí, kotvení a další prvky — i průběžně během používání. Lešení proto není vhodné svévolně upravovat nebo z něj odebírat díly. Pokud se změní způsob používání nebo je potřeba lešení přestavět, je nutné to řešit odpovídajícím způsobem."
+          "text": "Lešení se musí postavit a používat tak, jak je určeno. Kontroluje se, jestli jsou na místě všechny díly, podlážky, zábradlí a kotvení, a to i průběžně během práce. Proto z něj prosím nic neodebírejte a sami ho neupravujte. Když ho potřebujete přestavět, zavolejte mi."
         },
         {
           "type": "heading",
@@ -820,32 +820,32 @@
           "type": "faq",
           "items": [
             {
-              "title": "Na jaké stavby je rámové lešení vhodné?",
-              "text": "Hlavně na rodinné domy, rekonstrukce a menší stavby — opravy a zateplení fasády, omítání, nátěry, práce u střech a další činnosti kolem objektu."
+              "title": "Na jaké stavby se rámové lešení hodí?",
+              "text": "Hlavně na rodinné domy a menší stavby. Na opravy a zateplení fasády, omítání, nátěry nebo práci u střechy."
             },
             {
               "title": "Musím si lešení přijet vyzvednout?",
-              "text": "Nemusíte. Dopravu na stavbu lze podle domluvy zajistit."
+              "text": "Nemusíte, po domluvě ho dovezu."
             },
             {
-              "title": "Je možné zapůjčit i stavební stojky?",
-              "text": "Ano, podle konkrétního řešení."
+              "title": "Půjčujete i stavební stojky?",
+              "text": "Ano, podle toho, co stavba potřebuje."
             },
             {
-              "title": "Na jak dlouho si mohu lešení půjčit?",
-              "text": "Podle zakázky a dohody — od krátkodobého zapůjčení na konkrétní práci až po pronájem na celou dobu rekonstrukce."
+              "title": "Na jak dlouho si můžu lešení půjčit?",
+              "text": "Na pár dní i na celou rekonstrukci. Záleží na domluvě."
             },
             {
-              "title": "Kolik lešení potřebuji na rodinný dům?",
-              "text": "Záleží na rozměrech, výšce, tvaru domu a rozsahu prací. Stačí poslat přibližné rozměry a popsat, co budete na lešení dělat."
+              "title": "Kolik lešení potřebuju na rodinný dům?",
+              "text": "Podle rozměrů, výšky a tvaru domu a podle toho, co budete dělat. Pošlete mi přibližné rozměry a spočítám to."
             },
             {
-              "title": "Co když potřebuji lešení jen na část domu?",
-              "text": "I to je možné. Rozsah lešení se přizpůsobí tomu, kde a jaké práce budete provádět."
+              "title": "Můžu si půjčit lešení jen na část domu?",
+              "text": "Ano. Postavíme ho jen tam, kde budete pracovat."
             },
             {
-              "title": "Jak zjistím cenu pronájmu?",
-              "text": "Cena závisí na množství lešení, délce pronájmu, dopravě a konkrétním řešení. Pošlete základní informace o stavbě a termín a domluvíme konkrétní nabídku."
+              "title": "Kolik pronájem stojí?",
+              "text": "Záleží na množství lešení, délce pronájmu a dopravě. Napište mi pár údajů o stavbě a termín a pošlu vám nabídku."
             }
           ]
         }
@@ -858,12 +858,12 @@
       "nav_label": "Stavební práce",
       "in_chooser": true,
       "chooser_title": "Stavební práce",
-      "chooser_hint": "Protipožární systémy, zednické práce, sádrokartony a další.",
+      "chooser_hint": "Protipožární utěsnění prostupů a menší stavební práce.",
       "meta_title": "Stavební práce a protipožární pasivní systémy | Stavby Literák",
       "meta_description": "Protipožární utěsnění prostupů a spár systémy Pyroplex a Nullifire. Zednické práce, sádrokartony, elektro, instalatérské práce, malby, podlahy. Frýdek-Místek.",
       "crumb": "Stavební práce",
       "title": "Stavební práce",
-      "lead": "Protipožární pasivní systémy a menší stavební práce v domluveném rozsahu.",
+      "lead": "Protipožární utěsnění prostupů a menší stavební práce podle domluvy.",
       "theme": "",
       "facts": [
         {
@@ -897,36 +897,36 @@
         },
         {
           "type": "text",
-          "text": "Pasivní požární ochrana je součástí stavby. V případě požáru má omezit jeho šíření a zachovat požadované vlastnosti požárně dělicích konstrukcí. Zajišťuji protipožární utěsnění prostupů, spár a dalších konstrukčních detailů systémy značek **Pyroplex** a **Nullifire**.\n\nPři stavbě i rekonstrukci vzniká řada míst, kudy procházejí kabely, potrubí, vzduchotechnika a další rozvody. Tyto prostupy narušují požárně dělicí konstrukci a musí být odpovídajícím způsobem zabezpečeny — stejně jako spáry, dilatační a konstrukční napojení."
+          "text": "Pasivní požární ochrana je součástí stavby. Když začne hořet, má zabránit tomu, aby se oheň a kouř rozšířily do dalších místností. Utěsňuji prostupy, spáry a další detaily systémy **Pyroplex** a **Nullifire**.\n\nKaždou stavbou nebo rekonstrukcí vedou kabely, trubky a vzduchotechnika. Tam, kde procházejí požární stěnou nebo stropem, vzniká otvor, který musí být správně utěsněný. Totéž platí pro spáry a dilatace."
         },
         {
           "type": "numbered",
           "items": [
             {
-              "title": "Prostupy kabelů a kabelových tras",
-              "text": "Utěsnění v požárně dělicích stěnách a stropech."
+              "title": "Prostupy kabelů a kabelových žlabů",
+              "text": "Ve stěnách a stropech, které oddělují požární úseky."
             },
             {
               "title": "Prostupy potrubí",
-              "text": "Včetně manžet a pásek pro hořlavé potrubí."
+              "text": "Včetně manžet a pásek na hořlavé (plastové) potrubí."
             },
             {
               "title": "Spáry a otvory",
-              "text": "Lineární, dilatační a konstrukční spáry."
+              "text": "Lineární, dilatační i konstrukční spáry."
             },
             {
               "title": "Konstrukční detaily",
-              "text": "Protipožární ochrana vybraných detailů, nátěry ocelových konstrukcí."
+              "text": "Ochrana vybraných detailů a nátěry ocelových konstrukcí."
             },
             {
               "title": "Dodatečné prostupy",
-              "text": "Při rekonstrukcích a nových instalacích, kdy se na utěsnění často zapomíná."
+              "text": "Při rekonstrukcích a nových rozvodech, kdy se na utěsnění často zapomene."
             }
           ]
         },
         {
           "type": "text",
-          "text": "**Každý prostup má své řešení.** Rozhoduje, čím je prostup veden, jeho rozměr, zda jde o kabely nebo potrubí, materiál konstrukce, zda jde o stěnu nebo strop a požadovaná požární odolnost. Nestačí použít „protipožární materiál“ — musí to být odpovídající systém ve správné skladbě, aplikovaný podle technických podmínek výrobce."
+          "text": "**Univerzální řešení neexistuje.** Záleží na tom, co prostupem vede, jak je velký, jestli jde o stěnu, nebo strop, z čeho je konstrukce a jakou požární odolnost má mít. Nestačí koupit „protipožární tmel“. Musí se použít správný systém ve správné skladbě a přesně podle návodu výrobce."
         },
         {
           "type": "gallery",
@@ -961,7 +961,7 @@
         {
           "type": "note",
           "style": "info",
-          "text": "Ilustrační fotografie výrobků — majetkem výrobců Pyroplex a Nullifire."
+          "text": "Fotografie výrobků jsou ilustrační a patří výrobcům Pyroplex a Nullifire."
         },
         {
           "type": "heading",
@@ -995,24 +995,24 @@
           "type": "faq",
           "items": [
             {
-              "title": "Proč je potřeba utěsňovat prostupy kabelů a potrubí?",
-              "text": "Prostup v požárně dělicí stěně nebo stropu narušuje její požární odolnost. Protipožární systém má v tom místě obnovit požadované vlastnosti konstrukce."
+              "title": "Proč se prostupy musí utěsňovat?",
+              "text": "Každý otvor v požární stěně nebo stropu oslabuje jejich odolnost. Správné utěsnění ji vrací tam, kde má být."
             },
             {
-              "title": "Lze jeden protipožární tmel použít na všechny prostupy?",
-              "text": "Ne. Řešení závisí na typu konstrukce, rozměru prostupu, druhu instalace a konkrétním systému. Výrobci pro jednotlivé aplikace uvádějí konkrétní skladby a podmínky použití."
+              "title": "Jde jedním tmelem utěsnit všechny prostupy?",
+              "text": "Ne. Výrobci mají pro různé prostupy různé skladby a podmínky použití. Rozhoduje konstrukce, velikost prostupu a to, co jím vede."
             },
             {
-              "title": "Řešíte prostupy i při rekonstrukcích?",
-              "text": "Ano — u novostaveb i při rekonstrukcích a dodatečných instalacích."
+              "title": "Děláte to i při rekonstrukcích?",
+              "text": "Ano. U novostaveb, při rekonstrukcích i tehdy, když se dodatečně natahují nové rozvody."
             },
             {
-              "title": "Umíte vyřešit i prostup, který už je hotový?",
-              "text": "Ano, pokud ho lze odpovídajícím způsobem zabezpečit. Nejdřív je potřeba posoudit jeho provedení, rozměry, typ instalace a konstrukci."
+              "title": "Umíte utěsnit prostup, který už existuje?",
+              "text": "Většinou ano. Nejdřív se ale musím podívat, jak je udělaný, jak je velký a co jím vede."
             },
             {
-              "title": "Jak zjistím, jaké řešení potřebuji?",
-              "text": "Nejdůležitější je znát konstrukci a samotný prostup. Pokud si nejste jistí, místo posoudím a určím vhodný způsob řešení."
+              "title": "Jak poznám, co potřebuji?",
+              "text": "Nemusíte to vědět. Přijedu, prostup si prohlédnu a navrhnu řešení."
             }
           ]
         },
@@ -1022,7 +1022,7 @@
         },
         {
           "type": "text",
-          "text": "Menší stavební práce v domluveném rozsahu — zavolejte a probereme, co potřebujete."
+          "text": "Po domluvě dělám i menší stavební práce. Zavolejte a probereme, co potřebujete."
         },
         {
           "type": "grid",
@@ -1076,7 +1076,7 @@
       "meta_description": "Půjčovna vybavení na oslavy, svatby a párty: pivní sety, výčep na 2 sudy, kotlík na guláš, rožeň, ohřevné vany, várnice, hotdogovač, reproduktor JBL. Frýdek-Místek.",
       "crumb": "Gastropůjčovna",
       "title": "Gastropůjčovna",
-      "lead": "Chystáte oslavu narozenin, svatbu, posezení s přáteli nebo párty? Půjčím vybavení, které celou akci zpříjemní a posune na vyšší úroveň.",
+      "lead": "Slavíte narozeniny, svatbu, nebo chystáte posezení s přáteli? Půjčím vám vybavení na čepování, vaření, grilování i sezení.",
       "theme": "",
       "facts": [
         {
@@ -1099,7 +1099,7 @@
       "photo": "",
       "photo_caption": "",
       "ask_title": "Gastropůjčovna",
-      "ask_note": "Napište termín akce a co byste chtěli půjčit — ověřím dostupnost a pošlu cenu.",
+      "ask_note": "Napište termín akce a co byste chtěli půjčit. Ověřím, co je volné, a pošlu cenu.",
       "form_service": "Gastropůjčovna",
       "aliases": [],
       "blocks": [
@@ -1112,28 +1112,28 @@
           "items": [
             {
               "title": "Výčep na pivo a limo — 2 kohouty",
-              "text": "Na jedné pípě pivo, na druhé nealko pro děti. Výčepní zařízení má vlastní vzduchový kompresor, nebo ho lze připojit na CO₂.",
+              "text": "Na jedné pípě může být pivo, na druhé limonáda pro děti. Výčep má vlastní kompresor, nebo ho připojíte na CO₂.",
               "spec": "Narážecí hlavy na Radegast nebo Kofolu (bajonet / žehlička)",
               "count": "1 ks",
               "photo": "/assets/img/foto/gastro-vycep-2-kohouty.webp"
             },
             {
               "title": "Elektrický termos s kohoutem",
-              "text": "Horký čaj, káva nebo svařák stále po ruce. Pro studené pití stačí nezapínat ohřev.",
+              "text": "Na čaj, kávu nebo svařák, aby byly pořád po ruce. Když nezapnete ohřev, poslouží i na studené pití.",
               "spec": "Objem 20 l · pouze pro nápoje, ne na omáčky, polévky ani guláš",
               "count": "1 ks",
               "photo": "/assets/img/foto/gastro-termos-elektricky.webp"
             },
             {
               "title": "Nerezová várnice s kohoutem",
-              "text": "Připravený nápoj stačí nalít do várnice a máte vystaráno.",
+              "text": "Uvařený nápoj nalijete do várnice a hosté si točí sami.",
               "spec": "Pouze pro nápoje, ne na omáčky, polévky ani guláš",
               "count": "1 ks",
               "photo": "/assets/img/foto/gastro-varnice-nerez.webp"
             },
             {
               "title": "Termobox",
-              "text": "Polystyrenový termobox pro převoz a uchování potravin a nápojů.",
+              "text": "Polystyrenový box na převoz a uchování jídla a pití.",
               "spec": "",
               "count": "2 ks",
               "photo": "/assets/img/foto/gastro-termobox.webp"
@@ -1149,42 +1149,42 @@
           "items": [
             {
               "title": "Kotlík na guláš",
-              "text": "Lehký přenosný set nerezového kotlíku s poklicí a ocelového topeniště. Ideální na svařák, pravý kotlíkový guláš nebo vaječinu. Stačí pár drobných polínek a zavaříte celý objem — nízká spotřeba paliva.",
+              "text": "Nerezový kotlík s poklicí a ocelové topeniště, lehké a snadno přenosné. Uvaříte v něm guláš, svařák nebo vaječinu. Stačí pár polínek a celý kotlík vody se uvaří, takže dřeva spotřebujete málo.",
               "spec": "Objem cca 27 l",
               "count": "1 ks",
               "photo": "/assets/img/foto/gastro-kotlik-na-gulas.webp"
             },
             {
               "title": "Rožeň s elektrickou otočí",
-              "text": "Celonerezový rožeň na dřevěné uhlí nebo brikety na drůbež, špízy, zeleninu i menší kýtu. Zadní topeniště s popelníkem, nastavitelná vzdálenost od topeniště, motorek 230 V. Vejdou se 2–4 kuřata — ideálně kolem 1,2 kg, větší se dělají zbytečně dlouho.",
+              "text": "Celonerezový rožeň na dřevěné uhlí nebo brikety. Upečete na něm drůbež, špízy, zeleninu i menší kýtu. Topeniště je vzadu s popelníkem, vzdálenost od žhavého uhlí jde nastavit a rožeň otáčí motorek na 230 V. Vejdou se 2 až 4 kuřata. Nejlepší jsou kolem 1,2 kg, větší se pečou zbytečně dlouho.",
               "spec": "Do 7 kg · rozměry 100 × 119 × 67 cm",
               "count": "1 ks",
               "photo": "/assets/img/foto/gastro-rozen.webp"
             },
             {
               "title": "Elektrický kotlík na polévku a guláš",
-              "text": "Nerezový varný kotlík pro udržování a výdej teplých polévek, omáček a guláše. Ohřev ve vodní lázni, takže se nic nepřipeče.",
+              "text": "Nerezový kotlík na udržování a výdej teplé polévky, omáčky nebo guláše. Ohřívá ve vodní lázni, takže se nic nepřipálí.",
               "spec": "Objem 10 l",
               "count": "2 ks",
               "photo": "/assets/img/foto/gastro-kotlik-elektricky.webp"
             },
             {
               "title": "Chafing — elektrická ohřevná vana",
-              "text": "Neodhadli jste množství masa na grilu? V ohřevné vaně udržíte jídlo teplé a čerstvé, jak dlouho potřebujete. Ohřev ve vodní lázni, nic se nepřipeče.",
+              "text": "Udělali jste na grilu víc masa, než se snědlo? V ohřevné vaně zůstane teplé, dokud ho hosté nedojedí. Ohřívá ve vodní lázni, takže se nic nepřipálí.",
               "spec": "Objem 8,5 l · včetně GN 1/1 a víka",
               "count": "2 ks",
               "photo": "/assets/img/foto/gastro-chafing.webp"
             },
             {
               "title": "Hotdogovač se 2 trny",
-              "text": "Napařovací skleněný válec s děleným nerezovým košem pro 2 druhy párků a dva trny na nahřívání rohlíků. Rychlá svačina pro dospělé i děti.",
+              "text": "Skleněný napařovací válec s děleným košem na dva druhy párků a dva trny na nahřívání rohlíků. Rychlé jídlo, které chutná dospělým i dětem.",
               "spec": "",
               "count": "1 ks",
               "photo": "/assets/img/foto/gastro-hotdogovac.webp"
             },
             {
               "title": "Stojan na přílohy",
-              "text": "Nerezový set 4 gastronádob na přílohy, omáčky a dochucovadla.",
+              "text": "Nerezový stojan se čtyřmi nádobami na přílohy, omáčky a dochucovadla.",
               "spec": "4 × 0,9 l · 47 × 19 × 15 cm",
               "count": "2 ks",
               "photo": "/assets/img/foto/gastro-stojan-na-prilohy.webp"
@@ -1200,14 +1200,14 @@
           "items": [
             {
               "title": "Pivní set — stůl a 2 lavice",
-              "text": "Co by byla oslava, kdybyste měli sedět na mokré zemi? Čundr je romantika, ale není pro každého.",
+              "text": "Na mokré zemi se dobře nesedí. Čundr má svoje kouzlo, ale na oslavu se víc hodí stůl a lavice.",
               "spec": "Stůl 200 × 50 × 77 cm, nosnost 150 kg · lavice 200 × 25 × 46 cm, nosnost 250 kg",
               "count": "5 sad",
               "photo": "/assets/img/foto/gastro-pivni-set.webp"
             },
             {
               "title": "Bluetooth reproduktor JBL — partybox",
-              "text": "Posezení bez hudby není ono. Zvládne akci pro zhruba 50 lidí, karaoke není problém — k dispozici jsou i 2 bezdrátové mikrofony JBL.",
+              "text": "Bez hudby to není ono. Reproduktor zvládne akci zhruba pro 50 lidí a ke dvěma bezdrátovým mikrofonům si můžete zazpívat i karaoke.",
               "spec": "400 W RMS · baterie až 15 hodin, nebo ze sítě",
               "count": "1 ks",
               "photo": "/assets/img/foto/gastro-reproduktor-jbl.webp"
@@ -1217,7 +1217,7 @@
         {
           "type": "note",
           "style": "info",
-          "text": "Fotografie vybavení jsou ilustrační — mohou pocházet od oficiálních prodejců či výrobců a jsou majetkem jejich autorů. Skutečné vybavení se může v detailech lišit."
+          "text": "Fotografie vybavení jsou ilustrační. Pocházejí od prodejců nebo výrobců a patří jejich autorům. Skutečné vybavení se může v detailech lišit."
         },
         {
           "type": "heading",
@@ -1227,16 +1227,16 @@
           "type": "bullets",
           "items": [
             {
-              "text": "Ceny jsou individuální podle délky pronájmu a dalších okolností."
+              "text": "Cenu počítám podle toho, co si půjčíte a na jak dlouho."
             },
             {
-              "text": "Podle potřeby zajistím dopravu, sestavení a zprovoznění."
+              "text": "Po domluvě vybavení dovezu, sestavím a zprovozním."
             },
             {
-              "text": "Minimální doba pronájmu je 1 den."
+              "text": "Půjčuji nejméně na jeden den."
             },
             {
-              "text": "Nájemce používá veškeré vybavení na vlastní odpovědnost."
+              "text": "Vybavení používáte na vlastní odpovědnost."
             }
           ]
         },
@@ -1248,28 +1248,28 @@
           "type": "faq",
           "items": [
             {
-              "title": "Na jak dlouho si mohu vybavení půjčit?",
-              "text": "Minimální doba pronájmu je 1 den. Delší pronájem je samozřejmě možný."
+              "title": "Na jak dlouho si můžu vybavení půjčit?",
+              "text": "Nejméně na jeden den. Na víkend nebo na delší dobu samozřejmě taky."
             },
             {
-              "title": "Kolik pronájem stojí?",
-              "text": "Cena je individuální podle délky pronájmu a dalších okolností. Napište termín akce a co byste chtěli půjčit — ověřím dostupnost a pošlu cenu."
+              "title": "Kolik to stojí?",
+              "text": "Záleží na tom, co a na jak dlouho si půjčíte. Napište mi termín a co potřebujete a pošlu vám cenu."
             },
             {
-              "title": "Dovezete vybavení až na místo?",
-              "text": "Ano, podle potřeby zajistím dopravu, sestavení i zprovoznění."
+              "title": "Dovezete vybavení na místo?",
+              "text": "Ano. Po domluvě ho dovezu, sestavím i zprovozním."
             },
             {
-              "title": "Jaké sudy jdou napojit na výčep?",
-              "text": "Výčep má dva kohouty, takže můžete mít současně pivo i nealko. Narážecí hlavy jsou na Radegast nebo Kofolu (bajonet / žehlička). Výčep má vlastní vzduchový kompresor, nebo se dá připojit na CO₂."
+              "title": "Jaké sudy jdou na výčep napojit?",
+              "text": "Výčep má dva kohouty, takže můžete čepovat pivo i limonádu zároveň. Narážecí hlavy jsou na Radegast a Kofolu (bajonet a žehlička)."
             },
             {
-              "title": "Můžu v termosu nebo várnici ohřívat polévku či guláš?",
-              "text": "Ne, termos i várnice jsou pouze na nápoje. Na polévky, omáčky a guláš je určený elektrický kotlík nebo ohřevná vana (chafing) — oba ohřívají ve vodní lázni, takže se nic nepřipeče."
+              "title": "Můžu v termosu nebo ve várnici ohřívat polévku?",
+              "text": "Ne, ty jsou jen na nápoje. Na polévku, omáčku nebo guláš si půjčte elektrický kotlík nebo ohřevnou vanu. Obojí ohřívá ve vodní lázni, takže se nic nepřipálí."
             },
             {
-              "title": "Kolik lidí ozvučí reproduktor?",
-              "text": "Bluetooth reproduktor JBL s výkonem 400 W RMS zvládne akci zhruba pro 50 lidí, i s karaoke — k dispozici jsou 2 bezdrátové mikrofony."
+              "title": "Kolik lidí reproduktor ozvučí?",
+              "text": "Zhruba 50. Má výkon 400 W a na baterii vydrží až 15 hodin."
             }
           ]
         }
@@ -1287,7 +1287,7 @@
       "meta_description": "Certifikáty, osvědčení o školeních a oprávnění pro termovizní měření, protipožární systémy Pyroplex a Nullifire a další práce. Jan Literák, Frýdek-Místek.",
       "crumb": "Certifikáty",
       "title": "Certifikáty a školení",
-      "lead": "Osvědčení o školeních, certifikace výrobců a oprávnění, se kterými pracuji. Kliknutím certifikát zvětšíte.",
+      "lead": "Školení, certifikáty od výrobců a osvědčení, které jsem za ta léta získal. Kliknutím certifikát zvětšíte.",
       "theme": "",
       "facts": [],
       "photo": "",
@@ -1444,7 +1444,7 @@
         },
         {
           "type": "text",
-          "text": "**Jan Literák** — Stavby Literák\nMalé náměstí 98, 738 01 Frýdek-Místek\nIČ: 03171949\n\nFyzická osoba podnikající podle živnostenského zákona, zapsaná v živnostenském rejstříku.\n\nTelefon: [+420 723 009 858](tel:+420723009858) · E-mail: [stavbyliterak@email.cz](mailto:stavbyliterak@email.cz)"
+          "text": "**Jan Literák**, Stavby Literák\nMalé náměstí 98, 738 01 Frýdek-Místek\nIČ: 03171949\n\nFyzická osoba podnikající podle živnostenského zákona, zapsaná v živnostenském rejstříku.\n\nTelefon: [+420 723 009 858](tel:+420723009858) · E-mail: [stavbyliterak@email.cz](mailto:stavbyliterak@email.cz)"
         },
         {
           "type": "heading",
@@ -1462,7 +1462,7 @@
         },
         {
           "type": "text",
-          "text": "Když mě kontaktujete přes formulář na webu, telefonem nebo e-mailem, zpracovávám údaje, které mi sami sdělíte — jméno, telefon, e-mail, místo a popis poptávky. Používám je jen k vyřízení poptávky, přípravě nabídky a případné spolupráci.\n\nPrávním základem je jednání o uzavření smlouvy a její plnění (čl. 6 odst. 1 písm. b) GDPR), u fakturačních údajů plnění zákonných povinností (čl. 6 odst. 1 písm. c) GDPR). Údaje nepoužívám k marketingu a nezasílám obchodní sdělení."
+          "text": "Když mě kontaktujete přes formulář na webu, telefonem nebo e-mailem, zpracovávám údaje, které mi sami sdělíte: jméno, telefon, e-mail, místo a popis poptávky. Používám je jen k tomu, abych vám mohl odpovědět, připravit nabídku a případně zakázku udělat.\n\nPrávním základem je jednání o uzavření smlouvy a její plnění (čl. 6 odst. 1 písm. b) GDPR), u fakturačních údajů plnění zákonných povinností (čl. 6 odst. 1 písm. c) GDPR). Údaje nepoužívám k marketingu a nezasílám obchodní sdělení."
         },
         {
           "type": "heading",
@@ -1480,7 +1480,7 @@
         },
         {
           "type": "text",
-          "text": "Údaje neprodávám ani nepředávám dalším firmám pro jejich účely. Přístup k nim mohou mít jen poskytovatelé služeb, které k provozu nutně potřebuji — hosting webu (Cloudflare), poskytovatel e-mailové schránky a účetní. Pokud některý z nich zpracovává data mimo EU, děje se tak se zárukami podle GDPR (např. standardní smluvní doložky)."
+          "text": "Údaje neprodávám ani nepředávám dalším firmám pro jejich účely. Přístup k nim mohou mít jen poskytovatelé služeb, které k provozu nutně potřebuji: hosting webu (Cloudflare), poskytovatel e-mailové schránky a účetní. Pokud některý z nich zpracovává data mimo EU, děje se tak se zárukami podle GDPR (např. standardní smluvní doložky)."
         },
         {
           "type": "heading",
@@ -1513,7 +1513,7 @@
         },
         {
           "type": "text",
-          "text": "Pro uplatnění práv stačí napsat na e-mail nebo zavolat — odpovím bez zbytečného odkladu, nejpozději do 1 měsíce."
+          "text": "Pro uplatnění práv mi stačí napsat nebo zavolat. Odpovím bez zbytečného odkladu, nejpozději do jednoho měsíce."
         },
         {
           "type": "heading",
@@ -1540,7 +1540,7 @@
         },
         {
           "type": "text",
-          "text": "Fotografie realizací pocházejí z vlastních zakázek. Fotografie některých výrobků a vybavení (např. v gastropůjčovně nebo u protipožárních systémů) jsou ilustrační — mohou pocházet od oficiálních prodejců či výrobců a jsou majetkem jejich autorů. Skutečné vybavení se může v detailech lišit."
+          "text": "Fotografie realizací pocházejí z vlastních zakázek. Fotografie některých výrobků a vybavení (např. v gastropůjčovně nebo u protipožárních systémů) jsou ilustrační. Mohou pocházet od oficiálních prodejců nebo výrobců a patří jejich autorům. Skutečné vybavení se může v detailech lišit."
         }
       ]
     }

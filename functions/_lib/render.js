@@ -264,7 +264,7 @@ function contact(ctx, preselect) {
 </div>
 <div><label for="misto">Místo (obec)</label><input id="misto" name="misto" autocomplete="address-level2"></div>
 <div hidden><label for="web">Nevyplňujte</label><input id="web" name="web" tabindex="-1" autocomplete="off"></div>
-<div><label for="zprava">Co potřebujete</label><textarea id="zprava" name="zprava" placeholder="Stačí pár vět — rozměry, termín, cokoli víte."></textarea></div>
+<div><label for="zprava">Co potřebujete</label><textarea id="zprava" name="zprava" placeholder="Stačí pár vět: rozměry, termín, cokoli víte."></textarea></div>
 <div><button class="btn" type="submit">Odeslat poptávku</button></div>
 <p class="note" data-status role="status">Údaje použiju jen k vyřízení poptávky.${
       legal ? ` <a href="${pageUrl(LEGAL_SLUG)}#osobni-udaje">Ochrana osobních údajů</a>` : ''}</p>
@@ -364,7 +364,7 @@ function ask(site, p) {
   return `<aside class="ask" aria-label="Poptávka">
 <span class="label">Poptávka</span>
 <h2>${esc(p.ask_title || p.title)}</h2>
-<p>Popište, co potřebujete — ozvu se a domluvíme se.</p>
+<p>Napište mi, co potřebujete, a ozvu se vám.</p>
 <a class="phone" href="tel:${esc(tel(site.phone))}">${esc(site.phone)}</a>
 <a class="mail" href="mailto:${esc(site.email)}">${esc(site.email)}</a>
 ${p.ask_note ? `<p class="ask-note">${inline(p.ask_note)}</p>` : ''}
