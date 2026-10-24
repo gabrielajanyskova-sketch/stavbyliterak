@@ -64,17 +64,17 @@ const RIDGE_FRONT =
   'M250 260C340 248 410 190 448 140C468 112 486 90 508 78C522 71 536 70 552 72C574 75 594 70 616 62C630 57 642 56 656 60C690 70 722 104 756 128C774 140 788 146 800 148';
 const RIDGE = `<svg class="ridge" viewBox="0 -32 800 292" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
 <path d="${RIDGE_BACK}V260H0Z" fill="#2b3138"/>
-<path class="ridge-line" d="${RIDGE_BACK}" fill="none" stroke="#f39a1e" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
-<g class="tower" transform="translate(300 54) scale(.9) translate(-112 -78)">
-<path d="M110 1 110.9 28 112.2 36 113.8 42 117 47.5 119.5 53H100.5L103 47.5 106.2 42 107.8 36 109.1 28Z" fill="#f39a1e"/>
-<path d="M92 66h5.2v13H92zM99 66h5.2v13H99zM120.5 66h5.2v13h-5.2zM127.5 66h5.2v13h-5.2z" fill="#f39a1e"/>
-<path d="M82 61 108 51 146 55 113 68Z" fill="#2b3138" stroke="#f39a1e" stroke-width="1.4" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
-<path d="M82 61 113 68 146 55" fill="none" stroke="#f39a1e" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
-<circle class="tower-light" cx="110" cy="1.5" r="2.6" fill="#ff4a2b"/>
+<path class="ridge-line" d="${RIDGE_BACK}" fill="none" stroke="#f39a1e" stroke-width="1.4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<g class="tower" transform="translate(300 54) scale(.7) translate(-112 -78)">
+<path d="M110 1 110.6 28 111.5 36 112.6 42 115 47.5 117 53H103L105 47.5 107.4 42 108.5 36 109.4 28Z" fill="#f39a1e"/>
+<path d="M93 66h3.4v13H93zM99.5 66h3.4v13h-3.4zM121.5 66h3.4v13h-3.4zM128 66h3.4v13H128z" fill="#f39a1e"/>
+<path d="M82 61 108 51 146 55 113 68Z" fill="#2b3138" stroke="#f39a1e" stroke-width=".9" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<path d="M82 61 113 68 146 55" fill="none" stroke="#f39a1e" stroke-width="1.8" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle class="tower-light" cx="110" cy="1.5" r="2.2" fill="#ff4a2b"/>
 </g>
 <path d="${RIDGE_FRONT}V260H250Z" fill="#22262c"/>
 <clipPath id="ridge-sky"><rect x="458" width="342" height="260"/></clipPath>
-<path d="${RIDGE_FRONT}" clip-path="url(#ridge-sky)" fill="none" stroke="#f39a1e" stroke-opacity="0.55" stroke-width="1.5" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<path d="${RIDGE_FRONT}" clip-path="url(#ridge-sky)" fill="none" stroke="#f39a1e" stroke-opacity="0.55" stroke-width="1" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
 </svg>`;
 
 // ---------- schema.org ----------
