@@ -189,7 +189,7 @@ function head(ctx, { title, description, path, image, schema, preload = '' }) {
 <html lang="cs">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
 ${ctx.noindex ? '<meta name="robots" content="noindex">\n' : ''}<link rel="canonical" href="${esc(url)}">
@@ -203,6 +203,8 @@ ${ctx.noindex ? '<meta name="robots" content="noindex">\n' : ''}<link rel="canon
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#1d2126">
 <link rel="icon" href="/assets/img/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/assets/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 ${preload}<link rel="stylesheet" href="/assets/css/fonts.css">
@@ -253,7 +255,7 @@ function contact(ctx, preselect) {
 <dl class="contact-lines">
 <div><dt>Telefon</dt><dd><a class="big" href="tel:${esc(tel(site.phone))}">${esc(site.phone)}</a></dd></div>
 <div><dt>E-mail</dt><dd><a href="mailto:${esc(site.email)}">${esc(site.email)}</a></dd></div>
-<div><dt>Adresa</dt><dd>${esc(site.address)}</dd></div>
+<div><dt>Adresa</dt><dd><a href="https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(site.address)}" target="_blank" rel="noopener">${esc(site.address)}</a></dd></div>
 <div><dt>Fakturační údaje</dt><dd>${esc(site.owner)} · IČ ${esc(site.ico)}</dd></div>
 </dl>
 </div>
@@ -289,6 +291,10 @@ ${links}
 <span>© ${esc(site.owner)} · <a href="tel:${esc(tel(site.phone))}">${esc(site.phone)}</a></span>
 </div>
 </footer>
+<nav class="callbar" aria-label="Rychlý kontakt">
+<a href="tel:${esc(tel(site.phone))}">Zavolat</a>
+<a href="#kontakt">Poptávka</a>
+</nav>
 <script src="/assets/js/main.js" defer></script>
 </body>
 </html>

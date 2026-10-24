@@ -4,7 +4,7 @@ import { ensureDb, getSite, getPages } from './_lib/db.js';
 import { renderHome, renderPage, renderNotFound, renderSitemap, renderRobots, renderLlms, pageUrl } from './_lib/render.js';
 import { handleApi, serveImage, json } from './_lib/api.js';
 
-const STATIC = /^\/(assets\/|admin(\.html)?$|favicon)/;
+const STATIC = /^\/(assets\/|admin(\.html)?$|favicon|manifest\.webmanifest$)/;
 
 const SECURITY_HEADERS = {
   'X-Content-Type-Options': 'nosniff',

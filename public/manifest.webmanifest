@@ -1,0 +1,12 @@
+{
+  "name": "Stavby Literák",
+  "short_name": "Literák",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#1d2126",
+  "theme_color": "#1d2126",
+  "icons": [
+    { "src": "/assets/img/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/img/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
