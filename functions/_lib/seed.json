@@ -442,7 +442,7 @@
             },
             {
               "title": "Co je potřeba připravit před příjezdem techniky?",
-              "text": "Určit rozsah a umístění výkopů, zajistit přístup a prostor pro zeminu. Před zahájením musí být ověřeny a vytyčeny podzemní sítě a připravené případné projekty a povolení — to je povinnost zákazníka."
+              "text": "Určit rozsah a umístění výkopů, zajistit přístup a prostor pro zeminu. Před zahájením musí být ověřeny a vytyčeny podzemní sítě a připraveny případné projekty a povolení — to je povinnost zákazníka."
             },
             {
               "title": "Zůstanou po technice stopy?",
@@ -795,7 +795,7 @@
               "text": "Výška objektu a tvar střechy."
             },
             {
-              "title": "Dobu pronájmu",
+              "title": "Doba pronájmu",
               "text": "Od kdy a na jak dlouho."
             },
             {
@@ -1112,7 +1112,7 @@
           "items": [
             {
               "title": "Výčep na pivo a limo — 2 kohouty",
-              "text": "Na jedné pípě pivo, na druhé nealko pro děti. Výčepní zařízení s vlastním vzduchovým kompresorem, nebo lze připojit na CO₂.",
+              "text": "Na jedné pípě pivo, na druhé nealko pro děti. Výčepní zařízení má vlastní vzduchový kompresor, nebo ho lze připojit na CO₂.",
               "spec": "Narážecí hlavy na Radegast nebo Kofolu (bajonet / žehlička)",
               "count": "1 ks",
               "photo": "/assets/img/foto/gastro-vycep-2-kohouty.webp"
@@ -1488,6 +1488,10 @@
           "level": 3
         },
         {
+          "type": "text",
+          "text": "Máte právo:"
+        },
+        {
           "type": "bullets",
           "items": [
             {
@@ -1500,7 +1504,7 @@
               "text": "požadovat omezení zpracování nebo vznést námitku,"
             },
             {
-              "text": "na přenositelnost údajů,"
+              "text": "požadovat přenesení údajů k jinému správci,"
             },
             {
               "text": "podat stížnost u Úřadu pro ochranu osobních údajů ([uoou.gov.cz](https://uoou.gov.cz))."
