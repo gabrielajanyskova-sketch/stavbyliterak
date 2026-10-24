@@ -2,36 +2,56 @@
 "use strict";
 
 const TOKEN_KEY = "admin_token";
-// Fotky uložené přímo v repozitáři (public/assets/img/foto, zmenšeniny v foto/sm)
+// Fotky uložené přímo v repozitáři (public/assets/img/foto, zmenšeniny ve foto/sm).
+// Nová fotka přidaná do repozitáře se tu musí doplnit, aby šla vybrat v adminu.
 const BUILTIN_IMAGES = [
+  // zemní práce
   { url: "/assets/img/bagr.webp", name: "Minibagr Kubota KX016-4" },
-  { url: "/assets/img/foto/hlinikova-pergola.webp", name: "Hliníková pergola" },
-  { url: "/assets/img/foto/hlinikove-zabradli-balkon.webp", name: "Hliníkové zábradlí na balkoně" },
-  { url: "/assets/img/foto/hlinikove-zabradli-dum.webp", name: "Hliníkové zábradlí balkonu" },
-  { url: "/assets/img/foto/hlinikove-zabradli-terasa.webp", name: "Hliníkové zábradlí na terase" },
-  { url: "/assets/img/foto/leseni-doprava-dodavkou.webp", name: "Lešení — doprava dodávkou" },
-  { url: "/assets/img/foto/leseni-fasada-rodinny-dum.webp", name: "Lešení na fasádě rodinného domu" },
-  { url: "/assets/img/foto/leseni-ramova-sestava.webp", name: "Rámová sestava lešení (schéma)" },
-  { url: "/assets/img/foto/leseni-ramove-pozinkovane.webp", name: "Rámové pozinkované lešení" },
-  { url: "/assets/img/foto/logo-nullifire.webp", name: "Logo Nullifire" },
-  { url: "/assets/img/foto/logo-pyroplex.webp", name: "Logo Pyroplex" },
-  { url: "/assets/img/foto/minibagr-a-traktor-kubota.webp", name: "Minibagr a traktor Kubota" },
-  { url: "/assets/img/foto/pyroplex-manzeta-eta.webp", name: "Pyroplex — manžeta s ETA" },
-  { url: "/assets/img/foto/pyroplex-protipozarni-manzety.webp", name: "Pyroplex — protipožární manžety" },
-  { url: "/assets/img/foto/pyroplex-protipozarni-paska.webp", name: "Pyroplex — protipožární páska" },
-  { url: "/assets/img/foto/pyroplex-protipozarni-polstar.webp", name: "Pyroplex — protipožární polštář" },
-  { url: "/assets/img/foto/terenni-upravy-operna-zed.webp", name: "Terénní úpravy a opěrná zeď" },
-  { url: "/assets/img/foto/traktor-kubota-celni-nakladac.webp", name: "Traktor Kubota s čelním nakladačem" },
   { url: "/assets/img/foto/vykop-zakladova-deska.webp", name: "Výkop pro základy" },
+  { url: "/assets/img/foto/terenni-upravy-operna-zed.webp", name: "Terénní úpravy a opěrná zeď" },
+  { url: "/assets/img/foto/minibagr-a-traktor-kubota.webp", name: "Minibagr a traktor Kubota" },
+  { url: "/assets/img/foto/traktor-kubota-celni-nakladac.webp", name: "Traktor Kubota s čelním nakladačem" },
   { url: "/assets/img/foto/zakladac-travniku.webp", name: "Zakladač trávníku" },
   { url: "/assets/img/foto/zakladac-zpracovani-pudy.webp", name: "Zpracování půdy zakladačem" },
-  { url: "/assets/img/foto/zasklena-pergola-dreveny-dum.webp", name: "Zasklená pergola u dřevěného domu" },
-  { url: "/assets/img/foto/zasklena-terasa-dreveny-dum.webp", name: "Zasklená terasa u dřevostavby" },
+  // hliníkový program
+  { url: "/assets/img/foto/zimni-zahrada-rodinny-dum.webp", name: "Zimní zahrada u rodinného domu" },
+  { url: "/assets/img/foto/zasklena-terasa-dreveny-dum.webp", name: "Zasklená terasa u dřevěného domu" },
+  { url: "/assets/img/foto/zasklena-pergola-dreveny-dum.webp", name: "Zasklená terasa u dřevěného domu — pohled z boku" },
+  { url: "/assets/img/foto/zimni-zahrada-interier.webp", name: "Zasklená terasa u dřevěného domu — zevnitř" },
   { url: "/assets/img/foto/zaskleni-pergoly.webp", name: "Zasklení pergoly" },
   { url: "/assets/img/foto/zaskleni-terasy.webp", name: "Zasklení terasy" },
-  { url: "/assets/img/foto/zimni-zahrada-interier.webp", name: "Zimní zahrada zevnitř" },
-  { url: "/assets/img/foto/zimni-zahrada-rodinny-dum.webp", name: "Zimní zahrada u rodinného domu" },
+  { url: "/assets/img/foto/hlinikova-pergola.webp", name: "Hliníková pergola" },
   { url: "/assets/img/foto/zimni-zahrada-zahrada.webp", name: "Zimní zahrada na zahradě" },
+  { url: "/assets/img/foto/hlinikove-zabradli-dum.webp", name: "Hliníkové zábradlí balkonu" },
+  { url: "/assets/img/foto/hlinikove-zabradli-terasa.webp", name: "Hliníkové zábradlí na terase přístavby" },
+  { url: "/assets/img/foto/hlinikove-zabradli-balkon.webp", name: "Hliníkové zábradlí na terase přístavby — z druhé strany" },
+  // lešení
+  { url: "/assets/img/foto/leseni-doprava-dodavkou.webp", name: "Lešení — doprava dodávkou" },
+  { url: "/assets/img/foto/leseni-fasada-rodinny-dum.webp", name: "Lešení na fasádě rodinného domu" },
+  { url: "/assets/img/foto/leseni-ramove-pozinkovane.webp", name: "Rámové pozinkované lešení" },
+  { url: "/assets/img/foto/leseni-ramova-sestava.webp", name: "Rámová sestava lešení (schéma)" },
+  // protipožární systémy
+  { url: "/assets/img/foto/logo-pyroplex.webp", name: "Logo Pyroplex" },
+  { url: "/assets/img/foto/logo-nullifire.webp", name: "Logo Nullifire" },
+  { url: "/assets/img/foto/pyroplex-protipozarni-paska.webp", name: "Pyroplex — protipožární páska" },
+  { url: "/assets/img/foto/pyroplex-protipozarni-polstar.webp", name: "Pyroplex — protipožární polštář" },
+  { url: "/assets/img/foto/pyroplex-protipozarni-manzety.webp", name: "Pyroplex — protipožární manžety" },
+  { url: "/assets/img/foto/pyroplex-manzeta-eta.webp", name: "Pyroplex — manžeta s ETA" },
+  // gastropůjčovna
+  { url: "/assets/img/foto/gastro-vycep-oslava.webp", name: "Výčep na oslavě" },
+  { url: "/assets/img/foto/gastro-vycep-2-kohouty.webp", name: "Výčep na pivo a limo — 2 kohouty" },
+  { url: "/assets/img/foto/gastro-termos-elektricky.webp", name: "Elektrický termos s kohoutem" },
+  { url: "/assets/img/foto/gastro-varnice-nerez.webp", name: "Nerezová várnice s kohoutem" },
+  { url: "/assets/img/foto/gastro-termobox.webp", name: "Termobox" },
+  { url: "/assets/img/foto/gastro-kotlik-na-gulas.webp", name: "Kotlík na guláš" },
+  { url: "/assets/img/foto/gastro-rozen.webp", name: "Rožeň s elektrickou otočí" },
+  { url: "/assets/img/foto/gastro-kotlik-elektricky.webp", name: "Elektrický kotlík na polévku a guláš" },
+  { url: "/assets/img/foto/gastro-chafing.webp", name: "Chafing — elektrická ohřevná vana" },
+  { url: "/assets/img/foto/gastro-hotdogovac.webp", name: "Hotdogovač se 2 trny" },
+  { url: "/assets/img/foto/gastro-stojan-na-prilohy.webp", name: "Stojan na přílohy" },
+  { url: "/assets/img/foto/gastro-pivni-set.webp", name: "Pivní set — stůl a 2 lavice" },
+  { url: "/assets/img/foto/gastro-reproduktor-jbl.webp", name: "Bluetooth reproduktor JBL — partybox" },
+  // certifikáty
   { url: "/assets/img/foto/certifikat-termografie-ctg.webp", name: "Centrum termografie — Termografická diagnostika budov (2026)" },
   { url: "/assets/img/foto/osvedceni-pyroplex.webp", name: "Pyroplex — osvědčení k montáži protipožárních systémů (2024)" },
   { url: "/assets/img/foto/certifikat-nullifire.webp", name: "Nullifire — pasivní protipožární technika, školení (2024)" },
@@ -47,8 +67,6 @@ const BUILTIN_IMAGES = [
   { url: "/assets/img/foto/proverena-spolecnost-2023.webp", name: "Prověřená společnost 2023" },
   { url: "/assets/img/foto/certifikat-autocad.webp", name: "Autodesk — AutoCAD, 2D dokumentace (2010)" },
   { url: "/assets/img/foto/certifikat-vysazeni-stromu.webp", name: "Gala dřevo — certifikát o vysazení stromu (2025)" },
-  { url: "/assets/img/foto/gastro-vycep-oslava.webp", name: "Výčep na oslavě (gastropůjčovna)" },
-  { url: "/assets/img/foto/gastro-termobox.webp", name: "Termobox" },
 ];
 
 const BLOCK_TYPES = {
@@ -73,7 +91,7 @@ let token = null;
 try { token = localStorage.getItem(TOKEN_KEY); } catch {}
 
 let content = { site: null, pages: [] };
-let current = null; // { kind: 'page'|'home'|'settings'|'images', slug, draft }
+let current = null; // { kind: 'page'|'home'|'settings'|'reviews'|'images', slug, draft }
 let dirty = false;
 
 const $ = (sel) => document.querySelector(sel);
@@ -522,7 +540,7 @@ function homeView(s) {
       itemList(hm.principles, [["label", "Popisek (např. 01 — Posouzení)"], ["title", "Nadpis"], ["text", "Text", "area"]], "+ zásada"),
     ),
     h("div", { class: "panel" },
-      h("h3", {}, "Upoutávka (oranžový pruh)"),
+      h("h3", {}, "Upoutávka na další službu (tmavá karta)"),
       select(hm, "promo_page", "Odkazovaná stránka", [["", "— nezobrazovat —"], ...content.pages.map((p) => [p.slug, p.title])]),
       h("div", { class: "grid2" }, text(hm, "promo_label", "Malý popisek"), text(hm, "promo_title", "Nadpis")),
       area(hm, "promo_text", "Text", { rows: 3 }),

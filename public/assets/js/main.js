@@ -1,4 +1,4 @@
-// Stavby Literák — mobilní menu, odhalení sekcí, poptávkový formulář
+// Stavby Literák — mobilní menu, odhalení sekcí, galerie, poptávkový formulář
 (() => {
   const toggle = document.querySelector(".nav-toggle");
   const nav = document.querySelector(".nav");

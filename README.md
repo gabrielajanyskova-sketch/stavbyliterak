@@ -14,17 +14,18 @@ katalog gastropůjčovny, kontakty, SEO) se upravuje v **`/admin`**.
 public/                     statické soubory (výstupní složka Pages)
   admin.html                administrace
   assets/css/fonts.css      písma hostovaná u nás (bez Google Fonts)
-  assets/css/style.css      styly webu
-  assets/js/main.js         menu, animace, poptávkový formulář
+  assets/css/style.css      styly webu (do stránek se vkládají přímo, bez dalšího požadavku)
+  assets/js/main.js         menu, animace, galerie, poptávkový formulář
   assets/js/admin.js        logika administrace
   assets/fonts/             woff2 písma + licence (SIL OFL)
-  assets/img/               logo, favicon, obrázek pro sdílení (og.jpg), fotka bagru
+  assets/img/               logo, ikony, obrázek pro sdílení (og.jpg), fotka bagru
   assets/img/foto/          fotky realizací (max. 1400 px) + foto/sm/ zmenšeniny (800 px)
+  manifest.webmanifest      ikona webu na ploše telefonu
   _headers                  cache a bezpečnostní hlavičky statických souborů
 functions/
   [[path]].js               router: stránky, /api/*, /img/*, robots.txt, sitemap.xml,
                             llms.txt, přesměrování starých adres a domény bez www
-  _lib/render.js            HTML šablony, meta tagy, schema.org
+  _lib/render.js            HTML šablony, meta tagy, schema.org, česká typografie
   _lib/db.js                práce s D1, automatické vytvoření tabulek
   _lib/api.js               API administrace a formuláře, přihlášení, fotky
   _lib/seed.json            výchozí obsah — nahraje se do prázdné databáze
@@ -42,6 +43,10 @@ wrangler.toml               napojení D1/KV, SITE_URL
   a `OfferCatalog` z bloků „Katalog“.
 - `/sitemap.xml` a `/robots.txt` se generují z obsahu, `/llms.txt` je stručný
   přehled firmy, služeb a odpovědí pro AI vyhledávače (ChatGPT, Perplexity, Gemini…).
+- Pod každou službou je blok „Další služby“ (interní prolinkování ze stránek
+  zaškrtnutých v rozcestníku).
+- V hotovém HTML se doplňují nezlomitelné mezery (jednopísmenné předložky, číslo
+  a jednotka, telefon), takže nezůstávají na konci řádku.
 - Po spuštění domény: přidat web do Google Search Console a Bing Webmaster Tools,
   odeslat sitemapu a založit/aktualizovat Firemní profil Google se stejným názvem,
   adresou a telefonem jako na webu.
@@ -60,17 +65,17 @@ wrangler.toml               napojení D1/KV, SITE_URL
 
 Kontrola: `https://<web>/api/health` vrátí `{"ok":true,"db":true,"images":true,...}`.
 
-### Volitelně: e-maily přes Resend (doporučeno)
+### E-maily přes Resend
 
-Když nastavíte tyto proměnné, poptávkový formulář posílá e-maily přímo a přihlášení
-do adminu chce navíc jednorázový kód z e-mailu (samotné uniklé heslo pak nestačí):
+Zatím vypnuté — formulář po odeslání otevře návštěvníkovi e-mailový program s vyplněnou
+zprávou a do adminu stačí heslo. Zapne se po převodu domény na Cloudflare:
 
-- `RESEND_API_KEY` (secret) — klíč z resend.com, doména `stavbyliterak.cz` ověřená v Resend
-- `MAIL_FROM` (text) — např. `Web Stavby Literák <web@stavbyliterak.cz>`
-- `NOTIFY_EMAIL` (text) — kam chodí poptávky a přihlašovací kódy, např. `stavbyliterak@email.cz`
+- `RESEND_API_KEY` (secret) — klíč z resend.com, doména `stavbyliterak.cz` ověřená v Resendu
+- ve `wrangler.toml` odkomentovat `MAIL_FROM`, `NOTIFY_EMAIL` (kam chodí poptávky)
+  a `LOGIN_EMAIL` (kam chodí kódy pro přihlášení do adminu)
 
-Bez nich formulář otevře návštěvníkovi e-mailový program s vyplněnou zprávou a do adminu
-stačí heslo.
+S nastaveným Resendem chce přihlášení do adminu navíc jednorázový kód z e-mailu
+(samotné uniklé heslo pak nestačí).
 
 ## Administrace (`/admin`)
 
@@ -78,8 +83,9 @@ stačí heslo.
   (úvodní text, fakta, fotka), obsah po blocích (text, nadpis, odrážky, číslovaný
   seznam, postup, mřížka, časté otázky, katalog, poznámka, fotka), box Poptávka, SEO,
   staré adresy pro přesměrování. Pořadí stránek šipkami v levém menu.
-- **Úvodní stránka** — velký nadpis, „Jak pracuji“, upoutávka na gastropůjčovnu, SEO.
+- **Úvodní stránka** — velký nadpis a fotka, „Jak pracuji“, upoutávka na gastropůjčovnu, SEO.
 - **Kontakty a formulář** — telefon, e-mail, adresa, IČ, možnosti ve formuláři.
+- **Recenze** — hodnocení a vybrané recenze z Googlu, odkazy na profil.
 - **Fotky** — nahrání (automaticky se zmenší a převedou na WebP), smazání.
 
 Ochrana přihlášení: po 8 špatných pokusech z jedné IP se přihlašování na 15 minut
@@ -91,8 +97,11 @@ stará adresa funkční jako přesměrování.
 ## Lokální vývoj
 
 ```bash
-npx wrangler pages dev public --d1 DB --kv IMAGES --binding ADMIN_PASSWORD=heslo
+npx wrangler pages dev --binding ADMIN_PASSWORD=heslo
 ```
+
+Bindingy D1 a KV se načtou z `wrangler.toml` (lokálně jako prázdná databáze, která se
+naplní z `seed.json`).
 
 Web pak běží na http://localhost:8788, administrace na http://localhost:8788/admin.
 
@@ -103,10 +112,11 @@ Pozdější změny se dělají v administraci, ne v tomto souboru.
 
 ## Co ještě zbývá
 
-- [ ] Termovize — průběh měření a výstup (na původním webu nebylo, je to návrh; žlutá poznámka na stránce)
+- [ ] Termovize — průběh měření a výstup (žlutá poznámka na stránce, čeká na klienta)
 - [ ] Stavební práce — které drobné práce dál nabízet (žlutá poznámka na stránce)
-- [ ] Stránky Certifikáty a Reference z původního webu — lze přidat v adminu jako nové stránky
-- [ ] Další vlastní fotky ke službám
+- [ ] Fotky z termovize a protipožárních prací
+- [ ] Převod domény od Webnode, Custom domains v Pages, adresa info@stavbyliterak.cz
+      (Cloudflare Email Routing), Resend, Google Search Console a Seznam Webmaster
 
 ## Fotky
 
