@@ -628,6 +628,8 @@ p, li, figcaption { text-wrap: pretty; }
 .site-footer a { color: #d9dde0; text-decoration: none; }
 .site-footer a:hover { color: var(--amber); }
 .site-footer nav { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+.site-footer-credit { flex-basis: 100%; margin: 0; padding-top: 16px; border-top: 1px solid #ffffff1f; font-size: 0.82rem; color: #98a0a7; }
+.site-footer .site-footer-credit a { color: #c6ccd1; text-decoration: underline; text-underline-offset: 3px; }
 
 /* Při posunu stránky se pod hlavičkou odměřuje, kolik je přečteno (jen CSS) */
 @supports (animation-timeline: scroll()) {

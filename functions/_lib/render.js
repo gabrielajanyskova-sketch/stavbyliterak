@@ -301,6 +301,7 @@ ${links}
 <a href="#kontakt">Kontakt</a>
 </nav>
 <span>© ${esc(site.owner)} · <a href="tel:${esc(tel(site.phone))}">${esc(site.phone)}</a></span>
+<p class="site-footer-credit">Web: <a href="https://janyskovadigital.cz" target="_blank" rel="noopener">janyskovadigital.cz</a></p>
 </div>
 </footer>
 <nav class="callbar" aria-label="Rychlý kontakt">
