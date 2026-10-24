@@ -363,7 +363,7 @@
         },
         {
           "type": "text",
-          "text": "**Výkopy účtuji vždy podle odpracovaných hodin.** Předem nikdo neví, co je v zemi. Může to být pěkná ornice, ale taky jíl plný kamení, staré betony nebo suť, a s tím se pracuje mnohem déle. Ze zkušenosti vím, že skutečnost se od odhadu liší skoro pokaždé. Hodinová sazba je proto nejférovější: zaplatíte jen to, co se opravdu udělalo."
+          "text": "**Výkopy účtuji vždy podle odpracovaných hodin.** Co je v zemi, dopředu neví nikdo, i když si člověk může být sebevíc jistý. Může to být pěkná ornice, ale taky těžký jíl s kamením nebo skryté „poklady“ jako staré betony, železo a suť. Ze zkušenosti vím, že realita je v 99 % jiná, než jsme si mysleli. Hodinovka je proto nejvíc fér: co se udělá, to se zaplatí. Žádné odhady a dohady."
         },
         {
           "type": "note",
@@ -434,11 +434,11 @@
           "items": [
             {
               "title": "Vezmete i malou zakázku nebo místo, kam se špatně zajíždí?",
-              "text": "Ano. Stroj vybírám podle práce a přístupu, a když nemám vhodný vlastní, umím sehnat jiný. Předem ale musíme probrat šířku a výšku vjezdu, sklon a únosnost příjezdové cesty a kam se bude dávat zemina. Přijedu klidně i na půl hodiny, jen v tom případě účtuji paušál místo hodinové sazby, jinak by se mi cesta nevyplatila."
+              "text": "Ano. Stroj vybírám podle práce a přístupu, a když nemám vhodný vlastní, umím sehnat jiný. Předem ale musíme probrat šířku a výšku vjezdu, sklon a únosnost příjezdové cesty a kam se bude dávat zemina. Rád k vám přijedu s bagrem nebo traktorem klidně i na půl hodiny. V tom případě ale účtuji paušál místo hodinové sazby, aby se mi vůbec vyrovnaly náklady."
             },
             {
               "title": "Nevyjde hodinová sazba dráž než pevná cena?",
-              "text": "Spíš naopak. Kdo dává na výkop pevnou cenu, musí si do ní započítat rezervu pro případ, že narazí na beton nebo kameny. Při hodinové sazbě platíte jen skutečně odpracovaný čas."
+              "text": "Nemusíte mít obavy, spíš naopak. U strojních prací je hodinová sazba víc fair play než pevná cena, do které si každý přidá rezervu pro případ „co kdyby“. U mě platíte skutečně odpracovaný čas, ne odhady."
             },
             {
               "title": "Co mám připravit, než přijedete?",
@@ -446,7 +446,7 @@
             },
             {
               "title": "Zůstanou po stroji stopy?",
-              "text": "Nějaké ano. Stroj volím tak, aby byl co nejšetrnější, ale anglický trávník vám po práci slíbit nemůžu. Fyzikální zákony ohnout neumím, i když se snažím."
+              "text": "Nějaké ano. Stroj volím tak, aby byl co nejšetrnější, ale anglický trávník vám po práci slíbit nemůžu. Fyzikální zákony ohnout neumím (ale snažím se…)."
             }
           ]
         }
@@ -1076,7 +1076,7 @@
       "meta_description": "Půjčovna vybavení na oslavy, svatby a párty: pivní sety, výčep na 2 sudy, kotlík na guláš, rožeň, ohřevné vany, várnice, hotdogovač, reproduktor JBL. Frýdek-Místek.",
       "crumb": "Gastropůjčovna",
       "title": "Gastropůjčovna",
-      "lead": "Slavíte narozeniny, svatbu, nebo chystáte posezení s přáteli? Půjčím vám vybavení na čepování, vaření, grilování i sezení.",
+      "lead": "Chystáte oslavu narozenin, svatbu, nebo jen posezení s přáteli? Půjčím vám vybavení, se kterým bude celá akce mnohem pohodlnější.",
       "theme": "",
       "facts": [
         {
@@ -1112,14 +1112,14 @@
           "items": [
             {
               "title": "Výčep na pivo a limo — 2 kohouty",
-              "text": "Na jedné pípě může být pivo, na druhé limonáda pro děti. Výčep má vlastní kompresor, nebo ho připojíte na CO₂.",
+              "text": "Kdo má rád čerstvě orosené, ten se bez tohohle šikuly neobejde. Na jedné pípě může být pivo, na druhé nealko pro děti. Výčep má vlastní kompresor, nebo ho připojíte na CO₂.",
               "spec": "Narážecí hlavy na Radegast nebo Kofolu (bajonet / žehlička)",
               "count": "1 ks",
               "photo": "/assets/img/foto/gastro-vycep-2-kohouty.webp"
             },
             {
               "title": "Elektrický termos s kohoutem",
-              "text": "Na čaj, kávu nebo svařák, aby byly pořád po ruce. Když nezapnete ohřev, poslouží i na studené pití.",
+              "text": "Horký čaj, káva nebo svařák pořád po ruce? Jasně, žádný problém. Když nezapnete ohřev, poslouží i na studené pití.",
               "spec": "Objem 20 l · pouze pro nápoje, ne na omáčky, polévky ani guláš",
               "count": "1 ks",
               "photo": "/assets/img/foto/gastro-termos-elektricky.webp"
@@ -1149,7 +1149,7 @@
           "items": [
             {
               "title": "Kotlík na guláš",
-              "text": "Nerezový kotlík s poklicí a ocelové topeniště, lehké a snadno přenosné. Uvaříte v něm guláš, svařák nebo vaječinu. Stačí pár polínek a celý kotlík vody se uvaří, takže dřeva spotřebujete málo.",
+              "text": "Nerezový kotlík s poklicí a ocelové topeniště, lehké a snadno přenosné. Uvaříte v něm guláš, svařák nebo vaječinu. Díky konstrukci stačí opravdu pár drobných polínek a uvaříte celý kotlík, takže dřeva spotřebujete málo.",
               "spec": "Objem cca 27 l",
               "count": "1 ks",
               "photo": "/assets/img/foto/gastro-kotlik-na-gulas.webp"
@@ -1170,14 +1170,14 @@
             },
             {
               "title": "Chafing — elektrická ohřevná vana",
-              "text": "Udělali jste na grilu víc masa, než se snědlo? V ohřevné vaně zůstane teplé, dokud ho hosté nedojedí. Ohřívá ve vodní lázni, takže se nic nepřipálí.",
+              "text": "Neodhadli jste, kolik masa dát na gril? Nevadí. V ohřevné vaně zůstane teplé a šťavnaté, jak dlouho budete chtít. Ohřívá ve vodní lázni, takže se nic nepřipálí.",
               "spec": "Objem 8,5 l · včetně GN 1/1 a víka",
               "count": "2 ks",
               "photo": "/assets/img/foto/gastro-chafing.webp"
             },
             {
               "title": "Hotdogovač se 2 trny",
-              "text": "Skleněný napařovací válec s děleným košem na dva druhy párků a dva trny na nahřívání rohlíků. Rychlé jídlo, které chutná dospělým i dětem.",
+              "text": "Skleněný napařovací válec s děleným košem na dva druhy párků a dva trny na nahřívání rohlíků. Rychlá a oblíbená svačina pro dospělé i děti.",
               "spec": "",
               "count": "1 ks",
               "photo": "/assets/img/foto/gastro-hotdogovac.webp"
@@ -1200,14 +1200,14 @@
           "items": [
             {
               "title": "Pivní set — stůl a 2 lavice",
-              "text": "Na mokré zemi se dobře nesedí. Čundr má svoje kouzlo, ale na oslavu se víc hodí stůl a lavice.",
+              "text": "Co by to bylo za oslavu, kdybyste museli sedět na mokré zemi? Jasně, čundr je romantika, ale není pro každého.",
               "spec": "Stůl 200 × 50 × 77 cm, nosnost 150 kg · lavice 200 × 25 × 46 cm, nosnost 250 kg",
               "count": "5 sad",
               "photo": "/assets/img/foto/gastro-pivni-set.webp"
             },
             {
               "title": "Bluetooth reproduktor JBL — partybox",
-              "text": "Bez hudby to není ono. Reproduktor zvládne akci zhruba pro 50 lidí a ke dvěma bezdrátovým mikrofonům si můžete zazpívat i karaoke.",
+              "text": "Posezení bez hudby? To prostě není ono. Reproduktor zvládne akci zhruba pro 50 lidí, ať posloucháte cokoli. Karaoke? Jasně, k dispozici jsou i dva bezdrátové mikrofony JBL.",
               "spec": "400 W RMS · baterie až 15 hodin, nebo ze sítě",
               "count": "1 ks",
               "photo": "/assets/img/foto/gastro-reproduktor-jbl.webp"
