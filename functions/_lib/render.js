@@ -66,12 +66,14 @@ const RIDGE = `<svg class="ridge" viewBox="0 0 800 260" preserveAspectRatio="xMi
 <path d="${RIDGE_BACK}V260H0Z" fill="#2b3138"/>
 <path class="ridge-line" d="${RIDGE_BACK}" fill="none" stroke="#f39a1e" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
 <g class="tower">
-<rect x="287" y="41" width="22" height="14" fill="#2b3138" stroke="#f39a1e" stroke-width="1.4" vector-effect="non-scaling-stroke"/>
-<path d="M291 45h4v4h-4zM297 45h4v4h-4z" fill="#f39a1e" opacity=".55"/>
-<rect x="283" y="37.5" width="31" height="3.5" fill="#f39a1e"/>
-<path d="M301.6 37.5 302.4 17H304L304.8 37.5Z" fill="#f39a1e"/>
-<rect x="302.6" y="3" width="1.2" height="14.5" fill="#f39a1e"/>
-<circle class="tower-light" cx="303.2" cy="2.6" r="2.2" fill="#ff4a2b"/>
+<path d="M298 31 298.9 9.5H301.1L302 31Z" fill="#f39a1e"/>
+<rect x="296.6" y="19" width="6.8" height="1.6" fill="#f39a1e"/>
+<rect x="299.45" y="3.5" width="1.1" height="6.5" fill="#f39a1e"/>
+<circle class="tower-light" cx="300" cy="3.2" r="2" fill="#ff4a2b"/>
+<rect x="292.5" y="31" width="15" height="6" fill="#2b3138" stroke="#f39a1e" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<rect x="281" y="36.5" width="38" height="3.2" fill="#f39a1e"/>
+<rect x="286" y="39.7" width="28" height="15" fill="#2b3138" stroke="#f39a1e" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<path d="M289 43h3.4v4h-3.4zM294.6 43h3.4v4h-3.4zM302 43h3.4v4h-3.4zM307.6 43h3.4v4h-3.4z" fill="#f39a1e" opacity=".6"/>
 </g>
 <path d="${RIDGE_FRONT}V260H250Z" fill="#22262c"/>
 <clipPath id="ridge-sky"><rect x="458" width="342" height="260"/></clipPath>
