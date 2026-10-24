@@ -462,6 +462,22 @@ function trustStrip(pages) {
 
 // ---------- stránky ----------
 
+// Pod obsahem služby rozcestník na ostatní služby — návštěvník nemusí zpět do menu
+// a vyhledávače vidí, jak spolu stránky souvisejí.
+function related(pages, current) {
+  const others = pages.filter((p) => p.in_chooser && p.slug !== current.slug);
+  if (!isService(current) || !others.length) return '';
+  return `<section class="related" aria-labelledby="dalsi-sluzby">
+<div class="wrap">
+<h2 class="label" id="dalsi-sluzby">Další služby</h2>
+<ul class="related-list">
+${others.map((p) => `<li><a href="${pageUrl(p.slug)}"><span class="name">${esc(p.chooser_title || p.title)} <i aria-hidden="true">→</i></span><span class="hint">${esc(p.chooser_hint)}</span></a></li>`).join('\n')}
+</ul>
+</div>
+</section>
+`;
+}
+
 export function renderPage(ctx, p) {
   const path = pageUrl(p.slug);
   return (
@@ -484,6 +500,7 @@ ${ask(ctx.site, p)}
 </div>
 </section>
 ` +
+    related(ctx.pages, p) +
     contact(ctx, p.form_service) +
     footer(ctx)
   );

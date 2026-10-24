@@ -615,6 +615,16 @@ p, li, figcaption { text-wrap: pretty; }
 .form textarea:focus { outline: 2px solid var(--amber); outline-offset: 0; border-color: var(--amber); }
 .form .note { font-size: 0.85rem; color: #9aa3ab; margin: 0; }
 
+/* Další služby pod obsahem stránky */
+.related { background: var(--concrete); padding: clamp(40px, 6vw, 72px) 0; border-top: 1px solid var(--line); }
+.related .label { display: block; margin: 0 0 18px; font-size: 0.78rem; }
+.related-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+.related-list a { display: grid; gap: 6px; height: 100%; padding: 18px 20px; background: var(--white); border-top: 3px solid var(--ink); text-decoration: none; transition: border-color 0.15s ease, transform 0.15s ease; }
+.related-list a:hover { border-top-color: var(--amber); transform: translateY(-2px); }
+.related-list .name { font-family: var(--font-display); font-size: 1.45rem; font-weight: 700; text-transform: uppercase; line-height: 1.05; }
+.related-list .name i { font-style: normal; color: var(--amber-deep); }
+.related-list .hint { color: var(--muted); font-size: 0.95rem; line-height: 1.5; }
+
 /* ---------- Patička ---------- */
 
 .site-footer {
