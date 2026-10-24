@@ -58,6 +58,12 @@ h3 { font-size: 1.55rem; }
 
 p { margin: 0 0 1em; }
 
+/* Nadpisy se zalomí do vyrovnaných řádků, odstavce bez osamocených slov na konci.
+   Text zůstává zarovnaný vlevo — do bloku se na webu nezarovnává (díry mezi slovy). */
+h1, h2, h3, .lead { text-wrap: balance; }
+p, li, figcaption { text-wrap: pretty; }
+@media (max-width: 700px) { .prose p, .prose li { hyphens: auto; } }
+
 .wrap {
   max-width: var(--wrap);
   margin: 0 auto;
@@ -622,6 +628,25 @@ p { margin: 0 0 1em; }
 .site-footer a { color: #d9dde0; text-decoration: none; }
 .site-footer a:hover { color: var(--amber); }
 .site-footer nav { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+
+/* Při posunu stránky se pod hlavičkou odměřuje, kolik je přečteno (jen CSS) */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .site-header::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -3px;
+      height: 3px;
+      background: var(--white);
+      transform-origin: left;
+      animation: read-progress linear both;
+      animation-timeline: scroll(root);
+    }
+    @keyframes read-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  }
+}
 
 /* Pomalé odhalení sekcí při posunu */
 .js .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.5s ease, transform 0.5s ease; }

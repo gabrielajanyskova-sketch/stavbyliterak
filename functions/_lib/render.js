@@ -16,6 +16,18 @@ function inline(text) {
     .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_, label, url) => `<a class="textlink" href="${esc(safeUrl(url.replace(/&amp;/g, '&')))}">${label}</a>`);
 }
 
+// Česká typografie v hotovém HTML (jen v textu, ne ve značkách a skriptech):
+// jednopísmenné předložky a spojky nezůstanou na konci řádku, číslo se nerozdělí
+// od jednotky ani telefonní číslo na dva řádky — nezlomitelná mezera.
+export function czTypo(html) {
+  return html
+    .split(/(<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<[^>]+>)/)
+    .map((part, i) => (i % 2 ? part : part
+      .replace(/(?<=^|[\s(„])([kvszouai]) +/gi, '$1\u00a0')
+      .replace(/(\d) (?=\d{3}\b|(?:%|Kč|m²|m³|m|km|ks|t|°C)(?!\p{L}))/gu, '$1\u00a0')))
+    .join('');
+}
+
 // Prostý text bez formátování — pro meta popisky, schema.org a llms.txt
 function plain(text) {
   return String(text || '')

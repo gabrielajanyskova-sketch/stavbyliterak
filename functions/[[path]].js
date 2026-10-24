@@ -1,7 +1,7 @@
 // Cloudflare Pages Function: stránky se skládají z obsahu v D1 (spravuje se v /admin),
 // statické soubory (styly, písma, obrázky, admin) servíruje Pages samo přes next().
 import { ensureDb, getSite, getPages } from './_lib/db.js';
-import { renderHome, renderPage, renderNotFound, renderSitemap, renderRobots, renderLlms, pageUrl } from './_lib/render.js';
+import { renderHome, renderPage, renderNotFound, renderSitemap, renderRobots, renderLlms, pageUrl, czTypo } from './_lib/render.js';
 import { handleApi, serveImage, json } from './_lib/api.js';
 
 const STATIC = /^\/(assets\/|admin(\.html)?$|favicon|manifest\.webmanifest$)/;
@@ -13,6 +13,7 @@ const SECURITY_HEADERS = {
 };
 
 function respond(body, type, { status = 200, noindex = false } = {}) {
+  if (type === 'text/html') body = czTypo(body);
   const headers = { 'Content-Type': `${type}; charset=utf-8`, 'Cache-Control': 'no-cache', ...SECURITY_HEADERS };
   if (noindex) headers['X-Robots-Tag'] = 'noindex';
   return new Response(body, { status, headers });
