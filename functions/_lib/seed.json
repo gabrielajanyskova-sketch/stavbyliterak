@@ -14,23 +14,23 @@
       "hero_meta": "Stavební řešení · Jan Literák · Frýdek-Místek a okolí",
       "chooser_label": "Co potřebujete vyřešit?",
       "about_label": "Jak pracuji",
-      "about_title": "Nejdřív se přijedu podívat",
+      "about_title": "Od prohlídky po hotovou práci",
       "about_text": "Každý dům a každý pozemek je jiný. Cenu proto nedávám od stolu. Přijedu, podívám se, co je na místě potřeba, a teprve potom se bavíme o řešení a ceně.",
       "principles": [
         {
           "label": "01 — Prohlídka",
-          "title": "Přijedu na místo",
-          "text": "Výšky, přístup, napojení na dům, stav podkladu. Tohle se z fotek nepozná, musím to vidět."
+          "title": "Nejdřív se přijedu podívat",
+          "text": "Každé místo je jiné. Podívám se na přístup, výšky, napojení na dům i stav podkladu. Teprve na místě se dá dobře posoudit, jaké řešení bude nejlepší."
         },
         {
-          "label": "02 — Realizace",
-          "title": "Navrhnu a udělám",
-          "text": "Po měření nebo prohlídce vám řeknu, co bych doporučil, a většinou to i sám udělám. Když je potřeba jiný řemeslník, doporučím někoho, s kým mám dobrou zkušenost."
+          "label": "02 — Návrh a realizace",
+          "title": "Vymyslím řešení a udělám, co je potřeba",
+          "text": "Navrhnu vhodný postup a domluvíme se, jak dál. Většinu prací zvládnu sám, takže nemusíte shánět další lidi. Pokud je potřeba jiný řemeslník, doporučím vám někoho, s kým mám dobrou zkušenost."
         },
         {
           "label": "03 — Cena",
-          "title": "Platíte odvedenou práci",
-          "text": "Strojní práce účtuji podle odpracovaných hodin. Do ceny si nepřidávám rezervu pro případ, že by se něco nepovedlo."
+          "title": "Férově a podle skutečné práce",
+          "text": "U strojních prací platíte za skutečně odpracované hodiny. Rozsah práce i způsob účtování si vysvětlíme předem, abyste věděli, s čím počítat."
         }
       ],
       "promo_page": "gastropujcovna",
