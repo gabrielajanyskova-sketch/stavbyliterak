@@ -249,11 +249,11 @@
       "theme": "",
       "facts": [
         {
-          "label": "Lžíce",
-          "value": "20, 40 a 60 cm, hydraulická naklápěcí svahovací lžíce 120 cm"
+          "label": "Lžíce k bagru",
+          "value": "20, 40 a 60 cm, hydraulická naklápěcí svahovka 120 cm"
         },
         {
-          "label": "Hutnění",
+          "label": "Hutnící technika",
           "value": "Bomag a Weber MT, vibrační desky i pěchy"
         },
         {
@@ -262,7 +262,7 @@
         },
         {
           "label": "Zakladač trávníku",
-          "value": "Záběr 140 cm"
+          "value": "140 CM"
         }
       ],
       "photo": "/assets/img/bagr.webp",
@@ -356,7 +356,7 @@
         },
         {
           "type": "text",
-          "text": "Po předchozí domluvě zajistíme dovoz nebo odvoz sypkých materiálů."
+          "text": "Po předchozí domluvě, mohu zajistit dovoz nebo odvoz sypkých materiálů."
         },
         {
           "type": "heading",
@@ -369,7 +369,7 @@
         {
           "type": "note",
           "style": "info",
-          "text": "**Aktuálně:** Situace s ropnými produkty, jako je nafta nebo maziva, je teď bohužel velmi nestabilní, a proto nemůžeme určit dlouhodobě platnou cenu. Cenu spočítáme podle cen platných v době zakázky. Děkujeme za pochopení."
+          "text": "Bohužel, je aktuální situace s ropnými produkty jako nafta, maziva a další velmi nestabilní, tedy neumím určit dlouhodobou relevantní cenu. Cenu spočítám dle aktuálních cen platných v dané době .Děkuji za pochopení."
         },
         {
           "type": "heading",
@@ -642,7 +642,7 @@
         },
         {
           "type": "text",
-          "text": "Na přání připravíme 3D návrh a vizualizaci. Do fotografií, které nám pošlete nebo které pořídíme přímo na místě, vložíme realistickou 3D vizualizaci vašeho prostoru. Získáte tak téměř stoprocentní představu o tom, jak bude dům vypadat."
+          "text": "V případě zájmu, zhotovíme 3D návrh a vizualizace. Přímo ve vámi dodaných nebo námi osobně pořízených fotografiích, vytvoříme realistickou 3D vizualizaci vašeho prostoru. Získáte tak téměř 100% představu, o budoucí podobě vašeho domu."
         },
         {
           "type": "heading",
