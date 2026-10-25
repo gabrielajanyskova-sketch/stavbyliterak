@@ -14,6 +14,7 @@
   --amber: #f39a1e;
   --amber-deep: #a35800;
   --white: #ffffff;
+  --surface: #ffffff; /* karty a dlaždice na světlém pozadí */
 
   --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
   --font-body: "IBM Plex Sans", system-ui, sans-serif;
@@ -21,6 +22,19 @@
 
   --wrap: 1180px;
   --gutter: clamp(16px, 4vw, 40px);
+}
+
+/* Tmavý režim (přepínač v hlavičce): stejné rozvržení, jen tmavé plochy a světlý text */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #e6e9ec;
+  --muted: #a2aab1;
+  --paper: #15181c;
+  --concrete: #1b1f24;
+  --concrete-2: #2a3037;
+  --surface: #22272d;
+  --line: #353d45;
+  --amber-deep: var(--amber);
 }
 
 *,
@@ -82,7 +96,7 @@ p, li, figcaption { text-wrap: pretty; }
   position: absolute;
   left: -999px;
 }
-.skip:focus { left: 8px; top: 8px; z-index: 100; background: var(--amber); color: var(--ink); padding: 8px 12px; }
+.skip:focus { left: 8px; top: 8px; z-index: 100; background: var(--amber); color: var(--graphite); padding: 8px 12px; }
 
 /* ---------- Hlavička ---------- */
 
@@ -103,7 +117,27 @@ p, li, figcaption { text-wrap: pretty; }
   min-height: 76px;
 }
 
+.brand { margin-right: auto; }
 .brand img { width: 136px; }
+
+/* přepínač světlého / tmavého režimu */
+.theme-toggle {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: none;
+  border: 1px solid #56606a;
+  color: #d9dde0;
+  cursor: pointer;
+}
+.theme-toggle:hover { border-color: var(--amber); color: var(--amber); }
+.theme-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+.theme-toggle .sun,
+[data-theme="dark"] .theme-toggle .moon { display: none; }
+[data-theme="dark"] .theme-toggle .sun { display: inline; }
 @media (max-width: 900px) { .brand img { width: 112px; } }
 
 .nav {
@@ -307,7 +341,7 @@ p, li, figcaption { text-wrap: pretty; }
   transition: transform 0.15s ease;
 }
 
-.chooser a:hover { background: var(--white); padding-left: 12px; padding-right: 12px; }
+.chooser a:hover { background: var(--surface); padding-left: 12px; padding-right: 12px; }
 .chooser a:hover .arrow { transform: translateX(6px); }
 
 @media (max-width: 900px) {
@@ -396,7 +430,7 @@ p, li, figcaption { text-wrap: pretty; }
 .btn:hover { background: #ffb24a; border-color: #ffb24a; }
 
 .btn-line { background: transparent; color: inherit; border-color: currentColor; }
-.btn-line:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
+.btn-line:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 
 .textlink {
   font-weight: 600;
@@ -408,19 +442,19 @@ p, li, figcaption { text-wrap: pretty; }
 /* ---------- Stránka služby ---------- */
 
 .page-hero {
-  background: var(--graphite);
-  color: var(--white);
-  border-bottom: 0;
+  background: var(--concrete);
+  border-bottom: 1px solid var(--line);
   padding: clamp(40px, 7vw, 88px) 0 clamp(36px, 5vw, 64px);
 }
 .page-hero .crumbs { margin-bottom: 18px; display: block; }
 .page-hero .crumbs a { text-decoration: none; }
-.page-hero .crumbs a:hover { color: var(--amber); }
+.page-hero .crumbs a:hover { color: var(--ink); }
 .page-hero .lead {
   font-size: clamp(1.1rem, 1.8vw, 1.3rem);
   max-width: 46ch;
   color: #3a4148;
 }
+[data-theme="dark"] .page-hero .lead { color: #c3c9ce; }
 
 .page-hero-grid {
   display: grid;
@@ -453,12 +487,12 @@ p, li, figcaption { text-wrap: pretty; }
   color: var(--white);
   border-bottom: 0;
 }
-.page-hero .label,
-.page-hero .crumbs a { color: #b8c0c7; }
-.page-hero .lead { color: #dfe3e6; }
-.page-hero .facts { border-top-color: var(--white); }
-.page-hero .facts div { border-bottom-color: rgba(255,255,255,0.18); }
-.page-hero .facts dt { color: #b8c0c7; }
+.page-hero.thermal .label,
+.page-hero.thermal .crumbs a { color: #b8c0c7; }
+.page-hero.thermal .lead { color: #dfe3e6; }
+.page-hero.thermal .facts { border-top-color: var(--white); }
+.page-hero.thermal .facts div { border-bottom-color: rgba(255,255,255,0.18); }
+.page-hero.thermal .facts dt { color: #b8c0c7; }
 
 .scale {
   display: flex;
@@ -603,6 +637,8 @@ p, li, figcaption { text-wrap: pretty; }
   color: #6a4a00;
 }
 .todo.is-info { background: #eef0f1; border-color: var(--muted); color: #3a4148; }
+[data-theme="dark"] .todo { background: rgb(243 154 30 / 0.12); color: #f5c77e; }
+[data-theme="dark"] .todo.is-info { background: var(--surface); color: var(--muted); }
 
 /* ---------- Kontakt ---------- */
 
@@ -647,7 +683,7 @@ p, li, figcaption { text-wrap: pretty; }
 .related { background: var(--concrete); padding: clamp(40px, 6vw, 72px) 0; border-top: 1px solid var(--line); }
 .related .label { display: block; margin: 0 0 18px; font-size: 0.78rem; }
 .related-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
-.related-list a { display: grid; gap: 6px; height: 100%; padding: 18px 20px; background: var(--white); border-top: 3px solid var(--ink); text-decoration: none; transition: border-color 0.15s ease, transform 0.15s ease; }
+.related-list a { display: grid; gap: 6px; height: 100%; padding: 18px 20px; background: var(--surface); border-top: 3px solid var(--ink); text-decoration: none; transition: border-color 0.15s ease, transform 0.15s ease; }
 .related-list a:hover { border-top-color: var(--amber); transform: translateY(-2px); }
 .related-list .name { font-family: var(--font-display); font-size: 1.45rem; font-weight: 700; text-transform: uppercase; line-height: 1.05; }
 .related-list .name i { font-style: normal; color: var(--amber-deep); }
@@ -655,6 +691,7 @@ p, li, figcaption { text-wrap: pretty; }
 
 /* ---------- Patička ---------- */
 
+[data-theme="dark"] .site-footer { border-top: 1px solid var(--line); }
 .site-footer {
   background: #15181c;
   color: #9aa3ab;
@@ -742,7 +779,7 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 
 /* Galerie (fotky realizací, certifikáty) — náhledy, po kliknutí zvětšení */
 .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin: 0 0 2em; }
-.gallery-item { display: block; text-decoration: none; background: var(--white); border: 1px solid var(--line); }
+.gallery-item { display: block; text-decoration: none; background: var(--surface); border: 1px solid var(--line); }
 .gallery-item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: opacity 0.15s ease; }
 .gallery.is-contain .gallery-item img { object-fit: contain; padding: 10px; aspect-ratio: 1; }
 .gallery-item:hover img { opacity: 0.85; }
@@ -886,62 +923,4 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
   .callbar a:first-child { background: var(--amber); color: var(--graphite); }
   body { padding-bottom: calc(52px + env(safe-area-inset-bottom)); }
 }
-
-/* ---------- Tmavé plochy jako stavební výkres: výkres, tečky v rohu, teplá záře ---------- */
-
-.section-dark,
-.hero-index,
-.page-hero:not(.thermal) {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse 70% 60% at 12% 115%, rgb(243 154 30 / 0.22), transparent 70%),
-    url("/assets/img/vykres-tmavy.svg") right -180px top -120px / 1500px auto no-repeat,
-    linear-gradient(160deg, #23282e 0%, var(--graphite) 45%, #16191d 100%);
-}
-.section-dark::after,
-.hero-index::after,
-.page-hero:not(.thermal)::after {
-  /* oranžové tečky v rohu */
-  content: "";
-  position: absolute;
-  left: 20px;
-  top: 20px;
-  width: 170px;
-  height: 110px;
-  background: radial-gradient(circle, rgb(243 154 30 / 0.8) 1.6px, transparent 2.2px) 0 0 / 16px 16px;
-  -webkit-mask-image: linear-gradient(135deg, #000 20%, transparent 75%);
-  mask-image: linear-gradient(135deg, #000 20%, transparent 75%);
-  z-index: -1;
-}
-/* na mobilu decentněji: výkres ztlumený překryvem, slabší záře a tečky */
-@media (max-width: 860px) {
-  .section-dark,
-  .hero-index,
-  .page-hero:not(.thermal) {
-    background:
-      radial-gradient(ellipse 80% 50% at 10% 110%, rgb(243 154 30 / 0.12), transparent 70%),
-      linear-gradient(rgb(29 33 38 / 0.55), rgb(29 33 38 / 0.55)),
-      url("/assets/img/vykres-tmavy.svg") left -200px top -80px / 1100px auto no-repeat,
-      var(--graphite);
-  }
-  .section-dark::after,
-  .hero-index::after,
-  .page-hero:not(.thermal)::after { width: 100px; height: 60px; opacity: 0.3; }
-}
-
-/* rozcestník na úvodu na tmavém podkladu */
-.hero-index { color: var(--white); }
-@media (min-width: 861px) {
-  .hero-index { background-position: 0 0, left -260px top -140px, 0 0; }
-  .hero-index::after { height: 80px; }
-}
-.hero-index .label { color: #9aa3ab; }
-.hero-index .chooser { border-top-color: var(--white); }
-.hero-index .chooser a { border-bottom-color: rgb(255 255 255 / 0.14); }
-.hero-index .chooser a:hover { background: rgb(255 255 255 / 0.05); }
-.hero-index .chooser .no { color: #8d969e; }
-.hero-index .chooser .hint { color: #b4bbc1; }
-.hero-index .chooser .arrow { color: var(--amber); }
 

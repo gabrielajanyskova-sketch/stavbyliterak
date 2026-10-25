@@ -220,7 +220,7 @@ ${ctx.noindex ? '<meta name="robots" content="noindex">\n' : ''}<link rel="canon
 <link rel="preload" href="/assets/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 ${preload}${ctx.assets?.css ? `<style>${ctx.assets.css}</style>` : '<link rel="stylesheet" href="/assets/css/fonts.css">\n<link rel="stylesheet" href="/assets/css/style.css">'}
-<script>document.documentElement.classList.add("js")</script>
+<script>document.documentElement.classList.add("js");try{if(localStorage.getItem("theme")==="dark")document.documentElement.dataset.theme="dark"}catch(e){}</script>
 <script type="application/ld+json">${jsonLd(schema)}</script>
 </head>
 <body>
@@ -251,6 +251,7 @@ ${links}
 <a class="nav-call" href="tel:${esc(tel(site.phone))}">${esc(site.phone)}</a>
 ${extra}
 </nav>
+<button class="theme-toggle" type="button" aria-pressed="false" aria-label="Tmavý režim" title="Přepnout světlý / tmavý režim"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="moon" d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/><g class="sun"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></g></svg></button>
 </div>
 </header>
 <main id="obsah">

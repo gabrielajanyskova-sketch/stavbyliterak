@@ -11,6 +11,21 @@
     nav.addEventListener("click", (e) => e.target.closest("a") && setOpen(false));
   }
 
+  // Světlý / tmavý režim — volba se pamatuje v prohlížeči (nastavuje ji už skript v <head>)
+  const themeBtn = document.querySelector(".theme-toggle");
+  if (themeBtn) {
+    const root = document.documentElement;
+    const sync = () => themeBtn.setAttribute("aria-pressed", String(root.dataset.theme === "dark"));
+    sync();
+    themeBtn.addEventListener("click", () => {
+      const dark = root.dataset.theme !== "dark";
+      if (dark) root.dataset.theme = "dark";
+      else delete root.dataset.theme;
+      try { localStorage.setItem("theme", dark ? "dark" : "light"); } catch {}
+      sync();
+    });
+  }
+
   const items = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver((entries) => {
