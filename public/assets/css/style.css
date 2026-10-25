@@ -19,6 +19,15 @@
   --font-body: "IBM Plex Sans", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
+  /* Technická mřížka jako na výkresu: jemné čtverce 24 px, výraznější linka po 120 px */
+  --grid-minor: rgb(29 33 38 / 0.035);
+  --grid-major: rgb(29 33 38 / 0.07);
+  --grid:
+    linear-gradient(var(--grid-major) 1px, transparent 1px) 0 0 / 120px 120px,
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px) 0 0 / 120px 120px,
+    linear-gradient(var(--grid-minor) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px) 0 0 / 24px 24px;
+
   --wrap: 1180px;
   --gutter: clamp(16px, 4vw, 40px);
 }
@@ -31,7 +40,7 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background: var(--paper);
+  background: var(--grid), var(--paper);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 17px;
@@ -260,7 +269,7 @@ p, li, figcaption { text-wrap: pretty; }
 
 .hero-index {
   padding: clamp(28px, 4vw, 56px) var(--gutter);
-  background: var(--paper);
+  background: var(--grid), var(--paper);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -319,7 +328,7 @@ p, li, figcaption { text-wrap: pretty; }
 /* ---------- Sekce ---------- */
 
 .section { padding: clamp(56px, 8vw, 104px) 0; }
-.section-concrete { background: var(--concrete); }
+.section-concrete { background: var(--grid), var(--concrete); }
 
 /* Upoutávka na vedlejší službu (gastropůjčovna) — tmavá karta na světlé stránce, oddělená od kontaktu */
 .promo-card {
@@ -408,7 +417,7 @@ p, li, figcaption { text-wrap: pretty; }
 /* ---------- Stránka služby ---------- */
 
 .page-hero {
-  background: var(--concrete);
+  background: var(--grid), var(--concrete);
   border-bottom: 1px solid var(--line);
   padding: clamp(40px, 7vw, 88px) 0 clamp(36px, 5vw, 64px);
 }
@@ -643,7 +652,7 @@ p, li, figcaption { text-wrap: pretty; }
 .form .note { font-size: 0.85rem; color: #9aa3ab; margin: 0; }
 
 /* Další služby pod obsahem stránky */
-.related { background: var(--concrete); padding: clamp(40px, 6vw, 72px) 0; border-top: 1px solid var(--line); }
+.related { background: var(--grid), var(--concrete); padding: clamp(40px, 6vw, 72px) 0; border-top: 1px solid var(--line); }
 .related .label { display: block; margin: 0 0 18px; font-size: 0.78rem; }
 .related-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
 .related-list a { display: grid; gap: 6px; height: 100%; padding: 18px 20px; background: var(--white); border-top: 3px solid var(--ink); text-decoration: none; transition: border-color 0.15s ease, transform 0.15s ease; }
