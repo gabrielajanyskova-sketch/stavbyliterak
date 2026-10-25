@@ -118,6 +118,7 @@ p, li, figcaption { text-wrap: pretty; }
 }
 
 .nav a {
+  white-space: nowrap;
   text-decoration: none;
   padding: 8px 12px;
   color: #d9dde0;
@@ -134,6 +135,30 @@ p, li, figcaption { text-wrap: pretty; }
 }
 .nav .nav-call:hover { background: #ffb24a; color: var(--graphite); }
 
+/* Vedlejší služba: jiné písmo a obrys, oddělená svislou čárou od stavebních služeb */
+.nav .nav-extra {
+  position: relative;
+  margin-left: 21px;
+  padding: 7px 12px;
+  border: 1px solid #f39a1e8c;
+  color: var(--amber);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.nav .nav-extra::before {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 4px;
+  bottom: 4px;
+  border-left: 1px solid #56606a;
+}
+.nav .nav-extra:hover,
+.nav .nav-extra[aria-current="page"] { border-color: var(--amber); color: var(--white); }
+
 .nav-toggle {
   display: none;
   background: none;
@@ -147,7 +172,7 @@ p, li, figcaption { text-wrap: pretty; }
   cursor: pointer;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1180px) {
   .nav-toggle { display: block; }
   .nav {
     display: none;
@@ -164,6 +189,8 @@ p, li, figcaption { text-wrap: pretty; }
   .nav.open { display: flex; }
   .nav a { padding: 14px 0; border-bottom: 1px solid #39414a; }
   .nav .nav-call { margin: 14px 0 0; text-align: center; padding: 14px; }
+  .nav .nav-extra { margin: 10px 0 0; padding: 13px; text-align: center; border-bottom: 1px solid #f39a1e8c; }
+  .nav .nav-extra::before { content: none; }
 }
 
 /* ---------- Úvod (rozcestník) ---------- */

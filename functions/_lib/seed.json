@@ -1070,6 +1070,7 @@
       "slug": "gastropujcovna",
       "published": true,
       "in_nav": false,
+      "nav_extra": true,
       "nav_label": "",
       "in_chooser": false,
       "chooser_title": "",

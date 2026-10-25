@@ -236,6 +236,11 @@ function header(ctx, activeSlug) {
     .filter((p) => p.in_nav)
     .map((p) => `<a href="${pageUrl(p.slug)}"${p.slug === activeSlug ? ' aria-current="page"' : ''}>${esc(p.nav_label || p.title)}</a>`)
     .join('\n');
+  // vedlejší služba (gastropůjčovna) — vpravo za telefonem, vizuálně oddělená od stavebních služeb
+  const extra = pages
+    .filter((p) => p.nav_extra)
+    .map((p) => `<a class="nav-extra" href="${pageUrl(p.slug)}"${p.slug === activeSlug ? ' aria-current="page"' : ''}>${esc(p.nav_label || p.title)}</a>`)
+    .join('\n');
   return `<header class="site-header">
 <div class="wrap">
 <a class="brand" href="/" aria-label="${esc(site.name)} — úvod">${LOGO(site.name)}</a>
@@ -244,6 +249,7 @@ function header(ctx, activeSlug) {
 ${links}
 <a href="#kontakt">Kontakt</a>
 <a class="nav-call" href="tel:${esc(tel(site.phone))}">${esc(site.phone)}</a>
+${extra}
 </nav>
 </div>
 </header>

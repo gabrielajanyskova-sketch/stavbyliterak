@@ -469,6 +469,7 @@ function pageView(p) {
       ),
       check(p, "published", "Zveřejněno (jinak je stránka jen rozpracovaný koncept)"),
       check(p, "in_nav", "Zobrazit v horním menu"),
+      check(p, "nav_extra", "Zobrazit jako zvláštní odkaz vpravo v horní liště (za telefonem, pro vedlejší službu)"),
       text(p, "nav_label", "Název v menu a v patičce"),
       check(p, "in_chooser", "Zobrazit v rozcestníku na úvodní stránce"),
       h("div", { class: "grid2" }, text(p, "chooser_title", "Název v rozcestníku"), text(p, "chooser_hint", "Popis v rozcestníku")),

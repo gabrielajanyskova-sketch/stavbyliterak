@@ -233,6 +233,7 @@ function cleanPage(p) {
   return {
     published: bool(p.published),
     in_nav: bool(p.in_nav),
+    nav_extra: bool(p.nav_extra),
     nav_label: str(p.nav_label, 60).trim(),
     in_chooser: bool(p.in_chooser),
     chooser_title: str(p.chooser_title, 100).trim(),
