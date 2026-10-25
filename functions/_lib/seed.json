@@ -250,19 +250,19 @@
       "facts": [
         {
           "label": "Lžíce",
-          "value": "20, 40 a 60 cm, hydraulická svahovka 120 cm"
+          "value": "20, 40 a 60 cm, hydraulická naklápěcí svahovací lžíce 120 cm"
         },
         {
           "label": "Hutnění",
-          "value": "Bomag a Weber MT, vibrační desky i pěchy do úzkých míst"
+          "value": "Bomag a Weber MT, vibrační desky i pěchy"
         },
         {
           "label": "Nakladač",
           "value": "Traktor Kubota s čelním nakladačem"
         },
         {
-          "label": "Cena",
-          "value": "Hodinová sazba za skutečně odpracovaný čas"
+          "label": "Zakladač trávníku",
+          "value": "Záběr 140 cm"
         }
       ],
       "photo": "/assets/img/bagr.webp",
@@ -356,7 +356,7 @@
         },
         {
           "type": "text",
-          "text": "Přebytečnou zeminu naložíme a odvezeme. Dovezeme štěrk, písek nebo ornici a po domluvě uděláme i drobné bourací práce. Na nakládání máme traktor Kubota s čelním nakladačem."
+          "text": "Po předchozí domluvě zajistíme dovoz nebo odvoz sypkých materiálů."
         },
         {
           "type": "heading",
@@ -369,7 +369,7 @@
         {
           "type": "note",
           "style": "info",
-          "text": "**Aktuálně:** Ceny nafty se teď hodně mění, proto tu neuvádíme pevnou hodinovou sazbu. Spočítáme ji podle aktuálních cen pohonných hmot. Děkujeme za pochopení."
+          "text": "**Aktuálně:** Situace s ropnými produkty, jako je nafta nebo maziva, je teď bohužel velmi nestabilní, a proto nemůžeme určit dlouhodobě platnou cenu. Cenu spočítáme podle cen platných v době zakázky. Děkujeme za pochopení."
         },
         {
           "type": "heading",
@@ -483,6 +483,10 @@
         {
           "label": "Atypy",
           "value": "Podle možností systému a profilů"
+        },
+        {
+          "label": "3D návrh",
+          "value": "Vizualizace přímo ve fotografii vašeho domu"
         }
       ],
       "photo": "/assets/img/foto/zimni-zahrada-zahrada.webp",
@@ -631,6 +635,14 @@
         {
           "type": "text",
           "text": "Každý dům je jiný. Liší se výška terénu, podezdívka, napojení na dům i přístup. Proto se nejdřív přijedeme podívat a teprve potom spolu vybereme provedení, zaměříme a zajistíme výrobu."
+        },
+        {
+          "type": "heading",
+          "text": "3D návrh a vizualizace"
+        },
+        {
+          "type": "text",
+          "text": "Na přání připravíme 3D návrh a vizualizaci. Do fotografií, které nám pošlete nebo které pořídíme přímo na místě, vložíme realistickou 3D vizualizaci vašeho prostoru. Získáte tak téměř stoprocentní představu o tom, jak bude dům vypadat."
         },
         {
           "type": "heading",
