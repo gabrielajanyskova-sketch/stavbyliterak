@@ -391,7 +391,7 @@ function ask(site, p) {
   return `<aside class="ask" aria-label="Poptávka">
 <span class="label">Poptávka</span>
 <h2>${esc(p.ask_title || p.title)}</h2>
-<p>Napište mi, co potřebujete, a ozvu se vám.</p>
+<p>Dejte mi vědět, co pro vás mohu udělat.</p>
 <a class="phone" href="tel:${esc(tel(site.phone))}">${esc(site.phone)}</a>
 <a class="mail" href="mailto:${esc(site.email)}">${esc(site.email)}</a>
 ${p.ask_note ? `<p class="ask-note">${inline(p.ask_note)}</p>` : ''}
@@ -419,7 +419,7 @@ function reviewsSection(r) {
   return `<section class="section section-concrete reviews">
 <div class="wrap">
 <div class="reviews-head reveal">
-<span class="label">Hodnocení zákazníků</span><h2>${esc(r.title || 'Co o mně říkají zákazníci')}</h2>
+<span class="label">Hodnocení zákazníků</span><h2>${esc(r.title || 'Co o nás říkají zákazníci')}</h2>
 ${summary}
 </div>
 ${list.length ? `<ul class="review-list reveal">
@@ -446,7 +446,7 @@ function showcase(pages) {
   if (tiles.length < 2) return '';
   return `<section class="section showcase">
 <div class="wrap">
-<div class="section-head is-stacked reveal"><span class="label">Z mých zakázek</span><h2>Práce, za kterou si stojím</h2></div>
+<div class="section-head is-stacked reveal"><span class="label">Z našich zakázek</span><h2>Práce, za kterou si stojíme</h2></div>
 <div class="showcase-grid reveal">
 ${tiles.map(({ p, src }) => `<a class="showcase-item" href="${pageUrl(p.slug)}"><img src="${esc(thumb(src))}" alt="${esc(p.chooser_title || p.title)}" loading="lazy" decoding="async"><span>${esc(p.chooser_title || p.title)} <i aria-hidden="true">→</i></span></a>`).join('\n')}
 </div>

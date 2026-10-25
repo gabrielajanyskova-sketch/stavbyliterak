@@ -13,19 +13,19 @@
       "hero_accent": "pod Beskydami",
       "hero_meta": "Stavební řešení · Jan Literák · Frýdek-Místek a okolí",
       "chooser_label": "Co potřebujete vyřešit?",
-      "about_label": "Jak pracuji",
+      "about_label": "Jak pracujeme",
       "about_title": "Od prohlídky po hotovou práci",
-      "about_text": "Každý dům a každý pozemek je jiný. Cenu proto nedávám od stolu. Přijedu, podívám se, co je na místě potřeba, a teprve potom se bavíme o řešení a ceně.",
+      "about_text": "Každý dům a každý pozemek je jiný. Cenu proto nedáváme od stolu. Přijedeme, podíváme se, co je na místě potřeba, a teprve potom se bavíme o řešení a ceně.",
       "principles": [
         {
           "label": "01 — Prohlídka",
-          "title": "Nejdřív se přijedu podívat",
-          "text": "Každé místo je jiné. Podívám se na přístup, výšky, napojení na dům i stav podkladu. Teprve na místě se dá dobře posoudit, jaké řešení bude nejlepší."
+          "title": "Nejdřív se přijedeme podívat",
+          "text": "Každé místo je jiné. Podíváme se na přístup, výšky, napojení na dům i stav podkladu. Teprve na místě se dá dobře posoudit, jaké řešení bude nejlepší."
         },
         {
           "label": "02 — Návrh a realizace",
-          "title": "Vymyslím řešení a udělám, co je potřeba",
-          "text": "Navrhnu vhodný postup a domluvíme se, jak dál. Většinu prací zvládnu sám, takže nemusíte shánět další lidi. Pokud je potřeba jiný řemeslník, doporučím vám někoho, s kým mám dobrou zkušenost."
+          "title": "Navrhneme řešení a uděláme, co je potřeba",
+          "text": "Navrhneme vhodný postup a domluvíme se, jak dál. Většinu prací zvládneme sami, takže nemusíte shánět další lidi. Pokud je potřeba jiný řemeslník, doporučíme vám někoho, s kým máme dobrou zkušenost."
         },
         {
           "label": "03 — Cena",
@@ -36,7 +36,7 @@
       "promo_page": "gastropujcovna",
       "promo_label": "Oslavy, svatby, párty",
       "promo_title": "Gastropůjčovna",
-      "promo_text": "Slavíte narozeniny, svatbu, nebo jen grilujete s přáteli? Půjčím vám pivní sety, výčep, kotlík na guláš, rožeň i reproduktor, ať nemusíte nic kupovat.",
+      "promo_text": "Slavíte narozeniny, svatbu, nebo jen grilujete s přáteli? Půjčíme vám pivní sety, výčep, kotlík na guláš, rožeň i reproduktor, ať nemusíte nic kupovat.",
       "promo_button": "Co se dá půjčit",
       "hero_photo": "/assets/img/foto/zasklena-terasa-dreveny-dum.webp",
       "hero_photo_alt": "Zasklená terasa u dřevěného domu",
@@ -141,7 +141,7 @@
             },
             {
               "title": "Nejen stavba",
-              "text": "Termokamerou zkontroluji i elektrický rozvaděč nebo podlahové topení."
+              "text": "Termokamerou zkontrolujeme i elektrický rozvaděč nebo podlahové topení."
             }
           ]
         },
@@ -151,7 +151,7 @@
         },
         {
           "type": "text",
-          "text": "Výsledky s vámi projdu a navrhnu, co s nalezenými místy dělat. Většinu [oprav udělám sám](/stavebni-prace), na zbytek vám doporučím ověřené řemeslníky, se kterými dlouhodobě spolupracuji. Měřím značkovou německou termokamerou a mám na to [odborné školení](/certifikaty)."
+          "text": "Výsledky s vámi projdeme a navrhneme, co s nalezenými místy dělat. Většinu [oprav uděláme sami](/stavebni-prace), na zbytek vám doporučíme ověřené řemeslníky, se kterými dlouhodobě spolupracujeme. Měříme značkovou německou termokamerou a máme na to [odborné školení](/certifikaty)."
         },
         {
           "type": "heading",
@@ -184,12 +184,12 @@
               "text": "Den předem normálně topte. Před měřením nevětrejte a nechte zavřená okna."
             },
             {
-              "title": "Změřím dům zvenku i uvnitř",
-              "text": "Co je na snímcích vidět, vám ukážu rovnou na místě."
+              "title": "Změříme dům zvenku i uvnitř",
+              "text": "Co je na snímcích vidět, vám ukážeme rovnou na místě."
             },
             {
               "title": "Dostanete výsledky",
-              "text": "K výsledkům vám napíšu, co bych s jednotlivými místy dělal."
+              "text": "K výsledkům vám napíšeme, co s jednotlivými místy doporučujeme udělat."
             }
           ]
         },
@@ -207,7 +207,7 @@
           "items": [
             {
               "title": "Kdy je nejlepší měřit?",
-              "text": "V topné sezóně, když je venku chladno. Čím větší je rozdíl mezi teplotou doma a venku, tím víc snímky ukážou. Rozvaděč nebo podlahové topení změřím kdykoli."
+              "text": "V topné sezóně, když je venku chladno. Čím větší je rozdíl mezi teplotou doma a venku, tím víc snímky ukážou. Rozvaděč nebo podlahové topení změříme kdykoli."
             },
             {
               "title": "Vyplatí se to?",
@@ -223,11 +223,11 @@
             },
             {
               "title": "Umíte nalezené problémy i opravit?",
-              "text": "Většinu ano. Co nedělám sám, předám řemeslníkům, se kterými mám dobré zkušenosti."
+              "text": "Většinu ano. Co neděláme sami, předáme řemeslníkům, se kterými máme dobré zkušenosti."
             },
             {
               "title": "Jakou kameru používáte?",
-              "text": "Značkovou německou termokameru. Na kvalitě kamery a na správném vyhodnocení snímků záleží nejvíc, proto mám i odborné školení."
+              "text": "Značkovou německou termokameru. Na kvalitě kamery a na správném vyhodnocení snímků záleží nejvíc, proto máme i odborné školení."
             }
           ]
         }
@@ -268,17 +268,17 @@
       "photo": "/assets/img/bagr.webp",
       "photo_caption": "Vlastní minibagr Kubota KX016-4",
       "ask_title": "Zemní práce",
-      "ask_note": "Strojní práce účtuji podle skutečně odpracovaného času.",
+      "ask_note": "Strojní práce účtujeme podle skutečně odpracovaného času.",
       "form_service": "Zemní práce",
       "aliases": [],
       "blocks": [
         {
           "type": "text",
-          "text": "Na zemních pracích stojí dům, přípojky, zpevněné plochy i zahrada. Před začátkem spolu probereme, co chcete udělat, co místo dovolí a co s vykopanou zeminou: jestli ji necháme na pozemku, nebo ji odvezu. Dobrá příprava ušetří zbytečné převážení materiálu, a tím i peníze."
+          "text": "Na zemních pracích stojí dům, přípojky, zpevněné plochy i zahrada. Před začátkem spolu probereme, co chcete udělat, co místo dovolí a co s vykopanou zeminou: jestli ji necháme na pozemku, nebo ji odvezeme. Dobrá příprava ušetří zbytečné převážení materiálu, a tím i peníze."
         },
         {
           "type": "heading",
-          "text": "S čím vám pomůžu"
+          "text": "S čím vám pomůžeme"
         },
         {
           "type": "numbered",
@@ -301,19 +301,19 @@
             },
             {
               "title": "Skrývka ornice",
-              "text": "Ornici odložím na pozemku, abyste ji později mohli použít na zahradu."
+              "text": "Ornici odložíme na pozemku, abyste ji později mohli použít na zahradu."
             },
             {
               "title": "Příjezdové cesty, stání a terasy",
-              "text": "Výkop na správnou výšku. Když chcete, dovezu, rozhrnu a zhutním i podkladní štěrk."
+              "text": "Výkop na správnou výšku. Když chcete, dovezeme, rozhrneme a zhutníme i podkladní štěrk."
             },
             {
               "title": "Terénní úpravy a svahování",
-              "text": "Srovnám nerovnosti a upravím terén tak, aby dešťová voda tekla od domu."
+              "text": "Srovnáme nerovnosti a upravíme terén tak, aby dešťová voda tekla od domu."
             },
             {
               "title": "Drenáže",
-              "text": "Drážky pro drenážní trubky ve správném spádu. Drenáž sama vlhkost vždycky nevyřeší, proto vám rád pomůžu navrhnout celé řešení."
+              "text": "Drážky pro drenážní trubky ve správném spádu. Drenáž sama vlhkost vždycky nevyřeší, proto vám rádi pomůžeme navrhnout celé řešení."
             },
             {
               "title": "Odkopání základů",
@@ -321,11 +321,11 @@
             },
             {
               "title": "Zásypy a hutnění",
-              "text": "Zasypávám po vrstvách a každou zhutním. Mám vibrační desky i pěchy do úzkých míst."
+              "text": "Zasypáváme po vrstvách a každou zhutníme. Máme vibrační desky i pěchy do úzkých míst."
             },
             {
               "title": "Rozhrnutí zeminy a ornice",
-              "text": "Doplním prohlubně a připravím plochu pro zahradu. Potom může nastoupit zakladač."
+              "text": "Doplníme prohlubně a připravíme plochu pro zahradu. Potom může nastoupit zakladač."
             }
           ]
         },
@@ -356,20 +356,20 @@
         },
         {
           "type": "text",
-          "text": "Přebytečnou zeminu naložím a odvezu. Dovezu štěrk, písek nebo ornici a po domluvě udělám i drobné bourací práce. Na nakládání mám traktor Kubota s čelním nakladačem."
+          "text": "Přebytečnou zeminu naložíme a odvezeme. Dovezeme štěrk, písek nebo ornici a po domluvě uděláme i drobné bourací práce. Na nakládání máme traktor Kubota s čelním nakladačem."
         },
         {
           "type": "heading",
-          "text": "Jak počítám cenu"
+          "text": "Jak počítáme cenu"
         },
         {
           "type": "text",
-          "text": "**Výkopy účtuji vždy podle odpracovaných hodin.** Co je v zemi, dopředu neví nikdo, i když si člověk může být sebevíc jistý. Může to být pěkná ornice, ale taky těžký jíl s kamením nebo skryté „poklady“ jako staré betony, železo a suť. Ze zkušenosti vím, že realita je v 99 % jiná, než jsme si mysleli. Hodinovka je proto nejvíc fér: co se udělá, to se zaplatí. Žádné odhady a dohady."
+          "text": "**Výkopy účtujeme vždy podle odpracovaných hodin.** Co je v zemi, dopředu neví nikdo, i když si člověk může být sebevíc jistý. Může to být pěkná ornice, ale taky těžký jíl s kamením nebo skryté „poklady“ jako staré betony, železo a suť. Ze zkušenosti víme, že realita je v 99 % jiná, než jsme si mysleli. Hodinovka je proto nejvíc fér: co se udělá, to se zaplatí. Žádné odhady a dohady."
         },
         {
           "type": "note",
           "style": "info",
-          "text": "**Aktuálně:** Ceny nafty se teď hodně mění, proto tu neuvádím pevnou hodinovou sazbu. Spočítám ji podle aktuálních cen pohonných hmot. Děkuji za pochopení."
+          "text": "**Aktuálně:** Ceny nafty se teď hodně mění, proto tu neuvádíme pevnou hodinovou sazbu. Spočítáme ji podle aktuálních cen pohonných hmot. Děkujeme za pochopení."
         },
         {
           "type": "heading",
@@ -435,11 +435,11 @@
           "items": [
             {
               "title": "Vezmete i malou zakázku nebo místo, kam se špatně zajíždí?",
-              "text": "Ano. Stroj vybírám podle práce a přístupu, a když nemám vhodný vlastní, umím sehnat jiný. Předem ale musíme probrat šířku a výšku vjezdu, sklon a únosnost příjezdové cesty a kam se bude dávat zemina. Rád k vám přijedu s bagrem nebo traktorem klidně i na půl hodiny. V tom případě ale účtuji paušál místo hodinové sazby, aby se mi vůbec vyrovnaly náklady."
+              "text": "Ano. Stroj vybíráme podle práce a přístupu, a když nemáme vhodný vlastní, umíme sehnat jiný. Předem ale musíme probrat šířku a výšku vjezdu, sklon a únosnost příjezdové cesty a kam se bude dávat zemina. Rádi k vám přijedeme s bagrem nebo traktorem klidně i na půl hodiny. V tom případě ale účtujeme paušál místo hodinové sazby, aby se vůbec vyrovnaly náklady."
             },
             {
               "title": "Nevyjde hodinová sazba dráž než pevná cena?",
-              "text": "Nemusíte mít obavy, spíš naopak. U strojních prací je hodinová sazba víc fair play než pevná cena, do které si každý přidá rezervu pro případ „co kdyby“. U mě platíte skutečně odpracovaný čas, ne odhady."
+              "text": "Nemusíte mít obavy, spíš naopak. U strojních prací je hodinová sazba víc fair play než pevná cena, do které si každý přidá rezervu pro případ „co kdyby“. U nás platíte skutečně odpracovaný čas, ne odhady."
             },
             {
               "title": "Co mám připravit, než přijedete?",
@@ -447,7 +447,7 @@
             },
             {
               "title": "Zůstanou po stroji stopy?",
-              "text": "Nějaké ano. Stroj volím tak, aby byl co nejšetrnější, ale anglický trávník vám po práci slíbit nemůžu. Fyzikální zákony ohnout neumím (ale snažím se…)."
+              "text": "Nějaké ano. Stroj volíme tak, aby byl co nejšetrnější, ale anglický trávník vám po práci slíbit nemůžeme. Fyzikální zákony ohnout neumíme (ale snažíme se…)."
             }
           ]
         }
@@ -465,7 +465,7 @@
       "meta_description": "Hliníkové ploty a brány, zábradlí, pergoly a altány, zastřešení teras, zimní zahrady a zasklení. Od zaměření po montáž. Frýdek-Místek a okolí.",
       "crumb": "Hliníkový program",
       "title": "Hliníkový program",
-      "lead": "Ploty, zábradlí, pergoly i zimní zahrady z hliníku. Vydrží roky a nemusíte je natírat. Zaměřím, zajistím výrobu a namontuji.",
+      "lead": "Ploty, zábradlí, pergoly i zimní zahrady z hliníku. Vydrží roky a nemusíte je natírat. Zaměříme, zajistíme výrobu a namontujeme.",
       "theme": "",
       "facts": [
         {
@@ -500,7 +500,7 @@
         },
         {
           "type": "heading",
-          "text": "Co dělám"
+          "text": "Co děláme"
         },
         {
           "type": "grid",
@@ -614,7 +614,7 @@
         },
         {
           "type": "text",
-          "text": "Zastřešená terasa, pergola nebo samostatný altán na zahradě. Podle systému je jde doplnit zasklením, aby vám tam nefoukalo ani nepršelo. U každé konstrukce je potřeba vyřešit rozměry, kotvení a napojení na dům, proto ji navrhuji až podle konkrétního místa."
+          "text": "Zastřešená terasa, pergola nebo samostatný altán na zahradě. Podle systému je jde doplnit zasklením, aby vám tam nefoukalo ani nepršelo. U každé konstrukce je potřeba vyřešit rozměry, kotvení a napojení na dům, proto ji navrhujeme až podle konkrétního místa."
         },
         {
           "type": "heading",
@@ -630,7 +630,7 @@
         },
         {
           "type": "text",
-          "text": "Každý dům je jiný. Liší se výška terénu, podezdívka, napojení na dům i přístup. Proto se nejdřív přijedu podívat a teprve potom spolu vybereme provedení, zaměřím a zajistím výrobu."
+          "text": "Každý dům je jiný. Liší se výška terénu, podezdívka, napojení na dům i přístup. Proto se nejdřív přijedeme podívat a teprve potom spolu vybereme provedení, zaměříme a zajistíme výrobu."
         },
         {
           "type": "heading",
@@ -645,7 +645,7 @@
             },
             {
               "title": "Můžou být plot, brána a branka stejné?",
-              "text": "Ano, a to je na hliníku to dobré. Ve stejném stylu udělám i zábradlí nebo pergolu."
+              "text": "Ano, a to je na hliníku to dobré. Ve stejném stylu uděláme i zábradlí nebo pergolu."
             },
             {
               "title": "Jde zasklít pergolu nebo altán?",
@@ -657,15 +657,15 @@
             },
             {
               "title": "Kolik to stojí?",
-              "text": "Záleží na rozměrech, výplni, barvě, kotvení a montáži. Bez zaměření cenu říct nejde. Po prohlídce vám ji spočítám."
+              "text": "Záleží na rozměrech, výplni, barvě, kotvení a montáži. Bez zaměření cenu říct nejde. Po prohlídce vám ji spočítáme."
             },
             {
               "title": "Uděláte všechno od začátku do konce?",
-              "text": "Ano. Zaměřím, zajistím výrobu a namontuji."
+              "text": "Ano. Zaměříme, zajistíme výrobu a namontujeme."
             },
             {
               "title": "Jde udělat i něco atypického?",
-              "text": "Většinou ano, pokud to systém profilů dovolí. Nejdřív se ale musím podívat na místo."
+              "text": "Většinou ano, pokud to systém profilů dovolí. Nejdřív se ale musíme podívat na místo."
             }
           ]
         }
@@ -678,7 +678,7 @@
       "nav_label": "Lešení",
       "in_chooser": true,
       "chooser_title": "Půjčovna lešení",
-      "chooser_hint": "Rámové lešení na rodinné domy. Dovezu ho až na místo.",
+      "chooser_hint": "Rámové lešení na rodinné domy. Dovezeme ho až na místo.",
       "meta_title": "Půjčovna lešení Frýdek-Místek i s dopravou | Stavby Literák",
       "meta_description": "Pronájem pozinkovaného rámového lešení s českým certifikátem pro rodinné domy a menší stavby. Doprava na stavbu, stavební stojky. Frýdek-Místek a okolí.",
       "crumb": "Půjčovna lešení",
@@ -716,7 +716,7 @@
         },
         {
           "type": "heading",
-          "text": "Co nabízím"
+          "text": "Co nabízíme"
         },
         {
           "type": "grid",
@@ -778,7 +778,7 @@
         },
         {
           "type": "text",
-          "text": "Když nemáte čím lešení převézt, dovezu ho. Potřebuji ale vědět, jak se ke stavbě dostanu a kam díly složím. Roli hraje i terén, výškové rozdíly, balkony nebo přístřešky, proto je lepší situaci probrat předem."
+          "text": "Když nemáte čím lešení převézt, dovezeme ho. Potřebujeme ale vědět, jak se ke stavbě dostaneme a kam díly složíme. Roli hraje i terén, výškové rozdíly, balkony nebo přístřešky, proto je lepší situaci probrat předem."
         },
         {
           "type": "heading",
@@ -811,7 +811,7 @@
         },
         {
           "type": "text",
-          "text": "Lešení se musí postavit a používat tak, jak je určeno. Kontroluje se, jestli jsou na místě všechny díly, podlážky, zábradlí a kotvení, a to i průběžně během práce. Proto z něj prosím nic neodebírejte a sami ho neupravujte. Když ho potřebujete přestavět, zavolejte mi."
+          "text": "Lešení se musí postavit a používat tak, jak je určeno. Kontroluje se, jestli jsou na místě všechny díly, podlážky, zábradlí a kotvení, a to i průběžně během práce. Proto z něj prosím nic neodebírejte a sami ho neupravujte. Když ho potřebujete přestavět, zavolejte nám."
         },
         {
           "type": "heading",
@@ -826,7 +826,7 @@
             },
             {
               "title": "Musím si lešení přijet vyzvednout?",
-              "text": "Nemusíte, po domluvě ho dovezu."
+              "text": "Nemusíte, po domluvě ho dovezeme."
             },
             {
               "title": "Půjčujete i stavební stojky?",
@@ -838,7 +838,7 @@
             },
             {
               "title": "Kolik lešení potřebuju na rodinný dům?",
-              "text": "Podle rozměrů, výšky a tvaru domu a podle toho, co budete dělat. Pošlete mi přibližné rozměry a spočítám to."
+              "text": "Podle rozměrů, výšky a tvaru domu a podle toho, co budete dělat. Pošlete nám přibližné rozměry a spočítáme to."
             },
             {
               "title": "Můžu si půjčit lešení jen na část domu?",
@@ -846,7 +846,7 @@
             },
             {
               "title": "Kolik pronájem stojí?",
-              "text": "Záleží na množství lešení, délce pronájmu a dopravě. Napište mi pár údajů o stavbě a termín a pošlu vám nabídku."
+              "text": "Záleží na množství lešení, délce pronájmu a dopravě. Napište nám pár údajů o stavbě a termín a pošleme vám nabídku."
             }
           ]
         }
@@ -1013,7 +1013,7 @@
       "meta_description": "Půjčovna vybavení na oslavy, svatby a párty: pivní sety, výčep na 2 sudy, kotlík na guláš, rožeň, ohřevné vany, várnice, hotdogovač, reproduktor JBL. Frýdek-Místek.",
       "crumb": "Gastropůjčovna",
       "title": "Gastropůjčovna",
-      "lead": "Chystáte oslavu narozenin, svatbu, nebo jen posezení s přáteli? Půjčím vám vybavení, se kterým bude celá akce mnohem pohodlnější.",
+      "lead": "Chystáte oslavu narozenin, svatbu, nebo jen posezení s přáteli? Půjčíme vám vybavení, se kterým bude celá akce mnohem pohodlnější.",
       "theme": "",
       "facts": [
         {
@@ -1036,7 +1036,7 @@
       "photo": "",
       "photo_caption": "",
       "ask_title": "Gastropůjčovna",
-      "ask_note": "Napište termín akce a co byste chtěli půjčit. Ověřím, co je volné, a pošlu cenu.",
+      "ask_note": "Napište termín akce a co byste chtěli půjčit. Ověříme, co je volné, a pošleme cenu.",
       "form_service": "Gastropůjčovna",
       "aliases": [],
       "blocks": [
@@ -1164,10 +1164,10 @@
           "type": "bullets",
           "items": [
             {
-              "text": "Cenu počítám podle toho, co si půjčíte a na jak dlouho."
+              "text": "Cenu počítáme podle toho, co si půjčíte a na jak dlouho."
             },
             {
-              "text": "Po domluvě vybavení dovezu, sestavím a zprovozním."
+              "text": "Po domluvě vybavení dovezeme, sestavíme a zprovozníme."
             },
             {
               "text": "Půjčuji nejméně na jeden den."
@@ -1190,11 +1190,11 @@
             },
             {
               "title": "Kolik to stojí?",
-              "text": "Záleží na tom, co a na jak dlouho si půjčíte. Napište mi termín a co potřebujete a pošlu vám cenu."
+              "text": "Záleží na tom, co a na jak dlouho si půjčíte. Napište nám termín a co potřebujete a pošleme vám cenu."
             },
             {
               "title": "Dovezete vybavení na místo?",
-              "text": "Ano. Po domluvě ho dovezu, sestavím i zprovozním."
+              "text": "Ano. Po domluvě ho dovezeme, sestavíme i zprovozníme."
             },
             {
               "title": "Jaké sudy jdou na výčep napojit?",
@@ -1224,7 +1224,7 @@
       "meta_description": "Certifikáty, osvědčení o školeních a oprávnění pro termovizní měření, protipožární systémy Pyroplex a Nullifire a další práce. Jan Literák, Frýdek-Místek.",
       "crumb": "Certifikáty",
       "title": "Certifikáty a školení",
-      "lead": "Školení, certifikáty od výrobců a osvědčení, které jsem za ta léta získal. Kliknutím certifikát zvětšíte.",
+      "lead": "Školení, certifikáty od výrobců a osvědčení získaná za ta léta. Kliknutím certifikát zvětšíte.",
       "theme": "",
       "facts": [],
       "photo": "",
@@ -1390,34 +1390,34 @@
         },
         {
           "type": "text",
-          "text": "Správcem osobních údajů je Jan Literák (údaje výše). Osobní údaje zpracovávám v souladu s nařízením Evropského parlamentu a Rady (EU) 2016/679 (GDPR) a zákonem č. 110/2019 Sb., o zpracování osobních údajů."
+          "text": "Správcem osobních údajů je Jan Literák (údaje výše). Osobní údaje zpracovává v souladu s nařízením Evropského parlamentu a Rady (EU) 2016/679 (GDPR) a zákonem č. 110/2019 Sb., o zpracování osobních údajů."
         },
         {
           "type": "heading",
-          "text": "Jaké údaje zpracovávám a proč",
+          "text": "Jaké údaje se zpracovávají a proč",
           "level": 3
         },
         {
           "type": "text",
-          "text": "Když mě kontaktujete přes formulář na webu, telefonem nebo e-mailem, zpracovávám údaje, které mi sami sdělíte: jméno, telefon, e-mail, místo a popis poptávky. Používám je jen k tomu, abych vám mohl odpovědět, připravit nabídku a případně zakázku udělat.\n\nPrávním základem je jednání o uzavření smlouvy a její plnění (čl. 6 odst. 1 písm. b) GDPR), u fakturačních údajů plnění zákonných povinností (čl. 6 odst. 1 písm. c) GDPR). Údaje nepoužívám k marketingu a nezasílám obchodní sdělení."
+          "text": "Pokud nás kontaktujete přes formulář na webu, telefonem nebo e-mailem, zpracovávají se údaje, které sami sdělíte: jméno, telefon, e-mail, místo a popis poptávky. Používají se jen k tomu, abychom vám mohli odpovědět, připravit nabídku a případně zakázku provést.\n\nPrávním základem je jednání o uzavření smlouvy a její plnění (čl. 6 odst. 1 písm. b) GDPR), u fakturačních údajů plnění zákonných povinností (čl. 6 odst. 1 písm. c) GDPR). Údaje se nepoužívají k marketingu a nezasílají se obchodní sdělení."
         },
         {
           "type": "heading",
-          "text": "Jak dlouho je uchovávám",
+          "text": "Jak dlouho se uchovávají",
           "level": 3
         },
         {
           "type": "text",
-          "text": "Poptávky, ze kterých spolupráce nevznikne, uchovávám nejdéle 1 rok. Údaje ze zakázek a dokladů uchovávám po dobu stanovenou zákony, zejména účetními a daňovými předpisy (obvykle 10 let)."
+          "text": "Poptávky, ze kterých spolupráce nevznikne, se uchovávají nejdéle 1 rok. Údaje ze zakázek a dokladů se uchovávají po dobu stanovenou zákony, zejména účetními a daňovými předpisy (obvykle 10 let)."
         },
         {
           "type": "heading",
-          "text": "Komu údaje předávám",
+          "text": "Komu se údaje předávají",
           "level": 3
         },
         {
           "type": "text",
-          "text": "Údaje neprodávám ani nepředávám dalším firmám pro jejich účely. Přístup k nim mohou mít jen poskytovatelé služeb, které k provozu nutně potřebuji: hosting webu (Cloudflare), poskytovatel e-mailové schránky a účetní. Pokud některý z nich zpracovává data mimo EU, děje se tak se zárukami podle GDPR (např. standardní smluvní doložky)."
+          "text": "Údaje se neprodávají ani nepředávají dalším firmám pro jejich účely. Přístup k nim mohou mít jen poskytovatelé služeb, které jsou k provozu nutně potřeba: hosting webu (Cloudflare), poskytovatel e-mailové schránky a účetní. Pokud některý z nich zpracovává data mimo EU, děje se tak se zárukami podle GDPR (např. standardní smluvní doložky)."
         },
         {
           "type": "heading",
@@ -1450,7 +1450,7 @@
         },
         {
           "type": "text",
-          "text": "Pro uplatnění práv mi stačí napsat nebo zavolat. Odpovím bez zbytečného odkladu, nejpozději do jednoho měsíce."
+          "text": "Pro uplatnění práv stačí napsat nebo zavolat. Odpověď dostanete bez zbytečného odkladu, nejpozději do jednoho měsíce."
         },
         {
           "type": "heading",
