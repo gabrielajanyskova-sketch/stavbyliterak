@@ -158,13 +158,9 @@
           "text": "Ukázka z měření"
         },
         {
-          "type": "gallery",
-          "items": [
-            {
-              "src": "/assets/img/foto/termovize-studeny-kout.webp",
-              "caption": "Studený kout v místnosti — 12,4 °C (měření 23. 11. 2025)"
-            }
-          ]
+          "type": "image",
+          "src": "/assets/img/foto/termovize-studeny-kout.webp",
+          "caption": "Studený kout v místnosti — 12,4 °C (měření 23. 11. 2025)"
         },
         {
           "type": "heading",
