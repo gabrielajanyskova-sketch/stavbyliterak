@@ -284,9 +284,9 @@ function contact(ctx, preselect) {
 </div>
 <div><label for="misto">Místo (obec)</label><input id="misto" name="misto" autocomplete="address-level2"></div>
 <div hidden><label for="web">Nevyplňujte</label><input id="web" name="web" tabindex="-1" autocomplete="off"></div>
-<div><label for="zprava">Co potřebujete</label><textarea id="zprava" name="zprava" placeholder="Popište mi, čeho se váš dotaz týká."></textarea></div>
+<div><label for="zprava">Popište mi, čeho se váš dotaz týká</label><textarea id="zprava" name="zprava" placeholder="Stačí pár vět: rozměry, termín, cokoli víte."></textarea></div>
 <div><button class="btn" type="submit">Odeslat poptávku</button></div>
-<p class="note" data-status role="status">Poskytnuté údaje budou použity <strong>pouze</strong> k vyřízení poptávky.${
+<p class="note" data-status role="status">Poskytnuté údaje budou použity <strong>POUZE</strong> k vyřízení poptávky.${
       legal ? ` <a href="${pageUrl(LEGAL_SLUG)}#osobni-udaje">Ochrana osobních údajů</a>` : ''}</p>
 </form>
 </div>
