@@ -155,6 +155,19 @@
         },
         {
           "type": "heading",
+          "text": "Ukázka z měření"
+        },
+        {
+          "type": "gallery",
+          "items": [
+            {
+              "src": "/assets/img/foto/termovize-studeny-kout.webp",
+              "caption": "Studený kout v místnosti — 12,4 °C (měření 23. 11. 2025)"
+            }
+          ]
+        },
+        {
+          "type": "heading",
           "text": "Školení",
           "level": 3
         },
@@ -896,8 +909,8 @@
           "value": "Frýdek-Místek a okolí"
         }
       ],
-      "photo": "",
-      "photo_caption": "",
+      "photo": "/assets/img/foto/zamkova-dlazba-garaz.webp",
+      "photo_caption": "Zámková dlažba v garáži",
       "ask_title": "Stavební práce",
       "ask_note": "",
       "form_service": "Stavební práce",

@@ -13,6 +13,9 @@ const BUILTIN_IMAGES = [
   { url: "/assets/img/foto/traktor-kubota-celni-nakladac.webp", name: "Traktor Kubota s čelním nakladačem" },
   { url: "/assets/img/foto/zakladac-travniku.webp", name: "Zakladač trávníku" },
   { url: "/assets/img/foto/zakladac-zpracovani-pudy.webp", name: "Zpracování půdy zakladačem" },
+  // termovize a stavební práce
+  { url: "/assets/img/foto/termovize-studeny-kout.webp", name: "Termovize — studený kout v místnosti, 12,4 °C" },
+  { url: "/assets/img/foto/zamkova-dlazba-garaz.webp", name: "Zámková dlažba v garáži" },
   // hliníkový program
   { url: "/assets/img/foto/zimni-zahrada-rodinny-dum.webp", name: "Zimní zahrada u rodinného domu" },
   { url: "/assets/img/foto/zasklena-terasa-dreveny-dum.webp", name: "Zasklená terasa u dřevěného domu" },
