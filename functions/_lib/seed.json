@@ -262,7 +262,7 @@
         },
         {
           "label": "Zakladač trávníku",
-          "value": "140 CM"
+          "value": "140 cm"
         }
       ],
       "photo": "/assets/img/bagr.webp",
@@ -369,7 +369,7 @@
         {
           "type": "note",
           "style": "info",
-          "text": "Bohužel, je aktuální situace s ropnými produkty jako nafta, maziva a další velmi nestabilní, tedy neumím určit dlouhodobou relevantní cenu. Cenu spočítám dle aktuálních cen platných v dané době .Děkuji za pochopení."
+          "text": "Bohužel, je aktuální situace s ropnými produkty jako nafta, maziva a další velmi nestabilní, tedy neumím určit dlouhodobou relevantní cenu. Cenu spočítám dle aktuálních cen platných v dané době. Děkuji za pochopení."
         },
         {
           "type": "heading",
