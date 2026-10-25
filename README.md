@@ -114,7 +114,7 @@ Pozdější změny se dělají v administraci, ne v tomto souboru.
 
 - [ ] Termovize — průběh měření a výstup (žlutá poznámka na stránce, čeká na klienta)
 - [ ] Stavební práce — které drobné práce dál nabízet (žlutá poznámka na stránce)
-- [ ] Fotky z termovize a protipožárních prací
+- [ ] Fotky z termovize a ze stavebních prací
 - [ ] Převod domény od Webnode, Custom domains v Pages, adresa info@stavbyliterak.cz
       (Cloudflare Email Routing), Resend, Google Search Console a Seznam Webmaster
 

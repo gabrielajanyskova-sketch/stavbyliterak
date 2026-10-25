@@ -28,7 +28,7 @@ const OLD_URL_HINTS = [
   [/zemni|vykop|autodoprav/, 'zemni-prace'],
   [/hlinik|pergol|zimni-zahrad|zabradl|oploc|zaskl/, 'hlinikovy-program'],
   [/lesen/, 'leseni'],
-  [/protipozar|pozarn/, 'stavebni-prace', '#protipozarni'],
+  [/protipozar|pozarn/, 'stavebni-prace'],
   [/gastro|oslav|svatb|party/, 'gastropujcovna'],
   [/certifik|osvedc/, 'certifikaty'],
   [/stavebni|elektro|instalat|malb|zednic|sadrokart|podlah|hodinovy/, 'stavebni-prace'],

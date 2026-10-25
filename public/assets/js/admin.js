@@ -30,13 +30,6 @@ const BUILTIN_IMAGES = [
   { url: "/assets/img/foto/leseni-fasada-rodinny-dum.webp", name: "Lešení na fasádě rodinného domu" },
   { url: "/assets/img/foto/leseni-ramove-pozinkovane.webp", name: "Rámové pozinkované lešení" },
   { url: "/assets/img/foto/leseni-ramova-sestava.webp", name: "Rámová sestava lešení (schéma)" },
-  // protipožární systémy
-  { url: "/assets/img/foto/logo-pyroplex.webp", name: "Logo Pyroplex" },
-  { url: "/assets/img/foto/logo-nullifire.webp", name: "Logo Nullifire" },
-  { url: "/assets/img/foto/pyroplex-protipozarni-paska.webp", name: "Pyroplex — protipožární páska" },
-  { url: "/assets/img/foto/pyroplex-protipozarni-polstar.webp", name: "Pyroplex — protipožární polštář" },
-  { url: "/assets/img/foto/pyroplex-protipozarni-manzety.webp", name: "Pyroplex — protipožární manžety" },
-  { url: "/assets/img/foto/pyroplex-manzeta-eta.webp", name: "Pyroplex — manžeta s ETA" },
   // gastropůjčovna
   { url: "/assets/img/foto/gastro-vycep-oslava.webp", name: "Výčep na oslavě" },
   { url: "/assets/img/foto/gastro-vycep-2-kohouty.webp", name: "Výčep na pivo a limo — 2 kohouty" },

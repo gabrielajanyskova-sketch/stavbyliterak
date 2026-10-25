@@ -8,7 +8,7 @@
     "ico": "03171949",
     "home": {
       "meta_title": "Stavby Literák Frýdek-Místek — výkopy, termovize, lešení",
-      "meta_description": "Termovizní měření, zemní a výkopové práce, zakladač trávníku, hliníkové ploty a pergoly, půjčovna lešení a protipožární systémy. Jan Literák, Frýdek-Místek.",
+      "meta_description": "Termovizní měření, zemní a výkopové práce, zakladač trávníku, hliníkové ploty a pergoly, půjčovna lešení a stavební práce. Jan Literák, Frýdek-Místek.",
       "hero_title": "Poctivá práce",
       "hero_accent": "pod Beskydami",
       "hero_meta": "Stavební řešení · Jan Literák · Frýdek-Místek a okolí",
@@ -52,7 +52,6 @@
         "Zakladač trávníku",
         "Hliníkový program",
         "Půjčovna lešení",
-        "Protipožární systémy",
         "Stavební práce",
         "Gastropůjčovna",
         "Něco jiného"
@@ -860,25 +859,25 @@
       "nav_label": "Stavební práce",
       "in_chooser": true,
       "chooser_title": "Stavební práce",
-      "chooser_hint": "Protipožární utěsnění prostupů a menší stavební práce.",
-      "meta_title": "Protipožární ucpávky a stavební práce Frýdek-Místek",
-      "meta_description": "Protipožární utěsnění prostupů a spár systémy Pyroplex a Nullifire. Zednické práce, sádrokartony, elektro, instalatérské práce, malby, podlahy. Frýdek-Místek.",
+      "chooser_hint": "Zednické práce, trhliny, dlažby, chodníky i sádrokartony.",
+      "meta_title": "Stavební práce Frýdek-Místek — zednické práce, dlažby",
+      "meta_description": "Zednické práce, statické zajištění trhlin, zpevněné plochy, zámková dlažba a chodníky, sádrokartony a malby. Rodinné domy i menší stavby, Frýdek-Místek.",
       "crumb": "Stavební práce",
       "title": "Stavební práce",
-      "lead": "Protipožární utěsnění prostupů a menší stavební práce podle domluvy.",
+      "lead": "Zednické práce, opravy trhlin, zpevněné plochy a dlažby, sádrokartony i malby. U rodinných domů i menších staveb, od oprav po větší úpravy.",
       "theme": "",
       "facts": [
         {
-          "label": "Požární ochrana",
-          "value": "Utěsnění prostupů a spár"
+          "label": "Uvnitř",
+          "value": "Zednické práce, sádrokartony, malby"
         },
         {
-          "label": "Systémy",
-          "value": "Pyroplex, Nullifire"
+          "label": "Venku",
+          "value": "Zpevněné plochy, zámková dlažba, chodníky"
         },
         {
-          "label": "Stavební práce",
-          "value": "Zednické práce, sádrokartony a další"
+          "label": "Navíc",
+          "value": "Výkopy a hutnění vlastní technikou"
         },
         {
           "label": "Kde",
@@ -889,81 +888,57 @@
       "photo_caption": "",
       "ask_title": "Stavební práce",
       "ask_note": "",
-      "form_service": "Protipožární systémy",
+      "form_service": "Stavební práce",
       "aliases": [],
       "blocks": [
         {
           "type": "heading",
-          "text": "Protipožární pasivní systémy",
-          "anchor": "protipozarni"
-        },
-        {
-          "type": "text",
-          "text": "Pasivní požární ochrana je součástí stavby. Když začne hořet, má zabránit tomu, aby se oheň a kouř rozšířily do dalších místností. Utěsňuji prostupy, spáry a další detaily systémy **Pyroplex** a **Nullifire**.\n\nKaždou stavbou nebo rekonstrukcí vedou kabely, trubky a vzduchotechnika. Tam, kde procházejí požární stěnou nebo stropem, vzniká otvor, který musí být správně utěsněný. Totéž platí pro spáry a dilatace."
+          "text": "Co nabízíme"
         },
         {
           "type": "numbered",
           "items": [
             {
-              "title": "Prostupy kabelů a kabelových žlabů",
-              "text": "Ve stěnách a stropech, které oddělují požární úseky."
+              "title": "Zednické práce",
+              "text": "Zdění, omítky, opravy a úpravy zdiva."
             },
             {
-              "title": "Prostupy potrubí",
-              "text": "Včetně manžet a pásek na hořlavé (plastové) potrubí."
+              "title": "Statické zajištění trhlin",
+              "text": "Zajištění popraskaného zdiva, aby se trhliny dál nerozšiřovaly."
             },
             {
-              "title": "Spáry a otvory",
-              "text": "Lineární, dilatační i konstrukční spáry."
+              "title": "Zpevněné plochy a zámková dlažba",
+              "text": "Příjezdy, parkovací stání, terasy a dvorky, včetně [zemních prací](/zemni-prace), podkladních vrstev a hutnění."
             },
             {
-              "title": "Konstrukční detaily",
-              "text": "Ochrana vybraných detailů a nátěry ocelových konstrukcí."
+              "title": "Chodníky a obrubníky",
+              "text": "Chodníky kolem domu i k brance, osazení obrubníků."
             },
             {
-              "title": "Dodatečné prostupy",
-              "text": "Při rekonstrukcích a nových rozvodech, kdy se na utěsnění často zapomene."
+              "title": "Sádrokartony",
+              "text": "Příčky, podhledy a předstěny."
+            },
+            {
+              "title": "Malby",
+              "text": "Malování interiérů a opravy omítek před malováním."
             }
           ]
+        },
+        {
+          "type": "heading",
+          "text": "Od výkopu po dlažbu"
         },
         {
           "type": "text",
-          "text": "**Univerzální řešení neexistuje.** Záleží na tom, co prostupem vede, jak je velký, jestli jde o stěnu, nebo strop, z čeho je konstrukce a jakou požární odolnost má mít. Nestačí koupit „protipožární tmel“. Musí se použít správný systém ve správné skladbě a přesně podle návodu výrobce."
+          "text": "U zpevněných ploch a chodníků je výhodou vlastní technika. Výkop, podkladní vrstvy, hutnění i pokládka dlažby jsou v jedněch rukou, takže nemusíte shánět a koordinovat několik firem."
         },
         {
-          "type": "gallery",
-          "fit": "contain",
-          "items": [
-            {
-              "src": "/assets/img/foto/logo-pyroplex.webp",
-              "caption": "Logo Pyroplex"
-            },
-            {
-              "src": "/assets/img/foto/logo-nullifire.webp",
-              "caption": "Logo Nullifire"
-            },
-            {
-              "src": "/assets/img/foto/pyroplex-protipozarni-paska.webp",
-              "caption": "Pyroplex — protipožární páska"
-            },
-            {
-              "src": "/assets/img/foto/pyroplex-protipozarni-polstar.webp",
-              "caption": "Pyroplex — protipožární polštář"
-            },
-            {
-              "src": "/assets/img/foto/pyroplex-protipozarni-manzety.webp",
-              "caption": "Pyroplex — protipožární manžety"
-            },
-            {
-              "src": "/assets/img/foto/pyroplex-manzeta-eta.webp",
-              "caption": "Pyroplex — manžeta s ETA"
-            }
-          ]
+          "type": "heading",
+          "text": "Trhliny ve zdivu"
         },
         {
-          "type": "note",
-          "style": "info",
-          "text": "Fotografie výrobků jsou ilustrační a patří výrobcům Pyroplex a Nullifire."
+          "type": "text",
+          "text": "Samotné zapravení trhliny omítkou nepomůže, trhlina se většinou vrátí. Nejdřív je potřeba zjistit, proč vznikla a jestli se dál zvětšuje. Podle toho se navrhne vhodné statické zajištění."
         },
         {
           "type": "heading",
@@ -975,18 +950,26 @@
           "fit": "contain",
           "items": [
             {
-              "src": "/assets/img/foto/osvedceni-pyroplex.webp",
-              "caption": "Pyroplex — osvědčení k montáži protipožárních systémů (2024)"
-            },
-            {
-              "src": "/assets/img/foto/certifikat-nullifire.webp",
-              "caption": "Nullifire — pasivní protipožární technika, školení (2024)"
-            },
-            {
               "src": "/assets/img/foto/certifikat-rigips.webp",
               "caption": "Rigips — montáž suché výstavby vč. protipožárních konstrukcí (2022)"
+            },
+            {
+              "src": "/assets/img/foto/osvedceni-dek-fermacell.webp",
+              "caption": "Stavebniny DEK — systémy suché výstavby Fermacell (2022)"
+            },
+            {
+              "src": "/assets/img/foto/osvedceni-weber.webp",
+              "caption": "Weber — fasády, zateplení ETICS, sanace, obklady a podlahy (2021)"
+            },
+            {
+              "src": "/assets/img/foto/certifikat-tytan-fgs.webp",
+              "caption": "Tytan — zateplení fasád FGS (2021)"
             }
           ]
+        },
+        {
+          "type": "text",
+          "text": "Všechny certifikáty a školení najdete na stránce [Certifikáty](/certifikaty)."
         },
         {
           "type": "heading",
@@ -997,72 +980,23 @@
           "type": "faq",
           "items": [
             {
-              "title": "Proč se prostupy musí utěsňovat?",
-              "text": "Každý otvor v požární stěně nebo stropu oslabuje jejich odolnost. Správné utěsnění ji vrací tam, kde má být."
+              "title": "Uděláte zpevněnou plochu včetně výkopu?",
+              "text": "Ano. Výkop, podkladní vrstvy, hutnění i pokládka dlažby jsou v jedněch rukou."
             },
             {
-              "title": "Jde jedním tmelem utěsnit všechny prostupy?",
-              "text": "Ne. Výrobci mají pro různé prostupy různé skladby a podmínky použití. Rozhoduje konstrukce, velikost prostupu a to, co jím vede."
+              "title": "Ve zdi se objevila trhlina. Stačí ji zatřít?",
+              "text": "Většinou ne. Pokud se nezjistí a neodstraní příčina, trhlina se vrátí. Nejdřív je potřeba ji posoudit a podle toho zvolit zajištění."
             },
             {
-              "title": "Děláte to i při rekonstrukcích?",
-              "text": "Ano. U novostaveb, při rekonstrukcích i tehdy, když se dodatečně natahují nové rozvody."
-            },
-            {
-              "title": "Umíte utěsnit prostup, který už existuje?",
-              "text": "Většinou ano. Nejdřív se ale musím podívat, jak je udělaný, jak je velký a co jím vede."
-            },
-            {
-              "title": "Jak poznám, co potřebuji?",
-              "text": "Nemusíte to vědět. Přijedu, prostup si prohlédnu a navrhnu řešení."
-            }
-          ]
-        },
-        {
-          "type": "heading",
-          "text": "Další stavební práce"
-        },
-        {
-          "type": "text",
-          "text": "Po domluvě dělám i menší stavební práce. Zavolejte a probereme, co potřebujete."
-        },
-        {
-          "type": "grid",
-          "items": [
-            {
-              "title": "Zednické práce",
-              "text": ""
-            },
-            {
-              "title": "Sádrokartony",
-              "text": ""
-            },
-            {
-              "title": "Elektro",
-              "text": ""
-            },
-            {
-              "title": "Instalatérské práce",
-              "text": ""
-            },
-            {
-              "title": "Malby",
-              "text": ""
-            },
-            {
-              "title": "Podlahy",
-              "text": ""
-            },
-            {
-              "title": "Hodinový manžel",
-              "text": ""
+              "title": "Kolik to stojí?",
+              "text": "Záleží na rozsahu práce a materiálu. Cenu je potřeba spočítat po prohlídce na místě."
             }
           ]
         },
         {
           "type": "note",
-          "text": "K rozhodnutí: kterou z těchto prací chcete na webu dál nabízet — podle toho seznam zkrátíme.",
-          "style": "todo"
+          "style": "todo",
+          "text": "K doladění: seznam prací. Nabízet dál i elektro, instalatérské práce a podlahy? Doplnit fasády a zateplení (máte certifikáty Weber, Tytan, JUB)? A fotky ze zakázek k jednotlivým pracím."
         }
       ]
     },
@@ -1543,7 +1477,7 @@
         },
         {
           "type": "text",
-          "text": "Fotografie realizací pocházejí z vlastních zakázek. Fotografie některých výrobků a vybavení (např. v gastropůjčovně nebo u protipožárních systémů) jsou ilustrační. Mohou pocházet od oficiálních prodejců nebo výrobců a patří jejich autorům. Skutečné vybavení se může v detailech lišit."
+          "text": "Fotografie realizací pocházejí z vlastních zakázek. Fotografie některých výrobků a vybavení (např. v gastropůjčovně) jsou ilustrační. Mohou pocházet od oficiálních prodejců nebo výrobců a patří jejich autorům. Skutečné vybavení se může v detailech lišit."
         }
       ]
     }
