@@ -915,14 +915,28 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
   mask-image: linear-gradient(135deg, #000 20%, transparent 75%);
   z-index: -1;
 }
+/* na mobilu decentněji: výkres ztlumený překryvem, slabší záře a tečky */
 @media (max-width: 860px) {
+  .section-dark,
+  .hero-index,
+  .page-hero:not(.thermal) {
+    background:
+      radial-gradient(ellipse 80% 50% at 10% 110%, rgb(243 154 30 / 0.12), transparent 70%),
+      linear-gradient(rgb(29 33 38 / 0.55), rgb(29 33 38 / 0.55)),
+      url("/assets/img/vykres-tmavy.svg") left -200px top -80px / 1100px auto no-repeat,
+      var(--graphite);
+  }
   .section-dark::after,
   .hero-index::after,
-  .page-hero:not(.thermal)::after { width: 110px; height: 70px; opacity: 0.5; }
+  .page-hero:not(.thermal)::after { width: 100px; height: 60px; opacity: 0.3; }
 }
 
 /* rozcestník na úvodu na tmavém podkladu */
-.hero-index { color: var(--white); background-position: 0 0, left -260px top -140px, 0 0; }
+.hero-index { color: var(--white); }
+@media (min-width: 861px) {
+  .hero-index { background-position: 0 0, left -260px top -140px, 0 0; }
+  .hero-index::after { height: 80px; }
+}
 .hero-index .label { color: #9aa3ab; }
 .hero-index .chooser { border-top-color: var(--white); }
 .hero-index .chooser a { border-bottom-color: rgb(255 255 255 / 0.14); }
@@ -931,4 +945,3 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 .hero-index .chooser .hint { color: #b4bbc1; }
 .hero-index .chooser .arrow { color: var(--amber); }
 
-.hero-index::after { height: 80px; }
