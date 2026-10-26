@@ -106,18 +106,50 @@
     return { x0: Math.min(...xs), y0: Math.min(...ys), x1: Math.max(...xs) + 1, y1: Math.max(...ys) + 1 };
   }
 
-  function scaffoldFrame(w, top) {
-    const [nx, ny] = [w.y2 - w.y1, w.x1 - w.x2].map((v) => Math.sign(v) * 0.32); // ven od domu
-    const a = [w.x1 + nx, w.y1 + ny], b = [w.x2 + nx, w.y2 + ny];
-    const len = w.cells;
-    const parts = [];
-    const bays = Math.max(1, Math.round(len / 0.8));
-    for (let i = 0; i <= bays; i++) {
-      const t = i / bays, p = [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
-      parts.push(line([...p, 0], [...p, top], "sc-pole"));
+  // roh na začátku stěny i míří ven z domu (u obrysu po směru hodinových ručiček)
+  const convexAt = (walls, i) => {
+    const p = walls[(i - 1 + walls.length) % walls.length], w = walls[i];
+    return (p.x2 - p.x1) * (w.y2 - w.y1) - (p.y2 - p.y1) * (w.x2 - w.x1) > 0;
+  };
+
+  // Rámové lešení podél stěny: dvě řady sloupků (u zdi a venku), podlážky po 2 m, zábradlí,
+  // diagonály. Na vnějších rozích se prodlouží, aby na sebe lešení sousedních stěn navazovalo.
+  const LIFT = 2 / CELL_M; // výška patra lešení (2 m)
+  const IN = 0.1, OUT = 0.4; // odstup vnitřní a vnější řady od zdi (≈ 0,25 m a 1 m)
+  function scaffoldFrame(walls, i, top, back) {
+    const w = walls[i];
+    const dx = Math.sign(w.x2 - w.x1), dy = Math.sign(w.y2 - w.y1);
+    const nx = dy, ny = -dx; // ven od domu
+    const e1 = convexAt(walls, i) ? OUT : -OUT;
+    const e2 = convexAt(walls, (i + 1) % walls.length) ? OUT : -OUT;
+    const L = w.cells + e1 + e2;
+    const at = (t, off, z) => [w.x1 - dx * e1 + dx * t + nx * off, w.y1 - dy * e1 + dy * t + ny * off, z];
+    const bays = Math.max(1, Math.round(L / 1.1));
+    const ts = Array.from({ length: bays + 1 }, (_, j) => (L * j) / bays);
+    const decks = [];
+    for (let z = LIFT; z <= top + 0.01; z += LIFT) decks.push(z);
+    if (!decks.length) decks.push(top);
+    const standTop = decks[decks.length - 1] + 0.42;
+
+    const side = (off) => [
+      ...ts.map((t) => line(at(t, off, 0), at(t, off, standTop), "sc-std")),
+      ...decks.map((z) => line(at(0, off, z), at(L, off, z), "sc-ledger")),
+    ];
+    const planks = decks.map((z) => poly([at(0, IN, z), at(L, IN, z), at(L, OUT, z), at(0, OUT, z)], "sc-plank"));
+    const transoms = decks.flatMap((z) => ts.map((t) => line(at(t, IN, z), at(t, OUT, z), "sc-ledger")));
+    const rails = decks.flatMap((z) => [line(at(0, OUT, z + 0.2), at(L, OUT, z + 0.2), "sc-rail"), line(at(0, OUT, z + 0.4), at(L, OUT, z + 0.4), "sc-rail")]);
+    const braces = [];
+    for (let j = 0; j < bays; j += 2) {
+      let z0 = 0;
+      for (const [k, z] of decks.entries()) {
+        const up = k % 2 === 0;
+        braces.push(line(at(ts[j], OUT, up ? z0 : z), at(ts[j + 1], OUT, up ? z : z0), "sc-brace"));
+        z0 = z;
+      }
     }
-    for (let z = 0.8; z < top + 0.01; z += 0.8) parts.push(line([...a, Math.min(z, top)], [...b, Math.min(z, top)], "sc-deck"));
-    parts.push(line([...a, 0], [...b, Math.min(top, 0.8)], "sc-brace"));
+    const parts = back
+      ? [...side(OUT), ...braces, ...rails, ...planks, ...transoms, ...side(IN)]
+      : [...side(IN), ...planks, ...transoms, ...side(OUT), ...braces, ...rails];
     return parts.join("");
   }
 
@@ -130,10 +162,7 @@
     if (state.roof === "plocha") return () => 0;
     const n = walls.length;
     const len = (w) => w.cells;
-    const convex = (i) => {
-      const a = walls[(i - 1 + n) % n], b = walls[i];
-      return (a.x2 - a.x1) * (b.y2 - b.y1) - (a.y2 - a.y1) * (b.x2 - b.x1) > 0;
-    };
+    const convex = (i) => convexAt(walls, i);
     let gable = walls.map(() => false);
     if (state.roof === "sedlova") {
       // hloubka domu za stěnou: od prostředku stěny dovnitř, dokud jsou políčka vyplněná
@@ -183,7 +212,8 @@
     for (let i = Math.ceil(gx0); i <= gx1; i++) out.push(line([i, gy0, 0], [i, gy1, 0], "sc-gridline"));
     for (let i = Math.ceil(gy0); i <= gy1; i++) out.push(line([gx0, i, 0], [gx1, i, 0], "sc-gridline"));
     // lešení za domem
-    for (const w of withScaffold.filter((w) => !facing(w))) out.push(scaffoldFrame(w, top));
+    const frame = (w, back) => scaffoldFrame(walls, walls.indexOf(w), top, back);
+    for (const w of withScaffold.filter((w) => !facing(w)).sort((a, b) => depth(a) - depth(b))) out.push(frame(w, true));
     // stěny čelem k divákovi, odzadu; horní hrana sleduje střechu (štíty u sedlové)
     const roofH = roofHeight(walls);
     for (const w of walls.filter(facing).sort((a, b) => depth(a) - depth(b))) {
@@ -228,7 +258,7 @@
       }
     }
     // lešení před domem
-    for (const w of withScaffold.filter(facing).sort((a, b) => depth(a) - depth(b))) out.push(scaffoldFrame(w, top));
+    for (const w of withScaffold.filter(facing).sort((a, b) => depth(a) - depth(b))) out.push(frame(w, false));
     svg.innerHTML = out.join("");
     const box = svg.getBBox();
     // poměr 4 : 3 jako rámeček, obsah na střed
@@ -260,7 +290,7 @@
 <div class="sc-grid" role="group" aria-label="Půdorys domu, ${N} × ${N} políček"></div>
 <p class="sc-error" role="alert"></p>
 </div>
-<figure class="sc-view"><svg class="sc-3d" role="img" aria-label="Náhled domu s lešením"></svg><figcaption>Náhled je orientační. Oranžově lešení.</figcaption></figure>
+<figure class="sc-view"><svg class="sc-3d" role="img" aria-label="Náhled domu s lešením"></svg><figcaption>Náhled je orientační.</figcaption></figure>
 </div>
 <div class="sc-fields">
 <label>Počet podlaží<select name="floors">${[1, 2, 3, 4].map((n) => `<option value="${n}"${n === state.floors ? " selected" : ""}>${n === 1 ? "přízemí" : `${n} podlaží`}</option>`).join("")}</select></label>

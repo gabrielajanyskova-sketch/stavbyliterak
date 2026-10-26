@@ -841,9 +841,14 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 .sc-wall-a { fill: #e9e4dc; stroke: #8e8a84; }
 .sc-wall-b { fill: #cfc9bf; stroke: #8e8a84; }
 .sc-flat { fill: #7d8790; stroke: #59626a; }
-.sc-pole { stroke: var(--amber); stroke-width: 0.035; stroke-linecap: round; }
-.sc-deck { stroke: var(--amber); stroke-width: 0.05; stroke-linecap: round; }
-.sc-brace { stroke: var(--amber); stroke-width: 0.02; opacity: 0.8; }
+/* lešení: pozinkované rámy, oranžové podlážky a zábradlí */
+.sc-std { stroke: #c3cad0; stroke-width: 0.03; stroke-linecap: round; }
+.sc-ledger { stroke: #a9b1b8; stroke-width: 0.018; stroke-linecap: round; }
+.sc-brace { stroke: #8f989f; stroke-width: 0.014; }
+.sc-rail { stroke: var(--amber); stroke-width: 0.022; stroke-linecap: round; }
+.sc-3d .sc-plank { fill: #d9861a; stroke: #f39a1e; stroke-width: 0.01; }
+:root:not([data-theme="dark"]) .sc-std { stroke: #7b858d; }
+:root:not([data-theme="dark"]) .sc-ledger { stroke: #8f989f; }
 .sc-fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
 .sc-fields.is-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 0; }
 .sc .sc-wide { margin-top: 12px; }
