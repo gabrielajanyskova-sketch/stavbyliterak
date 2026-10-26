@@ -581,7 +581,7 @@ export function renderHome(ctx) {
     `<section class="hero">
 <div class="hero-panel">
 ${h.hero_photo ? `<img class="hero-bg" src="${esc(thumb(h.hero_photo))}" alt="${esc(h.hero_photo_alt)}" fetchpriority="high">\n` : ''}<h1>${esc(h.hero_title)} <span>${esc(h.hero_accent)}</span></h1>
-<p class="hero-meta">${esc(h.hero_meta)}</p>
+<p class="hero-meta">${String(h.hero_meta || '').split(' · ').map(esc).join(' <i aria-hidden="true">·</i> ')}</p>
 ${RIDGE}
 </div>
 <nav class="hero-index" aria-labelledby="rozcestnik">
