@@ -27,6 +27,7 @@
     overRoof: true,
     service: "pronajem",
     transport: "dovoz",
+    props: 0, // stavební stojky (0 = nechce)
   };
 
   // ---------- geometrie půdorysu ----------
@@ -308,6 +309,9 @@ ${seg("service", SERVICES, state.service)}
 <h3>Doprava</h3>
 ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvezeme"], sam: ["Odvezu si sám", "vyzvednutí ve Frýdku-Místku"] }, state.transport)}
 <label class="sc-wide">Místo stavby (obec)<input name="misto" autocomplete="address-level2"></label>
+<h3>Stavební stojky</h3>
+<label class="calc-check"><input type="checkbox" name="propsOn"> Potřebuji i stavební stojky (podpěry stropu nebo bednění)</label>
+<label class="sc-wide sc-props" hidden>Počet stojek (ks)<input name="props" type="number" min="1" step="1" value="10" inputmode="numeric"></label>
 <label class="sc-wide">K čemu lešení potřebujete<select name="ucel"><option>Omítky a nátěry fasády</option><option>Střecha a klempířské práce</option><option>Okna a parapety</option><option>Jiné práce</option></select></label>
 </div>
 <div class="sc-panel" data-panel="3" hidden>
@@ -399,6 +403,7 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
       ["Střecha", ROOFS[state.roof]],
       ["Montáž", SERVICES[state.service][0]],
       ["Doprava", state.transport === "dovoz" ? "dovoz na stavbu" : "vlastní odvoz"],
+      ...(state.props ? [["Stavební stojky", `${state.props} ks`]] : []),
       ["Termín", tm && !tm.error ? tm.text : "—"],
     ];
     $(".sc-summary").innerHTML = `<span class="label">Souhrn poptávky</span><dl>${rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl><p class="sc-price">Cenu spočítáme a pošleme vám nabídku.</p>`;
@@ -460,6 +465,9 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
     } else if (el.name === "height") {
       state.height = Math.max(1, parseFloat(String(el.value).replace(",", ".")) || 1);
       refresh();
+    } else if (el.name === "props") {
+      if (field("propsOn").checked) state.props = Math.max(1, Math.round(el.valueAsNumber) || 1);
+      summary();
     } else if (el.name === "od" || el.name === "do") {
       const tm = term();
       root.querySelector("[data-term]").textContent = tm?.error || "Termín potvrdíme podle dostupnosti lešení.";
@@ -481,6 +489,11 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
     else if (el.name === "overRoof") { state.overRoof = el.checked; refresh(); }
     else if (el.name === "service") { state.service = el.value; summary(); }
     else if (el.name === "transport") { state.transport = el.value; summary(); }
+    else if (el.name === "propsOn") {
+      $(".sc-props").hidden = !el.checked;
+      state.props = el.checked ? Math.max(1, Math.round(field("props").valueAsNumber) || 1) : 0;
+      summary();
+    }
   });
 
   const tomorrow = new Date(Date.now() + DAY).toISOString().slice(0, 10);
@@ -539,6 +552,7 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
       `- dům: ${state.floors === 1 ? "přízemní" : `${state.floors} podlaží`}, výška k okapu ${fmt(state.height)} m, střecha ${ROOFS[state.roof].toLowerCase()}${state.overRoof ? ", práce i u střechy" : ""}`,
       `- montáž: ${SERVICES[state.service][0].toLowerCase()}`,
       `- doprava: ${state.transport === "dovoz" ? "dovoz na stavbu" : "odvezu si sám"}`,
+      state.props ? `- stavební stojky: ${state.props} ks` : "",
       `- účel: ${field("ucel").value}`,
       `- termín: ${tm.text}`,
       field("email").value.trim() ? `- e-mail: ${field("email").value.trim()}` : "",

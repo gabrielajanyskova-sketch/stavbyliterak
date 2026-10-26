@@ -874,7 +874,7 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 .sc-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 18px; }
 .sc-nav .btn { margin: 0; }
 .sc-nav [data-next] { margin-left: auto; }
-.sc-nav [hidden] { display: none; }
+.sc [hidden] { display: none; }
 .sc-status { min-height: 1.4em; margin: 10px 0 0; font-size: 0.9rem; }
 @media (max-width: 640px) {
   .sc-house { grid-template-columns: 1fr; }
