@@ -6,7 +6,8 @@
   if (!root) return;
 
   const N = 8; // mřížka N × N políček
-  const CELL_M = 2.5; // výchozí délka jednoho políčka v metrech
+  const CELL_M = 3; // jedno políčko mřížky = jedno pole lešení (standardní podlážka 3 m)
+  const FIELD_M = 3; // délka pole lešení — lešení u stěny se skládá z celých polí
   const FLOOR_M = 3; // výška jednoho podlaží k okapu
   const DAY = 864e5;
   const ROOFS = { sedlova: "Sedlová", valbova: "Valbová", plocha: "Plochá / pultová" };
@@ -84,11 +85,15 @@
   const letter = (i) => String.fromCharCode(65 + i);
   const wallLength = (w) => state.lengths[wallKey(w)] ?? w.cells * CELL_M;
 
+  // lešení u každé stěny = celá pole po 3 m (délka stěny zaokrouhlená nahoru)
+  const fieldWord = (n) => (n < 5 ? "pole" : "polí");
+  const fieldsOf = (w) => Math.max(1, Math.ceil(wallLength(w) / FIELD_M - 1e-9));
   function totals(walls) {
     const on = walls.filter((w) => !state.off.has(wallKey(w)));
-    const length = on.reduce((s, w) => s + wallLength(w), 0);
+    const fields = on.reduce((s, w) => s + fieldsOf(w), 0);
+    const length = fields * FIELD_M;
     const height = state.height + (state.overRoof ? 1 : 0);
-    return { length, height, area: Math.ceil(length * height), walls: on.length, all: walls.length };
+    return { fields, length, height, area: Math.ceil(length * height), walls: on.length, all: walls.length };
   }
 
   // ---------- 3D náhled (izometrie, kreslí se odzadu dopředu) ----------
@@ -149,7 +154,7 @@
     const e2 = convexAt(walls, (i + 1) % walls.length) ? OUT : -OUT;
     const L = w.cells + e1 + e2;
     const at = (t, off, z) => [w.x1 - dx * e1 + dx * t + nx * off, w.y1 - dy * e1 + dy * t + ny * off, z];
-    const bays = Math.max(1, Math.round(L / 1.1));
+    const bays = Math.max(1, Math.round(L)); // jedno pole na políčko (3 m)
     const ts = Array.from({ length: bays + 1 }, (_, j) => (L * j) / bays);
     // podlážky podle okapu: nejvyšší 1 m pod okapem, další po 2 m dolů. Práce u střechy
     // jen prodlouží sloupky o 1 m nad okap a nahoře přidá zábradlí — další patro to není.
@@ -411,7 +416,7 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
     if (!current.walls) { list.innerHTML = ""; return; }
     list.innerHTML = current.walls.map((w, i) => {
       const k = wallKey(w);
-      return `<li><label class="calc-check"><input type="checkbox" data-wall="${k}"${state.off.has(k) ? "" : " checked"}> Stěna ${letter(i)}</label><label class="sc-len"><input type="number" min="0.5" step="0.1" inputmode="decimal" data-len="${k}" value="${+wallLength(w).toFixed(2)}" aria-label="Délka stěny ${letter(i)} v metrech"><span>m</span></label></li>`;
+      return `<li><label class="calc-check"><input type="checkbox" data-wall="${k}"${state.off.has(k) ? "" : " checked"}> Stěna ${letter(i)}</label><label class="sc-len"><input type="number" min="0.5" step="0.1" inputmode="decimal" data-len="${k}" value="${+wallLength(w).toFixed(2)}" aria-label="Délka stěny ${letter(i)} v metrech"><span>m</span><small data-fields>${fieldsOf(w)} ${fieldWord(fieldsOf(w))}</small></label></li>`;
     }).join("");
   }
 
@@ -430,7 +435,8 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
     const tm = term();
     const rows = [
       ["Plocha lešení", t ? `≈ ${fmt(t.area)} m²` : "—"],
-      ["Délka lešení", t ? `${fmt(t.length)} m (${t.walls} z ${t.all} stěn)` : "—"],
+      ["Délka lešení", t ? `${fmt(t.length)} m = ${t.fields} ${fieldWord(t.fields)} po ${FIELD_M} m` : "—"],
+      ["Stěny s lešením", t ? `${t.walls} z ${t.all}` : "—"],
       ["Výška lešení", t ? `${fmt(t.height)} m` : "—"],
       ["Střecha", ROOFS[state.roof]],
       ["Montáž", SERVICES[state.service][0]],
@@ -493,6 +499,8 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
     if (el.dataset.len) {
       const v = parseFloat(String(el.value).replace(",", "."));
       if (v > 0) state.lengths[el.dataset.len] = v;
+      const w = current.walls.find((x) => wallKey(x) === el.dataset.len);
+      if (w) el.parentElement.querySelector("[data-fields]").textContent = `${fieldsOf(w)} ${fieldWord(fieldsOf(w))}`;
       refresh();
     } else if (el.name === "height") {
       state.height = Math.max(1, parseFloat(String(el.value).replace(",", ".")) || 1);
@@ -579,7 +587,7 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
     const { t, tm } = summary();
     const lines = [
       "Konfigurátor lešení:",
-      `- plocha lešení: ≈ ${fmt(t.area)} m² (délka ${fmt(t.length)} m × výška ${fmt(t.height)} m)`,
+      `- plocha lešení: ≈ ${fmt(t.area)} m² (délka ${fmt(t.length)} m = ${t.fields} polí po ${FIELD_M} m × výška ${fmt(t.height)} m)`,
       `- stěny: ${current.walls.map((w, i) => `${letter(i)} ${fmt(wallLength(w))} m${state.off.has(wallKey(w)) ? " (bez lešení)" : ""}`).join(", ")}`,
       `- dům: ${state.floors === 1 ? "přízemní" : `${state.floors} podlaží`}, výška k okapu ${fmt(state.height)} m, střecha ${ROOFS[state.roof].toLowerCase()}${state.overRoof ? ", práce i u střechy" : ""}`,
       `- montáž: ${SERVICES[state.service][0].toLowerCase()}`,
