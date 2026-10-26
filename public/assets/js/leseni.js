@@ -117,7 +117,7 @@
   // diagonály. Na vnějších rozích se prodlouží, aby na sebe lešení sousedních stěn navazovalo.
   const LIFT = 2 / CELL_M; // výška patra lešení (2 m)
   const IN = 0.1, OUT = 0.4; // odstup vnitřní a vnější řady od zdi (≈ 0,25 m a 1 m)
-  function scaffoldFrame(walls, i, top, back) {
+  function scaffoldFrame(walls, i, eave, top, back) {
     const w = walls[i];
     const dx = Math.sign(w.x2 - w.x1), dy = Math.sign(w.y2 - w.y1);
     const nx = dy, ny = -dx; // ven od domu
@@ -127,12 +127,13 @@
     const at = (t, off, z) => [w.x1 - dx * e1 + dx * t + nx * off, w.y1 - dy * e1 + dy * t + ny * off, z];
     const bays = Math.max(1, Math.round(L / 1.1));
     const ts = Array.from({ length: bays + 1 }, (_, j) => (L * j) / bays);
-    // horní hrana lešení = zábradlí 1 m nad nejvyšší podlážkou; další podlážky po 2 m dolů
+    // podlážky podle okapu: nejvyšší 1 m pod okapem, další po 2 m dolů. Práce u střechy
+    // jen prodlouží sloupky o 1 m nad okap a nahoře přidá zábradlí — další patro to není.
     const RAIL = 1 / CELL_M;
     const standTop = top;
     const decks = [];
-    for (let z = top - RAIL; z >= 1.2 / CELL_M - 0.01; z -= LIFT) decks.unshift(z);
-    if (!decks.length) decks.push(Math.max(0.4, top - RAIL));
+    for (let z = eave - RAIL; z >= 1.2 / CELL_M - 0.01; z -= LIFT) decks.unshift(z);
+    if (!decks.length) decks.push(Math.max(0.4, eave - RAIL));
 
     const side = (off) => [
       ...ts.map((t) => line(at(t, off, 0), at(t, off, standTop), "sc-std")),
@@ -140,7 +141,9 @@
     ];
     const planks = decks.map((z) => poly([at(0, IN, z), at(L, IN, z), at(L, OUT, z), at(0, OUT, z)], "sc-plank"));
     const transoms = decks.flatMap((z) => ts.map((t) => line(at(t, IN, z), at(t, OUT, z), "sc-ledger")));
-    const rails = decks.flatMap((z) => [line(at(0, OUT, z + RAIL / 2), at(L, OUT, z + RAIL / 2), "sc-rail"), line(at(0, OUT, z + RAIL), at(L, OUT, z + RAIL), "sc-rail")]);
+    const railAt = (z) => line(at(0, OUT, z), at(L, OUT, z), "sc-rail");
+    const rails = decks.flatMap((z) => [railAt(z + RAIL / 2), railAt(z + RAIL)]);
+    if (standTop > decks[decks.length - 1] + RAIL + 0.01) rails.push(railAt(standTop - RAIL / 2), railAt(standTop));
     const braces = [];
     for (let j = 0; j < bays; j += 2) {
       let z0 = 0;
@@ -215,7 +218,7 @@
     for (let i = Math.ceil(gx0); i <= gx1; i++) out.push(line([i, gy0, 0], [i, gy1, 0], "sc-gridline"));
     for (let i = Math.ceil(gy0); i <= gy1; i++) out.push(line([gx0, i, 0], [gx1, i, 0], "sc-gridline"));
     // lešení za domem
-    const frame = (w, back) => scaffoldFrame(walls, walls.indexOf(w), top, back);
+    const frame = (w, back) => scaffoldFrame(walls, walls.indexOf(w), H, top, back);
     for (const w of withScaffold.filter((w) => !facing(w)).sort((a, b) => depth(a) - depth(b))) out.push(frame(w, true));
     // stěny čelem k divákovi, odzadu; horní hrana sleduje střechu (štíty u sedlové)
     const roofH = roofHeight(walls);
