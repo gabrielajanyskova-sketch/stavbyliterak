@@ -277,7 +277,7 @@
       "photo": "/assets/img/bagr.webp",
       "photo_caption": "Vlastní minibagr Kubota KX016-4",
       "ask_title": "Zemní práce",
-      "ask_note": "Strojní práce účtujeme podle skutečně odpracovaného času.",
+      "ask_note": "",
       "form_service": "Zemní práce",
       "aliases": [],
       "blocks": [
@@ -1166,7 +1166,7 @@
       "photo": "",
       "photo_caption": "",
       "ask_title": "Gastropůjčovna",
-      "ask_note": "Vybavení vyberte tlačítkem + a dole na stránce zvolte termín. Ověříme, co je volné, a pošleme cenu.",
+      "ask_note": "",
       "form_service": "Gastropůjčovna",
       "aliases": [],
       "blocks": [
