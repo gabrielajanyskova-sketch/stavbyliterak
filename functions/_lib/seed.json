@@ -880,17 +880,17 @@
       "nav_label": "Stavební práce",
       "in_chooser": true,
       "chooser_title": "Stavební práce",
-      "chooser_hint": "Zednické práce, trhliny, dlažby, chodníky i sádrokartony.",
+      "chooser_hint": "Zednické práce, voda, odpady, elektro, dlažby i sádrokartony.",
       "meta_title": "Stavební práce Frýdek-Místek — zednické práce, dlažby",
-      "meta_description": "Zednické práce, statické zajištění trhlin, zpevněné plochy, zámková dlažba a chodníky, sádrokartony a malby. Rodinné domy i menší stavby, Frýdek-Místek.",
+      "meta_description": "Zednické práce, voda a odpady, elektro, statické zajištění trhlin, zpevněné plochy a zámková dlažba, sádrokartony a malby. Rodinné domy i menší stavby, Frýdek-Místek.",
       "crumb": "Stavební práce",
       "title": "Stavební práce",
-      "lead": "Zednické práce, opravy trhlin, zpevněné plochy a dlažby, sádrokartony i malby. U rodinných domů i menších staveb, od oprav po větší úpravy.",
+      "lead": "Zednické práce, voda, odpady a elektro, opravy trhlin, zpevněné plochy a dlažby, sádrokartony i malby. U rodinných domů i menších staveb, od oprav po větší úpravy.",
       "theme": "",
       "facts": [
         {
           "label": "Uvnitř",
-          "value": "Zednické práce, sádrokartony, malby"
+          "value": "Zednické práce, voda, odpady, elektro, sádrokartony, malby"
         },
         {
           "label": "Venku",
@@ -926,6 +926,14 @@
             {
               "title": "Statické zajištění trhlin",
               "text": "Zajištění popraskaného zdiva, aby se trhliny dál nerozšiřovaly."
+            },
+            {
+              "title": "Voda a odpady",
+              "text": "Rozvody vody a kanalizace."
+            },
+            {
+              "title": "Elektro",
+              "text": "Elektroinstalace."
             },
             {
               "title": "Zpevněné plochy a zámková dlažba",
@@ -977,14 +985,6 @@
             {
               "src": "/assets/img/foto/osvedceni-dek-fermacell.webp",
               "caption": "Stavebniny DEK — systémy suché výstavby Fermacell (2022)"
-            },
-            {
-              "src": "/assets/img/foto/osvedceni-weber.webp",
-              "caption": "Weber — fasády, zateplení ETICS, sanace, obklady a podlahy (2021)"
-            },
-            {
-              "src": "/assets/img/foto/certifikat-tytan-fgs.webp",
-              "caption": "Tytan — zateplení fasád FGS (2021)"
             }
           ]
         },
@@ -1017,7 +1017,7 @@
         {
           "type": "note",
           "style": "todo",
-          "text": "K doladění: seznam prací. Nabízet dál i elektro, instalatérské práce a podlahy? Doplnit fasády a zateplení (máte certifikáty Weber, Tytan, JUB)? A fotky ze zakázek k jednotlivým pracím."
+          "text": "V řešení: popisy u vody, odpadů a elektra a případně další práce. A fotky ze zakázek k jednotlivým pracím."
         }
       ]
     },
