@@ -140,8 +140,62 @@
               "text": "Snímky ukážou špatně zateplenou fasádu, netěsná okna nebo tepelné mosty v rozích a napojeních. Hodí se jako podklad pro reklamaci."
             },
             {
+              "title": "Skryté vady stavby",
+              "text": "Pomáhá najít dutiny ve zdivu, rozsah vlhkého zdiva nebo trasu podlahového topení a dalších rozvodů."
+            },
+            {
               "title": "Nejen stavba",
-              "text": "Termokamerou zkontrolujeme i elektrický rozvaděč nebo podlahové topení."
+              "text": "Termokamera se využívá i v elektrotechnice a u technologií. Odhalí přehřívající se spoje v rozvaděči nebo elektrospotřebiče, vady v topných systémech a pomůže při kontrole kotlů a komínů."
+            },
+            {
+              "title": "Bez poškození",
+              "text": "Měření probíhá bezkontaktně a bez zásahu do stávajících konstrukcí a povrchů."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Kudy teplo uniká nejčastěji"
+        },
+        {
+          "type": "grid",
+          "items": [
+            {
+              "title": "Okna a dveře",
+              "text": "Především kolem rámů, kudy může profukovat, nebo skrze nekvalitní staré zasklení."
+            },
+            {
+              "title": "Střecha a strop",
+              "text": "Nezateplenou střechou může unikat významné množství tepla."
+            },
+            {
+              "title": "Obvodové zdi",
+              "text": "Nedostatečná izolace obvodových zdí je častým zdrojem ztrát."
+            },
+            {
+              "title": "Tepelné mosty",
+              "text": "Místa v konstrukci, kde je izolace přerušená nebo nedostatečná, např. kolem věnců, balkonů nebo u základů."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Jak zjistit tepelné úniky"
+        },
+        {
+          "type": "numbered",
+          "items": [
+            {
+              "title": "Termovize (termokamera)",
+              "text": "Nejspolehlivější a nejpřesnější metoda. Termokamera ukáže na snímku místa s odlišnou povrchovou teplotou, kudy teplo uniká. Zvenku se jeví jako teplejší, zevnitř jako chladnější. Každé měření má vlastní snímek, který lze i později přesně přiřadit ke konkrétnímu místu nebo konstrukci."
+            },
+            {
+              "title": "Bezkontaktní teploměr",
+              "text": "Hodí se pro orientační měření teplot na různých místech stěn a oken. Měří ale vždy jen v jednom bodě a naměřené hodnoty nejde uložit pro další zpracování."
+            },
+            {
+              "title": "Vizuální kontrola",
+              "text": "Rosení oken, studené rohy místností nebo pocit průvanu napoví, kde je problém. Je to ale nejméně spolehlivá metoda."
             }
           ]
         },
@@ -198,14 +252,42 @@
             },
             {
               "title": "Dostanete výsledky",
-              "text": "K výsledkům vám napíšeme, co s jednotlivými místy doporučujeme udělat."
+              "text": "Podle domluvy dostanete snímky, nebo podrobný protokol z měření (termovizní zprávu s doporučeními), co s jednotlivými místy udělat."
             }
           ]
         },
         {
           "type": "note",
-          "text": "K ověření: průběh měření a podoba výstupu (protokol?) — tato část na původním webu nebyla, je to návrh.",
+          "text": "K ověření: průběh měření (kroky 1–3) je náš návrh, na původním webu nebyl.",
           "style": "todo"
+        },
+        {
+          "type": "heading",
+          "text": "Co ovlivňuje cenu"
+        },
+        {
+          "type": "text",
+          "text": "Přesnou cenu stanovíme individuálně. Záleží hlavně na těchto faktorech:"
+        },
+        {
+          "type": "bullets",
+          "items": [
+            {
+              "text": "**Rozsah měření:** jednotlivé snímky konkrétního místa, nebo komplexní měření celé budovy."
+            },
+            {
+              "text": "**Velikost a složitost objektu:** větší nebo architektonicky složitější domy vyžadují víc času a víc snímků."
+            },
+            {
+              "text": "**Počet požadovaných snímků:** čím víc snímků, tím vyšší cena."
+            },
+            {
+              "text": "**Výstup měření:** samotné snímky, nebo podrobný protokol (termovizní zpráva s doporučeními), který cenu navýší."
+            },
+            {
+              "text": "**Doprava:** cestovní náklady."
+            }
+          ]
         },
         {
           "type": "heading",
