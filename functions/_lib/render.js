@@ -226,7 +226,9 @@ ${canonical ? `<link rel="canonical" href="${esc(url)}">\n` : ''}<meta property=
 ${image ? '' : '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'}<meta property="og:image:alt" content="${esc(title)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#1d2126">
-<link rel="icon" href="/assets/img/favicon.png" type="image/png">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon.png" type="image/png" sizes="96x96">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/assets/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>

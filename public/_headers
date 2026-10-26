@@ -16,6 +16,9 @@
 /assets/img/*
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
 
+/favicon*
+  Cache-Control: public, max-age=604800
+
 /assets/fonts/*
   Cache-Control: public, max-age=31536000, immutable
 
