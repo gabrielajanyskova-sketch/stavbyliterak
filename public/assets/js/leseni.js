@@ -127,10 +127,12 @@
     const at = (t, off, z) => [w.x1 - dx * e1 + dx * t + nx * off, w.y1 - dy * e1 + dy * t + ny * off, z];
     const bays = Math.max(1, Math.round(L / 1.1));
     const ts = Array.from({ length: bays + 1 }, (_, j) => (L * j) / bays);
+    // horní hrana lešení = zábradlí 1 m nad nejvyšší podlážkou; další podlážky po 2 m dolů
+    const RAIL = 1 / CELL_M;
+    const standTop = top;
     const decks = [];
-    for (let z = LIFT; z <= top + 0.01; z += LIFT) decks.push(z);
-    if (!decks.length) decks.push(top);
-    const standTop = decks[decks.length - 1] + 0.42;
+    for (let z = top - RAIL; z >= 1.2 / CELL_M - 0.01; z -= LIFT) decks.unshift(z);
+    if (!decks.length) decks.push(Math.max(0.4, top - RAIL));
 
     const side = (off) => [
       ...ts.map((t) => line(at(t, off, 0), at(t, off, standTop), "sc-std")),
@@ -138,7 +140,7 @@
     ];
     const planks = decks.map((z) => poly([at(0, IN, z), at(L, IN, z), at(L, OUT, z), at(0, OUT, z)], "sc-plank"));
     const transoms = decks.flatMap((z) => ts.map((t) => line(at(t, IN, z), at(t, OUT, z), "sc-ledger")));
-    const rails = decks.flatMap((z) => [line(at(0, OUT, z + 0.2), at(L, OUT, z + 0.2), "sc-rail"), line(at(0, OUT, z + 0.4), at(L, OUT, z + 0.4), "sc-rail")]);
+    const rails = decks.flatMap((z) => [line(at(0, OUT, z + RAIL / 2), at(L, OUT, z + RAIL / 2), "sc-rail"), line(at(0, OUT, z + RAIL), at(L, OUT, z + RAIL), "sc-rail")]);
     const braces = [];
     for (let j = 0; j < bays; j += 2) {
       let z0 = 0;
@@ -158,7 +160,7 @@
   // U rohů dovnitř domu se měří „čtvercově“ k rohu — vznikne rovné úžlabí jako u skutečné střechy.
   // Sedlová: koncové stěny křídel (oba rohy ven a křídlo za nimi je aspoň tak hluboké, jak je stěna
   // dlouhá) jsou štíty, ne okapy.
-  const SLOPE = 0.84;
+  const SLOPE = 0.7; // sklon střechy ≈ 35°
   function roofHeight(walls) {
     if (state.roof === "plocha") return () => 0;
     const n = walls.length;
