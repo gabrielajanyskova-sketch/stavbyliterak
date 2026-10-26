@@ -78,6 +78,7 @@ const BLOCK_TYPES = {
     fields: [["title", "Název"], ["text", "Popis", "area"], ["spec", "Parametry (rozměry, objem…)"], ["count", "Počet kusů (např. 2 ks)"], ["photo", "Fotka (nepovinné)", "photo"]],
     add: "+ položka",
   },
+  table: { label: "Tabulka (dva sloupce)", fields: [["title", "Položka — bez hodnoty se z řádku stane nadpis skupiny"], ["text", "Hodnota"]], add: "+ řádek" },
   note: { label: "Zvýrazněná poznámka" },
   image: { label: "Fotka" },
   gallery: { label: "Galerie (fotky, certifikáty)" },
@@ -319,6 +320,11 @@ function blockEditor(blocks) {
           body = galleryEditor(b);
         } else if (b.type === "image") {
           body = h("div", {}, photoField(b, "src", "Fotka"), text(b, "caption", "Popisek pod fotkou"));
+        } else if (b.type === "table") {
+          b.items = b.items || [];
+          body = h("div", {},
+            h("div", { class: "grid2" }, text(b, "head1", "Záhlaví 1. sloupce"), text(b, "head2", "Záhlaví 2. sloupce")),
+            itemList(b.items, meta.fields, meta.add));
         } else {
           b.items = b.items || [];
           body = h("div", {},

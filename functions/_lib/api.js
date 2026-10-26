@@ -202,6 +202,7 @@ const ITEM_FIELDS = {
   faq: ['title', 'text'],
   catalog: ['title', 'text', 'spec', 'count', 'photo'],
   gallery: ['src', 'caption'],
+  table: ['title', 'text'],
 };
 
 function cleanBlock(b) {
@@ -220,6 +221,10 @@ function cleanBlock(b) {
   } else if (b.type === 'gallery') {
     out.items = cleanItems(b.items, ITEM_FIELDS.gallery).filter((i) => i.src);
     if (b.fit === 'contain') out.fit = 'contain';
+  } else if (b.type === 'table') {
+    out.head1 = str(b.head1, 100).trim();
+    out.head2 = str(b.head2, 100).trim();
+    out.items = cleanItems(b.items, ITEM_FIELDS.table);
   } else if (b.type === 'image') {
     out.src = str(b.src, 500).trim();
     out.caption = str(b.caption, 300).trim();

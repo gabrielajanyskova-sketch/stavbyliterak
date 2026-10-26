@@ -771,6 +771,17 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
   .catalog-side { grid-column: 3; grid-row: 1; }
 }
 
+/* Tabulka v obsahu (dva sloupce, řádky skupin) */
+.table-wrap { overflow-x: auto; margin: 0 0 2em; }
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.97rem; }
+.data-table th,
+.data-table td { padding: 9px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.data-table thead th { border-bottom: 2px solid var(--ink); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 400; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.data-table td:last-child,
+.data-table thead th:last-child { text-align: right; white-space: nowrap; font-family: var(--font-mono); font-size: 0.9rem; }
+.data-table tr.group th { padding-top: 22px; font-family: var(--font-display); font-size: 1.15rem; text-transform: uppercase; color: var(--ink); }
+.data-table tbody tr:not(.group):hover { background: var(--surface); }
+
 /* Výběr počtu kusů do poptávky (jen s JavaScriptem) */
 .pick { display: none; }
 .js .pick { display: inline-grid; grid-template-columns: 32px 34px 32px; border: 1px solid var(--ink); }

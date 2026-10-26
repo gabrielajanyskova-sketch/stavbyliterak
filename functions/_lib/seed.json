@@ -369,6 +369,115 @@
         },
         {
           "type": "heading",
+          "text": "Přibližné hmotnosti sypkých materiálů",
+          "level": 3
+        },
+        {
+          "type": "table",
+          "head1": "Materiál (objem 1 m³)",
+          "head2": "Hmotnost",
+          "items": [
+            {
+              "title": "Zeminy",
+              "text": ""
+            },
+            {
+              "title": "Běžná zemina / hlína (kopaná)",
+              "text": "1 400 kg"
+            },
+            {
+              "title": "Mokrá / jílovitá hlína",
+              "text": "1 800 kg"
+            },
+            {
+              "title": "Písky a kačírky",
+              "text": ""
+            },
+            {
+              "title": "Písek suchý",
+              "text": "1 500 kg"
+            },
+            {
+              "title": "Písek mokrý",
+              "text": "1 800 kg"
+            },
+            {
+              "title": "Kačírek / říční štěrk jemný (frakce 4–8 mm)",
+              "text": "1 550 kg"
+            },
+            {
+              "title": "Kačírek / říční štěrk střední (frakce 8–16 mm)",
+              "text": "1 600 kg"
+            },
+            {
+              "title": "Kačírek / říční štěrk hrubý (frakce 16–32 mm)",
+              "text": "1 650 kg"
+            },
+            {
+              "title": "Drcené kamenivo (štěrky)",
+              "text": ""
+            },
+            {
+              "title": "Kamenivo drcené jemné (frakce 2–5 mm)",
+              "text": "1 600 kg"
+            },
+            {
+              "title": "Kamenivo drcené pod dlažbu (frakce 4–8 mm)",
+              "text": "1 650 kg"
+            },
+            {
+              "title": "Kamenivo drcené střední (frakce 8–16 mm)",
+              "text": "1 600 kg"
+            },
+            {
+              "title": "Kamenivo drcené na drenáže (frakce 16–32 mm)",
+              "text": "1 550 kg"
+            },
+            {
+              "title": "Štěrkodrti (směsi s prachem pro podklady)",
+              "text": ""
+            },
+            {
+              "title": "Štěrkodrť jemná (frakce 0–4 mm)",
+              "text": "1 650 kg"
+            },
+            {
+              "title": "Štěrkodrť střední (frakce 0–32 mm)",
+              "text": "1 800 kg"
+            },
+            {
+              "title": "Štěrkodrť hrubá (frakce 0–63 mm)",
+              "text": "1 850 kg"
+            },
+            {
+              "title": "Betony",
+              "text": ""
+            },
+            {
+              "title": "Betonová suť",
+              "text": "cca 1 700 kg"
+            },
+            {
+              "title": "Prostý beton (tekutý, čerstvá směs bez výztuže)",
+              "text": "2 300–2 400 kg"
+            },
+            {
+              "title": "Železobeton (beton s ocelovou armaturou)",
+              "text": "2 500 kg"
+            },
+            {
+              "title": "Suchý beton (zavlhlá směs z betonárky)",
+              "text": "1 700–2 100 kg"
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "style": "info",
+          "text": "Hodnoty jsou orientační. Skutečná hmotnost závisí hlavně na vlhkosti a zhutnění materiálu."
+        },
+        {
+          "type": "heading",
           "text": "Jak počítáme cenu"
         },
         {
