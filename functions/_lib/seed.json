@@ -638,20 +638,20 @@
           "type": "faq",
           "items": [
             {
-              "title": "Vezmete i malou zakázku nebo místo, kam se špatně zajíždí?",
-              "text": "Ano. Techniku vybíráme podle rozsahu práce a přístupu a umíme zajistit i stroj jiné tonáže a rozměrů, který přímo nevlastníme. Předem ale musíme probrat šířku a výšku vjezdu, sklon a únosnost příjezdové cesty a kam se bude dávat zemina. Rádi k vám přijedeme s bagrem nebo traktorem klidně i na půl hodiny. V tom případě ale účtujeme paušál místo hodinové sazby, aby se vůbec vyrovnaly náklady."
+              "title": "Provádíte i malé zakázky a práce na hůře přístupných místech?",
+              "text": "Ano. Vhodná technika se vybírá podle rozsahu práce a možností přístupu. Umíme zajistit i techniku jiné tonáže a rozměrů, kterou přímo nevlastníme. Předem je potřeba posoudit šířku a výšku průjezdu, sklon a únosnost příjezdové trasy i prostor pro práci a ukládání zeminy.\n\nRádi k vám přijedeme s bagrem nebo traktorem klidně na půl hodiny. V takovém případě ale místo standardní hodinové sazby účtujeme fixní taxu, aby se nám vůbec vyrovnaly náklady."
             },
             {
-              "title": "Nevyjde hodinová sazba dráž než pevná cena?",
-              "text": "Nemusíte mít obavy, spíš naopak. U strojních prací je hodinová sazba víc fair play než pevná cena, do které si každý přidá rezervu pro případ „co kdyby“. U nás platíte skutečně odpracovaný čas, ne odhady."
+              "title": "Neprodraží se mi hodinová sazba namísto předem stanovené ceny?",
+              "text": "Zcela jistě ne, nemusíte mít obavy! Ba naopak. Hodinová sazba je u strojních výkopů nebo úprav víc **fair play** než úkolová cifra. Ta bývá ve většině případů nadhodnocená pro případ „co kdyby se něco…“. V hodinovce platíte **skutečně odpracovaný čas**, ne předpoklady."
             },
             {
-              "title": "Co mám připravit, než přijedete?",
-              "text": "Vědět, kde a jak velký výkop má být, a zajistit přístup a místo na zeminu. Před začátkem musí být ověřené a vytyčené podzemní sítě. Pokud práce potřebuje projekt nebo povolení, musíte je mít předem. To je povinnost zákazníka."
+              "title": "Co je potřeba připravit před příjezdem techniky?",
+              "text": "Je potřeba určit rozsah a umístění výkopů a zajistit přístup a prostor pro ukládání zeminy. **Před zahájením musí být ověřeny dotčené podzemní sítě a zajištěno jejich potřebné vytyčení.** Pokud práce vycházejí z projektu nebo vyžadují povolení, je nutné mít příslušné podklady připravené. To je povinen zajistit zákazník."
             },
             {
-              "title": "Zůstanou po stroji stopy?",
-              "text": "Nějaké ano. Stroj volíme tak, aby byl co nejšetrnější, ale anglický trávník vám po práci slíbit nemůžeme. Fyzikální zákony ohnout neumíme (ale snažíme se…)."
+              "title": "Zůstanou po technice stopy?",
+              "text": "Je potřeba počítat s tím, že i sebešetrnější pojezd techniky na podkladu zanechá stopy. Byť volíme techniku podle potřeby, nemůžeme garantovat, že vám po práci zůstane anglický trávník. Fyzikální zákony ohnout neumíme (ale snažíme se…)."
             }
           ]
         }
@@ -856,32 +856,32 @@
           "type": "faq",
           "items": [
             {
-              "title": "Je hliníkový plot bez údržby?",
-              "text": "Úplně bez údržby není nic, co stojí venku. Hliník ale nevyžaduje pravidelné natírání, není nasákavý a je stálobarevný. Údržba spočívá hlavně v čištění."
+              "title": "Je hliníkový plot bezúdržbový?",
+              "text": "Zcela bezúdržbový není žádný venkovní prvek. Hliníkové konstrukce však nevyžadují pravidelné natírání jako například dřevěné konstrukce, nejsou nasákavé a jsou stálobarevné. Údržba spočívá především v čištění."
             },
             {
-              "title": "Můžou být plot, brána a branka stejné?",
-              "text": "Ano, a to je na hliníku to dobré. Ve stejném stylu uděláme i zábradlí nebo pergolu."
+              "title": "Lze udělat plot, bránu a branku ve stejném provedení?",
+              "text": "Ano. Právě vzájemné sladění jednotlivých prvků je jednou z výhod hliníkového programu. Stejný nebo podobný vzhled lze použít také u zábradlí nebo dalších konstrukcí kolem domu."
             },
             {
-              "title": "Jde zasklít pergolu nebo altán?",
-              "text": "Ano, pokud to systém konstrukce dovolí. Zasklení chrání před větrem a deštěm, takže venku posedíte i v chladnějších měsících."
+              "title": "Je možné zasklít pergolu nebo altán?",
+              "text": "Ano, pokud to umožňuje konkrétní konstrukční systém. Zasklení může prostor lépe chránit před větrem a deštěm a prodloužit dobu, kdy je možné jej pohodlně využívat."
             },
             {
-              "title": "Hodí se hliník i ke staršímu domu?",
-              "text": "Ano. Klidně jako součást rekonstrukce nebo postupně, jednu věc po druhé."
+              "title": "Je hliník vhodný i pro starší dům?",
+              "text": "Ano. Hliníkové prvky se nepoužívají pouze u novostaveb. Mohou být součástí rekonstrukce nebo postupné úpravy okolí staršího domu."
             },
             {
-              "title": "Kolik to stojí?",
-              "text": "Záleží na rozměrech, provedení, typu výplně, povrchové úpravě, způsobu kotvení a rozsahu montáže. Bez zaměření cenu říct nejde. Po prohlídce vám ji spočítáme."
+              "title": "Kolik stojí hliníkový plot, pergola nebo zastřešení?",
+              "text": "Cena závisí na rozměrech, provedení, typu výplně, povrchové úpravě, způsobu kotvení a rozsahu montáže. U zakázkových konstrukcí proto není možné určit jednu cenu bez znalosti konkrétního řešení."
             },
             {
-              "title": "Uděláte všechno od začátku do konce?",
-              "text": "Ano. Zaměříme, zajistíme výrobu a namontujeme."
+              "title": "Zajišťujete kompletní realizaci?",
+              "text": "Ano. Zajišťujeme zaměření, výrobu konstrukce i její montáž."
             },
             {
-              "title": "Jde udělat i něco atypického?",
-              "text": "Většinou ano, pokud to umožní zvolený systém profilů a technické řešení. Nejdřív se ale musíme podívat na místo."
+              "title": "Lze řešit i atypické provedení?",
+              "text": "Ano, pokud to umožňuje zvolený systém profilů a technické řešení. U atypických konstrukcí je vždy potřeba nejprve posoudit konkrétní prostor a požadované provedení."
             }
           ]
         }
