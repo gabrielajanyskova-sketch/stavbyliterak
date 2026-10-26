@@ -843,6 +843,8 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 .sc-wall-a { fill: #e9e4dc; stroke: #8e8a84; }
 .sc-wall-b { fill: #cfc9bf; stroke: #8e8a84; }
 .sc-flat { fill: #7d8790; stroke: #59626a; }
+.sc-3d .sc-window { fill: #3d4b57; stroke: #f4f1ea; stroke-width: 0.025; }
+.sc-3d .sc-door { fill: #6b4a33; stroke: #f4f1ea; stroke-width: 0.025; }
 /* lešení: pozinkované rámy, oranžové podlážky a zábradlí */
 .sc-std { stroke: #c3cad0; stroke-width: 0.03; stroke-linecap: round; }
 .sc-ledger { stroke: #a9b1b8; stroke-width: 0.018; stroke-linecap: round; }

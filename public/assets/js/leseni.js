@@ -107,6 +107,30 @@
     return { x0: Math.min(...xs), y0: Math.min(...ys), x1: Math.max(...xs) + 1, y1: Math.max(...ys) + 1 };
   }
 
+  // Okna v každém podlaží (zhruba jedno na 2,5 m stěny), dole uprostřed případně dveře
+  function openings(w, H, door) {
+    const dx = Math.sign(w.x2 - w.x1), dy = Math.sign(w.y2 - w.y1);
+    const nx = dy * 0.01, ny = -dx * 0.01; // kousek před zdí
+    const at = (t, z) => [w.x1 + dx * t + nx, w.y1 + dy * t + ny, z];
+    const floorH = H / state.floors;
+    const n = Math.max(1, Math.round(w.cells / 1.05));
+    const win = 1.1 / CELL_M, winH = Math.min(1.3 / CELL_M, floorH * 0.45);
+    const out = [];
+    for (let f = 0; f < state.floors; f++) {
+      for (let k = 0; k < n; k++) {
+        const t = ((k + 0.5) * w.cells) / n;
+        if (door && f === 0 && k === Math.floor(n / 2)) {
+          const dw = 1 / CELL_M, dh = Math.min(2.1 / CELL_M, floorH * 0.8);
+          out.push(poly([at(t - dw / 2, 0), at(t + dw / 2, 0), at(t + dw / 2, dh), at(t - dw / 2, dh)], "sc-door"));
+          continue;
+        }
+        const z = f * floorH + floorH * 0.32;
+        out.push(poly([at(t - win / 2, z), at(t + win / 2, z), at(t + win / 2, z + winH), at(t - win / 2, z + winH)], "sc-window"));
+      }
+    }
+    return out.join("");
+  }
+
   // roh na začátku stěny i míří ven z domu (u obrysu po směru hodinových ručiček)
   const convexAt = (walls, i) => {
     const p = walls[(i - 1 + walls.length) % walls.length], w = walls[i];
@@ -220,6 +244,8 @@
     // lešení za domem
     const frame = (w, back) => scaffoldFrame(walls, walls.indexOf(w), H, top, back);
     for (const w of withScaffold.filter((w) => !facing(w)).sort((a, b) => depth(a) - depth(b))) out.push(frame(w, true));
+    // dveře na nejdelší viditelné stěně
+    const doorWall = walls.filter(facing).reduce((a, b) => (b.cells > (a?.cells || 0) ? b : a), null);
     // stěny čelem k divákovi, odzadu; horní hrana sleduje střechu (štíty u sedlové)
     const roofH = roofHeight(walls);
     for (const w of walls.filter(facing).sort((a, b) => depth(a) - depth(b))) {
@@ -230,6 +256,7 @@
         top.push([x, y, H + roofH(x, y)]);
       }
       out.push(poly([[w.x1, w.y1, 0], [w.x2, w.y2, 0], ...top.reverse()], shade));
+      out.push(openings(w, H, w === doorWall));
     }
     // střecha: výšková plocha nad půdorysem, kreslená po trojúhelnících odzadu dopředu
     if (state.roof === "plocha") {
