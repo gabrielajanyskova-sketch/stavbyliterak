@@ -11,24 +11,6 @@
     nav.addEventListener("click", (e) => e.target.closest("a") && setOpen(false));
   }
 
-  // Světlý / tmavý režim — výchozí je tmavý, volba z přepínače se pamatuje v prohlížeči
-  // (při načtení ho nastavuje už skript v <head>)
-  const themeBtn = document.querySelector(".theme-toggle");
-  if (themeBtn) {
-    const root = document.documentElement;
-    const apply = (dark) => {
-      if (dark) root.dataset.theme = "dark";
-      else delete root.dataset.theme;
-      themeBtn.setAttribute("aria-pressed", String(dark));
-    };
-    apply(root.dataset.theme === "dark");
-    themeBtn.addEventListener("click", () => {
-      const dark = root.dataset.theme !== "dark";
-      apply(dark);
-      try { localStorage.setItem("theme", dark ? "dark" : "light"); } catch {}
-    });
-  }
-
   // Mobilní pruh Zavolat / Poptávka: při posunu dolů se schová (jako lišta Safari), při posunu
   // nahoru se vrátí — v Safari na iOS 26 by jinak pod ním zůstávala mezera
   const callbar = document.querySelector(".callbar");

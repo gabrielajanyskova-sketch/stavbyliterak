@@ -67,11 +67,9 @@ export const pageUrl = (slug) => (slug ? `/${slug}` : '/');
 
 const OG_IMAGE = '/assets/img/og.jpg';
 
-// Jediný vložený skript (třída „js“ a režim ještě před vykreslením): web je tmavý,
-// světlý jen pro toho, kdo si ho přepnul tlačítkem v hlavičce.
+// Jediný vložený skript (třída „js“ ještě před vykreslením — kvůli animacím a prvkům jen pro JS).
 // Router z něj počítá otisk pro Content-Security-Policy — při změně se hlavička upraví sama.
-export const HEAD_SCRIPT =
-  'var d=document.documentElement,t;d.classList.add("js");try{t=localStorage.getItem("theme")}catch(e){}if(t!=="light")d.dataset.theme="dark"';
+export const HEAD_SCRIPT = 'document.documentElement.classList.add("js")';
 
 // Beskydy z Frýdku-Místku (pohled na jih), stylizované podle polohy vrcholů:
 // vzadu Travný a Lysá hora s vysílačem, vpředu bližší hřbet Ondřejníku se Skalkou.
@@ -209,7 +207,7 @@ function head(ctx, { title, description, path, image, schema, preload = '', cano
   if (image && !/\.(jpe?g|png)$/i.test(image)) image = '';
   const img = abs(ctx.noindex && ctx.origin ? ctx.origin : ctx.base, image || OG_IMAGE);
   return `<!doctype html>
-<html lang="cs">
+<html lang="cs" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -265,7 +263,6 @@ ${links}
 <a class="nav-call" href="tel:${esc(tel(site.phone))}">${esc(site.phone)}</a>
 ${extra}
 </nav>
-<button class="theme-toggle" type="button" aria-pressed="false" aria-label="Tmavý režim" title="Přepnout světlý / tmavý režim"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="moon" d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/><g class="sun"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></g></svg></button>
 </div>
 </header>
 <main id="obsah">

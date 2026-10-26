@@ -123,24 +123,6 @@ p, li, figcaption { text-wrap: pretty; }
 .brand { margin-right: auto; }
 .brand img { width: 136px; }
 
-/* přepínač světlého / tmavého režimu */
-.theme-toggle {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  padding: 0;
-  background: none;
-  border: 1px solid #56606a;
-  color: #d9dde0;
-  cursor: pointer;
-}
-.theme-toggle:hover { border-color: var(--amber); color: var(--amber); }
-.theme-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
-.theme-toggle .sun,
-[data-theme="dark"] .theme-toggle .moon { display: none; }
-[data-theme="dark"] .theme-toggle .sun { display: inline; }
 @media (max-width: 900px) { .brand img { width: 112px; } }
 
 .nav {
@@ -852,8 +834,6 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 .sc-brace { stroke: #8f989f; stroke-width: 0.014; }
 .sc-rail { stroke: var(--amber); stroke-width: 0.022; stroke-linecap: round; }
 .sc-3d .sc-plank { fill: #d9861a; stroke: #f39a1e; stroke-width: 0.01; }
-:root:not([data-theme="dark"]) .sc-std { stroke: #7b858d; }
-:root:not([data-theme="dark"]) .sc-ledger { stroke: #8f989f; }
 .sc-fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
 .sc-fields.is-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 0; }
 .sc .sc-wide { margin-top: 12px; }
