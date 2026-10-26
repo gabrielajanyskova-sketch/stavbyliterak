@@ -33,6 +33,7 @@ const BUILTIN_IMAGES = [
   { url: "/assets/img/foto/leseni-fasada-rodinny-dum.webp", name: "Lešení na fasádě rodinného domu" },
   { url: "/assets/img/foto/leseni-ramove-pozinkovane.webp", name: "Rámové pozinkované lešení" },
   { url: "/assets/img/foto/leseni-ramova-sestava.webp", name: "Rámová sestava lešení (schéma)" },
+  { url: "/assets/img/foto/sklopny-privesnik-debon.webp", name: "Sklopný přívěs Debon PW3.6 3500 Electric" },
   // gastropůjčovna
   { url: "/assets/img/foto/gastro-vycep-oslava.webp", name: "Výčep na oslavě" },
   { url: "/assets/img/foto/gastro-vycep-2-kohouty.webp", name: "Výčep na pivo a limo — 2 kohouty" },
