@@ -80,7 +80,6 @@ p { margin: 0 0 1em; }
    Text zůstává zarovnaný vlevo — do bloku se na webu nezarovnává (díry mezi slovy). */
 h1, h2, h3, .lead { text-wrap: balance; }
 p, li, figcaption { text-wrap: pretty; }
-@media (max-width: 700px) { .prose p, .prose li { hyphens: auto; } }
 
 .wrap {
   max-width: var(--wrap);
@@ -779,7 +778,7 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 @media (max-width: 700px) {
   .catalog li { grid-template-columns: 4rem minmax(0, 1fr) auto; gap: 8px 12px; }
   .catalog .count { font-size: 0.7rem; padding: 2px 6px; }
-  .catalog h3 { overflow-wrap: anywhere; }
+  .catalog h3 { overflow-wrap: break-word; }
   .catalog li > div:not(.catalog-side) { grid-column: 2 / -1; }
   .catalog-side { grid-column: 3; grid-row: 1; }
 }
