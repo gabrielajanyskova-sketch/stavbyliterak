@@ -67,11 +67,11 @@ export const pageUrl = (slug) => (slug ? `/${slug}` : '/');
 
 const OG_IMAGE = '/assets/img/og.jpg';
 
-// Jediný vložený skript (třída „js“ a tmavý režim ještě před vykreslením): platí volba
-// z přepínače, a dokud žádná není, nastavení telefonu / počítače.
+// Jediný vložený skript (třída „js“ a režim ještě před vykreslením): web je tmavý,
+// světlý jen pro toho, kdo si ho přepnul tlačítkem v hlavičce.
 // Router z něj počítá otisk pro Content-Security-Policy — při změně se hlavička upraví sama.
 export const HEAD_SCRIPT =
-  'var d=document.documentElement,t;d.classList.add("js");try{t=localStorage.getItem("theme")}catch(e){}if(t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches)d.dataset.theme="dark"';
+  'var d=document.documentElement,t;d.classList.add("js");try{t=localStorage.getItem("theme")}catch(e){}if(t!=="light")d.dataset.theme="dark"';
 
 // Beskydy z Frýdku-Místku (pohled na jih), stylizované podle polohy vrcholů:
 // vzadu Travný a Lysá hora s vysílačem, vpředu bližší hřbet Ondřejníku se Skalkou.

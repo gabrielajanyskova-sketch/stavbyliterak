@@ -11,7 +11,7 @@
     nav.addEventListener("click", (e) => e.target.closest("a") && setOpen(false));
   }
 
-  // Světlý / tmavý režim — výchozí podle zařízení, volba z přepínače se pamatuje v prohlížeči
+  // Světlý / tmavý režim — výchozí je tmavý, volba z přepínače se pamatuje v prohlížeči
   // (při načtení ho nastavuje už skript v <head>)
   const themeBtn = document.querySelector(".theme-toggle");
   if (themeBtn) {
@@ -26,12 +26,6 @@
       const dark = root.dataset.theme !== "dark";
       apply(dark);
       try { localStorage.setItem("theme", dark ? "dark" : "light"); } catch {}
-    });
-    // dokud návštěvník nic nevybral, web se přepne spolu s telefonem (např. večer)
-    matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-      let saved = null;
-      try { saved = localStorage.getItem("theme"); } catch {}
-      if (!saved) apply(e.matches);
     });
   }
 
