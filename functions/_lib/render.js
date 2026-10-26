@@ -558,8 +558,13 @@ function booking(site, p) {
 <legend>Na jak dlouho</legend>
 <label><input type="radio" name="typ" value="vikend" checked><span><strong>Víkend</strong>pátek–neděle</span></label>
 <label><input type="radio" name="typ" value="den"><span><strong>Jeden den</strong>pondělí–čtvrtek, 24 hodin</span></label>
+<label><input type="radio" name="typ" value="vice"><span><strong>Více dní</strong>od–do, podle domluvy</span></label>
 </fieldset>
-<div><label for="b-datum">Datum vyzvednutí</label><input id="b-datum" name="datum" type="date" required><p class="hint" data-range></p></div>
+<div class="row">
+<div><label for="b-datum">Datum vyzvednutí</label><input id="b-datum" name="datum" type="date" required></div>
+<div data-until hidden><label for="b-do">Datum vrácení</label><input id="b-do" name="do" type="date"></div>
+</div>
+<p class="hint" data-range></p>
 <label class="check"><input type="checkbox" name="dovoz"> Chci dovoz, sestavení a zprovoznění</label>
 <div class="row">
 <div><label for="b-jmeno">Jméno</label><input id="b-jmeno" name="jmeno" autocomplete="name" required></div>

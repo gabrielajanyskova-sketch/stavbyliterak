@@ -200,6 +200,8 @@
     const empty = document.querySelector("[data-empty]");
     const bar = document.querySelector(".booking-bar");
     const date = booking.datum;
+    const until = booking.elements.do;
+    const untilBox = booking.querySelector("[data-until]");
     const range = booking.querySelector("[data-range]");
     const button = booking.querySelector("button[type=submit]");
     const DAY = 864e5;
@@ -233,22 +235,43 @@
     let barOff = false;
     new IntersectionObserver(([e]) => { barOff = e.isIntersecting; renderList(); }).observe(document.querySelector("#rezervace"));
 
-    // víkend = vyzvednutí v pátek, jeden den = pondělí až čtvrtek
+    // víkend = vyzvednutí v pátek, jeden den = pondělí až čtvrtek, více dní = od–do
     const checkDate = () => {
-      const weekend = booking.typ.value === "vikend";
+      const typ = booking.typ.value;
       const d = date.value ? new Date(`${date.value}T12:00`) : null;
+      const end = until.value ? new Date(`${until.value}T12:00`) : null;
       let msg = "";
       if (!d) msg = "Vyberte datum vyzvednutí.";
       else if (d < new Date(Date.now() - DAY)) msg = "Datum už proběhlo.";
-      else if (weekend && d.getDay() !== 5) msg = "Víkendový pronájem začíná v pátek. Vyberte prosím pátek.";
-      else if (!weekend && (d.getDay() < 1 || d.getDay() > 4)) msg = "Jednodenní pronájem je možný od pondělí do čtvrtka.";
-      date.setCustomValidity(msg);
-      range.textContent = msg || (weekend ? `${fmt(d)} – ${fmt(new Date(d.getTime() + 2 * DAY))}` : `${fmt(d)}, na 24 hodin`);
-      return { ok: !msg, text: msg ? "" : (weekend ? `víkend ${range.textContent}` : `jeden den ${range.textContent}`) };
+      else if (typ === "vikend" && d.getDay() !== 5) msg = "Víkendový pronájem začíná v pátek. Vyberte prosím pátek.";
+      else if (typ === "den" && (d.getDay() < 1 || d.getDay() > 4)) msg = "Jednodenní pronájem je možný od pondělí do čtvrtka.";
+      else if (typ === "vice" && !end) msg = "Vyberte datum vrácení.";
+      else if (typ === "vice" && end <= d) msg = "Datum vrácení musí být až po dni vyzvednutí.";
+      const onUntil = /vrácení/.test(msg);
+      date.setCustomValidity(onUntil ? "" : msg);
+      until.setCustomValidity(onUntil ? msg : "");
+      const days = end && d ? Math.round((end - d) / DAY) : 0;
+      range.textContent = msg || {
+        vikend: `${fmt(d)} – ${fmt(new Date(d.getTime() + 2 * DAY))}`,
+        den: `${fmt(d)}, na 24 hodin`,
+        vice: `${fmt(d)} – ${fmt(end)} (${days} ${days === 1 ? "den" : days < 5 ? "dny" : "dní"})`,
+      }[typ];
+      return { ok: !msg, text: msg ? "" : `${{ vikend: "víkend", den: "jeden den", vice: "více dní" }[typ]} ${range.textContent}` };
     };
-    date.min = new Date(Date.now() + DAY).toISOString().slice(0, 10);
-    date.addEventListener("change", checkDate);
-    booking.addEventListener("change", (e) => { if (e.target.name === "typ" && date.value) checkDate(); });
+    const tomorrow = new Date(Date.now() + DAY).toISOString().slice(0, 10);
+    date.min = until.min = tomorrow;
+    const syncType = () => {
+      const vice = booking.typ.value === "vice";
+      untilBox.hidden = !vice;
+      until.required = vice;
+    };
+    date.addEventListener("change", () => { if (date.value) until.min = date.value; checkDate(); });
+    until.addEventListener("change", checkDate);
+    booking.addEventListener("change", (e) => {
+      if (e.target.name !== "typ") return;
+      syncType();
+      if (date.value) checkDate();
+    });
 
     booking.addEventListener("submit", async (ev) => {
       ev.preventDefault();
@@ -270,6 +293,7 @@
       const fields = { sluzba: booking.dataset.service, jmeno: d.get("jmeno"), telefon: d.get("telefon"), misto: d.get("misto"), zprava, web: d.get("web") };
       if (await send(fields, booking.dataset.to, status)) {
         booking.reset();
+        syncType();
         range.textContent = "";
         qty.clear();
         document.querySelectorAll(".catalog li[data-item]").forEach((li) => {

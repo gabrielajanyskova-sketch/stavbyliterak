@@ -1280,7 +1280,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Vybavení si vyberte tlačítkem **+** u jednotlivých položek. Dole na stránce pak zvolíte termín (víkend, nebo jeden den) a odešlete poptávku."
+          "text": "Vybavení si vyberte tlačítkem **+** u jednotlivých položek. Dole na stránce pak zvolíte termín (víkend, jeden den, nebo více dní) a odešlete poptávku."
         },
         {
           "type": "heading",
@@ -1412,7 +1412,7 @@
               "text": "Po domluvě vybavení dovezeme, sestavíme a zprovozníme."
             },
             {
-              "text": "Půjčujeme na víkend (pátek–neděle), nebo na jeden den od pondělí do čtvrtka, 24 hodin od vyzvednutí."
+              "text": "Půjčujeme na víkend (pátek–neděle), na jeden den od pondělí do čtvrtka (24 hodin od vyzvednutí), nebo na více dní podle domluvy."
             },
             {
               "text": "Vybavení používáte na vlastní odpovědnost."
@@ -1428,7 +1428,7 @@
           "items": [
             {
               "title": "Na jak dlouho si můžu vybavení půjčit?",
-              "text": "Na víkend (pátek–neděle), nebo na jeden den od pondělí do čtvrtka, 24 hodin od vyzvednutí. Na delší akci se domluvíme."
+              "text": "Na víkend (pátek–neděle), na jeden den od pondělí do čtvrtka (24 hodin od vyzvednutí), nebo na více dní, třeba na delší akci nebo dovolenou. V poptávce stačí vybrat datum vyzvednutí a vrácení."
             },
             {
               "title": "Kolik to stojí?",
