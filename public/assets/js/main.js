@@ -29,6 +29,21 @@
     });
   }
 
+  // Mobilní pruh Zavolat / Poptávka: při posunu dolů se schová (jako lišta Safari), při posunu
+  // nahoru se vrátí — v Safari na iOS 26 by jinak pod ním zůstávala mezera
+  const callbar = document.querySelector(".callbar");
+  if (callbar) {
+    let lastY = scrollY;
+    addEventListener("scroll", () => {
+      const y = scrollY;
+      if (Math.abs(y - lastY) < 8) return;
+      const away = y > lastY && y > 120;
+      callbar.classList.toggle("is-away", away);
+      document.documentElement.classList.toggle("callbar-away", away); // lišta gastra sjede níž
+      lastY = y;
+    }, { passive: true });
+  }
+
   const items = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver((entries) => {

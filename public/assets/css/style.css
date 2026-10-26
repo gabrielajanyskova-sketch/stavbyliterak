@@ -941,7 +941,10 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
   box-shadow: 0 6px 20px rgb(0 0 0 / 0.25);
 }
 .booking-bar[hidden] { display: none; }
-@media (max-width: 700px) { .booking-bar { bottom: calc(64px + env(safe-area-inset-bottom)); } }
+@media (max-width: 700px) {
+  .booking-bar { bottom: calc(64px + env(safe-area-inset-bottom)); transition: bottom 0.25s ease; }
+  .callbar-away .booking-bar { bottom: calc(12px + env(safe-area-inset-bottom)); }
+}
 
 /* Fotka v hlavičce služby (fakta se pak přesunou pod úvodní text) */
 .page-hero .lead + .facts { margin-top: 28px; }
@@ -1101,6 +1104,8 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
   /* Safari na iOS 26 má průhlednou plovoucí lištu a pruh stojí nad ní — pozadí pokračuje dolů,
      aby pod ním neprosvítal obsah stránky */
   .callbar::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 160px; background: var(--graphite); }
+  .callbar { transition: transform 0.25s ease; }
+  .callbar.is-away { transform: translateY(calc(100% + 170px)); }
   body { padding-bottom: calc(52px + env(safe-area-inset-bottom)); }
 }
 
