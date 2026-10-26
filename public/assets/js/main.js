@@ -80,46 +80,6 @@
     table.closest(".table-wrap").after(calc);
   });
 
-  // Kalkulačka lešení: plocha = délka stěn × (výška k okapu + 1 m u prací na střeše)
-  const scaffold = document.querySelector(".scaffold-calc");
-  if (scaffold) {
-    const field = (name) => scaffold.querySelector(`[name=${name}]`);
-    const num = (name) => Math.max(0, field(name).valueAsNumber || 0);
-    const fmt = (n) => n.toLocaleString("cs-CZ", { maximumFractionDigits: 1 });
-    const values = () => {
-      const delka = num("delka");
-      const vyska = num("vyska") + (field("strecha").checked ? 1 : 0);
-      return { delka, vyska, plocha: Math.ceil(delka * vyska), tydny: Math.max(1, Math.round(num("tydny")) || 1) };
-    };
-    const update = () => {
-      const v = values();
-      scaffold.querySelector(".calc-out").innerHTML = `≈ <strong>${fmt(v.plocha)} m²</strong> <span>lešení (${fmt(v.delka)} m délky × ${fmt(v.vyska)} m výšky)</span>`;
-    };
-    scaffold.addEventListener("input", update);
-    scaffold.addEventListener("change", update);
-    update();
-
-    scaffold.querySelector("button").addEventListener("click", () => {
-      const v = values();
-      const text = [
-        "Kalkulačka lešení:",
-        `- délka stěn: ${fmt(v.delka)} m`,
-        `- výška k okapu: ${fmt(num("vyska"))} m${field("strecha").checked ? " (+1 m nad okap kvůli střeše)" : ""}`,
-        `- orientační plocha: ${fmt(v.plocha)} m²`,
-        `- doba pronájmu: ${v.tydny} ${v.tydny === 1 ? "týden" : v.tydny < 5 ? "týdny" : "týdnů"}`,
-        `- dovoz na stavbu: ${field("dovoz").checked ? "ano" : "ne"}`,
-      ].join("\n");
-      const contact = document.querySelector("#poptavka");
-      if (!contact) return;
-      const option = [...contact.sluzba.options].find((o) => /lešení/i.test(o.text));
-      if (option) contact.sluzba.value = option.value;
-      const note = contact.zprava.value.replace(/^Kalkulačka lešení:[\s\S]*?(\n\n|$)/, "").trim();
-      contact.zprava.value = note ? `${text}\n\n${note}` : text;
-      document.querySelector("#kontakt").scrollIntoView({ behavior: "smooth" });
-      contact.jmeno.focus({ preventScroll: true });
-    });
-  }
-
   // Galerie: zvětšení fotky v <dialog>, šipky přepínají v rámci jedné galerie
   if (document.querySelector("[data-lightbox]") && window.HTMLDialogElement) {
     const dlg = document.createElement("dialog");
@@ -174,6 +134,8 @@
       return false;
     }
   };
+
+  window.sendInquiry = send; // používá i konfigurátor lešení (leseni.js)
 
   const form = document.querySelector("#poptavka");
   if (form) {

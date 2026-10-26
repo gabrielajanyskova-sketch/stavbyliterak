@@ -329,6 +329,7 @@ ${links}
 <a href="#kontakt">Poptávka</a>
 </nav>
 <script src="/assets/js/main.js${ctx.assets?.js ? `?v=${ctx.assets.js}` : ''}" defer></script>
+${ctx.scaffold ? '<script src="/assets/js/leseni.js" defer></script>\n' : ''}
 </body>
 </html>
 `;
@@ -372,36 +373,10 @@ const BLOCKS = {
       : `<tr class="group"><th colspan="2" scope="colgroup">${esc(i.title)}</th></tr>`));
     return `<div class="table-wrap"><table class="data-table">\n${head}<tbody>\n${rows.join('\n')}\n</tbody></table></div>`;
   },
-  // orientační plocha lešení; počítá a vkládá do poptávky main.js
-  scaffold: () => `<div class="calc scaffold-calc">
-<span class="label">Kalkulačka lešení</span>
-<p class="calc-intro">Zadejte přibližné rozměry domu a spočítáme orientační plochu lešení. Výsledek můžete rovnou vložit do poptávky.</p>
-<div class="scaffold-body">
-<div>
-<div class="calc-row is-stack">
-<label>Délka domu, kde potřebujete lešení (m)<input name="delka" type="number" min="0" step="0.5" value="10" inputmode="decimal"><small>Kolem celého domu = obvod, např. 10 + 8 + 10 + 8 = 36 m. Jen jedna stěna = její délka.</small></label>
-<label>Výška od země k okapu (m)<input name="vyska" type="number" min="0" step="0.5" value="6" inputmode="decimal"><small>Přízemní dům cca 3–4 m, dům s patrem cca 6 m.</small></label>
-<label>Pronájem (týdny)<input name="tydny" type="number" min="1" step="1" value="2" inputmode="numeric"></label>
-</div>
-<label class="calc-check"><input type="checkbox" name="strecha" checked> Budu pracovat i u střechy (lešení o 1 m nad okap)</label>
-<label class="calc-check"><input type="checkbox" name="dovoz"> Chci lešení dovézt na stavbu</label>
-</div>
-<figure class="scaffold-fig">
-<svg viewBox="0 0 320 210" role="img" aria-label="Nákres: délka podél domu a výška od země k okapu">
-<path class="fig-house" d="M50 82 150 30 250 82M62 82V172M238 82V172"/>
-<path class="fig-scaffold" d="M56 172V68M106 172V68M150 172V68M194 172V68M244 172V68M56 138H244M56 104H244M56 70H244M56 172 106 138M106 138 150 104M150 104 194 70"/>
-<path class="fig-ground" d="M14 172H306"/>
-<path class="fig-dim" d="M56 192H244M56 186V198M244 186V198M266 82V172M260 82H272M260 172H272M246 82H274M274 68V82M270 68H278"/>
-<text x="150" y="206" text-anchor="middle">délka</text>
-<text x="288" y="127" text-anchor="middle" transform="rotate(-90 288 127)">výška k okapu</text>
-<text x="281" y="72">+1 m</text>
-<text x="214" y="58" class="fig-note">okap</text>
-</svg>
-<figcaption>Lešení stojí podél domu. Plocha = délka × výška.</figcaption>
-</figure>
-</div>
-<p class="calc-out" aria-live="polite"></p>
-<button class="btn" type="button">Vložit do poptávky</button>
+  // konfigurátor lešení (půdorys, 3D náhled, termín, poptávka) — sestaví ho /assets/js/leseni.js
+  scaffold: (b, ctx) => `<div class="calc sc" id="konfigurator" data-scaffold data-to="${esc(ctx.site.email)}">
+<span class="label">Konfigurátor lešení</span>
+<p class="calc-intro">Vyklikejte půdorys domu, zadejte výšku a termín. Spočítáme plochu lešení a pošleme vám nabídku.</p>
 </div>`,
   gallery: (b) =>
     list(`div`, `gallery${b.fit === 'contain' ? ' is-contain' : ''}`, items(b).filter((i) => i.src).map((i) =>
@@ -605,7 +580,7 @@ ${ask(ctx.site, p)}
 ` +
     related(ctx.pages, p) +
     contact(ctx, p.form_service) +
-    footer(ctx)
+    footer({ ...ctx, scaffold: (p.blocks || []).some((b) => b.type === 'scaffold') })
   );
 }
 

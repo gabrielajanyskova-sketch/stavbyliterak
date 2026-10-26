@@ -16,6 +16,7 @@ public/                     statické soubory (výstupní složka Pages)
   assets/css/fonts.css      písma hostovaná u nás (bez Google Fonts)
   assets/css/style.css      styly webu (do stránek se vkládají přímo, bez dalšího požadavku)
   assets/js/main.js         menu, animace, galerie, poptávkový formulář
+  assets/js/leseni.js       konfigurátor lešení (půdorys, 3D náhled, termín) — jen na stránce s blokem „Kalkulačka lešení“
   assets/js/admin.js        logika administrace
   assets/fonts/             woff2 písma + licence (SIL OFL)
   assets/img/               logo, ikony, obrázek pro sdílení (og.jpg), fotka bagru
