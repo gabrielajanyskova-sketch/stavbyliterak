@@ -40,6 +40,43 @@
     items.forEach((el) => el.classList.add("in"));
   }
 
+  // Přepočet objemu na hmotnost pod tabulkou, která má hodnoty v kg (např. sypké materiály)
+  document.querySelectorAll(".data-table").forEach((table) => {
+    const groups = [];
+    for (const tr of table.querySelectorAll("tbody tr")) {
+      if (tr.classList.contains("group")) { groups.push({ name: tr.textContent.trim(), rows: [] }); continue; }
+      const [name, value] = [...tr.cells].map((c) => c.textContent.trim());
+      const kg = (value.replace(/\s/g, "").match(/\d+/g) || []).map(Number);
+      if (!/kg/i.test(value) || !kg.length) continue;
+      if (!groups.length) groups.push({ name: "", rows: [] });
+      groups.at(-1).rows.push({ name, kg });
+    }
+    const all = groups.flatMap((g) => g.rows);
+    if (!all.length) return;
+
+    const calc = document.createElement("div");
+    calc.className = "calc";
+    calc.innerHTML = '<span class="label">Přepočet na hmotnost</span><div class="calc-row"><label>Materiál<select></select></label><label>Objem (m³)<input type="number" min="0" step="0.5" value="1" inputmode="decimal"></label></div><p class="calc-out" aria-live="polite"></p>';
+    const select = calc.querySelector("select");
+    const volume = calc.querySelector("input");
+    const out = calc.querySelector(".calc-out");
+    let i = 0;
+    for (const g of groups.filter((g) => g.rows.length)) {
+      const parent = g.name ? select.appendChild(Object.assign(document.createElement("optgroup"), { label: g.name })) : select;
+      for (const r of g.rows) parent.append(new Option(r.name, i++));
+    }
+    const t = (kg) => (kg / 1000).toLocaleString("cs-CZ", { maximumFractionDigits: 2 });
+    const update = () => {
+      const v = Math.max(0, parseFloat(String(volume.value).replace(",", ".")) || 0);
+      const kg = all[select.value].kg.map((n) => n * v);
+      out.innerHTML = `≈ <strong>${kg.map(t).join("–")} t</strong> <span>(${kg.map((n) => Math.round(n).toLocaleString("cs-CZ")).join("–")} kg)</span>`;
+    };
+    select.addEventListener("change", update);
+    volume.addEventListener("input", update);
+    update();
+    table.closest(".table-wrap").after(calc);
+  });
+
   // Galerie: zvětšení fotky v <dialog>, šipky přepínají v rámci jedné galerie
   if (document.querySelector("[data-lightbox]") && window.HTMLDialogElement) {
     const dlg = document.createElement("dialog");

@@ -782,6 +782,20 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 .data-table tr.group th { padding-top: 22px; font-family: var(--font-display); font-size: 1.15rem; text-transform: uppercase; color: var(--ink); }
 .data-table tbody tr:not(.group):hover { background: var(--surface); }
 
+/* Přepočet objemu na hmotnost pod tabulkou */
+.calc { margin: -0.8em 0 2em; padding: 18px 20px; background: var(--surface); border-top: 3px solid var(--amber); }
+.calc .label { display: block; margin-bottom: 12px; }
+.calc-row { display: grid; grid-template-columns: minmax(0, 1fr) 9rem; gap: 12px; }
+.calc label { display: grid; gap: 6px; font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.calc select,
+.calc input { width: 100%; padding: 10px 12px; font: inherit; font-family: var(--font-body); font-size: 1rem; text-transform: none; letter-spacing: 0; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 0; }
+.calc select:focus,
+.calc input:focus { outline: 2px solid var(--amber); outline-offset: 0; border-color: var(--amber); }
+.calc-out { margin: 14px 0 0; font-size: 1.05rem; }
+.calc-out strong { font-family: var(--font-display); font-size: 2rem; }
+.calc-out span { color: var(--muted); font-size: 0.9rem; }
+@media (max-width: 480px) { .calc-row { grid-template-columns: 1fr; } }
+
 /* Výběr počtu kusů do poptávky (jen s JavaScriptem) */
 .pick { display: none; }
 .js .pick { display: inline-grid; grid-template-columns: 32px 34px 32px; border: 1px solid var(--ink); }
