@@ -103,9 +103,7 @@
   function rectOf() {
     const xs = [], ys = [];
     for (const c of state.cells) { const [x, y] = c.split(",").map(Number); xs.push(x); ys.push(y); }
-    const r = { x0: Math.min(...xs), y0: Math.min(...ys), x1: Math.max(...xs) + 1, y1: Math.max(...ys) + 1 };
-    r.full = (r.x1 - r.x0) * (r.y1 - r.y0) === state.cells.size;
-    return r;
+    return { x0: Math.min(...xs), y0: Math.min(...ys), x1: Math.max(...xs) + 1, y1: Math.max(...ys) + 1 };
   }
 
   function scaffoldFrame(w, top) {
@@ -121,6 +119,51 @@
     for (let z = 0.8; z < top + 0.01; z += 0.8) parts.push(line([...a, Math.min(z, top)], [...b, Math.min(z, top)], "sc-deck"));
     parts.push(line([...a, 0], [...b, Math.min(top, 0.8)], "sc-brace"));
     return parts.join("");
+  }
+
+  // Výška střechy nad okapem v bodě půdorysu: sklon × vzdálenost k nejbližší okapové hraně.
+  // U rohů dovnitř domu se měří „čtvercově“ k rohu — vznikne rovné úžlabí jako u skutečné střechy.
+  // Sedlová: koncové stěny křídel (oba rohy ven a křídlo za nimi je aspoň tak hluboké, jak je stěna
+  // dlouhá) jsou štíty, ne okapy.
+  const SLOPE = 0.84;
+  function roofHeight(walls) {
+    if (state.roof === "plocha") return () => 0;
+    const n = walls.length;
+    const len = (w) => w.cells;
+    const convex = (i) => {
+      const a = walls[(i - 1 + n) % n], b = walls[i];
+      return (a.x2 - a.x1) * (b.y2 - b.y1) - (a.y2 - a.y1) * (b.x2 - b.x1) > 0;
+    };
+    let gable = walls.map(() => false);
+    if (state.roof === "sedlova") {
+      // hloubka domu za stěnou: od prostředku stěny dovnitř, dokud jsou políčka vyplněná
+      const depth = (w) => {
+        const dx = Math.sign(w.x2 - w.x1), dy = Math.sign(w.y2 - w.y1);
+        const k = Math.floor(w.cells / 2) + 0.5;
+        let x = w.x1 + dx * k - dy * 0.5, y = w.y1 + dy * k + dx * 0.5, d = 0;
+        while (has(Math.floor(x), Math.floor(y))) { d++; x -= dy; y += dx; }
+        return d;
+      };
+      gable = walls.map((w, i) => convex(i) && convex((i + 1) % n) && len(w) <= depth(w));
+      // čtverec a podobně: dva sousední štíty nejdou — štíty nechá jen na svislých stěnách
+      gable = gable.map((g, i) => g && !(walls[i].y1 === walls[i].y2 && (gable[(i - 1 + n) % n] || gable[(i + 1) % n])));
+    }
+    const eaves = walls.filter((_, i) => !gable[i]);
+    return (px, py) => {
+      let d = Infinity;
+      for (const e of eaves) {
+        let v;
+        if (e.y1 === e.y2) {
+          const lo = Math.min(e.x1, e.x2), hi = Math.max(e.x1, e.x2);
+          v = px >= lo && px <= hi ? Math.abs(py - e.y1) : Math.max(Math.min(Math.abs(px - lo), Math.abs(px - hi)), Math.abs(py - e.y1));
+        } else {
+          const lo = Math.min(e.y1, e.y2), hi = Math.max(e.y1, e.y2);
+          v = py >= lo && py <= hi ? Math.abs(px - e.x1) : Math.max(Math.min(Math.abs(py - lo), Math.abs(py - hi)), Math.abs(px - e.x1));
+        }
+        if (v < d) d = v;
+      }
+      return d === Infinity ? 0 : d * SLOPE;
+    };
   }
 
   function render3d(walls) {
@@ -141,40 +184,48 @@
     for (let i = Math.ceil(gy0); i <= gy1; i++) out.push(line([gx0, i, 0], [gx1, i, 0], "sc-gridline"));
     // lešení za domem
     for (const w of withScaffold.filter((w) => !facing(w))) out.push(scaffoldFrame(w, top));
-    // stěny čelem k divákovi, odzadu
+    // stěny čelem k divákovi, odzadu; horní hrana sleduje střechu (štíty u sedlové)
+    const roofH = roofHeight(walls);
     for (const w of walls.filter(facing).sort((a, b) => depth(a) - depth(b))) {
       const shade = w.y1 === w.y2 ? "sc-wall-a" : "sc-wall-b";
-      out.push(poly([[w.x1, w.y1, 0], [w.x2, w.y2, 0], [w.x2, w.y2, H], [w.x1, w.y1, H]], shade));
+      const top = [];
+      for (let i = 0; i <= w.cells * 4; i++) {
+        const t = i / (w.cells * 4), x = w.x1 + (w.x2 - w.x1) * t, y = w.y1 + (w.y2 - w.y1) * t;
+        top.push([x, y, H + roofH(x, y)]);
+      }
+      out.push(poly([[w.x1, w.y1, 0], [w.x2, w.y2, 0], ...top.reverse()], shade));
     }
-    // střecha: u obdélníku skutečný tvar, jinak zjednodušená plocha
-    const r = rectOf();
-    if (state.roof !== "plocha" && r.full) {
-      const along = r.x1 - r.x0 >= r.y1 - r.y0; // hřeben podél delší strany
-      const short = along ? r.y1 - r.y0 : r.x1 - r.x0;
-      const rh = short * 0.42;
-      const hip = state.roof === "valbova" ? short / 2 : 0;
-      const m = along ? (r.y0 + r.y1) / 2 : (r.x0 + r.x1) / 2;
-      const R = along
-        ? [[r.x0 + hip, m, H + rh], [r.x1 - hip, m, H + rh]]
-        : [[m, r.y0 + hip, H + rh], [m, r.y1 - hip, H + rh]];
-      const c = { a: [r.x0, r.y0, H], b: [r.x1, r.y0, H], d: [r.x1, r.y1, H], e: [r.x0, r.y1, H] };
-      const faces = along
-        ? [
-            { p: [c.a, c.b, R[1], R[0]], d: r.y0, cls: "sc-roof-b" },
-            { p: [c.a, R[0], c.e], d: r.x0, cls: hip ? "sc-roof-a" : "sc-gable" },
-            { p: [c.b, c.d, R[1]], d: r.x1 + 10, cls: hip ? "sc-roof-a" : "sc-gable-front" },
-            { p: [c.e, c.d, R[1], R[0]], d: r.y1 + 10, cls: "sc-roof-front" },
-          ]
-        : [
-            { p: [c.a, c.e, R[1], R[0]], d: r.x0, cls: "sc-roof-b" },
-            { p: [c.a, c.b, R[0]], d: r.y0, cls: hip ? "sc-roof-a" : "sc-gable" },
-            { p: [c.e, c.d, R[1]], d: r.y1 + 10, cls: hip ? "sc-roof-front" : "sc-gable-front" },
-            { p: [c.b, c.d, R[1], R[0]], d: r.x1 + 10, cls: "sc-roof-a" },
-          ];
-      for (const f of faces.sort((a, b) => a.d - b.d)) out.push(poly(f.p, f.cls));
+    // střecha: výšková plocha nad půdorysem, kreslená po trojúhelnících odzadu dopředu
+    if (state.roof === "plocha") {
+      out.push(poly(walls.map((w) => [w.x1, w.y1, H]), "sc-flat"));
     } else {
-      // členitý půdorys: střecha jako jedna plocha v obrysu domu
-      out.push(poly(walls.map((w) => [w.x1, w.y1, H]), state.roof === "plocha" ? "sc-flat" : "sc-roof-flat"));
+      const tris = [];
+      const S = 0.5;
+      for (const c of state.cells) {
+        const [cx, cy] = c.split(",").map(Number);
+        for (let x = cx; x < cx + 1; x += S) {
+          for (let y = cy; y < cy + 1; y += S) {
+            const p = (px, py) => [px, py, H + roofH(px, py)];
+            const m = p(x + S / 2, y + S / 2);
+            const q = [p(x, y), p(x + S, y), p(x + S, y + S), p(x, y + S)];
+            for (let i = 0; i < 4; i++) tris.push([q[i], q[(i + 1) % 4], m]);
+          }
+        }
+      }
+      // světlo zleva: každý směr svahu má jiný odstín, takže jsou vidět hřebeny i úžlabí
+      const L = [-0.6, 0.35, 0.72];
+      const shade = (t) => {
+        const u = t[1].map((v, i) => v - t[0][i]), v = t[2].map((v, i) => v - t[0][i]);
+        let n = [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]];
+        if (n[2] < 0) n = n.map((c) => -c);
+        const k = Math.max(0, n[0] * L[0] + n[1] * L[1] + n[2] * L[2]) / (Math.hypot(...n) || 1);
+        return `hsl(12 52% ${Math.round(22 + k * 26)}%)`;
+      };
+      tris.sort((a, b) => (a[0][0] + a[0][1] + a[1][0] + a[1][1] + a[2][0] + a[2][1]) - (b[0][0] + b[0][1] + b[1][0] + b[1][1] + b[2][0] + b[2][1]));
+      for (const t of tris) {
+        const f = shade(t);
+        out.push(`<polygon fill="${f}" stroke="${f}" stroke-width="0.012" points="${t.map((p) => pr(...p).map((v) => v.toFixed(3)).join(",")).join(" ")}"/>`);
+      }
     }
     // lešení před domem
     for (const w of withScaffold.filter(facing).sort((a, b) => depth(a) - depth(b))) out.push(scaffoldFrame(w, top));

@@ -364,7 +364,7 @@ const BLOCKS = {
       `<li data-item="${esc(i.title)}">${i.photo
         ? `<a class="catalog-photo" href="${esc(safeUrl(i.photo))}" data-lightbox><img src="${esc(thumb(i.photo))}" alt="${esc(i.title)}" loading="lazy" decoding="async"></a>`
         : '<span class="catalog-photo" aria-hidden="true"></span>'}<h3>${esc(i.title)}</h3><div><p>${inline(i.text)}</p>${i.spec ? `<p class="spec">${esc(i.spec)}</p>` : ''}</div><div class="catalog-side">${
-        i.count ? `<span class="count">${esc(i.count)}</span>` : ''}${pick(i)}</div></li>`)),
+        i.count ? `<span class="count">K zapůjčení: ${esc(i.count)}</span>` : ''}${pick(i)}</div></li>`)),
   // řádek bez hodnoty = nadpis skupiny
   table: (b) => {
     const head = b.head1 || b.head2 ? `<thead><tr><th scope="col">${esc(b.head1)}</th><th scope="col">${esc(b.head2)}</th></tr></thead>\n` : '';

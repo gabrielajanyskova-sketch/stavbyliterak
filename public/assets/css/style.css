@@ -840,12 +840,6 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 .sc-gridline { stroke: var(--line); stroke-width: 0.012; }
 .sc-wall-a { fill: #e9e4dc; stroke: #8e8a84; }
 .sc-wall-b { fill: #cfc9bf; stroke: #8e8a84; }
-.sc-gable { fill: #d9d3ca; stroke: #8e8a84; }
-.sc-gable-front { fill: #e9e4dc; stroke: #8e8a84; }
-.sc-roof-a { fill: #8c3b2a; stroke: #5e2419; }
-.sc-roof-b { fill: #a8472f; stroke: #5e2419; }
-.sc-roof-front { fill: #b9553a; stroke: #5e2419; }
-.sc-roof-flat { fill: #a8472f; stroke: #5e2419; }
 .sc-flat { fill: #7d8790; stroke: #59626a; }
 .sc-pole { stroke: var(--amber); stroke-width: 0.035; stroke-linecap: round; }
 .sc-deck { stroke: var(--amber); stroke-width: 0.05; stroke-linecap: round; }

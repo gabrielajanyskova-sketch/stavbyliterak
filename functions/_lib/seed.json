@@ -1017,28 +1017,7 @@
         },
         {
           "type": "heading",
-          "text": "Co napsat do poptávky"
-        },
-        {
-          "type": "numbered",
-          "items": [
-            {
-              "title": "Přibližné rozměry domu",
-              "text": "Délky stěn, případně u které části domu lešení potřebujete."
-            },
-            {
-              "title": "Počet podlaží",
-              "text": "Výška domu a tvar střechy."
-            },
-            {
-              "title": "Doba pronájmu",
-              "text": "Od kdy a na jak dlouho."
-            },
-            {
-              "title": "K čemu lešení potřebujete",
-              "text": "Fasáda, zateplení, střecha, nátěry…"
-            }
-          ]
+          "text": "Spočítejte si lešení"
         },
         {
           "type": "scaffold"
