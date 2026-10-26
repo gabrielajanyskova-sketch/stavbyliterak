@@ -310,7 +310,7 @@ ${seg("service", SERVICES, state.service)}
 ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvezeme"], sam: ["Odvezu si sám", "vyzvednutí ve Frýdku-Místku"] }, state.transport)}
 <label class="sc-wide">Místo stavby (obec)<input name="misto" autocomplete="address-level2"></label>
 <h3>Stavební stojky</h3>
-<label class="calc-check"><input type="checkbox" name="propsOn"> Potřebuji i stavební stojky (podpěry stropu nebo bednění)</label>
+<label class="calc-check"><input type="checkbox" name="propsOn"> Potřebuji i stavební stojky</label>
 <label class="sc-wide sc-props" hidden>Počet stojek (ks)<input name="props" type="number" min="1" step="1" value="10" inputmode="numeric"></label>
 <label class="sc-wide">K čemu lešení potřebujete<select name="ucel"><option>Omítky a nátěry fasády</option><option>Střecha a klempířské práce</option><option>Okna a parapety</option><option>Jiné práce</option></select></label>
 </div>
