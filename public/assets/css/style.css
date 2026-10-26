@@ -802,6 +802,18 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 .calc .calc-check { display: flex; flex-direction: row; align-items: center; gap: 10px; margin-top: 8px; font-family: var(--font-body); font-size: 0.95rem; text-transform: none; letter-spacing: 0; color: var(--ink); cursor: pointer; }
 .calc .calc-check input { width: 18px; height: 18px; padding: 0; accent-color: var(--amber-deep); }
 .calc .btn { margin-top: 14px; }
+.calc-row.is-stack { grid-template-columns: 1fr; }
+.calc label small { font-family: var(--font-body); font-size: 0.82rem; text-transform: none; letter-spacing: 0; color: var(--muted); }
+.scaffold-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 300px); gap: 24px; align-items: start; }
+@media (max-width: 640px) { .scaffold-body { grid-template-columns: 1fr; } }
+.scaffold-fig { margin: 0; }
+.scaffold-fig svg { display: block; width: 100%; height: auto; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.scaffold-fig text { fill: var(--muted); stroke: none; font-family: var(--font-mono); font-size: 11px; }
+.fig-house { stroke: var(--ink); stroke-width: 2; }
+.fig-scaffold { stroke: var(--amber); stroke-width: 1.6; }
+.fig-ground { stroke: var(--ink); stroke-width: 2; }
+.fig-dim { stroke: var(--muted); stroke-width: 1; }
+.scaffold-fig figcaption { margin-top: 6px; font-size: 0.82rem; color: var(--muted); }
 .scaffold-calc { display: none; }
 .js .scaffold-calc { display: block; margin: 0 0 2em; }
 
