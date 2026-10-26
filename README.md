@@ -88,6 +88,10 @@ S nastaveným Resendem chce přihlášení do adminu navíc jednorázový kód z
 - **Kontakty a formulář** — telefon, e-mail, adresa, IČ, možnosti ve formuláři.
 - **Recenze** — hodnocení a vybrané recenze z Googlu, odkazy na profil.
 - **Fotky** — nahrání (automaticky se zmenší a převedou na WebP), smazání.
+- **Ceny gastropůjčovny** — u každé položky katalogu cena za víkend, za 1 den a záloha (za 1 ks).
+  Na webu se nevypisují; zákazník po výběru vybavení a termínu uvidí jen orientační součet
+  pronájmu a vratné zálohy (počítá server, `/api/gastro-quote`). Dokud není vyplněná žádná
+  cena, box s cenou se neukazuje.
 
 Ochrana přihlášení: po 8 špatných pokusech z jedné IP se přihlašování na 15 minut
 zablokuje; přihlášení platí 30 dní. Poptávkový formulář přijme z jedné IP nejvýš
