@@ -205,7 +205,9 @@ function jsonLd(graph) {
 
 function head(ctx, { title, description, path, image, schema, preload = '', canonical = true }) {
   const url = ctx.base + path;
-  const img = abs(ctx.base, image || OG_IMAGE);
+  // WebP neumí spolehlivě všechny sítě (LinkedIn, starší Messenger) → pak společný og.jpg
+  if (image && !/\.(jpe?g|png)$/i.test(image)) image = '';
+  const img = abs(ctx.noindex && ctx.origin ? ctx.origin : ctx.base, image || OG_IMAGE);
   return `<!doctype html>
 <html lang="cs">
 <head>
@@ -221,7 +223,7 @@ ${canonical ? `<link rel="canonical" href="${esc(url)}">\n` : ''}<meta property=
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:image" content="${esc(img)}">
-<meta property="og:image:alt" content="${esc(title)}">
+${image ? '' : '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'}<meta property="og:image:alt" content="${esc(title)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#1d2126">
 <link rel="icon" href="/assets/img/favicon.png" type="image/png">

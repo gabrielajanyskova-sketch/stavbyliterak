@@ -126,7 +126,9 @@ export async function onRequest({ request, env, next }) {
     if (request.method !== 'GET' && request.method !== 'HEAD') return new Response('Method not allowed', { status: 405 });
 
     const [site, pages, assets] = await Promise.all([getSite(env), getPages(env), loadAssets(env, url.origin)]);
-    const ctx = { site, pages, assets, base: primary.origin, noindex };
+    // origin = adresa, na které web právě běží — obrázek pro sdílení musí jít stáhnout odsud,
+    // dokud hlavní doména ještě neukazuje na Cloudflare (náhled odkazu by byl bez obrázku)
+    const ctx = { site, pages, assets, base: primary.origin, origin: url.origin, noindex };
 
     if (path === '/robots.txt') return respond(renderRobots(ctx), 'text/plain');
     if (path === '/sitemap.xml') return respond(renderSitemap(ctx), 'application/xml', { noindex });
