@@ -529,6 +529,8 @@ p, li, figcaption { text-wrap: pretty; }
   .content-grid { grid-template-columns: 1fr; gap: 40px; }
   .content-grid aside { position: static; }
 }
+/* na mobilu je pod obsahem hned kontakt a dole pruh Zavolat / Poptávka — box by se opakoval */
+@media (max-width: 700px) { .content-grid aside.ask { display: none; } }
 
 .prose h2 { margin-top: 1.6em; }
 .prose h2:first-child { margin-top: 0; }
