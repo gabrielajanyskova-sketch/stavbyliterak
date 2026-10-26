@@ -254,7 +254,7 @@
       "meta_description": "Výkopy pro základy, sítě, jímky, bazény a drenáže, zásypy a hutnění, terénní úpravy, odvoz zeminy a zpracování půdy zakladačem trávníku. Frýdek-Místek a okolí.",
       "crumb": "Zemní práce a zakladač trávníku",
       "title": "Zemní a výkopové práce",
-      "lead": "Nejde jen o to vykopat díru. Výkop musí mít správnou hloubku, spád a tvar, podloží musí být připravené a zásyp pořádně zhutněný.",
+      "lead": "Nejde jen o to vykopat díru. Rozhoduje dodržení projektovaných hloubek, spádů a tvaru výkopu, příprava podloží a správně provedené zásypy.",
       "theme": "",
       "facts": [
         {
@@ -283,7 +283,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Na zemních pracích stojí dům, přípojky, zpevněné plochy i zahrada. Před začátkem spolu probereme, co chcete udělat, co místo dovolí a co s vykopanou zeminou: jestli ji necháme na pozemku, nebo ji odvezeme. Dobrá příprava ušetří zbytečné převážení materiálu, a tím i peníze."
+          "text": "Na zemních pracích stojí základy staveb, inženýrské sítě, zpevněné plochy i konečné úpravy zahrady. Před začátkem spolu probereme způsob provedení, vaše požadavky a místní dispoziční možnosti, včetně využití výkopku na pozemku nebo rozsahu odvozu. Promyšlená organizace práce omezí zbytečné přesuny materiálu, a tím ušetří i peníze."
         },
         {
           "type": "heading",
@@ -293,48 +293,48 @@
           "type": "numbered",
           "items": [
             {
-              "title": "Výkopy pro základy, opěrné zdi a ploty",
-              "text": "Základové pasy, patky a stavební jámy."
+              "title": "Výkopy pro základy staveb, opěrných zdí a oplocení",
+              "text": "Hloubení základových pasů, patek a stavebních jam."
             },
             {
-              "title": "Výkopy pro sítě",
-              "text": "Rýhy pro vodu, kanalizaci, elektřinu a další rozvody."
+              "title": "Výkopy pro inženýrské sítě",
+              "text": "Rýhy pro vodovodní a kanalizační potrubí, kabelové trasy a další rozvody."
             },
             {
-              "title": "Jímky, nádrže a domovní ČOV",
-              "text": "Jáma s místem na osazení nádrže, podklad i napojení potrubí."
+              "title": "Retenční a akumulační nádrže, jímky a domovní ČOV",
+              "text": "Hloubení jam s prostorem pro osazení zařízení, přípravu podkladu a připojení potrubí."
             },
             {
               "title": "Bazény a jezírka",
-              "text": "Výkop podle tvaru a hloubky, včetně místa pro podkladní vrstvy a rozvody."
+              "text": "Výkop podle požadovaného půdorysu, hloubky a konstrukčního řešení, včetně prostoru pro podkladní vrstvy a rozvody."
             },
             {
-              "title": "Skrývka ornice",
-              "text": "Ornici odložíme na pozemku, abyste ji později mohli použít na zahradu."
+              "title": "Skrývka ornice a odtěžení zeminy",
+              "text": "Odstranění vegetační vrstvy a odkop zeminy v místě budoucí stavby nebo zpevněné plochy. Ornici odložíme na pozemku pro pozdější dokončovací úpravy."
             },
             {
-              "title": "Příjezdové cesty, stání a terasy",
-              "text": "Výkop na správnou výšku. Když chcete, dovezeme, rozhrneme a zhutníme i podkladní štěrk."
+              "title": "Příjezdové cesty, parkovací stání, chodníky a terasy",
+              "text": "Výkop na požadovanou výškovou úroveň a příprava pro navrženou skladbu konstrukčních vrstev. Podle domluvy dodáme, rozprostřeme a zhutníme i podkladní materiál."
             },
             {
               "title": "Terénní úpravy a svahování",
-              "text": "Srovnáme nerovnosti a upravíme terén tak, aby dešťová voda tekla od domu."
+              "text": "Srovnání nerovností, úprava výškových úrovní a modelace pozemku. Terén musí respektovat okolní stavby, navazující plochy a navržený odvod srážkové vody."
             },
             {
-              "title": "Drenáže",
-              "text": "Drážky pro drenážní trubky ve správném spádu. Drenáž sama vlhkost vždycky nevyřeší, proto vám rádi pomůžeme navrhnout celé řešení."
+              "title": "Drenáže a odvodnění",
+              "text": "Drážky pro drenážní potrubí a odvodňovací prvky v potřebném spádu. Drenáž sama vlhkost vždycky nevyřeší, je součástí komplexního řešení, které umíme navrhnout i provést."
             },
             {
-              "title": "Odkopání základů",
-              "text": "Když potřebujete opravit izolaci, zateplit sokl nebo sanovat vlhké zdivo."
+              "title": "Odkopání obvodového zdiva a základů",
+              "text": "Zpřístupnění podzemních částí stavby pro opravu hydroizolace nebo sanační práce."
             },
             {
               "title": "Zásypy a hutnění",
-              "text": "Zasypáváme po vrstvách a každou zhutníme. Máme vibrační desky i pěchy do úzkých míst."
+              "text": "Zásyp po vrstvách s postupným hutněním. Materiál, tloušťka vrstev a technika se volí podle účelu zásypu, okolních konstrukcí a požadavků na výsledné zhutnění. Hutníme technikou Bomag a Weber MT, vibračními deskami i pěchy do úzkých prostor."
             },
             {
-              "title": "Rozhrnutí zeminy a ornice",
-              "text": "Doplníme prohlubně a připravíme plochu pro zahradu. Potom může nastoupit zakladač."
+              "title": "Rozprostření zeminy a ornice",
+              "text": "Přesun a rozhrnutí materiálu, doplnění terénních prohlubní a příprava ploch pro konečné zahradní úpravy. Potom může nastoupit zakladač."
             }
           ]
         },
@@ -496,7 +496,7 @@
         },
         {
           "type": "text",
-          "text": "Zakladač není jen na nový trávník. Hlavně se s ním zpracovává půda po stavbě, rekonstrukci nebo po bagru. Rozbije hroudy, nakypří zem, zapracuje drobné kameny pod povrch a povrch rovnou srovná.\n\nPo stavbě bývá pozemek rozježděný a udusaný od aut a bagrů, plný kolejí, kamenů a hrud. Když se jen rozhrne, vypadá hotově, ale půda pod povrchem zůstane utužená a tráva ani rostliny se v ní dobře neuchytí."
+          "text": "Zakladač není jen na nový trávník. Slouží hlavně k mechanickému zpracování a finální úpravě půdy po stavbě, rekonstrukci, výkopech nebo pojezdu techniky. Rozruší a rozmělní půdu, nakypří zpracovávanou vrstvu, zapracuje drobné kameny pod povrch a současně upraví povrch pozemku.\n\nPo stavbě bývá pozemek rozježděný a udusaný od aut a bagrů, plný kolejí, kamenů a hrud. Když se jen rozhrne, vypadá hotově, ale půda pod povrchem zůstane utužená a tráva ani rostliny se v ní dobře neuchytí."
         },
         {
           "type": "grid",
@@ -524,6 +524,10 @@
             {
               "title": "Nový trávník",
               "text": "Příprava pozemku pro založení."
+            },
+            {
+              "title": "Po sezóně",
+              "text": "Úprava půdy po skončení sezóny."
             }
           ]
         },
@@ -553,7 +557,7 @@
           "items": [
             {
               "title": "Vezmete i malou zakázku nebo místo, kam se špatně zajíždí?",
-              "text": "Ano. Stroj vybíráme podle práce a přístupu, a když nemáme vhodný vlastní, umíme sehnat jiný. Předem ale musíme probrat šířku a výšku vjezdu, sklon a únosnost příjezdové cesty a kam se bude dávat zemina. Rádi k vám přijedeme s bagrem nebo traktorem klidně i na půl hodiny. V tom případě ale účtujeme paušál místo hodinové sazby, aby se vůbec vyrovnaly náklady."
+              "text": "Ano. Techniku vybíráme podle rozsahu práce a přístupu a umíme zajistit i stroj jiné tonáže a rozměrů, který přímo nevlastníme. Předem ale musíme probrat šířku a výšku vjezdu, sklon a únosnost příjezdové cesty a kam se bude dávat zemina. Rádi k vám přijedeme s bagrem nebo traktorem klidně i na půl hodiny. V tom případě ale účtujeme paušál místo hodinové sazby, aby se vůbec vyrovnaly náklady."
             },
             {
               "title": "Nevyjde hodinová sazba dráž než pevná cena?",
@@ -720,7 +724,7 @@
         },
         {
           "type": "text",
-          "text": "Hliník je lehký, a přitom pevný. Venku nerezaví, nemusí se natírat a barva mu vydrží. Hodí se k novostavbě i ke staršímu domu."
+          "text": "Hliník je lehký, a přitom pevný. Dlouhodobě odolává venkovnímu prostředí, nekoroduje, nemusí se natírat a je stálobarevný. Čistý vzhled konstrukce se hodí k novostavbě i ke staršímu domu."
         },
         {
           "type": "heading",
@@ -736,7 +740,7 @@
         },
         {
           "type": "text",
-          "text": "Zastřešená terasa, pergola nebo samostatný altán na zahradě. Podle systému je jde doplnit zasklením, aby vám tam nefoukalo ani nepršelo. U každé konstrukce je potřeba vyřešit rozměry, kotvení a napojení na dům, proto ji navrhujeme až podle konkrétního místa."
+          "text": "Zastřešená terasa, pergola nebo samostatný altán na zahradě. Podle systému je jde doplnit zasklením, aby vám tam nefoukalo ani nepršelo. U každé konstrukce je potřeba vyřešit rozměry, umístění, způsob kotvení a návaznost na stávající stavbu, proto ji navrhujeme až podle konkrétního místa."
         },
         {
           "type": "heading",
@@ -744,7 +748,7 @@
         },
         {
           "type": "text",
-          "text": "Zasklenou terasu, pergolu nebo balkon využijete i na jaře a na podzim, kdy by se venku sedět nedalo. Z větší konstrukce může být rovnou zimní zahrada. Jaké zasklení se hodí, záleží na rozměrech a na tom, jak se má otevírat."
+          "text": "Zasklenou terasu, pergolu, balkon nebo lodžii využijete i na jaře a na podzim, kdy by se venku sedět nedalo. Z větší konstrukce může být rovnou zimní zahrada. Možnosti zasklení se liší podle použitého systému, rozměrů a požadovaného způsobu otevírání."
         },
         {
           "type": "heading",
@@ -771,7 +775,7 @@
           "items": [
             {
               "title": "Je hliníkový plot bez údržby?",
-              "text": "Úplně bez údržby není nic, co stojí venku. Hliník ale nemusíte natírat, nenasákne vodou a nebledne. Stačí ho občas umýt."
+              "text": "Úplně bez údržby není nic, co stojí venku. Hliník ale nevyžaduje pravidelné natírání, není nasákavý a je stálobarevný. Údržba spočívá hlavně v čištění."
             },
             {
               "title": "Můžou být plot, brána a branka stejné?",
@@ -787,7 +791,7 @@
             },
             {
               "title": "Kolik to stojí?",
-              "text": "Záleží na rozměrech, výplni, barvě, kotvení a montáži. Bez zaměření cenu říct nejde. Po prohlídce vám ji spočítáme."
+              "text": "Záleží na rozměrech, provedení, typu výplně, povrchové úpravě, způsobu kotvení a rozsahu montáže. Bez zaměření cenu říct nejde. Po prohlídce vám ji spočítáme."
             },
             {
               "title": "Uděláte všechno od začátku do konce?",
@@ -795,7 +799,7 @@
             },
             {
               "title": "Jde udělat i něco atypického?",
-              "text": "Většinou ano, pokud to systém profilů dovolí. Nejdřív se ale musíme podívat na místo."
+              "text": "Většinou ano, pokud to umožní zvolený systém profilů a technické řešení. Nejdřív se ale musíme podívat na místo."
             }
           ]
         }
@@ -944,7 +948,7 @@
         },
         {
           "type": "text",
-          "text": "Lešení se musí postavit a používat tak, jak je určeno. Kontroluje se, jestli jsou na místě všechny díly, podlážky, zábradlí a kotvení, a to i průběžně během práce. Proto z něj prosím nic neodebírejte a sami ho neupravujte. Když ho potřebujete přestavět, zavolejte nám."
+          "text": "Lešení musí být sestavené a používané v souladu se svým určením. Kontroluje se kompletnost konstrukce, podlážky, zábradlí a kotvení, a to i průběžně během používání. Proto z něj prosím nic neodebírejte a sami ho neupravujte. Pokud se změní způsob používání nebo je potřeba lešení přestavět, zavolejte nám."
         },
         {
           "type": "heading",
@@ -971,7 +975,7 @@
             },
             {
               "title": "Kolik lešení potřebuju na rodinný dům?",
-              "text": "Podle rozměrů, výšky a tvaru domu a podle toho, co budete dělat. Pošlete nám přibližné rozměry a spočítáme to."
+              "text": "Podle rozměrů, výšky, tvaru a členitosti fasády a podle rozsahu prací. Pošlete nám přibližné rozměry a spočítáme to."
             },
             {
               "title": "Můžu si půjčit lešení jen na část domu?",
@@ -1230,7 +1234,7 @@
             },
             {
               "title": "Rožeň s elektrickou otočí",
-              "text": "Celonerezový rožeň na dřevěné uhlí nebo brikety. Upečete na něm drůbež, špízy, zeleninu i menší kýtu. Topeniště je vzadu s popelníkem, vzdálenost od žhavého uhlí jde nastavit a rožeň otáčí motorek na 230 V. Vejdou se 2 až 4 kuřata. Nejlepší jsou kolem 1,2 kg, větší se pečou zbytečně dlouho.",
+              "text": "Celonerezový rožeň na dřevěné uhlí nebo brikety. Upečete na něm drůbež, špízy, zeleninu i menší kýtu. Topeniště je vzadu s popelníkem, vzdálenost od žhavého uhlí jde nastavit a rožeň otáčí motorek na 230 V s kovovým pláštěm. Vejdou se 2 až 4 kuřata. Nejlepší jsou kolem 1,2 kg, větší se pečou zbytečně dlouho.",
               "spec": "Do 7 kg · rozměry 100 × 119 × 67 cm",
               "count": "1 ks",
               "photo": "/assets/img/foto/gastro-rozen.webp"
