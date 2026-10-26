@@ -359,6 +359,21 @@ const BLOCKS = {
       : `<tr class="group"><th colspan="2" scope="colgroup">${esc(i.title)}</th></tr>`));
     return `<div class="table-wrap"><table class="data-table">\n${head}<tbody>\n${rows.join('\n')}\n</tbody></table></div>`;
   },
+  // orientační plocha lešení; počítá a vkládá do poptávky main.js
+  scaffold: () => `<div class="calc scaffold-calc">
+<span class="label">Kalkulačka lešení</span>
+<p class="calc-intro">Zadejte přibližné rozměry a spočítáme orientační plochu lešení. Výsledek můžete rovnou vložit do poptávky.</p>
+<div class="calc-row is-3">
+<label>Délka stěn (m)<input name="delka" type="number" min="0" step="0.5" value="10" inputmode="decimal"></label>
+<label>Výška k okapu (m)<input name="vyska" type="number" min="0" step="0.5" value="6" inputmode="decimal"></label>
+<label>Pronájem (týdny)<input name="tydny" type="number" min="1" step="1" value="2" inputmode="numeric"></label>
+</div>
+<p class="hint">Délka = součet stěn, u kterých lešení potřebujete. Kolem celého domu je to jeho obvod.</p>
+<label class="calc-check"><input type="checkbox" name="strecha" checked> Budu pracovat i u střechy (lešení o 1 m nad okap)</label>
+<label class="calc-check"><input type="checkbox" name="dovoz"> Chci lešení dovézt na stavbu</label>
+<p class="calc-out" aria-live="polite"></p>
+<button class="btn" type="button">Vložit do poptávky</button>
+</div>`,
   gallery: (b) =>
     list(`div`, `gallery${b.fit === 'contain' ? ' is-contain' : ''}`, items(b).filter((i) => i.src).map((i) =>
       isPdf(i.src)

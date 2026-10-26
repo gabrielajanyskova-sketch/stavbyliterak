@@ -795,6 +795,15 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 .calc-out strong { font-family: var(--font-display); font-size: 2rem; }
 .calc-out span { color: var(--muted); font-size: 0.9rem; }
 @media (max-width: 480px) { .calc-row { grid-template-columns: 1fr; } }
+.calc-row.is-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 560px) { .calc-row.is-3 { grid-template-columns: 1fr 1fr; } }
+.calc-intro { margin: 0 0 14px; color: var(--muted); font-size: 0.95rem; }
+.calc .hint { margin: 8px 0 12px; font-size: 0.85rem; color: var(--muted); }
+.calc .calc-check { display: flex; flex-direction: row; align-items: center; gap: 10px; margin-top: 8px; font-family: var(--font-body); font-size: 0.95rem; text-transform: none; letter-spacing: 0; color: var(--ink); cursor: pointer; }
+.calc .calc-check input { width: 18px; height: 18px; padding: 0; accent-color: var(--amber-deep); }
+.calc .btn { margin-top: 14px; }
+.scaffold-calc { display: none; }
+.js .scaffold-calc { display: block; margin: 0 0 2em; }
 
 /* Výběr počtu kusů do poptávky (jen s JavaScriptem) */
 .pick { display: none; }

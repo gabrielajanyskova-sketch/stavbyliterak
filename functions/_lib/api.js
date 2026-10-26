@@ -221,6 +221,8 @@ function cleanBlock(b) {
   } else if (b.type === 'gallery') {
     out.items = cleanItems(b.items, ITEM_FIELDS.gallery).filter((i) => i.src);
     if (b.fit === 'contain') out.fit = 'contain';
+  } else if (b.type === 'scaffold') {
+    // kalkulačka nemá nastavení
   } else if (b.type === 'table') {
     out.head1 = str(b.head1, 100).trim();
     out.head2 = str(b.head2, 100).trim();

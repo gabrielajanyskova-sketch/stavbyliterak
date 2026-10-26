@@ -936,6 +936,9 @@
           ]
         },
         {
+          "type": "scaffold"
+        },
+        {
           "type": "heading",
           "text": "Bezpečnost"
         },
