@@ -374,10 +374,7 @@ const BLOCKS = {
     return `<div class="table-wrap"><table class="data-table">\n${head}<tbody>\n${rows.join('\n')}\n</tbody></table></div>`;
   },
   // konfigurátor lešení (půdorys, 3D náhled, termín, poptávka) — sestaví ho /assets/js/leseni.js
-  scaffold: (b, ctx) => `<div class="calc sc" id="konfigurator" data-scaffold data-to="${esc(ctx.site.email)}">
-<span class="label">Konfigurátor lešení</span>
-<p class="calc-intro">Vyklikejte půdorys domu, zadejte výšku a termín. Spočítáme plochu lešení a pošleme vám nabídku.</p>
-</div>`,
+  scaffold: (b, ctx) => `<div class="calc sc" id="konfigurator" data-scaffold data-to="${esc(ctx.site.email)}"></div>`,
   gallery: (b) =>
     list(`div`, `gallery${b.fit === 'contain' ? ' is-contain' : ''}`, items(b).filter((i) => i.src).map((i) =>
       isPdf(i.src)

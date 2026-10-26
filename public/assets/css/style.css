@@ -775,7 +775,9 @@ ul.catalog { list-style: none; margin: 0 0 2.2em; padding: 0; border-top: 2px so
 a.catalog-photo:hover img { border-color: var(--ink); }
 a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
 @media (max-width: 700px) {
-  .catalog li { grid-template-columns: 4.5rem 1fr auto; gap: 8px 16px; }
+  .catalog li { grid-template-columns: 4rem minmax(0, 1fr) auto; gap: 8px 12px; }
+  .catalog .count { font-size: 0.7rem; padding: 2px 6px; }
+  .catalog h3 { overflow-wrap: anywhere; }
   .catalog li > div:not(.catalog-side) { grid-column: 2 / -1; }
   .catalog-side { grid-column: 3; grid-row: 1; }
 }
@@ -804,12 +806,8 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 .calc-out strong { font-family: var(--font-display); font-size: 2rem; }
 .calc-out span { color: var(--muted); font-size: 0.9rem; }
 @media (max-width: 480px) { .calc-row { grid-template-columns: 1fr; } }
-.calc-intro { margin: 0 0 14px; color: var(--muted); font-size: 0.95rem; }
-.calc .hint { margin: 8px 0 12px; font-size: 0.85rem; color: var(--muted); }
 .calc .calc-check { display: flex; flex-direction: row; align-items: center; gap: 10px; margin-top: 8px; font-family: var(--font-body); font-size: 0.95rem; text-transform: none; letter-spacing: 0; color: var(--ink); cursor: pointer; }
 .calc .calc-check input { width: 18px; height: 18px; padding: 0; accent-color: var(--amber-deep); }
-.calc .btn { margin-top: 14px; }
-.calc label small { font-family: var(--font-body); font-size: 0.82rem; text-transform: none; letter-spacing: 0; color: var(--muted); }
 
 /* ---------- Konfigurátor lešení (leseni.js) ---------- */
 .sc { display: none; }
@@ -876,6 +874,7 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 .sc-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 18px; }
 .sc-nav .btn { margin: 0; }
 .sc-nav [data-next] { margin-left: auto; }
+.sc-nav [hidden] { display: none; }
 .sc-status { min-height: 1.4em; margin: 10px 0 0; font-size: 0.9rem; }
 @media (max-width: 640px) {
   .sc-house { grid-template-columns: 1fr; }
@@ -1108,5 +1107,3 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
   .callbar.is-away { transform: translateY(calc(100% + 170px)); }
   body { padding-bottom: calc(52px + env(safe-area-inset-bottom)); }
 }
-
-.sc-nav [hidden] { display: none; }

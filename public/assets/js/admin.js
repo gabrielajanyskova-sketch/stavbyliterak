@@ -79,7 +79,7 @@ const BLOCK_TYPES = {
     add: "+ položka",
   },
   table: { label: "Tabulka (dva sloupce)", fields: [["title", "Položka — bez hodnoty se z řádku stane nadpis skupiny"], ["text", "Hodnota"]], add: "+ řádek" },
-  scaffold: { label: "Kalkulačka lešení" },
+  scaffold: { label: "Konfigurátor lešení" },
   note: { label: "Zvýrazněná poznámka" },
   image: { label: "Fotka" },
   gallery: { label: "Galerie (fotky, certifikáty)" },
@@ -322,7 +322,7 @@ function blockEditor(blocks) {
         } else if (b.type === "image") {
           body = h("div", {}, photoField(b, "src", "Fotka"), text(b, "caption", "Popisek pod fotkou"));
         } else if (b.type === "scaffold") {
-          body = h("p", { class: "hint", style: "margin:0" }, "Na tomto místě se na webu zobrazí kalkulačka plochy lešení. Nemá žádné nastavení.");
+          body = h("p", { class: "hint", style: "margin:0" }, "Na tomto místě se na webu zobrazí konfigurátor lešení (půdorys, 3D náhled, termín, poptávka). Nemá žádné nastavení.");
         } else if (b.type === "table") {
           b.items = b.items || [];
           body = h("div", {},
