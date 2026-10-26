@@ -747,8 +747,8 @@ p, li, figcaption { text-wrap: pretty; }
 ul.catalog { list-style: none; margin: 0 0 2.2em; padding: 0; border-top: 2px solid var(--ink); }
 .catalog li {
   display: grid;
-  grid-template-columns: 5.5rem minmax(0, 12rem) minmax(0, 1fr) auto;
-  gap: 8px 24px;
+  grid-template-columns: 5.5rem minmax(0, 1fr) auto;
+  gap: 6px 24px;
   padding: 18px 0;
   border-bottom: 1px solid var(--line);
   margin: 0;
@@ -757,6 +757,11 @@ ul.catalog { list-style: none; margin: 0 0 2.2em; padding: 0; border-top: 2px so
 .catalog p { margin: 0; }
 .catalog .spec { margin-top: 6px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
 .catalog-side { display: grid; justify-items: end; align-content: start; gap: 10px; }
+/* fotka vlevo, název a popis pod sebou uprostřed, počet a výběr vpravo */
+.catalog-photo { grid-row: span 2; }
+.catalog li > h3 { grid-column: 2; grid-row: 1; }
+.catalog li > div:not(.catalog-side) { grid-column: 2; grid-row: 2; max-width: 34rem; }
+.catalog-side { grid-column: 3; grid-row: 1 / span 2; }
 .catalog .count {
   font-family: var(--font-mono);
   font-size: 0.8rem;
@@ -771,7 +776,6 @@ a.catalog-photo:hover img { border-color: var(--ink); }
 a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
 @media (max-width: 700px) {
   .catalog li { grid-template-columns: 4.5rem 1fr auto; gap: 8px 16px; }
-  .catalog-photo { grid-row: span 2; }
   .catalog li > div:not(.catalog-side) { grid-column: 2 / -1; }
   .catalog-side { grid-column: 3; grid-row: 1; }
 }
