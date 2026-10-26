@@ -747,6 +747,7 @@ ul.catalog { list-style: none; margin: 0 0 2.2em; padding: 0; border-top: 2px so
 .catalog h3 { font-size: 1.3rem; margin: 0; }
 .catalog p { margin: 0; }
 .catalog .spec { margin-top: 6px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
+.catalog-side { display: grid; justify-items: end; align-content: start; gap: 10px; }
 .catalog .count {
   font-family: var(--font-mono);
   font-size: 0.8rem;
@@ -762,9 +763,67 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 @media (max-width: 700px) {
   .catalog li { grid-template-columns: 4.5rem 1fr auto; gap: 8px 16px; }
   .catalog-photo { grid-row: span 2; }
-  .catalog li > div { grid-column: 2 / -1; }
-  .catalog .count { grid-column: 3; grid-row: 1; }
+  .catalog li > div:not(.catalog-side) { grid-column: 2 / -1; }
+  .catalog-side { grid-column: 3; grid-row: 1; }
 }
+
+/* Výběr počtu kusů do poptávky (jen s JavaScriptem) */
+.pick { display: none; }
+.js .pick { display: inline-grid; grid-template-columns: 32px 34px 32px; border: 1px solid var(--ink); }
+.pick button { height: 32px; padding: 0; border: 0; background: none; color: var(--ink); font-size: 1.15rem; cursor: pointer; }
+.pick button:hover { background: var(--amber); color: var(--graphite); }
+.pick output { display: grid; place-items: center; font-family: var(--font-mono); font-size: 0.9rem; border-inline: 1px solid var(--line); }
+.catalog li.is-picked .pick { border-color: var(--amber); }
+.catalog li.is-picked .pick output { background: var(--amber); color: var(--graphite); font-weight: 700; }
+
+/* Poptávka půjčovny */
+.booking { display: none; }
+.js .booking {
+  display: block;
+  margin: 2.5em 0;
+  padding: clamp(20px, 3vw, 32px);
+  background: var(--graphite);
+  color: var(--white);
+  border-top: 4px solid var(--amber);
+  scroll-margin-top: 100px;
+}
+.booking .label { color: #9aa3ab; }
+.booking h2 { margin: 6px 0 16px; font-size: clamp(1.7rem, 3vw, 2.3rem); }
+.booking-list { margin: 0 0 20px; padding: 0 0 0 1.1em; color: #dfe3e6; }
+.booking-list li::marker { color: var(--amber); }
+.booking-empty { margin: 0 0 20px; color: #b4bbc1; font-size: 0.95rem; }
+.booking .hint { margin: 6px 0 0; font-family: var(--font-mono); font-size: 0.8rem; color: var(--amber); }
+.booking .check { display: flex; gap: 10px; align-items: center; cursor: pointer; }
+.booking .check input { width: 18px; height: 18px; accent-color: var(--amber); }
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0; padding: 0; border: 0; }
+.seg legend { padding: 0; margin-bottom: 6px; font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #9aa3ab; }
+.seg label { position: relative; cursor: pointer; margin: 0; }
+.seg input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.seg span { display: block; height: 100%; padding: 12px 14px; border: 1px solid #47505a; font-size: 0.85rem; color: #b4bbc1; text-transform: none; letter-spacing: 0; font-family: var(--font-body); }
+.seg strong { display: block; font-family: var(--font-display); font-size: 1.25rem; text-transform: uppercase; color: var(--white); }
+.seg input:checked + span { border-color: var(--amber); box-shadow: inset 0 0 0 1px var(--amber); }
+.seg input:focus-visible + span { outline: 2px solid var(--amber); outline-offset: 2px; }
+@media (max-width: 480px) { .seg { grid-template-columns: 1fr; } }
+
+.booking-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  z-index: 55;
+  transform: translateX(-50%);
+  padding: 12px 20px;
+  background: var(--amber);
+  color: var(--graphite);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.25);
+}
+.booking-bar[hidden] { display: none; }
+@media (max-width: 700px) { .booking-bar { bottom: calc(64px + env(safe-area-inset-bottom)); } }
 
 /* Fotka v hlavičce služby (fakta se pak přesunou pod úvodní text) */
 .page-hero .lead + .facts { margin-top: 28px; }

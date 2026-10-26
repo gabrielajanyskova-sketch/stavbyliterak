@@ -327,6 +327,12 @@ ${links}
 const items = (b) => (Array.isArray(b.items) ? b.items : []);
 const list = (tag, cls, rows) => `<${tag} class="${cls}">\n${rows.join('\n')}\n</${tag}>`;
 
+// Výběr počtu kusů do poptávky (ovládá main.js; bez JavaScriptu je skrytý)
+const pick = (i) => {
+  const max = Math.max(1, parseInt((String(i.count).match(/\d+/) || ['1'])[0], 10));
+  return `<div class="pick" data-max="${max}"><button type="button" data-step="-1" aria-label="Ubrat: ${esc(i.title)}">−</button><output aria-label="Počet: ${esc(i.title)}">0</output><button type="button" data-step="1" aria-label="Přidat: ${esc(i.title)}">+</button></div>`;
+};
+
 const BLOCKS = {
   heading: (b) => {
     const tag = b.level === 3 ? 'h3' : 'h2';
@@ -341,10 +347,10 @@ const BLOCKS = {
   faq: (b) => list('div', 'faq', items(b).map((i) => `<details><summary>${esc(i.title)}</summary>${paragraphs(i.text)}</details>`)),
   catalog: (b) =>
     list('ul', 'catalog', items(b).map((i) =>
-      `<li>${i.photo
+      `<li data-item="${esc(i.title)}">${i.photo
         ? `<a class="catalog-photo" href="${esc(safeUrl(i.photo))}" data-lightbox><img src="${esc(thumb(i.photo))}" alt="${esc(i.title)}" loading="lazy" decoding="async"></a>`
-        : '<span class="catalog-photo" aria-hidden="true"></span>'}<h3>${esc(i.title)}</h3><div><p>${inline(i.text)}</p>${i.spec ? `<p class="spec">${esc(i.spec)}</p>` : ''}</div>${
-        i.count ? `<span class="count">${esc(i.count)}</span>` : ''}</li>`)),
+        : '<span class="catalog-photo" aria-hidden="true"></span>'}<h3>${esc(i.title)}</h3><div><p>${inline(i.text)}</p>${i.spec ? `<p class="spec">${esc(i.spec)}</p>` : ''}</div><div class="catalog-side">${
+        i.count ? `<span class="count">${esc(i.count)}</span>` : ''}${pick(i)}</div></li>`)),
   gallery: (b) =>
     list(`div`, `gallery${b.fit === 'contain' ? ' is-contain' : ''}`, items(b).filter((i) => i.src).map((i) =>
       isPdf(i.src)
@@ -486,6 +492,37 @@ ${others.map((p) => `<li><a href="${pageUrl(p.slug)}"><span class="name">${esc(p
 `;
 }
 
+// Poptávka půjčovny: vybrané vybavení z katalogu, termín (víkend / jeden den) a kontakt.
+// Zobrazí se jen na stránce s katalogem; odesílá main.js stejně jako hlavní formulář.
+function booking(site, p) {
+  if (!(p.blocks || []).some((b) => b.type === 'catalog')) return '';
+  return `<section class="booking" id="rezervace" aria-labelledby="rezervace-title">
+<span class="label">Poptávka vybavení</span>
+<h2 id="rezervace-title">Vyberte termín a odešlete poptávku</h2>
+<ul class="booking-list" data-list></ul>
+<p class="booking-empty" data-empty>Zatím nic vybraného. U vybavení výše přidejte počet kusů tlačítkem <b>+</b>.</p>
+<form class="form booking-form" data-to="${esc(site.email)}" data-service="${esc(p.form_service || p.title)}" novalidate>
+<fieldset class="seg">
+<legend>Na jak dlouho</legend>
+<label><input type="radio" name="typ" value="vikend" checked><span><strong>Víkend</strong>pátek–neděle</span></label>
+<label><input type="radio" name="typ" value="den"><span><strong>Jeden den</strong>pondělí–čtvrtek, 24 hodin</span></label>
+</fieldset>
+<div><label for="b-datum">Datum vyzvednutí</label><input id="b-datum" name="datum" type="date" required><p class="hint" data-range></p></div>
+<label class="check"><input type="checkbox" name="dovoz"> Chci dovoz, sestavení a zprovoznění</label>
+<div class="row">
+<div><label for="b-jmeno">Jméno</label><input id="b-jmeno" name="jmeno" autocomplete="name" required></div>
+<div><label for="b-telefon">Telefon</label><input id="b-telefon" name="telefon" type="tel" autocomplete="tel" required></div>
+</div>
+<div><label for="b-misto">Místo akce (obec)</label><input id="b-misto" name="misto" autocomplete="address-level2"></div>
+<div><label for="b-pozn">Poznámka</label><textarea id="b-pozn" name="poznamka" placeholder="Např. počet hostů nebo čas vyzvednutí."></textarea></div>
+<div hidden><label for="b-web">Nevyplňujte</label><input id="b-web" name="web" tabindex="-1" autocomplete="off"></div>
+<div><button class="btn" type="submit">Odeslat poptávku</button></div>
+<p class="note" data-status role="status">Jde o nezávaznou poptávku. Dostupnost a cenu vám potvrdíme telefonicky nebo e-mailem.</p>
+</form>
+</section>
+<a class="booking-bar" href="#rezervace" hidden>Vybráno <strong data-count>0</strong> ks · Pokračovat k poptávce ↓</a>`;
+}
+
 export function renderPage(ctx, p) {
   const path = pageUrl(p.slug);
   return (
@@ -503,6 +540,7 @@ export function renderPage(ctx, p) {
 <div class="wrap content-grid">
 <div class="prose">
 ${renderBlocks(p.blocks)}
+${booking(ctx.site, p)}
 </div>
 ${ask(ctx.site, p)}
 </div>

@@ -1039,7 +1039,7 @@
       "facts": [
         {
           "label": "Pronájem",
-          "value": "Minimálně na 1 den"
+          "value": "Víkend (pá–ne), nebo 1 den ve všední dny"
         },
         {
           "label": "Cena",
@@ -1057,10 +1057,14 @@
       "photo": "",
       "photo_caption": "",
       "ask_title": "Gastropůjčovna",
-      "ask_note": "Napište termín akce a co byste chtěli půjčit. Ověříme, co je volné, a pošleme cenu.",
+      "ask_note": "Vybavení vyberte tlačítkem + a dole na stránce zvolte termín. Ověříme, co je volné, a pošleme cenu.",
       "form_service": "Gastropůjčovna",
       "aliases": [],
       "blocks": [
+        {
+          "type": "text",
+          "text": "Vybavení si vyberte tlačítkem **+** u jednotlivých položek. Dole na stránce pak zvolíte termín (víkend, nebo jeden den) a odešlete poptávku."
+        },
         {
           "type": "heading",
           "text": "Pití"
@@ -1191,7 +1195,7 @@
               "text": "Po domluvě vybavení dovezeme, sestavíme a zprovozníme."
             },
             {
-              "text": "Půjčuji nejméně na jeden den."
+              "text": "Půjčujeme na víkend (pátek–neděle), nebo na jeden den od pondělí do čtvrtka, 24 hodin od vyzvednutí."
             },
             {
               "text": "Vybavení používáte na vlastní odpovědnost."
@@ -1207,7 +1211,7 @@
           "items": [
             {
               "title": "Na jak dlouho si můžu vybavení půjčit?",
-              "text": "Nejméně na jeden den. Na víkend nebo na delší dobu samozřejmě taky."
+              "text": "Na víkend (pátek–neděle), nebo na jeden den od pondělí do čtvrtka, 24 hodin od vyzvednutí. Na delší akci se domluvíme."
             },
             {
               "title": "Kolik to stojí?",
