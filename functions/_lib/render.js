@@ -56,6 +56,15 @@ function thumb(src) {
 }
 const isPdf = (src) => /\.pdf$/i.test(src);
 
+// Ceny půjčovny (víkend, jeden den, záloha) se zadávají v adminu u položek katalogu.
+// Na stránce se nikdy nevypisují — celkovou cenu spočítá server (/api/gastro-quote).
+export const catalogItems = (p) => (p.blocks || []).filter((b) => b.type === 'catalog').flatMap((b) => b.items || []);
+export function money(v) {
+  const n = parseFloat(String(v ?? '').replace(/[\s\u00a0]|kč|,-/gi, '').replace(',', '.'));
+  return Number.isFinite(n) && n >= 0 ? n : null;
+}
+const hasPrices = (p) => catalogItems(p).some((i) => money(i.price_weekend) !== null || money(i.price_day) !== null);
+
 // Služba = stránka, ze které jde poptávka (má předvybranou službu ve formuláři);
 // ostatní stránky (např. Certifikáty) jsou jen informační.
 const isService = (p) => !!p.form_service;
@@ -518,25 +527,25 @@ ${others.map((p) => `<li><a href="${pageUrl(p.slug)}"><span class="name">${esc(p
 // Poptávka půjčovny: vybrané vybavení z katalogu, termín (víkend / jeden den) a kontakt.
 // Zobrazí se jen na stránce s katalogem; odesílá main.js stejně jako hlavní formulář.
 function booking(site, p) {
-  if (!(p.blocks || []).some((b) => b.type === 'catalog')) return '';
+  if (!catalogItems(p).length) return '';
   return `<section class="booking" id="rezervace" aria-labelledby="rezervace-title">
 <span class="label">Poptávka vybavení</span>
 <h2 id="rezervace-title">Vyberte termín a odešlete poptávku</h2>
 <ul class="booking-list" data-list></ul>
 <p class="booking-empty" data-empty>Zatím nic vybraného. U vybavení výše přidejte počet kusů tlačítkem <b>+</b>.</p>
-<form class="form booking-form" data-to="${esc(site.email)}" data-service="${esc(p.form_service || p.title)}" novalidate>
+<form class="form booking-form" data-to="${esc(site.email)}" data-service="${esc(p.form_service || p.title)}"${hasPrices(p) ? ` data-quote="${esc(p.slug)}"` : ''} novalidate>
 <fieldset class="seg">
 <legend>Na jak dlouho</legend>
 <label><input type="radio" name="typ" value="vikend" checked><span><strong>Víkend</strong>pátek–neděle</span></label>
 <label><input type="radio" name="typ" value="den"><span><strong>Jeden den</strong>pondělí–čtvrtek, 24 hodin</span></label>
-<label><input type="radio" name="typ" value="vice"><span><strong>Více dní</strong>od–do, podle domluvy</span></label>
+<a class="seg-link" href="#kontakt" data-multi><span><strong>Více dní</strong>domluvíme se individuálně →</span></a>
 </fieldset>
-<div class="row">
-<div><label for="b-datum">Datum vyzvednutí</label><input id="b-datum" name="datum" type="date" required></div>
-<div data-until hidden><label for="b-do">Datum vrácení</label><input id="b-do" name="do" type="date"></div>
-</div>
-<p class="hint" data-range></p>
+<div><label for="b-datum">Datum vyzvednutí</label><input id="b-datum" name="datum" type="date" required><p class="hint" data-range></p></div>
 <label class="check"><input type="checkbox" name="dovoz"> Chci dovoz, sestavení a zprovoznění</label>
+<div class="booking-price" data-price hidden>
+<dl><div><dt>Cena pronájmu</dt><dd data-rent></dd></div><div><dt>Vratná záloha</dt><dd data-deposit></dd></div></dl>
+<p class="hint" data-price-note></p>
+</div>
 <div class="row">
 <div><label for="b-jmeno">Jméno</label><input id="b-jmeno" name="jmeno" autocomplete="name" required></div>
 <div><label for="b-telefon">Telefon</label><input id="b-telefon" name="telefon" type="tel" autocomplete="tel" required></div>

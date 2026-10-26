@@ -1,5 +1,5 @@
 // API pro poptávkový formulář a administraci (/admin).
-import { BLOCK_TYPES, esc } from './render.js';
+import { BLOCK_TYPES, esc, catalogItems, money } from './render.js';
 import { getSite, getPages, saveSite, savePage, renamePage, deletePage, reorderPages } from './db.js';
 
 export function json(data, status = 200) {
@@ -86,6 +86,31 @@ async function submitContact(request, env) {
     return json({ error: 'send_failed' }, 502);
   }
   return json({ ok: true });
+}
+
+// ---------- cena půjčovny ----------
+
+// Spočítá cenu pronájmu a zálohy za vybrané vybavení. Ceny jednotlivých položek
+// zůstávají na serveru — prohlížeč dostane jen součty.
+async function gastroQuote(request, env) {
+  const b = await body(request);
+  const page = (await getPages(env)).find((p) => p.slug === String(b.slug || ''));
+  if (!page) return json({ error: 'not_found' }, 404);
+  const items = catalogItems(page);
+  const key = b.typ === 'den' ? 'price_day' : 'price_weekend';
+  let rent = 0;
+  let deposit = 0;
+  const missing = [];
+  for (const [title, qty] of Object.entries(b.items && typeof b.items === 'object' ? b.items : {}).slice(0, 100)) {
+    const n = Math.min(99, Math.max(0, parseInt(qty, 10) || 0));
+    const item = n && items.find((i) => i.title === title);
+    if (!item) continue;
+    const price = money(item[key]);
+    if (price === null) missing.push(title);
+    else rent += price * n;
+    deposit += (money(item.deposit) || 0) * n;
+  }
+  return json({ rent, deposit, missing });
 }
 
 // ---------- přihlášení do adminu ----------
@@ -240,7 +265,7 @@ const ITEM_FIELDS = {
   steps: ['title', 'text'],
   grid: ['title', 'text'],
   faq: ['title', 'text'],
-  catalog: ['title', 'text', 'spec', 'count', 'photo'],
+  catalog: ['title', 'text', 'spec', 'count', 'photo', 'price_weekend', 'price_day', 'deposit'],
   gallery: ['src', 'caption'],
   table: ['title', 'text'],
 };
@@ -473,6 +498,7 @@ export async function handleApi(request, env, path) {
   const m = request.method;
   if (path === '/api/health') return json({ ok: true, db: !!env.DB, images: !!env.IMAGES, mail: mailConfigured(env) });
   if (path === '/api/contact' && m === 'POST') return submitContact(request, env);
+  if (path === '/api/gastro-quote' && m === 'POST') return gastroQuote(request, env);
 
   if (!path.startsWith('/api/admin/')) return json({ error: 'not_found' }, 404);
   if (!env.DB) return json({ error: 'db_not_configured' }, 503);

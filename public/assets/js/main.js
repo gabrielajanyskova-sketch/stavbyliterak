@@ -151,7 +151,8 @@
     });
   }
 
-  // Půjčovna: počty kusů v katalogu → seznam v poptávce, termín víkend / jeden den
+  // Půjčovna: počty kusů v katalogu → seznam v poptávce, termín víkend / jeden den, orientační cena.
+  // Více dní se domlouvá individuálně — odkaz vyplní hlavní kontaktní formulář.
   const booking = document.querySelector(".booking-form");
   if (booking) {
     const qty = new Map(); // název → počet
@@ -159,15 +160,49 @@
     const empty = document.querySelector("[data-empty]");
     const bar = document.querySelector(".booking-bar");
     const date = booking.datum;
-    const until = booking.elements.do;
-    const untilBox = booking.querySelector("[data-until]");
     const range = booking.querySelector("[data-range]");
     const button = booking.querySelector("button[type=submit]");
+    const priceBox = booking.querySelector("[data-price]");
     const DAY = 864e5;
     const fmt = (d) => d.toLocaleDateString("cs-CZ", { weekday: "short", day: "numeric", month: "numeric", year: "numeric" });
+    const kc = (n) => `${Math.round(n).toLocaleString("cs-CZ")} Kč`;
+    const picked = () => [...qty].filter(([, n]) => n > 0);
+    let quote = null;
+
+    // součty počítá server, ceny jednotlivých položek na stránce nejsou
+    let quoteTimer;
+    const updateQuote = () => {
+      if (!booking.dataset.quote) return;
+      clearTimeout(quoteTimer);
+      quoteTimer = setTimeout(async () => {
+        const rows = picked();
+        if (!rows.length) { quote = null; priceBox.hidden = true; return; }
+        try {
+          const res = await fetch("/api/gastro-quote", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ slug: booking.dataset.quote, typ: booking.typ.value, items: Object.fromEntries(rows) }),
+          });
+          if (!res.ok) throw new Error(res.status);
+          quote = await res.json();
+        } catch {
+          quote = null;
+          priceBox.hidden = true;
+          return;
+        }
+        priceBox.querySelector("[data-rent]").textContent = quote.missing.length && !quote.rent ? "doplníme" : kc(quote.rent);
+        priceBox.querySelector("[data-deposit]").textContent = kc(quote.deposit);
+        const notes = [];
+        if (quote.missing.length) notes.push(`Cenu za ${quote.missing.join(", ")} doplníme v odpovědi.`);
+        if (booking.dovoz.checked) notes.push("Dovoz a sestavení se účtuje zvlášť podle vzdálenosti.");
+        notes.push("Cena je orientační, potvrdíme ji spolu s termínem.");
+        priceBox.querySelector("[data-price-note]").textContent = notes.join(" ");
+        priceBox.hidden = false;
+      }, 250);
+    };
 
     const renderList = () => {
-      const rows = [...qty].filter(([, n]) => n > 0);
+      const rows = picked();
       list.replaceChildren(...rows.map(([name, n]) => Object.assign(document.createElement("li"), { textContent: `${name} — ${n}×` })));
       empty.hidden = rows.length > 0;
       const total = rows.reduce((sum, [, n]) => sum + n, 0);
@@ -187,6 +222,7 @@
         out.textContent = n;
         li.classList.toggle("is-picked", n > 0);
         renderList();
+        updateQuote();
       });
     });
 
@@ -194,65 +230,64 @@
     let barOff = false;
     new IntersectionObserver(([e]) => { barOff = e.isIntersecting; renderList(); }).observe(document.querySelector("#rezervace"));
 
-    // víkend = vyzvednutí v pátek, jeden den = pondělí až čtvrtek, více dní = od–do
+    // Více dní → hlavní kontaktní formulář s vybraným vybavením
+    booking.querySelector("[data-multi]").addEventListener("click", () => {
+      const contact = document.querySelector("#poptavka");
+      if (!contact) return;
+      const option = [...contact.sluzba.options].find((o) => /gastro/i.test(o.text));
+      if (option) contact.sluzba.value = option.value;
+      const rows = picked();
+      contact.zprava.value = [
+        "Chci si půjčit vybavení na více dní, od … do … .",
+        ...(rows.length ? ["", "Vybavení:", ...rows.map(([name, n]) => `- ${name}: ${n}×`)] : []),
+      ].join("\n");
+      setTimeout(() => contact.jmeno.focus({ preventScroll: true }), 400);
+    });
+
+    // víkend = vyzvednutí v pátek, jeden den = pondělí až čtvrtek
     const checkDate = () => {
-      const typ = booking.typ.value;
+      const weekend = booking.typ.value === "vikend";
       const d = date.value ? new Date(`${date.value}T12:00`) : null;
-      const end = until.value ? new Date(`${until.value}T12:00`) : null;
       let msg = "";
       if (!d) msg = "Vyberte datum vyzvednutí.";
       else if (d < new Date(Date.now() - DAY)) msg = "Datum už proběhlo.";
-      else if (typ === "vikend" && d.getDay() !== 5) msg = "Víkendový pronájem začíná v pátek. Vyberte prosím pátek.";
-      else if (typ === "den" && (d.getDay() < 1 || d.getDay() > 4)) msg = "Jednodenní pronájem je možný od pondělí do čtvrtka.";
-      else if (typ === "vice" && !end) msg = "Vyberte datum vrácení.";
-      else if (typ === "vice" && end <= d) msg = "Datum vrácení musí být až po dni vyzvednutí.";
-      const onUntil = /vrácení/.test(msg);
-      date.setCustomValidity(onUntil ? "" : msg);
-      until.setCustomValidity(onUntil ? msg : "");
-      const days = end && d ? Math.round((end - d) / DAY) : 0;
-      range.textContent = msg || {
-        vikend: `${fmt(d)} – ${fmt(new Date(d.getTime() + 2 * DAY))}`,
-        den: `${fmt(d)}, na 24 hodin`,
-        vice: `${fmt(d)} – ${fmt(end)} (${days} ${days === 1 ? "den" : days < 5 ? "dny" : "dní"})`,
-      }[typ];
-      return { ok: !msg, text: msg ? "" : `${{ vikend: "víkend", den: "jeden den", vice: "více dní" }[typ]} ${range.textContent}` };
+      else if (weekend && d.getDay() !== 5) msg = "Víkendový pronájem začíná v pátek. Vyberte prosím pátek.";
+      else if (!weekend && (d.getDay() < 1 || d.getDay() > 4)) msg = "Jednodenní pronájem je možný od pondělí do čtvrtka.";
+      date.setCustomValidity(msg);
+      range.textContent = msg || (weekend ? `${fmt(d)} – ${fmt(new Date(d.getTime() + 2 * DAY))}` : `${fmt(d)}, na 24 hodin`);
+      return { ok: !msg, text: msg ? "" : `${weekend ? "víkend" : "jeden den"} ${range.textContent}` };
     };
-    const tomorrow = new Date(Date.now() + DAY).toISOString().slice(0, 10);
-    date.min = until.min = tomorrow;
-    const syncType = () => {
-      const vice = booking.typ.value === "vice";
-      untilBox.hidden = !vice;
-      until.required = vice;
-    };
-    date.addEventListener("change", () => { if (date.value) until.min = date.value; checkDate(); });
-    until.addEventListener("change", checkDate);
+    date.min = new Date(Date.now() + DAY).toISOString().slice(0, 10);
+    date.addEventListener("change", checkDate);
     booking.addEventListener("change", (e) => {
-      if (e.target.name !== "typ") return;
-      syncType();
-      if (date.value) checkDate();
+      if (e.target.name === "typ" && date.value) checkDate();
+      if (e.target.name === "typ" || e.target.name === "dovoz") updateQuote();
     });
 
     booking.addEventListener("submit", async (ev) => {
       ev.preventDefault();
       const status = booking.querySelector("[data-status]");
-      const items = [...qty].filter(([, n]) => n > 0);
+      const items = picked();
       const term = checkDate();
       if (!items.length) { status.textContent = "Vyberte prosím u vybavení výše, co si chcete půjčit."; list.scrollIntoView({ block: "center" }); return; }
       if (!term.ok || !booking.reportValidity()) return;
       const d = new FormData(booking);
+      const price = quote && !priceBox.hidden
+        ? [`Orientační cena pronájmu: ${priceBox.querySelector("[data-rent]").textContent}`, `Vratná záloha: ${kc(quote.deposit)}`]
+        : [];
       const zprava = [
         "Vybavení:",
         ...items.map(([name, n]) => `- ${name}: ${n}×`),
         "",
         `Termín: ${term.text}`,
         `Dovoz a sestavení: ${d.get("dovoz") ? "ano" : "ne"}`,
+        ...price,
         d.get("poznamka") ? `\nPoznámka: ${d.get("poznamka")}` : "",
       ].join("\n").trim();
       button.disabled = true;
       const fields = { sluzba: booking.dataset.service, jmeno: d.get("jmeno"), telefon: d.get("telefon"), misto: d.get("misto"), zprava, web: d.get("web") };
       if (await send(fields, booking.dataset.to, status)) {
         booking.reset();
-        syncType();
         range.textContent = "";
         qty.clear();
         document.querySelectorAll(".catalog li[data-item]").forEach((li) => {
@@ -260,6 +295,8 @@
           li.querySelector(".pick output").textContent = "0";
         });
         renderList();
+        quote = null;
+        priceBox.hidden = true;
         status.textContent = "Díky, poptávka odešla. Ozveme se co nejdřív s potvrzením termínu a cenou.";
       }
       button.disabled = false;
