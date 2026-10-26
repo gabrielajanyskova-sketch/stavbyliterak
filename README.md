@@ -89,7 +89,16 @@ S nastaveným Resendem chce přihlášení do adminu navíc jednorázový kód z
 - **Fotky** — nahrání (automaticky se zmenší a převedou na WebP), smazání.
 
 Ochrana přihlášení: po 8 špatných pokusech z jedné IP se přihlašování na 15 minut
-zablokuje; přihlášení platí 30 dní.
+zablokuje; přihlášení platí 30 dní. Poptávkový formulář přijme z jedné IP nejvýš
+5 zpráv za 10 minut (ochrana proti spamu a vyčerpání Resendu).
+
+Bezpečnostní hlavičky: stránky posílá router s Content-Security-Policy (jen vlastní
+skripty + otisk jediného vloženého skriptu `HEAD_SCRIPT` v `render.js`), HSTS
+a Permissions-Policy; admin má vlastní CSP v `_headers`.
+
+Žluté poznámky „k doplnění“ (blok Poznámka, styl Úkol) se zobrazují jen na náhledu
+(`*.pages.dev`, localhost). Na ostré adrese `SITE_URL` se nevykreslí — nemusí se
+před spuštěním mazat ručně. Šedé informační poznámky jsou vidět vždy.
 
 Změny se na webu projeví hned po uložení. Při přejmenování adresy stránky zůstane
 stará adresa funkční jako přesměrování.

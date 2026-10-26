@@ -153,7 +153,9 @@
 
   // Poptávky se odesílají přes /api/contact; když e-mail na serveru není nastavený nebo selže,
   // otevře se e-mailový klient s vyplněnou zprávou — poptávka se nikdy neztratí.
-  const send = async (fields, to) => {
+  const MAIL_FALLBACK = "Otevřel se vám e-mail s vyplněnou poptávkou, stačí ho odeslat. Nebo rovnou zavolejte.";
+  const send = async (fields, to, status) => {
+    status.textContent = "Odesílám…";
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -165,6 +167,7 @@
     } catch {
       const body = [`Služba: ${fields.sluzba}`, `Jméno: ${fields.jmeno}`, `Telefon: ${fields.telefon}`, `Místo: ${fields.misto}`, "", fields.zprava].join("\n");
       location.href = `mailto:${to}?subject=${encodeURIComponent(`Poptávka z webu — ${fields.sluzba}`)}&body=${encodeURIComponent(body)}`;
+      status.textContent = MAIL_FALLBACK;
       return false;
     }
   };
@@ -177,9 +180,10 @@
     form.addEventListener("submit", async (ev) => {
       ev.preventDefault();
       button.disabled = true;
-      if (await send(Object.fromEntries(new FormData(form)), form.dataset.to)) {
+      const status = form.querySelector("[data-status]");
+      if (await send(Object.fromEntries(new FormData(form)), form.dataset.to, status)) {
         form.reset();
-        form.querySelector("[data-status]").textContent = "Díky, poptávka odešla. Ozvu se co nejdřív.";
+        status.textContent = "Díky, poptávka odešla. Ozvu se co nejdřív.";
       }
       button.disabled = false;
     });
@@ -261,7 +265,15 @@
       ].join("\n").trim();
       button.disabled = true;
       const fields = { sluzba: booking.dataset.service, jmeno: d.get("jmeno"), telefon: d.get("telefon"), misto: d.get("misto"), zprava, web: d.get("web") };
-      if (await send(fields, booking.dataset.to)) {
+      if (await send(fields, booking.dataset.to, status)) {
+        booking.reset();
+        range.textContent = "";
+        qty.clear();
+        document.querySelectorAll(".catalog li[data-item]").forEach((li) => {
+          li.classList.remove("is-picked");
+          li.querySelector(".pick output").textContent = "0";
+        });
+        renderList();
         status.textContent = "Díky, poptávka odešla. Ozveme se co nejdřív s potvrzením termínu a cenou.";
       }
       button.disabled = false;

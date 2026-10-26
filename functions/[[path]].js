@@ -1,7 +1,7 @@
 // Cloudflare Pages Function: stránky se skládají z obsahu v D1 (spravuje se v /admin),
 // statické soubory (styly, písma, obrázky, admin) servíruje Pages samo přes next().
 import { ensureDb, getSite, getPages } from './_lib/db.js';
-import { renderHome, renderPage, renderNotFound, renderSitemap, renderRobots, renderLlms, pageUrl, czTypo } from './_lib/render.js';
+import { renderHome, renderPage, renderNotFound, renderSitemap, renderRobots, renderLlms, pageUrl, czTypo, HEAD_SCRIPT } from './_lib/render.js';
 import { handleApi, serveImage, json } from './_lib/api.js';
 
 const STATIC = /^\/(assets\/|admin(\.html)?$|favicon|manifest\.webmanifest$)/;
@@ -10,11 +10,37 @@ const SECURITY_HEADERS = {
   'X-Content-Type-Options': 'nosniff',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'X-Frame-Options': 'SAMEORIGIN',
+  'Strict-Transport-Security': 'max-age=31536000',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
 };
 
-function respond(body, type, { status = 200, noindex = false } = {}) {
-  if (type === 'text/html') body = czTypo(body);
+// Stránka smí spouštět jen vlastní skripty a jeden vložený (podle otisku) — případně
+// podstrčený kód v obsahu by se nespustil. Styly jsou vložené přímo, proto 'unsafe-inline'.
+let headScriptHash;
+async function csp() {
+  headScriptHash ??= crypto.subtle
+    .digest('SHA-256', new TextEncoder().encode(HEAD_SCRIPT))
+    .then((d) => btoa(String.fromCharCode(...new Uint8Array(d))));
+  return [
+    "default-src 'self'",
+    `script-src 'self' 'sha256-${await headScriptHash}'`,
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data:",
+    "font-src 'self'",
+    "connect-src 'self'",
+    "object-src 'none'",
+    "base-uri 'none'",
+    "form-action 'self' mailto:",
+    "frame-ancestors 'self'",
+  ].join('; ');
+}
+
+async function respond(body, type, { status = 200, noindex = false } = {}) {
   const headers = { 'Content-Type': `${type}; charset=utf-8`, 'Cache-Control': 'no-cache', ...SECURITY_HEADERS };
+  if (type === 'text/html') {
+    body = czTypo(body);
+    headers['Content-Security-Policy'] = await csp();
+  }
   if (noindex) headers['X-Robots-Tag'] = 'noindex';
   return new Response(body, { status, headers });
 }

@@ -57,6 +57,10 @@ img { max-width: 100%; height: auto; display: block; }
 
 a { color: inherit; }
 
+/* Viditelný fokus při ovládání klávesnicí; kotvy (#kontakt…) nezajedou pod lepicí hlavičku */
+:where(a, button, summary, [tabindex]):focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+[id] { scroll-margin-top: 96px; }
+
 h1, h2, h3 {
   font-family: var(--font-display);
   font-weight: 700;
@@ -706,7 +710,8 @@ p, li, figcaption { text-wrap: pretty; }
 .site-footer img { width: 72px; }
 .site-footer a { color: #d9dde0; text-decoration: none; }
 .site-footer a:hover { color: var(--amber); }
-.site-footer nav { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+.site-footer nav { display: flex; flex-wrap: wrap; gap: 0 18px; }
+.site-footer nav a { padding: 4px 0; } /* dost velká plocha pro prst (WCAG 2.2) */
 .site-footer-bottom { flex-basis: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 24px; padding-top: 12px; border-top: 1px solid #ffffff1f; font-size: 0.8rem; }
 .site-footer-bottom a { text-decoration: underline; text-underline-offset: 3px; }
 .site-footer .site-footer-credit a { color: #c6ccd1; }
@@ -795,8 +800,6 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 .calc-out strong { font-family: var(--font-display); font-size: 2rem; }
 .calc-out span { color: var(--muted); font-size: 0.9rem; }
 @media (max-width: 480px) { .calc-row { grid-template-columns: 1fr; } }
-.calc-row.is-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-@media (max-width: 560px) { .calc-row.is-3 { grid-template-columns: 1fr 1fr; } }
 .calc-intro { margin: 0 0 14px; color: var(--muted); font-size: 0.95rem; }
 .calc .hint { margin: 8px 0 12px; font-size: 0.85rem; color: var(--muted); }
 .calc .calc-check { display: flex; flex-direction: row; align-items: center; gap: 10px; margin-top: 8px; font-family: var(--font-body); font-size: 0.95rem; text-transform: none; letter-spacing: 0; color: var(--ink); cursor: pointer; }

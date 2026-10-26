@@ -67,6 +67,11 @@ export const pageUrl = (slug) => (slug ? `/${slug}` : '/');
 
 const OG_IMAGE = '/assets/img/og.jpg';
 
+// Jediný vložený skript (třída „js“ a uložený tmavý režim ještě před vykreslením).
+// Router z něj počítá otisk pro Content-Security-Policy — při změně se hlavička upraví sama.
+export const HEAD_SCRIPT =
+  'document.documentElement.classList.add("js");try{if(localStorage.getItem("theme")==="dark")document.documentElement.dataset.theme="dark"}catch(e){}';
+
 // Beskydy z Frýdku-Místku (pohled na jih), stylizované podle polohy vrcholů:
 // vzadu Travný a Lysá hora s vysílačem, vpředu bližší hřbet Ondřejníku se Skalkou.
 // SVG drží poměr stran (výška podle šířky), takže se hory nezploští ani neořežou.
@@ -113,7 +118,10 @@ function businessNode(ctx) {
     address: postalAddress(site.address),
     founder: { '@type': 'Person', name: site.owner },
     identifier: { '@type': 'PropertyValue', propertyID: 'IČO', value: site.ico },
-    areaServed: m ? { '@type': 'City', name: m[1] } : undefined,
+    areaServed: m ? [{ '@type': 'City', name: m[1] }, { '@type': 'AdministrativeArea', name: `okres ${m[1]}` }] : undefined,
+    hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address)}`,
+    sameAs: site.reviews?.google_url ? [site.reviews.google_url] : undefined,
+    knowsAbout: pages.filter(isService).map((p) => p.title),
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Služby',
@@ -194,7 +202,7 @@ function jsonLd(graph) {
 
 // ---------- společné části ----------
 
-function head(ctx, { title, description, path, image, schema, preload = '' }) {
+function head(ctx, { title, description, path, image, schema, preload = '', canonical = true }) {
   const url = ctx.base + path;
   const img = abs(ctx.base, image || OG_IMAGE);
   return `<!doctype html>
@@ -204,14 +212,15 @@ function head(ctx, { title, description, path, image, schema, preload = '' }) {
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
-${ctx.noindex ? '<meta name="robots" content="noindex">\n' : ''}<link rel="canonical" href="${esc(url)}">
-<meta property="og:type" content="website">
+<meta name="robots" content="${ctx.noindex ? 'noindex' : 'index, follow, max-image-preview:large, max-snippet:-1'}">
+${canonical ? `<link rel="canonical" href="${esc(url)}">\n` : ''}<meta property="og:type" content="website">
 <meta property="og:locale" content="cs_CZ">
 <meta property="og:site_name" content="${esc(ctx.site.name)}">
 <meta property="og:url" content="${esc(url)}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:image" content="${esc(img)}">
+<meta property="og:image:alt" content="${esc(title)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#1d2126">
 <link rel="icon" href="/assets/img/favicon.png" type="image/png">
@@ -220,7 +229,7 @@ ${ctx.noindex ? '<meta name="robots" content="noindex">\n' : ''}<link rel="canon
 <link rel="preload" href="/assets/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 ${preload}${ctx.assets?.css ? `<style>${ctx.assets.css}</style>` : '<link rel="stylesheet" href="/assets/css/fonts.css">\n<link rel="stylesheet" href="/assets/css/style.css">'}
-<script>document.documentElement.classList.add("js");try{if(localStorage.getItem("theme")==="dark")document.documentElement.dataset.theme="dark"}catch(e){}</script>
+<script>${HEAD_SCRIPT}</script>
 <script type="application/ld+json">${jsonLd(schema)}</script>
 </head>
 <body>
@@ -339,7 +348,8 @@ const BLOCKS = {
     return `<${tag}${b.anchor ? ` id="${esc(b.anchor)}"` : ''}>${esc(b.text)}</${tag}>`;
   },
   text: (b) => paragraphs(b.text),
-  note: (b) => paragraphs(b.text, b.style === 'info' ? 'todo is-info' : 'todo'),
+  // poznámka „k doplnění“ je vidět jen na náhledu; na ostré adrese se nevykreslí
+  note: (b, ctx) => (b.style === 'info' ? paragraphs(b.text, 'todo is-info') : ctx.noindex ? paragraphs(b.text, 'todo') : ''),
   bullets: (b) => `<ul>\n${items(b).map((i) => `<li>${inline(i.text)}</li>`).join('\n')}\n</ul>`,
   numbered: (b) => list('ol', 'uses', items(b).map((i) => `<li><div><strong>${esc(i.title)}</strong><span>${inline(i.text)}</span></div></li>`)),
   steps: (b) => list('ol', 'timeline', items(b).map((i) => `<li><strong>${esc(i.title)}</strong>${inline(i.text)}</li>`)),
@@ -405,7 +415,7 @@ const BLOCKS = {
 
 export const BLOCK_TYPES = Object.keys(BLOCKS);
 
-const renderBlocks = (blocks) => (blocks || []).map((b) => (BLOCKS[b.type] ? BLOCKS[b.type](b) : '')).filter(Boolean).join('\n');
+const renderBlocks = (blocks, ctx) => (blocks || []).map((b) => (BLOCKS[b.type] ? BLOCKS[b.type](b, ctx) : '')).filter(Boolean).join('\n');
 
 function pageHero(p) {
   const facts = (p.facts || []).filter((f) => f.label || f.value);
@@ -578,7 +588,7 @@ export function renderPage(ctx, p) {
     `<section class="section">
 <div class="wrap content-grid">
 <div class="prose">
-${renderBlocks(p.blocks)}
+${renderBlocks(p.blocks, ctx)}
 ${booking(ctx.site, p)}
 </div>
 ${ask(ctx.site, p)}
@@ -664,7 +674,7 @@ ${h.promo_photo ? `<img src="${esc(thumb(h.promo_photo))}" alt="${esc(h.promo_ph
 
 export function renderNotFound(ctx) {
   return (
-    head({ ...ctx, noindex: true }, { title: `Stránka nenalezena | ${ctx.site.name}`, description: '', path: '/', schema: [websiteNode(ctx)] }) +
+    head({ ...ctx, noindex: true }, { title: `Stránka nenalezena | ${ctx.site.name}`, description: '', path: '/', schema: [websiteNode(ctx)], canonical: false }) +
     header(ctx, '') +
     `<section class="page-hero">
 <div class="wrap">

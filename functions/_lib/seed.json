@@ -59,11 +59,30 @@
     },
     "reviews": {
       "title": "",
-      "rating": "",
+      "rating": "4.8",
       "count": "",
-      "google_url": "",
+      "google_url": "https://share.google/5i7ETnPODQ1onINTl",
       "write_url": "",
-      "items": []
+      "items": [
+        {
+          "name": "Adam P",
+          "stars": "5",
+          "date": "2025",
+          "text": "S firmou Stavby Literák jsme byli maximálně spokojeni. Pan Literák přistupuje k projektu individuálně, odvedl práci precizně a v domluveném termínu."
+        },
+        {
+          "name": "Jiri Tomasek",
+          "stars": "5",
+          "date": "2022",
+          "text": "Naprostá spokojenost. Jednání, preciznost a přístup. Skvělá komunikace, dodržení termínu realizace a dobře odvedená práce. Doporučuji."
+        },
+        {
+          "name": "Dana Zemánková",
+          "stars": "5",
+          "date": "2023",
+          "text": "Vysoce kvalitně odvedená práce do detailů, vstřícný přístup firmy k požadavkům. Profesionální přístup. Doporučuji."
+        }
+      ]
     }
   },
   "pages": [
@@ -76,7 +95,7 @@
       "chooser_title": "Termovizní měření",
       "chooser_hint": "Kudy z domu utíká teplo a kde hrozí plíseň.",
       "meta_title": "Termovize Frýdek-Místek — měření tepelných úniků | Literák",
-      "meta_description": "Termovizní měření domů, bytů a firem: tepelné úniky, tepelné mosty, plísně, kontrola provedených prací, elektrorozvaděče a podlahové topení. Frýdek-Místek a okolí.",
+      "meta_description": "Termovizní měření domů, bytů a firem: tepelné úniky a mosty, plísně, kontrola provedených prací, rozvaděče i podlahové topení. Frýdek-Místek a okolí.",
       "crumb": "Termovizní měření",
       "title": "Termovizní měření",
       "lead": "Termokamera ukáže, kudy z domu utíká teplo a kde se drží vlhkost. Měření se obvykle rychle zaplatí na nižších účtech za topení.",
@@ -333,7 +352,7 @@
       "chooser_title": "Zemní práce a zakladač",
       "chooser_hint": "Výkopy, zásypy, terénní úpravy a zpracování půdy po stavbě.",
       "meta_title": "Výkopové práce a zakladač trávníku Frýdek-Místek | Literák",
-      "meta_description": "Výkopy pro základy, sítě, jímky, bazény a drenáže, zásypy a hutnění, terénní úpravy, odvoz zeminy a zpracování půdy zakladačem trávníku. Frýdek-Místek a okolí.",
+      "meta_description": "Výkopy pro základy, sítě, jímky, bazény a drenáže, zásypy a hutnění, terénní úpravy, odvoz zeminy a zakladač trávníku. Frýdek-Místek a okolí.",
       "crumb": "Zemní práce a zakladač trávníku",
       "title": "Zemní a výkopové práce",
       "lead": "Nejde jen o to vykopat díru. Rozhoduje dodržení projektovaných hloubek, spádů a tvaru výkopu, příprava podloží a správně provedené zásypy.",
@@ -1080,7 +1099,7 @@
       "chooser_title": "Stavební práce",
       "chooser_hint": "Zednické práce, voda, odpady, elektro, dlažby i sádrokartony.",
       "meta_title": "Stavební práce Frýdek-Místek — zednické práce, dlažby",
-      "meta_description": "Zednické práce, voda a odpady, elektro, statické zajištění trhlin, zpevněné plochy a zámková dlažba, sádrokartony a malby. Rodinné domy i menší stavby, Frýdek-Místek.",
+      "meta_description": "Zednické práce, voda a odpady, elektro, statické zajištění trhlin, zámková dlažba, sádrokartony a malby. Rodinné domy i menší stavby, Frýdek-Místek.",
       "crumb": "Stavební práce",
       "title": "Stavební práce",
       "lead": "Zednické práce, voda, odpady a elektro, opravy trhlin, zpevněné plochy a dlažby, sádrokartony i malby. U rodinných domů i menších staveb, od oprav po větší úpravy.",
@@ -1229,7 +1248,7 @@
       "chooser_title": "",
       "chooser_hint": "",
       "meta_title": "Gastropůjčovna Frýdek-Místek — výčep, kotlík, pivní sety",
-      "meta_description": "Půjčovna vybavení na oslavy, svatby a párty: pivní sety, výčep na 2 sudy, kotlík na guláš, rožeň, ohřevné vany, várnice, hotdogovač, reproduktor JBL. Frýdek-Místek.",
+      "meta_description": "Půjčovna vybavení na oslavy, svatby a párty: pivní sety, výčep, kotlík na guláš, rožeň, ohřevné vany, hotdogovač a reproduktor JBL. Frýdek-Místek.",
       "crumb": "Gastropůjčovna",
       "title": "Gastropůjčovna",
       "lead": "Chystáte oslavu narozenin, svatbu, nebo jen posezení s přáteli? Půjčíme vám vybavení, se kterým bude celá akce mnohem pohodlnější.",

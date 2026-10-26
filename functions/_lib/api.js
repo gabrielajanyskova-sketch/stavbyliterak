@@ -35,6 +35,28 @@ async function sendMail(env, { subject, html, replyTo = null, to = env.NOTIFY_EM
 // ---------- poptávkový formulář ----------
 
 // Bez nastaveného e-mailu vrátí 503 a prohlížeč otevře mailto — poptávka se tak nikdy neztratí.
+const CONTACT_LIMIT = 5;
+const CONTACT_WINDOW_MS = 10 * 60 * 1000;
+
+// Počítadlo pokusů na IP v okně (sdílí ho přihlášení do adminu i formulář, liší se předponou klíče).
+// Vrací true, když je limit vyčerpaný; jinak pokus započítá.
+async function overLimit(env, key, limit, windowMs) {
+  const now = Date.now();
+  const row = await env.DB.prepare('SELECT attempt_count, window_start FROM login_attempts WHERE ip = ?').bind(key).first();
+  const active = !!row && now - new Date(row.window_start).getTime() < windowMs;
+  if (active && row.attempt_count >= limit) return true;
+  if (active) await env.DB.prepare('UPDATE login_attempts SET attempt_count = attempt_count + 1 WHERE ip = ?').bind(key).run();
+  else {
+    await env.DB.prepare(
+      `INSERT INTO login_attempts (ip, attempt_count, window_start) VALUES (?, 1, ?)
+       ON CONFLICT(ip) DO UPDATE SET attempt_count = 1, window_start = excluded.window_start`
+    )
+      .bind(key, new Date(now).toISOString())
+      .run();
+  }
+  return false;
+}
+
 async function submitContact(request, env) {
   const b = await body(request);
   const field = (k, max = 200) => String(b[k] || '').trim().slice(0, max);
@@ -43,6 +65,8 @@ async function submitContact(request, env) {
   if (!name || !phone) return json({ error: 'missing_fields' }, 400);
   if (field('web')) return json({ ok: true }); // past na roboty (skryté pole)
   if (!mailConfigured(env)) return json({ error: 'mail_not_configured' }, 503);
+  const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+  if (env.DB && (await overLimit(env, 'contact:' + ip, CONTACT_LIMIT, CONTACT_WINDOW_MS))) return json({ error: 'too_many_requests' }, 429);
 
   const rows = [
     ['Služba', field('sluzba')],
@@ -81,6 +105,15 @@ function randomCode() {
   return String(100000 + n);
 }
 
+// Porovnání bez předčasného konce — doba odpovědi neprozradí, kolik znaků hesla sedí.
+function sameText(a, b) {
+  const x = new TextEncoder().encode(a);
+  const y = new TextEncoder().encode(b);
+  let diff = x.length ^ y.length;
+  for (let i = 0; i < Math.max(x.length, y.length); i++) diff |= (x[i] ?? 0) ^ (y[i] ?? 0);
+  return diff === 0;
+}
+
 function bearer(request) {
   return (request.headers.get('Authorization') || '').replace(/^Bearer\s+/i, '');
 }
@@ -114,7 +147,7 @@ async function login(request, env) {
 
   const b = await body(request);
   // mezery na okrajích (častý omyl při kopírování hesla do Cloudflare) nevadí
-  const ok = !!env.ADMIN_PASSWORD && typeof b.password === 'string' && b.password.trim() === String(env.ADMIN_PASSWORD).trim();
+  const ok = !!env.ADMIN_PASSWORD && typeof b.password === 'string' && sameText(b.password.trim(), String(env.ADMIN_PASSWORD).trim());
   if (!ok) {
     if (windowActive) {
       await env.DB.prepare('UPDATE login_attempts SET attempt_count = attempt_count + 1 WHERE ip = ?').bind(ip).run();
@@ -129,6 +162,13 @@ async function login(request, env) {
     return json({ error: env.ADMIN_PASSWORD ? 'wrong_password' : 'not_configured' }, 401);
   }
   if (row) await env.DB.prepare('DELETE FROM login_attempts WHERE ip = ?').bind(ip).run();
+  // úklid prošlých přihlášení, kódů a starých počítadel
+  const nowIso = new Date(now).toISOString();
+  await env.DB.batch([
+    env.DB.prepare('DELETE FROM admin_sessions WHERE expires_at < ?').bind(nowIso),
+    env.DB.prepare('DELETE FROM login_codes WHERE expires_at < ?').bind(nowIso),
+    env.DB.prepare('DELETE FROM login_attempts WHERE window_start < ?').bind(new Date(now - 24 * 3600 * 1000).toISOString()),
+  ]);
 
   // Druhý krok e-mailem, pokud je nastavené odesílání — samotné uniklé heslo pak nestačí.
   if (!mailConfigured(env)) return json({ ok: true, token: await issueSession(env) });
@@ -422,6 +462,7 @@ export async function serveImage(env, key) {
     headers: {
       'Content-Type': (obj.metadata && obj.metadata.contentType) || 'application/octet-stream',
       'Cache-Control': 'public, max-age=31536000, immutable',
+      'X-Content-Type-Options': 'nosniff',
     },
   });
 }
