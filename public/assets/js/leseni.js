@@ -606,7 +606,7 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
     const button = $("[data-next]");
     button.disabled = true;
     const ok = await window.sendInquiry(
-      { sluzba: "Půjčovna lešení", jmeno: field("jmeno").value.trim(), telefon: field("telefon").value.trim(), misto: field("misto").value.trim(), zprava: lines, web: field("web").value },
+      { sluzba: "Půjčovna lešení", jmeno: field("jmeno").value.trim(), telefon: field("telefon").value.trim(), misto: field("misto").value.trim(), email: field("email").value.trim(), zprava: lines, web: field("web").value },
       root.dataset.to,
       status,
     );

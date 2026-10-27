@@ -77,7 +77,9 @@ async function submitContact(request, env) {
     .map(([k, v]) => `<tr><td style="padding:4px 12px 4px 0;color:#5b636c">${k}</td><td style="padding:4px 0"><strong>${esc(v)}</strong></td></tr>`)
     .join('');
   try {
+    const email = field('email', 120);
     await sendMail(env, {
+      replyTo: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : null, // „Odpovědět“ půjde rovnou zákazníkovi
       subject: `Poptávka z webu — ${field('sluzba')} — ${name}`,
       html: `<table style="font-family:sans-serif;font-size:15px">${rows}</table><p style="font-family:sans-serif;font-size:15px;white-space:pre-wrap">${esc(field('zprava', 5000))}</p>`,
     });

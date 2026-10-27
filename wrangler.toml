@@ -18,8 +18,8 @@ id = "d07e7e8c1dd34e2cbba047ab8fdf6a97"
 # Hlavní adresa webu: canonical, sitemap, schema.org. Jiné adresy (*.pages.dev)
 # dostanou noindex, stavbyliterak.cz bez www se přesměruje sem.
 SITE_URL = "https://www.stavbyliterak.cz"
-# E-maily přes Resend (k tomu secret RESEND_API_KEY) — odkomentovat až po ověření
-# domény v Resendu, jinak by nešlo odeslat přihlašovací kód do adminu:
-# MAIL_FROM = "Web Stavby Literák <web@stavbyliterak.cz>"
-# NOTIFY_EMAIL = "info@stavbyliterak.cz"       # sem chodí poptávky z formuláře
-# LOGIN_EMAIL = "gabriela.janyskova@email.cz"  # sem chodí kódy pro přihlášení do adminu
+# E-maily přes Resend (doména stavbyliterak.cz ověřená v Resendu, klíč je secret RESEND_API_KEY).
+# Bez klíče formulář otevře e-mailový program návštěvníka a do adminu stačí heslo.
+MAIL_FROM = "Web Stavby Literák <web@stavbyliterak.cz>"
+NOTIFY_EMAIL = "info@stavbyliterak.cz"       # sem chodí poptávky z formuláře
+LOGIN_EMAIL = "gabriela.janyskova@email.cz"  # sem chodí kódy pro přihlášení do adminu

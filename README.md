@@ -68,12 +68,17 @@ Kontrola: `https://<web>/api/health` vrátí `{"ok":true,"db":true,"images":true
 
 ### E-maily přes Resend
 
-Zatím vypnuté — formulář po odeslání otevře návštěvníkovi e-mailový program s vyplněnou
-zprávou a do adminu stačí heslo. Zapne se po převodu domény na Cloudflare:
+Zapnuté. Účet Resend je pana Literáka, doména `stavbyliterak.cz` je v něm ověřená (region EU).
 
-- `RESEND_API_KEY` (secret) — klíč z resend.com, doména `stavbyliterak.cz` ověřená v Resendu
-- ve `wrangler.toml` odkomentovat `MAIL_FROM`, `NOTIFY_EMAIL` (kam chodí poptávky)
-  a `LOGIN_EMAIL` (kam chodí kódy pro přihlášení do adminu)
+- `RESEND_API_KEY` (secret v Pages) — klíč s oprávněním Sending access
+- ve `wrangler.toml`: `MAIL_FROM` (web@stavbyliterak.cz), `NOTIFY_EMAIL` (info@stavbyliterak.cz,
+  kam chodí poptávky) a `LOGIN_EMAIL` (kam chodí kódy pro přihlášení do adminu)
+- DNS pro Resend: TXT `resend._domainkey`, CNAME `send` a `rsend`, TXT `_dmarc`,
+  TXT `resend-domain-verification` na hlavní doméně. Pošta na info@ jde přes Seznam
+  Email Profi (2× MX). Při převodu domény se všechny tyto záznamy musí přenést.
+- Když zákazník vyplní e-mail (konfigurátor lešení), poptávka má reply-to na něj.
+
+Bez klíče (nebo při chybě) formulář otevře návštěvníkovi e-mailový program s vyplněnou zprávou.
 
 S nastaveným Resendem chce přihlášení do adminu navíc jednorázový kód z e-mailu
 (samotné uniklé heslo pak nestačí).
