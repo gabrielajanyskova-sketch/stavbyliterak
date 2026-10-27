@@ -132,7 +132,22 @@
     }
   };
 
+  // Po odeslání vyskočí okno s potvrzením (text pod formulářem zůstává pro čtečky a jako záloha).
+  const sent = (message) => {
+    const dialog = document.createElement("dialog");
+    dialog.className = "sent";
+    dialog.setAttribute("aria-labelledby", "sent-title");
+    dialog.innerHTML = `<span class="sent-icon" aria-hidden="true"></span><h2 id="sent-title">Poptávka odeslána</h2><p></p><button type="button" class="btn">Rozumím</button>`;
+    dialog.querySelector("p").textContent = message;
+    dialog.querySelector("button").addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (e) => { if (e.target === dialog) dialog.close(); });
+    dialog.addEventListener("close", () => dialog.remove());
+    document.body.append(dialog);
+    dialog.showModal();
+  };
+
   window.sendInquiry = send; // používá i konfigurátor lešení (leseni.js)
+  window.inquirySent = sent;
 
   const form = document.querySelector("#poptavka");
   if (form) {
@@ -146,6 +161,7 @@
       if (await send(Object.fromEntries(new FormData(form)), form.dataset.to, status)) {
         form.reset();
         status.textContent = "Díky, poptávka odešla. Ozvu se co nejdřív.";
+        sent("Díky, ozvu se vám co nejdřív.");
       }
       button.disabled = false;
     });
@@ -312,6 +328,7 @@
         quote = null;
         priceBox.hidden = true;
         status.textContent = "Díky, poptávka odešla. Ozveme se co nejdřív s potvrzením termínu a cenou.";
+        sent("Díky, ozveme se vám co nejdřív s potvrzením termínu a cenou.");
       }
       button.disabled = false;
     });

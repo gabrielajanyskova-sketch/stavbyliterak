@@ -692,7 +692,10 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
       status,
     );
     button.disabled = false;
-    if (ok) status.textContent = "Díky, poptávka odešla. Ozveme se s nabídkou co nejdřív.";
+    if (ok) {
+      status.textContent = "Díky, poptávka odešla. Ozveme se s nabídkou co nejdřív.";
+      window.inquirySent("Díky, ozveme se vám s nabídkou co nejdřív.");
+    }
   });
 
   update();

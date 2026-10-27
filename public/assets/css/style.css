@@ -998,6 +998,18 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 .lightbox .lb-next { right: 8px; }
 .lightbox .lb-close { top: 32px; right: 8px; height: 48px; }
 
+/* Potvrzení odeslané poptávky */
+.sent { width: min(420px, calc(100vw - 32px)); padding: 32px 28px 28px; border: 0; border-top: 4px solid var(--amber); background: var(--paper); color: var(--ink); text-align: center; }
+.sent::backdrop { background: rgba(14, 16, 19, 0.8); }
+.sent[open] { animation: sent-in 0.25s ease-out; }
+.sent-icon { display: grid; place-items: center; width: 64px; height: 64px; margin: 0 auto 16px; border-radius: 50%; background: var(--amber); }
+.sent-icon::after { content: ""; width: 26px; height: 13px; margin-top: -6px; border: solid var(--graphite); border-width: 0 0 4px 4px; transform: rotate(-45deg); }
+.sent h2 { margin: 0 0 8px; font-size: 1.8rem; }
+.sent p { margin: 0 0 22px; color: var(--muted); }
+.sent .btn { width: 100%; }
+@keyframes sent-in { from { opacity: 0; transform: translateY(12px) scale(0.97); } }
+@media (prefers-reduced-motion: reduce) { .sent[open] { animation: none; } }
+
 /* Recenze z Google (ručně vybrané v adminu) */
 .stars { color: var(--amber-deep); letter-spacing: 0.08em; }
 .stars span { color: var(--line); }
