@@ -390,6 +390,7 @@
   // ---------- rozhraní ----------
 
   const fmt = (n) => n.toLocaleString("cs-CZ", { maximumFractionDigits: 1 });
+  const esc = (v) => String(v).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
   const seg = (name, options, value) =>
     `<div class="seg sc-seg" role="radiogroup">${Object.entries(options).map(([v, [title, hint]]) =>
       `<label><input type="radio" name="${name}" value="${v}"${v === value ? " checked" : ""}><span><strong>${title}</strong>${hint || ""}</span></label>`).join("")}</div>`;
@@ -423,11 +424,13 @@
 <ul class="sc-walls"></ul>
 </div>
 <div class="sc-panel" data-panel="2" hidden>
+<h3>Kde se bude stavět</h3>
+<label class="sc-wide">Adresa stavby (ulice a obec)<input name="misto" autocomplete="street-address" placeholder="Např. Hlavní 12, Frýdlant nad Ostravicí"></label>
+<p class="sc-help">Podle místa spočítáme dopravu a naplánujeme montáž.</p>
 <h3>Montáž</h3>
 ${seg("service", SERVICES, state.service)}
 <h3>Doprava</h3>
 ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvezeme"], sam: ["Odvezu si sám", "vyzvednutí ve Frýdku-Místku"] }, state.transport)}
-<label class="sc-wide">Místo stavby (obec)<input name="misto" autocomplete="address-level2"></label>
 <h3>Stavební stojky</h3>
 <label class="calc-check"><input type="checkbox" name="propsOn"> Potřebuji i stavební stojky</label>
 <label class="sc-wide sc-props" hidden>Počet stojek (ks)<input name="props" type="number" min="1" step="1" value="10" inputmode="numeric"></label>
@@ -522,6 +525,7 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
       ["Stěny s lešením", t ? `${t.walls} z ${t.all}` : "—"],
       ["Výška lešení", t ? `${fmt(t.height)} m = ${t.levels} ${t.levels < 5 ? "úrovně" : "úrovní"} po ${LEVEL_M} m + zábradlí ${RAIL_M} m` : "—"],
       ["Střecha", ROOFS[state.roof]],
+      ["Místo stavby", esc(field("misto").value.trim()) || "—"],
       ["Montáž", SERVICES[state.service][0]],
       ["Doprava", state.transport === "dovoz" ? "dovoz na stavbu" : "vlastní odvoz"],
       ...(state.props ? [["Stavební stojky", `${state.props} ks`]] : []),
@@ -612,6 +616,7 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
     else if (el.name === "overRoof") { state.overRoof = el.checked; refresh(); }
     else if (el.name === "service") { state.service = el.value; summary(); }
     else if (el.name === "transport") { state.transport = el.value; summary(); }
+    else if (el.name === "misto") summary();
     else if (el.name === "propsOn") {
       $(".sc-props").hidden = !el.checked;
       state.props = el.checked ? Math.max(1, Math.round(field("props").valueAsNumber) || 1) : 0;
@@ -629,6 +634,7 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
   function check(step) {
     if (step === 1 && current.error) return current.error;
     if (step === 1 && !totals(current.walls).walls) return "Zaškrtněte aspoň jednu stěnu s lešením.";
+    if (step === 2 && !field("misto").value.trim()) return "Vyplňte prosím, kde se bude stavět.";
     if (step === 3) {
       const tm = term();
       if (!tm) return "Vyberte prosím začátek a konec pronájmu.";
@@ -677,6 +683,7 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
       `- výška lešení: ${fmt(t.height)} m (${t.levels} ${t.levels < 5 ? "úrovně" : "úrovní"} po ${LEVEL_M} m + zábradlí ${RAIL_M} m)`,
       `- stěny: ${current.walls.map((w, i) => `${letter(i)} ${fmt(wallLength(w))} m${state.off.has(wallKey(w)) ? " (bez lešení)" : ""}`).join(", ")}`,
       `- dům: ${state.floors === 1 ? "přízemní" : `${state.floors} podlaží`}, výška k okapu ${fmt(state.height)} m, střecha ${ROOFS[state.roof].toLowerCase()}${state.overRoof ? ", práce i u střechy" : ""}`,
+      `- místo stavby: ${field("misto").value.trim()}`,
       `- montáž: ${SERVICES[state.service][0].toLowerCase()}`,
       `- doprava: ${state.transport === "dovoz" ? "dovoz na stavbu" : "odvezu si sám"}`,
       state.props ? `- stavební stojky: ${state.props} ks` : "",
@@ -688,7 +695,7 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
     const button = $("[data-next]");
     button.disabled = true;
     const ok = await window.sendInquiry(
-      { sluzba: "Půjčovna lešení", jmeno: field("jmeno").value.trim(), telefon: field("telefon").value.trim(), misto: field("misto").value.trim(), email: field("email").value.trim(), zprava: lines, nakres: await drawing(), web: field("web").value },
+      { sluzba: "Půjčovna lešení", jmeno: field("jmeno").value.trim(), telefon: field("telefon").value.trim(), email: field("email").value.trim(), zprava: lines, nakres: await drawing(), web: field("web").value },
       root.dataset.to,
       status,
     );
