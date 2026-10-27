@@ -623,7 +623,7 @@ export async function serveImage(env, key) {
 
 export async function handleApi(request, env, path) {
   const m = request.method;
-  if (path === '/api/health') return json({ ok: true, db: !!env.DB, images: !!env.IMAGES, mail: mailConfigured(env) });
+  if (path === '/api/health') return json({ ok: true, db: !!env.DB, images: !!env.IMAGES, mail: mailConfigured(env), adresy: !!env.MAPY_API_KEY });
   if (path === '/api/contact' && m === 'POST') return submitContact(request, env);
   if (path === '/api/gastro-quote' && m === 'POST') return gastroQuote(request, env);
   if (path === '/api/adresa' && m === 'GET') return suggestAddress(request, env);
