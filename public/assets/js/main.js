@@ -125,7 +125,7 @@
       if (!res.ok) throw new Error(res.status);
       return true;
     } catch {
-      const body = [`Služba: ${fields.sluzba}`, `Jméno: ${fields.jmeno}`, `Telefon: ${fields.telefon}`, `Místo: ${fields.misto}`, "", fields.zprava].join("\n");
+      const body = [`Služba: ${fields.sluzba}`, `Jméno: ${fields.jmeno}`, `Telefon: ${fields.telefon}`, ...(fields.email ? [`E-mail: ${fields.email}`] : []), `Místo: ${fields.misto}`, "", fields.zprava].join("\n");
       location.href = `mailto:${to}?subject=${encodeURIComponent(`Poptávka z webu — ${fields.sluzba}`)}&body=${encodeURIComponent(body)}`;
       status.textContent = MAIL_FALLBACK;
       return false;
@@ -315,7 +315,7 @@
         d.get("poznamka") ? `\nPoznámka: ${d.get("poznamka")}` : "",
       ].join("\n").trim();
       button.disabled = true;
-      const fields = { sluzba: booking.dataset.service, jmeno: d.get("jmeno"), telefon: d.get("telefon"), misto: d.get("misto"), zprava, web: d.get("web") };
+      const fields = { sluzba: booking.dataset.service, jmeno: d.get("jmeno"), telefon: d.get("telefon"), email: d.get("email"), misto: d.get("misto"), zprava, web: d.get("web") };
       if (await send(fields, booking.dataset.to, status)) {
         booking.reset();
         range.textContent = "";
