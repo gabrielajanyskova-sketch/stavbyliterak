@@ -34,6 +34,11 @@ const BUILTIN_IMAGES = [
   { url: "/assets/img/foto/leseni-ramove-pozinkovane.webp", name: "Rámové pozinkované lešení" },
   { url: "/assets/img/foto/leseni-ramova-sestava.webp", name: "Rámová sestava lešení (schéma)" },
   { url: "/assets/img/foto/sklopny-privesnik-debon.webp", name: "Sklopný přívěs Debon PW3.6 3500 Electric" },
+  { url: "/assets/img/foto/leseni-stit-rodinny-dum.webp", name: "Lešení u štítu rodinného domu" },
+  { url: "/assets/img/foto/stavebni-koupelna-obklady.webp", name: "Koupelna — obklady, sprchový kout a osvětlení" },
+  { url: "/assets/img/foto/stavebni-pokladka-dlazby.webp", name: "Pokládka velkoformátové dlažby" },
+  { url: "/assets/img/foto/stavebni-obklad-niky-kamna.webp", name: "Obklad niky a dlažba pod krbová kamna" },
+  { url: "/assets/img/foto/stavebni-sdk-podhled.webp", name: "Konstrukce sádrokartonového podhledu" },
   // gastropůjčovna
   { url: "/assets/img/foto/gastro-vycep-oslava.webp", name: "Výčep na oslavě" },
   { url: "/assets/img/foto/gastro-vycep-2-kohouty.webp", name: "Výčep na pivo a limo — 2 kohouty" },

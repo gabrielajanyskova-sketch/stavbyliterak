@@ -989,6 +989,10 @@
               "caption": "Lešení na fasádě rodinného domu"
             },
             {
+              "src": "/assets/img/foto/leseni-stit-rodinny-dum.webp",
+              "caption": "Lešení u štítu rodinného domu"
+            },
+            {
               "src": "/assets/img/foto/leseni-ramove-pozinkovane.webp",
               "caption": "Rámové pozinkované lešení"
             },
@@ -1150,6 +1154,31 @@
             {
               "title": "Malby",
               "text": "Malování interiérů a opravy omítek před malováním."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Ukázky z realizací"
+        },
+        {
+          "type": "gallery",
+          "items": [
+            {
+              "src": "/assets/img/foto/stavebni-koupelna-obklady.webp",
+              "caption": "Koupelna — obklady, sprchový kout a osvětlení"
+            },
+            {
+              "src": "/assets/img/foto/stavebni-pokladka-dlazby.webp",
+              "caption": "Pokládka velkoformátové dlažby s nivelačním systémem"
+            },
+            {
+              "src": "/assets/img/foto/stavebni-obklad-niky-kamna.webp",
+              "caption": "Obklad niky a dlažba pod krbová kamna"
+            },
+            {
+              "src": "/assets/img/foto/stavebni-sdk-podhled.webp",
+              "caption": "Konstrukce sádrokartonového podhledu"
             }
           ]
         },
