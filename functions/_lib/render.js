@@ -304,7 +304,7 @@ function contact(ctx, preselect) {
 <div><label for="telefon">Telefon</label><input id="telefon" name="telefon" type="tel" autocomplete="tel" required></div>
 </div>
 <div class="row">
-<div><label for="email">E-mail (nepovinné)</label><input id="email" name="email" type="email" autocomplete="email"></div>
+<div><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" required></div>
 <div><label for="misto">Místo (obec)</label><input id="misto" name="misto" autocomplete="address-level2"></div>
 </div>
 <div hidden><label for="web">Nevyplňujte</label><input id="web" name="web" tabindex="-1" autocomplete="off"></div>
@@ -554,7 +554,7 @@ function booking(site, p) {
 <div><label for="b-telefon">Telefon</label><input id="b-telefon" name="telefon" type="tel" autocomplete="tel" required></div>
 </div>
 <div class="row">
-<div><label for="b-email">E-mail (nepovinné)</label><input id="b-email" name="email" type="email" autocomplete="email"></div>
+<div><label for="b-email">E-mail</label><input id="b-email" name="email" type="email" autocomplete="email" required></div>
 <div><label for="b-misto">Místo akce (obec)</label><input id="b-misto" name="misto" autocomplete="address-level2"></div>
 </div>
 <div><label for="b-pozn">Poznámka</label><textarea id="b-pozn" name="poznamka" placeholder="Např. počet hostů nebo čas vyzvednutí."></textarea></div>

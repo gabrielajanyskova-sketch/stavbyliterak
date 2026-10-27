@@ -447,7 +447,7 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
 <label>Jméno<input name="jmeno" autocomplete="name"></label>
 <label>Telefon<input name="telefon" type="tel" autocomplete="tel"></label>
 </div>
-<label class="sc-wide">E-mail (nepovinné)<input name="email" type="email" autocomplete="email"></label>
+<label class="sc-wide">E-mail<input name="email" type="email" autocomplete="email"></label>
 <label class="sc-wide">Poznámka<textarea name="poznamka" rows="3" placeholder="Např. přístup ke stavbě, terén, balkony…"></textarea></label>
 <div hidden><label>Nevyplňujte<input name="web" tabindex="-1" autocomplete="off"></label></div>
 </div>
@@ -634,7 +634,8 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
       if (!tm) return "Vyberte prosím začátek a konec pronájmu.";
       if (tm.error) return tm.error;
     }
-    if (step === 4 && (!field("jmeno").value.trim() || !field("telefon").value.trim())) return "Vyplňte prosím jméno a telefon.";
+    if (step === 4 && (!field("jmeno").value.trim() || !field("telefon").value.trim() || !field("email").value.trim())) return "Vyplňte prosím jméno, telefon a e-mail.";
+    if (step === 4 && !field("email").checkValidity()) return "Zkontrolujte prosím e-mail.";
     return "";
   }
   function go(step) {
