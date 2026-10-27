@@ -758,12 +758,16 @@ ul.catalog { list-style: none; margin: 0 0 2.2em; padding: 0; border-top: 2px so
 .catalog-photo img { width: 100%; aspect-ratio: 1; object-fit: contain; background: var(--white); border: 1px solid var(--line); }
 a.catalog-photo:hover img { border-color: var(--ink); }
 a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+/* mobil: fotka + název, pod tím popis přes celou šířku, dole počet kusů a výběr v jednom řádku */
 @media (max-width: 700px) {
-  .catalog li { grid-template-columns: 4rem minmax(0, 1fr) auto; gap: 8px 12px; }
-  .catalog .count { font-size: 0.7rem; padding: 2px 6px; }
-  .catalog h3 { overflow-wrap: break-word; }
-  .catalog li > div:not(.catalog-side) { grid-column: 2 / -1; }
-  .catalog-side { grid-column: 3; grid-row: 1; }
+  .catalog li { grid-template-columns: 4.5rem minmax(0, 1fr); gap: 12px 14px; }
+  .catalog-photo { grid-row: 1; }
+  .catalog li > h3 { grid-column: 2; grid-row: 1; align-self: center; overflow-wrap: break-word; }
+  .catalog li > div:not(.catalog-side) { grid-column: 1 / -1; grid-row: 2; max-width: none; }
+  .catalog-side { grid-column: 1 / -1; grid-row: 3; display: flex; justify-content: space-between; align-items: center; }
+  .catalog .count { align-self: center; border: 0; padding: 0; font-size: 0.78rem; color: var(--muted); }
+  .js .pick { grid-template-columns: 44px 40px 44px; }
+  .pick button { height: 40px; }
 }
 
 /* Tabulka v obsahu (dva sloupce, řádky skupin) */
