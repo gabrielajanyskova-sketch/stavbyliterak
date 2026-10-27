@@ -8,6 +8,7 @@
   const N = 8; // mřížka N × N políček
   const CELL_M = 3; // jedno políčko mřížky = jedno pole lešení (standardní podlážka 3 m)
   const FIELD_M = 3; // délka pole lešení — lešení u stěny se skládá z celých polí
+  const LEVEL_M = 2; // výška jedné úrovně lešení (rámu)
   const FLOOR_M = 3; // výška jednoho podlaží k okapu
   const DAY = 864e5;
   const ROOFS = { sedlova: "Sedlová", valbova: "Valbová", plocha: "Plochá / pultová" };
@@ -92,8 +93,10 @@
     const on = walls.filter((w) => !state.off.has(wallKey(w)));
     const fields = on.reduce((s, w) => s + fieldsOf(w), 0);
     const length = fields * FIELD_M;
-    const height = state.height + (state.overRoof ? 1 : 0);
-    return { fields, length, height, area: Math.ceil(length * height), walls: on.length, all: walls.length };
+    // výška po celých úrovních lešení (rám 2 m) — pole lešení je 3 × 2 m = 6 m²
+    const levels = Math.max(1, Math.ceil((state.height + (state.overRoof ? 1 : 0)) / LEVEL_M - 1e-9));
+    const height = levels * LEVEL_M;
+    return { fields, levels, panels: fields * levels, length, height, area: length * height, walls: on.length, all: walls.length };
   }
 
   // ---------- 3D náhled (izometrie, kreslí se odzadu dopředu) ----------
@@ -144,7 +147,6 @@
 
   // Rámové lešení podél stěny: dvě řady sloupků (u zdi a venku), podlážky po 2 m, zábradlí,
   // diagonály. Na vnějších rozích se prodlouží, aby na sebe lešení sousedních stěn navazovalo.
-  const LIFT = 2 / CELL_M; // výška patra lešení (2 m)
   const IN = 0.1, OUT = 0.4; // odstup vnitřní a vnější řady od zdi (≈ 0,25 m a 1 m)
   function scaffoldFrame(walls, i, eave, top, back) {
     const w = walls[i];
@@ -161,8 +163,9 @@
     const RAIL = 1 / CELL_M;
     const standTop = top;
     const decks = [];
-    for (let z = eave - RAIL; z >= 1.2 / CELL_M - 0.01; z -= LIFT) decks.unshift(z);
-    if (!decks.length) decks.push(Math.max(0.4, eave - RAIL));
+    // v náhledu jedna řada podlážek na každé podlaží (nejvyšší 1 m pod okapem)
+    const floorH = eave / state.floors;
+    for (let f = 1; f <= state.floors; f++) decks.push(Math.max(0.4, f * floorH - RAIL));
 
     const side = (off) => [
       ...ts.map((t) => line(at(t, off, 0), at(t, off, standTop), "sc-std")),
@@ -434,17 +437,18 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
     const t = current.walls ? totals(current.walls) : null;
     const tm = term();
     const rows = [
-      ["Plocha lešení", t ? `≈ ${fmt(t.area)} m²` : "—"],
+      ["Orientační plocha", t ? `≈ ${fmt(t.area)} m²` : "—"],
+      ["Pole 3 × 2 m", t ? `${t.panels} (${t.fields} na délku × ${t.levels} na výšku)` : "—"],
       ["Délka lešení", t ? `${fmt(t.length)} m = ${t.fields} ${fieldWord(t.fields)} po ${FIELD_M} m` : "—"],
       ["Stěny s lešením", t ? `${t.walls} z ${t.all}` : "—"],
-      ["Výška lešení", t ? `${fmt(t.height)} m` : "—"],
+      ["Výška lešení", t ? `${fmt(t.height)} m = ${t.levels} ${t.levels < 5 ? "úrovně" : "úrovní"} po ${LEVEL_M} m` : "—"],
       ["Střecha", ROOFS[state.roof]],
       ["Montáž", SERVICES[state.service][0]],
       ["Doprava", state.transport === "dovoz" ? "dovoz na stavbu" : "vlastní odvoz"],
       ...(state.props ? [["Stavební stojky", `${state.props} ks`]] : []),
       ["Termín", tm && !tm.error ? tm.text : "—"],
     ];
-    $(".sc-summary").innerHTML = `<span class="label">Souhrn poptávky</span><dl>${rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl><p class="sc-price">Cenu spočítáme a pošleme vám nabídku.</p>`;
+    $(".sc-summary").innerHTML = `<span class="label">Orientační souhrn</span><dl>${rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl><p class="sc-price"><strong>Výpočet je pouze orientační.</strong> Přesné množství lešení i cenu vám potvrdíme v nabídce.</p>`;
     return { t, tm };
   }
 
@@ -586,8 +590,8 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
     }
     const { t, tm } = summary();
     const lines = [
-      "Konfigurátor lešení:",
-      `- plocha lešení: ≈ ${fmt(t.area)} m² (délka ${fmt(t.length)} m = ${t.fields} polí po ${FIELD_M} m × výška ${fmt(t.height)} m)`,
+      "Konfigurátor lešení (orientační výpočet):",
+      `- plocha lešení: ≈ ${fmt(t.area)} m² = ${t.panels} polí 3 × 2 m (${t.fields} na délku × ${t.levels} na výšku, délka ${fmt(t.length)} m, výška ${fmt(t.height)} m)`,
       `- stěny: ${current.walls.map((w, i) => `${letter(i)} ${fmt(wallLength(w))} m${state.off.has(wallKey(w)) ? " (bez lešení)" : ""}`).join(", ")}`,
       `- dům: ${state.floors === 1 ? "přízemní" : `${state.floors} podlaží`}, výška k okapu ${fmt(state.height)} m, střecha ${ROOFS[state.roof].toLowerCase()}${state.overRoof ? ", práce i u střechy" : ""}`,
       `- montáž: ${SERVICES[state.service][0].toLowerCase()}`,

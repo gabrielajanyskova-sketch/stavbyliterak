@@ -56,7 +56,7 @@
 
     const calc = document.createElement("div");
     calc.className = "calc";
-    calc.innerHTML = '<span class="label">Přepočet na hmotnost</span><div class="calc-row"><label>Materiál<select></select></label><label>Objem (m³)<input type="number" min="0" step="0.5" value="1" inputmode="decimal"></label></div><p class="calc-out" aria-live="polite"></p>';
+    calc.innerHTML = '<span class="label">Orientační přepočet na hmotnost</span><div class="calc-row"><label>Materiál<select></select></label><label>Objem (m³)<input type="number" min="0" step="0.5" value="1" inputmode="decimal"></label></div><p class="calc-out" aria-live="polite"></p>';
     const select = calc.querySelector("select");
     const volume = calc.querySelector("input");
     const out = calc.querySelector(".calc-out");

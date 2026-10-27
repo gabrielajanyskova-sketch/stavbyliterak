@@ -543,7 +543,7 @@ function booking(site, p) {
 <div><label for="b-datum">Datum vyzvednutí</label><input id="b-datum" name="datum" type="date" required><p class="hint" data-range></p></div>
 <label class="check"><input type="checkbox" name="dovoz"> Chci dovoz, sestavení a zprovoznění</label>
 <div class="booking-price" data-price hidden>
-<dl><div><dt>Cena pronájmu</dt><dd data-rent></dd></div><div><dt>Vratná záloha</dt><dd data-deposit></dd></div></dl>
+<dl><div><dt>Orientační cena pronájmu</dt><dd data-rent></dd></div><div><dt>Vratná záloha</dt><dd data-deposit></dd></div></dl>
 <p class="hint" data-price-note></p>
 </div>
 <div class="row">
