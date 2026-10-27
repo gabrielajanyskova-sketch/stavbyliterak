@@ -6,7 +6,10 @@ const TOKEN_KEY = "admin_token";
 // Nová fotka přidaná do repozitáře se tu musí doplnit, aby šla vybrat v adminu.
 const BUILTIN_IMAGES = [
   // zemní práce
-  { url: "/assets/img/bagr.webp", name: "Minibagr Kubota KX016-4" },
+  { url: "/assets/img/foto/minibagr-kubota-kx016.webp", name: "Minibagr Kubota KX016-4" },
+  { url: "/assets/img/foto/zemni-podklad-zpevnene-plochy.webp", name: "Štěrkový podklad pro zpevněnou plochu" },
+  { url: "/assets/img/foto/zemni-bazen-vykop-obezdivka.webp", name: "Výkop a obezdívka pro bazén" },
+  { url: "/assets/img/foto/stavebni-operna-zed-bazen.webp", name: "Opěrná zeď a podklad zpevněné plochy u bazénu" },
   { url: "/assets/img/foto/vykop-zakladova-deska.webp", name: "Výkop pro základy" },
   { url: "/assets/img/foto/terenni-upravy-operna-zed.webp", name: "Terénní úpravy a opěrná zeď" },
   { url: "/assets/img/foto/minibagr-a-traktor-kubota.webp", name: "Minibagr a traktor Kubota" },

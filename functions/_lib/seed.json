@@ -370,7 +370,7 @@
           "value": "140 cm"
         }
       ],
-      "photo": "/assets/img/bagr.webp",
+      "photo": "/assets/img/foto/minibagr-kubota-kx016.webp",
       "photo_caption": "Vlastní minibagr Kubota KX016-4",
       "ask_title": "Zemní práce",
       "ask_note": "",
@@ -440,6 +440,14 @@
             {
               "src": "/assets/img/foto/vykop-zakladova-deska.webp",
               "caption": "Výkop pro základy"
+            },
+            {
+              "src": "/assets/img/foto/zemni-podklad-zpevnene-plochy.webp",
+              "caption": "Štěrkový podklad pro zpevněnou plochu"
+            },
+            {
+              "src": "/assets/img/foto/zemni-bazen-vykop-obezdivka.webp",
+              "caption": "Výkop a obezdívka pro bazén"
             },
             {
               "src": "/assets/img/foto/terenni-upravy-operna-zed.webp",
@@ -1171,6 +1179,10 @@
             {
               "src": "/assets/img/foto/stavebni-pokladka-dlazby.webp",
               "caption": "Pokládka velkoformátové dlažby s nivelačním systémem"
+            },
+            {
+              "src": "/assets/img/foto/stavebni-operna-zed-bazen.webp",
+              "caption": "Opěrná zeď a podklad zpevněné plochy u bazénu"
             },
             {
               "src": "/assets/img/foto/stavebni-obklad-niky-kamna.webp",
