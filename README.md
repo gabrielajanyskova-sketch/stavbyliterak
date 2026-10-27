@@ -64,6 +64,13 @@ wrangler.toml               napojení D1/KV, SITE_URL
 - Doména: Custom domains → `stavbyliterak.cz` a `www.stavbyliterak.cz`
   (DNS domény musí být na Cloudflare — přesun z Webnode).
 
+### Našeptávač adres (Mapy.com)
+
+Pole „Místo“ ve formulářích a „Adresa stavby“ v konfigurátoru lešení našeptávají adresy
+přes `/api/adresa` → Mapy.com REST API (`/v1/suggest`, jen Česko). Klíč je Secret
+`MAPY_API_KEY` v Pages (účet na developer.mapy.com, bezplatný tarif stačí). Bez klíče
+pole fungují jako obyčejný text.
+
 Kontrola: `https://<web>/api/health` vrátí `{"ok":true,"db":true,"images":true,...}`.
 
 ### E-maily přes Resend

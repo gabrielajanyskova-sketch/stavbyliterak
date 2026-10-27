@@ -425,7 +425,7 @@
 </div>
 <div class="sc-panel" data-panel="2" hidden>
 <h3>Kde se bude stavět</h3>
-<label class="sc-wide">Adresa stavby (ulice a obec)<input name="misto" autocomplete="street-address" placeholder="Např. Hlavní 12, Frýdlant nad Ostravicí"></label>
+<label class="sc-wide">Adresa stavby (ulice a obec)<input name="misto" autocomplete="street-address" data-suggest placeholder="Např. Hlavní 12, Frýdlant nad Ostravicí"></label>
 <p class="sc-help">Podle místa spočítáme dopravu a naplánujeme montáž.</p>
 <h3>Montáž</h3>
 ${seg("service", SERVICES, state.service)}

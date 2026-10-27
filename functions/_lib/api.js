@@ -181,6 +181,40 @@ async function submitContact(request, env) {
   return json({ ok: true });
 }
 
+// ---------- našeptávač adres ----------
+
+// Adresy z Mapy.com (klíč MAPY_API_KEY je jen na serveru). Bez klíče vrátí prázdný seznam
+// a pole funguje jako obyčejný text.
+async function suggestAddress(request, env) {
+  const q = (new URL(request.url).searchParams.get('q') || '').trim().slice(0, 80);
+  if (!env.MAPY_API_KEY || q.length < 3) return json({ items: [] });
+  const url = new URL('https://api.mapy.com/v1/suggest');
+  url.search = new URLSearchParams([
+    ['query', q],
+    ['lang', 'cs'],
+    ['limit', '6'],
+    ['locality', 'cz'],
+    ['type', 'regional.address'],
+    ['type', 'regional.street'],
+    ['type', 'regional.municipality_part'],
+    ['type', 'regional.municipality'],
+  ]).toString();
+  try {
+    const res = await fetch(url, { headers: { 'X-Mapy-Api-Key': env.MAPY_API_KEY }, cf: { cacheTtl: 86400, cacheEverything: true } });
+    if (!res.ok) throw new Error(`Mapy ${res.status}`);
+    const data = await res.json();
+    const items = (data.items || [])
+      .map((i) => [i.name, String(i.location || '').replace(/,?\s*Česko$/, '')].filter(Boolean).join(', '))
+      .filter((v, i, all) => v && all.indexOf(v) === i);
+    return new Response(JSON.stringify({ items }), {
+      headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'public, max-age=86400' },
+    });
+  } catch (err) {
+    console.error('address suggest failed', err);
+    return json({ items: [] });
+  }
+}
+
 // ---------- cena půjčovny ----------
 
 // Spočítá cenu pronájmu a zálohy za vybrané vybavení. Ceny jednotlivých položek
@@ -592,6 +626,7 @@ export async function handleApi(request, env, path) {
   if (path === '/api/health') return json({ ok: true, db: !!env.DB, images: !!env.IMAGES, mail: mailConfigured(env) });
   if (path === '/api/contact' && m === 'POST') return submitContact(request, env);
   if (path === '/api/gastro-quote' && m === 'POST') return gastroQuote(request, env);
+  if (path === '/api/adresa' && m === 'GET') return suggestAddress(request, env);
 
   if (!path.startsWith('/api/admin/')) return json({ error: 'not_found' }, 404);
   if (!env.DB) return json({ error: 'db_not_configured' }, 503);

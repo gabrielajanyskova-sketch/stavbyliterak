@@ -334,4 +334,77 @@
     });
     renderList();
   }
+
+  // Našeptávač adres (pole s data-suggest, i ta, která vzniknou později — konfigurátor lešení).
+  // Návrhy dává /api/adresa (Mapy.com); když nic nevrátí, pole je obyčejný text.
+  let suggestId = 0;
+  document.addEventListener("focusin", (ev) => {
+    const input = ev.target;
+    if (!input.matches?.("input[data-suggest]") || input.dataset.suggestReady) return;
+    input.dataset.suggestReady = "1";
+    const list = document.createElement("ul");
+    list.className = "suggest";
+    list.id = `suggest-${++suggestId}`;
+    list.setAttribute("role", "listbox");
+    list.hidden = true;
+    input.parentElement.classList.add("has-suggest");
+    input.after(list);
+    input.setAttribute("role", "combobox");
+    input.setAttribute("aria-autocomplete", "list");
+    input.setAttribute("aria-controls", list.id);
+    input.setAttribute("aria-expanded", "false");
+    input.autocomplete = "off";
+    let items = [], active = -1, timer = 0, last = "";
+    const render = () => {
+      list.innerHTML = "";
+      items.forEach((text, i) => {
+        const li = document.createElement("li");
+        li.id = `${list.id}-${i}`;
+        li.setAttribute("role", "option");
+        li.setAttribute("aria-selected", String(i === active));
+        li.textContent = text;
+        li.addEventListener("mousedown", (e) => { e.preventDefault(); pick(i); });
+        list.append(li);
+      });
+      list.hidden = !items.length;
+      input.setAttribute("aria-expanded", String(!!items.length));
+      if (active >= 0) input.setAttribute("aria-activedescendant", `${list.id}-${active}`);
+      else input.removeAttribute("aria-activedescendant");
+    };
+    const close = () => { items = []; active = -1; render(); };
+    const pick = (i) => {
+      input.value = items[i];
+      close();
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+    };
+    input.addEventListener("input", () => {
+      clearTimeout(timer);
+      const q = input.value.trim();
+      if (q.length < 3) { close(); return; }
+      timer = setTimeout(async () => {
+        if (q === last) return;
+        last = q;
+        try {
+          const res = await fetch(`/api/adresa?q=${encodeURIComponent(q)}`);
+          const data = await res.json();
+          if (input.value.trim() !== q || document.activeElement !== input) return;
+          items = data.items || [];
+          active = -1;
+          render();
+        } catch { close(); }
+      }, 250);
+    });
+    input.addEventListener("keydown", (e) => {
+      if (list.hidden) return;
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        e.preventDefault();
+        active = (active + (e.key === "ArrowDown" ? 1 : -1) + items.length) % items.length;
+        render();
+      } else if (e.key === "Enter" && active >= 0) {
+        e.preventDefault();
+        pick(active);
+      } else if (e.key === "Escape") close();
+    });
+    input.addEventListener("blur", close);
+  });
 })();
