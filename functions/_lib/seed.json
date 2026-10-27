@@ -20,12 +20,12 @@
         {
           "label": "01 — Prohlídka",
           "title": "Nejdřív se přijedeme podívat",
-          "text": "Každá zakázka je jiná. Domluvíme si schůzku, vše na místě projdeme, změříme, zhodnotíme a zohledníme vaše požadavky i reálné možnosti."
+          "text": "Každá zakázka je jiná. Domluvíme si schůzku, vše na místě projdeme, změříme, zhodnotíme a zohledníme vaše požadavky a reálné možnosti."
         },
         {
           "label": "02 — Návrh řešení",
           "title": "Řešení a cenová kalkulace",
-          "text": "Navrhneme řešení a postup prací a připravíme cenovou kalkulaci."
+          "text": "Navrhneme řešení a postup prací, připravíme cenovou kalkulaci."
         },
         {
           "label": "03 — Realizace",
@@ -107,7 +107,7 @@
         },
         {
           "label": "Kdy měřit",
-          "value": "Většinou v topné sezóně, ideálně v chladném počasí. Záleží ale na účelu měření."
+          "value": "Většinou v topné sezóně, ideálně v chladném počasí, ale závisí na účelu měření."
         },
         {
           "label": "Pro koho",
@@ -224,7 +224,7 @@
         },
         {
           "type": "text",
-          "text": "Výsledky s vámi projdeme, ukážeme a navrhneme, co s nimi dělat. V případě zájmu umíme většinu [oprav a řešení i zrealizovat](/stavebni-prace), takže nemusíte shánět další řemeslníky. Používáme pouze značkové německé vybavení a máme na něj potřebná [školení](/certifikaty)."
+          "text": "Výsledky s vámi projdeme, ukážeme a navrhneme, co s nimi dělat. V případě zájmu umíme většinu [oprav a řešení i zrealizovat](/stavebni-prace). Odpadne vám tedy potřeba shánět další řemeslníky. Používáme pouze značkové německé vybavení, včetně potřebných [školení](/certifikaty)."
         },
         {
           "type": "heading",
@@ -263,15 +263,15 @@
             },
             {
               "title": "Připravíte dům",
-              "text": "Před měřením nedělejte žádná zvláštní opatření. Problém hledáme při skutečném „provozu“ domu, nestandardní situace by výsledky měření zkreslila. Jen před měřením nevětrejte."
+              "text": "Před měřením nedělejte žádná specifická opatření. Snažíme se najít problém při skutečném „provozu“. Nestandardní situace může zkreslit výsledky měření. Před měřením nevětrejte."
             },
             {
               "title": "Provedeme měření",
-              "text": "Samotná měření provedeme podle domluvy."
+              "text": "Provedeme samotná měření dle domluvy."
             },
             {
               "title": "Předání výsledků",
-              "text": "Podle domluvy dostanete buď pouze samotné snímky, nebo podrobný protokol z měření (termovizní zprávu s doporučeními), co s jednotlivými místy udělat."
+              "text": "Podle toho, jak se domluvíme, dostanete buďto pouze snímky samotné, nebo podrobný protokol z měření (termovizní zprávu s doporučeními), co s jednotlivými místy udělat."
             }
           ]
         },
@@ -328,7 +328,7 @@
             },
             {
               "title": "Umíte nalezené problémy i opravit?",
-              "text": "Většinou ano. Pokud ne, nebo jde o speciální práce, doporučíme vám vhodné a ověřené partnery."
+              "text": "Většinou ano. V případě, že ne, nebo se jedná o speciální práce, doporučíme vám vhodné a ověřené partnery."
             },
             {
               "title": "Jakou kameru používáte?",
@@ -592,7 +592,7 @@
         },
         {
           "type": "text",
-          "text": "Zakladač není jen na nový trávník. Slouží hlavně k mechanickému zpracování a finální úpravě půdy po stavbě, rekonstrukci, výkopech nebo pojezdu techniky, ale také k srovnání stávajícího trávníku u domu. Rozruší a rozmělní půdu, nakypří zpracovávanou vrstvu, zapracuje drobné kameny pod povrch a současně srovná povrch.\n\nPo stavbě bývá pozemek rozježděný a udusaný od aut a bagrů, plný kolejí, kamenů a hrud. Když se jen rozhrne, vypadá hotově, ale půda pod povrchem zůstane utužená a tráva ani rostliny se v ní dobře neuchytí."
+          "text": "Zakladač není jen na nový trávník. Slouží hlavně k mechanickému zpracování a finální úpravě půdy po stavbě, rekonstrukci, výkopech nebo pojezdu techniky, ale také pro srovnání stávajícího trávníku u domu. Rozruší a rozmělní půdu, nakypří zpracovávanou vrstvu, zapracuje drobné kameny pod povrch a současně srovná povrch.\n\nPo stavbě bývá pozemek rozježděný a udusaný od aut a bagrů, plný kolejí, kamenů a hrud. Když se jen rozhrne, vypadá hotově, ale půda pod povrchem zůstane utužená a tráva ani rostliny se v ní dobře neuchytí."
         },
         {
           "type": "grid",
@@ -642,7 +642,7 @@
         },
         {
           "type": "text",
-          "text": "Strojní zpracování je rychlejší, rovnoměrnější a většinou i ekonomičtější, hlavně na větších plochách."
+          "text": "Strojní zpracování je rychlejší, rovnoměrnější a většinou ekonomičtější, hlavně na větších plochách."
         },
         {
           "type": "heading",
@@ -1085,7 +1085,7 @@
       "meta_description": "Zednické práce, voda a odpady, elektro, statické zajištění trhlin, zámková dlažba, sádrokartony a malby. Rodinné domy i menší stavby, Frýdek-Místek.",
       "crumb": "Stavební práce",
       "title": "Stavební práce",
-      "lead": "Zednické práce, voda, odpady a elektro, statické sešívání trhlin, zpevněné plochy a dlažby, sádrokartony, malby a další. Od rodinných domů a menších staveb až po opravy nebo větší zakázky.",
+      "lead": "Zednické práce, voda, odpady a elektro, statické sešívání trhlin, zpevněné plochy a dlažby, sádrokartony i malby a další. Od rodinných domů a menších staveb až po opravy nebo větší zakázky.",
       "theme": "",
       "facts": [
         {
