@@ -301,7 +301,7 @@ function contact(ctx, preselect) {
 <div><label for="sluzba">O co jde</label><select id="sluzba" name="sluzba">${opts}</select></div>
 <div class="row">
 <div><label for="jmeno">Jméno</label><input id="jmeno" name="jmeno" autocomplete="name" required></div>
-<div><label for="telefon">Telefon</label><input id="telefon" name="telefon" type="tel" autocomplete="tel" required></div>
+<div><label for="telefon">Telefon (nepovinné)</label><input id="telefon" name="telefon" type="tel" autocomplete="tel"></div>
 </div>
 <div class="row">
 <div><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" required></div>
@@ -551,7 +551,7 @@ function booking(site, p) {
 </div>
 <div class="row">
 <div><label for="b-jmeno">Jméno</label><input id="b-jmeno" name="jmeno" autocomplete="name" required></div>
-<div><label for="b-telefon">Telefon</label><input id="b-telefon" name="telefon" type="tel" autocomplete="tel" required></div>
+<div><label for="b-telefon">Telefon (nepovinné)</label><input id="b-telefon" name="telefon" type="tel" autocomplete="tel"></div>
 </div>
 <div class="row">
 <div><label for="b-email">E-mail</label><input id="b-email" name="email" type="email" autocomplete="email" required></div>

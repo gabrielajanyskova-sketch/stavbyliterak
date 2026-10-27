@@ -99,8 +99,8 @@ function mailRow(label, value) {
 function inquiryHtml(q, withImage) {
   const contact = [
     ['Jméno', esc(q.name)],
-    ['Telefon', `<a href="tel:${esc(q.phone.replace(/\s+/g, ''))}" style="color:#1d2125">${esc(q.phone)}</a>`],
     q.email ? ['E-mail', `<a href="mailto:${esc(q.email)}" style="color:#1d2125">${esc(q.email)}</a>`] : null,
+    q.phone ? ['Telefon', `<a href="tel:${esc(q.phone.replace(/\s+/g, ''))}" style="color:#1d2125">${esc(q.phone)}</a>`] : null,
     q.place ? ['Místo', esc(q.place)] : null,
   ].filter(Boolean);
   const heading = (t) => `<p style="margin:26px 0 6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#b86e0c;font-weight:700">${esc(t)}</p>`;
@@ -128,7 +128,7 @@ function inquiryHtml(q, withImage) {
 </td></tr>
 <tr><td style="padding:8px 28px 28px">
 ${heading('Zákazník')}${table(contact.map(([k, v]) => mailRow(k, v)))}
-<p style="margin:18px 0 0">${button(`tel:${esc(q.phone.replace(/\s+/g, ''))}`, 'Zavolat zákazníkovi', true)}${q.email ? button(`mailto:${esc(q.email)}`, 'Odpovědět e-mailem', false) : ''}</p>
+<p style="margin:18px 0 0">${q.email ? button(`mailto:${esc(q.email)}`, 'Odpovědět e-mailem', true) : ''}${q.phone ? button(`tel:${esc(q.phone.replace(/\s+/g, ''))}`, 'Zavolat zákazníkovi', !q.email) : ''}</p>
 ${sections}${image}
 </td></tr>
 <tr><td style="padding:16px 28px;background:#f6f7f8;font-size:12px;color:#6b737b">Odesláno z formuláře na webu stavbyliterak.cz.${q.email ? ' Odpověď na tento e-mail půjde přímo zákazníkovi.' : ''}</td></tr>
@@ -136,7 +136,7 @@ ${sections}${image}
 }
 
 function inquiryText(q) {
-  return [`Služba: ${q.service}`, `Jméno: ${q.name}`, `Telefon: ${q.phone}`, q.email ? `E-mail: ${q.email}` : '', q.place ? `Místo: ${q.place}` : '', '', q.message]
+  return [`Služba: ${q.service}`, `Jméno: ${q.name}`, q.email ? `E-mail: ${q.email}` : '', q.phone ? `Telefon: ${q.phone}` : '', q.place ? `Místo: ${q.place}` : '', '', q.message]
     .filter((l, i) => l || i === 5)
     .join('\n');
 }
@@ -146,19 +146,21 @@ async function submitContact(request, env) {
   const field = (k, max = 200) => String(b[k] || '').trim().slice(0, max);
   const name = field('jmeno');
   const phone = field('telefon', 40);
-  if (!name || !phone) return json({ error: 'missing_fields' }, 400);
+  const email = field('email', 120);
+  // stačí jméno a e-mail nebo telefon (starší otevřené stránky posílaly jen telefon)
+  const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if (!name || (!validEmail && !phone)) return json({ error: 'missing_fields' }, 400);
   if (field('web')) return json({ ok: true }); // past na roboty (skryté pole)
   if (!mailConfigured(env)) return json({ error: 'mail_not_configured' }, 503);
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
   if (env.DB && (await overLimit(env, 'contact:' + ip, CONTACT_LIMIT, CONTACT_WINDOW_MS))) return json({ error: 'too_many_requests' }, 429);
 
-  const email = field('email', 120);
   const inquiry = {
     service: field('sluzba'),
     name,
     phone,
     place: field('misto'),
-    email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : '',
+    email: validEmail ? email : '',
     message: field('zprava', 5000),
   };
   // nákres z konfigurátoru lešení (JPEG/PNG z prohlížeče) jde do e-mailu jako vložený obrázek

@@ -125,7 +125,7 @@
       if (!res.ok) throw new Error(res.status);
       return true;
     } catch {
-      const body = [`Služba: ${fields.sluzba}`, `Jméno: ${fields.jmeno}`, `Telefon: ${fields.telefon}`, ...(fields.email ? [`E-mail: ${fields.email}`] : []), `Místo: ${fields.misto}`, "", fields.zprava].join("\n");
+      const body = [`Služba: ${fields.sluzba}`, `Jméno: ${fields.jmeno}`, `E-mail: ${fields.email}`, `Telefon: ${fields.telefon}`, `Místo: ${fields.misto}`, "", fields.zprava].join("\n");
       location.href = `mailto:${to}?subject=${encodeURIComponent(`Poptávka z webu — ${fields.sluzba}`)}&body=${encodeURIComponent(body)}`;
       status.textContent = MAIL_FALLBACK;
       return false;
