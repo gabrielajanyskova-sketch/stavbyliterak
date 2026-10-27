@@ -1688,7 +1688,7 @@
         },
         {
           "type": "text",
-          "text": "Údaje se neprodávají ani nepředávají dalším firmám pro jejich účely. Přístup k nim mohou mít jen poskytovatelé služeb, které jsou k provozu nutně potřeba: hosting webu (Cloudflare), poskytovatel e-mailové schránky a účetní. Pokud některý z nich zpracovává data mimo EU, děje se tak se zárukami podle GDPR (např. standardní smluvní doložky)."
+          "text": "Údaje se neprodávají ani nepředávají dalším firmám pro jejich účely. Přístup k nim mohou mít jen poskytovatelé služeb, které jsou k provozu nutně potřeba: hosting webu (Cloudflare), odesílání poptávek z formuláře e-mailem (Resend), našeptávání adres ve formulářích (Mapy.com, Seznam.cz), poskytovatel e-mailové schránky (Seznam.cz) a účetní. Pokud některý z nich zpracovává data mimo EU, děje se tak se zárukami podle GDPR (např. standardní smluvní doložky)."
         },
         {
           "type": "heading",
@@ -1730,7 +1730,7 @@
         },
         {
           "type": "text",
-          "text": "Tento web nepoužívá sledovací ani reklamní cookies a neměří návštěvnost nástroji třetích stran. Písma i obrázky jsou uložené přímo na webu, takže se při jeho prohlížení nepředávají údaje Googlu ani jiným službám. Proto se vás web na souhlas s cookies neptá."
+          "text": "Tento web nepoužívá sledovací ani reklamní cookies a neměří návštěvnost nástroji třetích stran. Písma i obrázky jsou uložené přímo na webu, takže se při jeho prohlížení nepředávají údaje Googlu ani jiným službám. Výjimkou je našeptávač adres: když ve formuláři začnete psát adresu, napsaný text se přes náš server pošle službě Mapy.com (Seznam.cz), aby vám mohla nabídnout odpovídající adresy. Vaše IP adresa ani jiné údaje se jí nepředávají. Proto se vás web na souhlas s cookies neptá."
         },
         {
           "type": "heading",
