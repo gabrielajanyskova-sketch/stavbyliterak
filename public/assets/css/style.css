@@ -917,6 +917,11 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 .booking-price dd { margin: 2px 0 0; font-family: var(--font-display); font-size: 1.9rem; font-weight: 700; color: var(--amber); }
 .booking-price .hint { margin: 10px 0 0; font-family: var(--font-body); font-size: 0.85rem; letter-spacing: 0; text-transform: none; color: #b4bbc1; }
 .booking-price[hidden] { display: none; }
+.booking-warn { padding: 14px 16px; border-left: 3px solid var(--amber); background: rgb(243 154 30 / 0.1); }
+.booking-warn[hidden] { display: none; }
+.booking-warn ul { margin: 6px 0 8px; padding-left: 1.1em; }
+.booking-warn li { margin-bottom: 4px; font-size: 0.92rem; }
+.booking-warn p { margin: 0 0 8px; font-size: 0.85rem; color: #c6ccd1; }
 @media (max-width: 560px) { .seg { grid-template-columns: 1fr; } }
 
 .booking-bar {

@@ -201,8 +201,21 @@
       }, 250);
     };
 
+    // upozornění k vybraným ohřevným a nápojovým zařízením — bez potvrzení nejde poptávku odeslat
+    const warnBox = booking.querySelector("[data-warn-box]");
+    const warns = new Map([...document.querySelectorAll(".catalog li[data-warn]")].map((li) => [li.dataset.item, li.dataset.warn]));
+    const pickedWarns = () => picked().filter(([name]) => warns.has(name));
+
     const renderList = () => {
       const rows = picked();
+      const w = pickedWarns();
+      warnBox.querySelector("[data-warn-list]").replaceChildren(...w.map(([name]) => {
+        const li = document.createElement("li");
+        li.append(Object.assign(document.createElement("strong"), { textContent: `${name}: ` }), warns.get(name));
+        return li;
+      }));
+      warnBox.hidden = !w.length;
+      booking.souhlas.required = w.length > 0;
       list.replaceChildren(...rows.map(([name, n]) => Object.assign(document.createElement("li"), { textContent: `${name} — ${n}×` })));
       empty.hidden = rows.length > 0;
       const total = rows.reduce((sum, [, n]) => sum + n, 0);
@@ -282,6 +295,7 @@
         `Termín: ${term.text}`,
         `Dovoz a sestavení: ${d.get("dovoz") ? "ano" : "ne"}`,
         ...price,
+        pickedWarns().length ? "Podmínky použití ohřevných a nápojových zařízení: potvrzeno" : "",
         d.get("poznamka") ? `\nPoznámka: ${d.get("poznamka")}` : "",
       ].join("\n").trim();
       button.disabled = true;

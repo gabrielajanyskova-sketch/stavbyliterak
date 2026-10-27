@@ -369,7 +369,7 @@ const BLOCKS = {
   faq: (b) => list('div', 'faq', items(b).map((i) => `<details><summary>${esc(i.title)}</summary>${paragraphs(i.text)}</details>`)),
   catalog: (b) =>
     list('ul', 'catalog', items(b).map((i) =>
-      `<li data-item="${esc(i.title)}">${i.photo
+      `<li data-item="${esc(i.title)}"${i.warn ? ` data-warn="${esc(plain(i.warn))}"` : ''}>${i.photo
         ? `<a class="catalog-photo" href="${esc(safeUrl(i.photo))}" data-lightbox><img src="${esc(thumb(i.photo))}" alt="${esc(i.title)}" loading="lazy" decoding="async"></a>`
         : '<span class="catalog-photo" aria-hidden="true"></span>'}<h3>${esc(i.title)}</h3><div><p>${inline(i.text)}</p>${i.spec ? `<p class="spec">${esc(i.spec)}</p>` : ''}${i.warn ? `<p class="warn">${inline(i.warn)}</p>` : ''}</div><div class="catalog-side">${
         i.count ? `<span class="count">K zapůjčení: ${esc(i.count)}</span>` : ''}${pick(i)}</div></li>`)),
@@ -552,6 +552,12 @@ function booking(site, p) {
 </div>
 <div><label for="b-misto">Místo akce (obec)</label><input id="b-misto" name="misto" autocomplete="address-level2"></div>
 <div><label for="b-pozn">Poznámka</label><textarea id="b-pozn" name="poznamka" placeholder="Např. počet hostů nebo čas vyzvednutí."></textarea></div>
+<div class="booking-warn" data-warn-box hidden>
+<span class="label">Upozornění k vybranému vybavení</span>
+<ul data-warn-list></ul>
+<p>Při porušení můžeme požadovat náhradu vzniklé škody a nákladů na vyčištění nebo uvedení zařízení do původního stavu.</p>
+<label class="check"><input type="checkbox" name="souhlas"> Beru na vědomí podmínky použití</label>
+</div>
 <div hidden><label for="b-web">Nevyplňujte</label><input id="b-web" name="web" tabindex="-1" autocomplete="off"></div>
 <div><button class="btn" type="submit">Odeslat poptávku</button></div>
 <p class="note" data-status role="status">Jde o nezávaznou poptávku. Dostupnost a cenu vám potvrdíme telefonicky nebo e-mailem.</p>

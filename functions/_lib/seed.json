@@ -1280,7 +1280,7 @@
               "spec": "Objem 20 l",
               "count": "1 ks",
               "photo": "/assets/img/foto/gastro-termos-elektricky.webp",
-              "warn": "**Pouze na nápoje, nikdy na jídlo** (polévky, omáčky, guláš apod.). Při porušení bude účtována smluvní pokuta. Slouží jen k ohřevu, ne k vaření."
+              "warn": "**Výhradně pro nápoje, zákaz použití pro potraviny.** Slouží jen k udržování teploty hotových nápojů, ne k jejich vaření."
             },
             {
               "title": "Nerezová várnice s kohoutem",
@@ -1288,7 +1288,7 @@
               "spec": "",
               "count": "1 ks",
               "photo": "/assets/img/foto/gastro-varnice-nerez.webp",
-              "warn": "**Pouze na nápoje, nikdy na jídlo** (polévky, omáčky, guláš apod.). Při porušení bude účtována smluvní pokuta."
+              "warn": "**Výhradně pro nápoje, zákaz použití pro potraviny.**"
             },
             {
               "title": "Termobox",
@@ -1326,7 +1326,7 @@
               "spec": "Objem 10 l",
               "count": "2 ks",
               "photo": "/assets/img/foto/gastro-kotlik-elektricky.webp",
-              "warn": "Slouží pouze k ohřevu hotových jídel, ne k vaření potravin."
+              "warn": "**Pouze k ohřevu.** Slouží výhradně k udržování teploty již připravených pokrmů, ne k vaření."
             },
             {
               "title": "Chafing — elektrická ohřevná vana",
@@ -1334,7 +1334,7 @@
               "spec": "Objem 8,5 l · včetně GN 1/1 a víka",
               "count": "2 ks",
               "photo": "/assets/img/foto/gastro-chafing.webp",
-              "warn": "Slouží pouze k ohřevu hotových jídel, ne k vaření potravin."
+              "warn": "**Pouze k ohřevu.** Slouží výhradně k udržování teploty již připravených pokrmů, ne k vaření."
             },
             {
               "title": "Hotdogovač se 2 trny",
@@ -1402,6 +1402,10 @@
           ]
         },
         {
+          "type": "text",
+          "text": "**Ohřevná zařízení** (elektrický kotlík, chafing, termos) jsou určena výhradně k udržování teploty již připravených pokrmů a nápojů, nejsou určena k vaření ani k tepelné přípravě potravin či nápojů. **Termos a várnice jsou výhradně pro nápoje**, použití k uchovávání, ohřevu či výdeji potravin je zakázáno. Při porušení můžeme požadovat náhradu vzniklé škody a nákladů na vyčištění nebo uvedení zařízení do původního stavu."
+        },
+        {
           "type": "heading",
           "text": "Časté otázky"
         },
@@ -1426,7 +1430,7 @@
             },
             {
               "title": "Můžu v termosu nebo ve várnici ohřívat polévku?",
-              "text": "Ne. Termos i várnice jsou pouze na nápoje a použití na jídlo je zakázané, při porušení bude účtována smluvní pokuta. Na polévku, omáčku nebo guláš si půjčte elektrický kotlík nebo ohřevnou vanu. Obojí ohřívá ve vodní lázni a slouží jen k ohřevu hotového jídla, ne k vaření."
+              "text": "Ne. Termos i várnice jsou výhradně pro nápoje, použití pro potraviny je zakázané. Na polévku, omáčku nebo guláš si půjčte elektrický kotlík nebo ohřevnou vanu. Obojí ohřívá ve vodní lázni a slouží jen k udržování teploty hotového jídla, ne k vaření."
             },
             {
               "title": "Kolik lidí reproduktor ozvučí?",
