@@ -367,6 +367,7 @@
         list.append(li);
       });
       list.hidden = !items.length;
+      list.style.top = `${input.offsetTop + input.offsetHeight}px`; // vždy pod polem, ať adresu nezakryje
       input.setAttribute("aria-expanded", String(!!items.length));
       if (active >= 0) input.setAttribute("aria-activedescendant", `${list.id}-${active}`);
       else input.removeAttribute("aria-activedescendant");
@@ -391,6 +392,10 @@
           items = data.items || [];
           active = -1;
           render();
+          // seznam by na mobilu skončil pod klávesnicí → posunout stránku, pole zůstane pod hlavičkou
+          const vh = window.visualViewport?.height || innerHeight;
+          const over = list.getBoundingClientRect().bottom - vh + 12;
+          if (items.length && over > 0) scrollBy({ top: Math.min(over, input.getBoundingClientRect().top - 90) });
         } catch { close(); }
       }, 250);
     });

@@ -1124,6 +1124,6 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 
 /* Našeptávač adres */
 .has-suggest { position: relative; }
-.suggest { position: absolute; left: 0; right: 0; z-index: 20; margin: 2px 0 0; padding: 4px 0; list-style: none; background: var(--paper); border: 1px solid var(--line); border-top: 2px solid var(--amber); box-shadow: 0 12px 28px rgb(0 0 0 / 0.35); text-transform: none; letter-spacing: 0; font-family: var(--font-body); font-size: 1rem; }
-.suggest li { padding: 10px 12px; cursor: pointer; color: var(--ink); }
+.has-suggest .suggest, .prose .has-suggest .suggest { position: absolute; left: 0; right: 0; z-index: 20; margin: 2px 0 0; padding: 4px 0; list-style: none; background: var(--paper); border: 1px solid var(--line); border-top: 2px solid var(--amber); box-shadow: 0 12px 28px rgb(0 0 0 / 0.35); text-transform: none; letter-spacing: 0; font-family: var(--font-body); font-size: 1rem; }
+.has-suggest .suggest li { margin: 0; padding: 10px 12px; cursor: pointer; color: var(--ink); }
 .suggest li[aria-selected="true"], .suggest li:hover { background: rgb(243 154 30 / 0.16); }
