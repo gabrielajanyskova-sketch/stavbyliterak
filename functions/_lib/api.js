@@ -21,9 +21,11 @@ function mailConfigured(env) {
   return !!(env.RESEND_API_KEY && env.MAIL_FROM && env.NOTIFY_EMAIL);
 }
 
-async function sendMail(env, { subject, html, replyTo = null, to = env.NOTIFY_EMAIL }) {
+async function sendMail(env, { subject, html, text = null, replyTo = null, attachments = null, to = env.NOTIFY_EMAIL }) {
   const payload = { from: env.MAIL_FROM, to: [to], subject, html };
+  if (text) payload.text = text;
   if (replyTo) payload.reply_to = replyTo;
+  if (attachments) payload.attachments = attachments;
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
@@ -57,6 +59,88 @@ async function overLimit(env, key, limit, windowMs) {
   return false;
 }
 
+// Text poptávky z formulářů je po řádcích: „Nadpis:“ začíná oddíl, „- klíč: hodnota“
+// nebo krátké „Klíč: hodnota“ je řádek tabulky, cokoli jiného je volný text.
+function messageSections(text) {
+  const sections = [];
+  let current = { title: '', rows: [] };
+  const flush = () => {
+    if (current.title || current.rows.length) sections.push(current);
+    current = { title: '', rows: [] };
+  };
+  for (const raw of text.split('\n')) {
+    const line = raw.trim();
+    if (!line) continue;
+    const item = line.startsWith('-');
+    if (!item && line.endsWith(':') && line.length < 80) {
+      flush();
+      current.title = line.slice(0, -1);
+      continue;
+    }
+    const body = line.replace(/^-\s*/, '');
+    const pair = /^([^:]{1,60}):\s+(.+)$/.exec(body);
+    const last = current.rows[current.rows.length - 1];
+    if (pair && (item || (pair[1].length <= 25 && !/[,.]/.test(pair[1])))) current.rows.push([pair[1], pair[2]]);
+    else if (last && !last[0] && !item) last[1] += '\n' + body;
+    else current.rows.push(['', body]);
+  }
+  flush();
+  return sections;
+}
+
+const MAIL_FONT = "font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
+const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+
+function mailRow(label, value) {
+  if (!label) return `<tr><td colspan="2" style="padding:7px 0;border-bottom:1px solid #e6e8eb;color:#1d2125;white-space:pre-wrap">${value}</td></tr>`;
+  return `<tr><td valign="top" style="padding:7px 16px 7px 0;border-bottom:1px solid #e6e8eb;color:#6b737b;width:130px">${esc(cap(label))}</td><td valign="top" style="padding:7px 0;border-bottom:1px solid #e6e8eb;color:#1d2125;font-weight:600">${value}</td></tr>`;
+}
+
+function inquiryHtml(q, withImage) {
+  const contact = [
+    ['Jméno', esc(q.name)],
+    ['Telefon', `<a href="tel:${esc(q.phone.replace(/\s+/g, ''))}" style="color:#1d2125">${esc(q.phone)}</a>`],
+    q.email ? ['E-mail', `<a href="mailto:${esc(q.email)}" style="color:#1d2125">${esc(q.email)}</a>`] : null,
+    q.place ? ['Místo', esc(q.place)] : null,
+  ].filter(Boolean);
+  const heading = (t) => `<p style="margin:26px 0 6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#b86e0c;font-weight:700">${esc(t)}</p>`;
+  const table = (rows) => `<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;font-size:15px;line-height:1.45">${rows.join('')}</table>`;
+  const sections = messageSections(q.message)
+    .filter((s) => !/^-?\s*e-mail$/i.test(s.title))
+    .map((s) => {
+      const rows = s.rows.filter(([k]) => !/^e-mail$/i.test(k)).map(([k, v]) => mailRow(k, esc(v)));
+      return (s.title ? heading(s.title) : heading('Zpráva')) + (rows.length ? table(rows) : '');
+    })
+    .join('');
+  const image = withImage
+    ? heading('Nákres') +
+      `<img src="cid:nakres" alt="Půdorys domu a náhled lešení" width="560" style="display:block;width:100%;max-width:560px;height:auto;border:0;border-radius:6px">` +
+      `<p style="margin:6px 0 0;font-size:13px;color:#6b737b">Půdorys se stěnami a orientační náhled lešení, jak ho zákazník naklikal.</p>`
+    : '';
+  const button = (href, label, primary) =>
+    `<a href="${href}" style="display:inline-block;margin:0 8px 8px 0;padding:11px 18px;border-radius:4px;text-decoration:none;font-weight:700;font-size:15px;${primary ? 'background:#f39a1e;color:#15181c' : 'background:#eef0f2;color:#1d2125'}">${label}</a>`;
+  return `<!doctype html><html lang="cs"><body style="margin:0;padding:0;background:#eef0f2">
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#eef0f2;${MAIL_FONT}"><tr><td align="center" style="padding:24px 12px">
+<table role="presentation" width="600" cellspacing="0" cellpadding="0" style="width:100%;max-width:600px;background:#ffffff;border-radius:8px;overflow:hidden">
+<tr><td style="background:#15181c;padding:22px 28px;border-bottom:4px solid #f39a1e">
+<p style="margin:0;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#f39a1e;font-weight:700">Nová poptávka z webu</p>
+<p style="margin:6px 0 0;font-size:22px;line-height:1.25;color:#ffffff;font-weight:700">${esc(q.service || 'Poptávka')}</p>
+</td></tr>
+<tr><td style="padding:8px 28px 28px">
+${heading('Zákazník')}${table(contact.map(([k, v]) => mailRow(k, v)))}
+<p style="margin:18px 0 0">${button(`tel:${esc(q.phone.replace(/\s+/g, ''))}`, 'Zavolat zákazníkovi', true)}${q.email ? button(`mailto:${esc(q.email)}`, 'Odpovědět e-mailem', false) : ''}</p>
+${sections}${image}
+</td></tr>
+<tr><td style="padding:16px 28px;background:#f6f7f8;font-size:12px;color:#6b737b">Odesláno z formuláře na webu stavbyliterak.cz.${q.email ? ' Odpověď na tento e-mail půjde přímo zákazníkovi.' : ''}</td></tr>
+</table></td></tr></table></body></html>`;
+}
+
+function inquiryText(q) {
+  return [`Služba: ${q.service}`, `Jméno: ${q.name}`, `Telefon: ${q.phone}`, q.email ? `E-mail: ${q.email}` : '', q.place ? `Místo: ${q.place}` : '', '', q.message]
+    .filter((l, i) => l || i === 5)
+    .join('\n');
+}
+
 async function submitContact(request, env) {
   const b = await body(request);
   const field = (k, max = 200) => String(b[k] || '').trim().slice(0, max);
@@ -68,20 +152,25 @@ async function submitContact(request, env) {
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
   if (env.DB && (await overLimit(env, 'contact:' + ip, CONTACT_LIMIT, CONTACT_WINDOW_MS))) return json({ error: 'too_many_requests' }, 429);
 
-  const rows = [
-    ['Služba', field('sluzba')],
-    ['Jméno', name],
-    ['Telefon', phone],
-    ['Místo', field('misto')],
-  ]
-    .map(([k, v]) => `<tr><td style="padding:4px 12px 4px 0;color:#5b636c">${k}</td><td style="padding:4px 0"><strong>${esc(v)}</strong></td></tr>`)
-    .join('');
+  const email = field('email', 120);
+  const inquiry = {
+    service: field('sluzba'),
+    name,
+    phone,
+    place: field('misto'),
+    email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : '',
+    message: field('zprava', 5000),
+  };
+  // nákres z konfigurátoru lešení (JPEG/PNG z prohlížeče) jde do e-mailu jako vložený obrázek
+  const drawing = /^data:image\/(jpeg|png);base64,([A-Za-z0-9+/=]+)$/.exec(String(b.nakres || ''));
+  const image = drawing && drawing[2].length < 1_500_000 ? { type: drawing[1], data: drawing[2] } : null;
   try {
-    const email = field('email', 120);
     await sendMail(env, {
-      replyTo: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : null, // „Odpovědět“ půjde rovnou zákazníkovi
-      subject: `Poptávka z webu — ${field('sluzba')} — ${name}`,
-      html: `<table style="font-family:sans-serif;font-size:15px">${rows}</table><p style="font-family:sans-serif;font-size:15px;white-space:pre-wrap">${esc(field('zprava', 5000))}</p>`,
+      replyTo: inquiry.email || null, // „Odpovědět“ půjde rovnou zákazníkovi
+      subject: `Poptávka z webu — ${inquiry.service} — ${name}`,
+      html: inquiryHtml(inquiry, !!image),
+      text: inquiryText(inquiry),
+      attachments: image ? [{ filename: `nakres.${image.type === 'png' ? 'png' : 'jpg'}`, content: image.data, content_id: 'nakres' }] : null,
     });
   } catch (err) {
     console.error('contact mail failed', err);

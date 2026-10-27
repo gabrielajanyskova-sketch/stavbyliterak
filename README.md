@@ -76,7 +76,9 @@ Zapnuté. Účet Resend je pana Literáka, doména `stavbyliterak.cz` je v něm 
 - DNS pro Resend: TXT `resend._domainkey`, CNAME `send` a `rsend`, TXT `_dmarc`,
   TXT `resend-domain-verification` na hlavní doméně. Pošta na info@ jde přes Seznam
   Email Profi (2× MX). Při převodu domény se všechny tyto záznamy musí přenést.
-- Když zákazník vyplní e-mail (konfigurátor lešení), poptávka má reply-to na něj.
+- Poptávka chodí jako přehledný HTML e-mail (zákazník, tlačítko Zavolat, rozpis). Z konfigurátoru lešení
+  přijde navíc nákres (půdorys + 3D náhled) jako vložený obrázek. Když zákazník vyplní e-mail,
+  poptávka má reply-to na něj.
 
 Bez klíče (nebo při chybě) formulář otevře návštěvníkovi e-mailový program s vyplněnou zprávou.
 

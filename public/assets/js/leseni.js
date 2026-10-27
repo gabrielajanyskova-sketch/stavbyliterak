@@ -309,6 +309,84 @@
     svg.setAttribute("viewBox", `${box.x + box.width / 2 - w / 2} ${box.y + box.height / 2 - h / 2} ${w} ${h}`);
   }
 
+  // ---------- nákres do e-mailu ----------
+
+  // Půdorys se stěnami vlevo, 3D náhled vpravo, jako JPEG (data URL) pro poptávku.
+  // Když prohlížeč obrázek nevyrobí, poptávka odejde i bez něj.
+  async function drawing() {
+    try {
+      const walls = current.walls;
+      if (!walls) return "";
+      const css = getComputedStyle(root);
+      const color = (v) => css.getPropertyValue(v).trim();
+      const P = 24, PLAN = 480, VIEW_W = 640, H = 480;
+      const canvas = document.createElement("canvas");
+      canvas.width = P * 3 + PLAN + VIEW_W;
+      canvas.height = P * 2 + H;
+      const c = canvas.getContext("2d");
+      c.fillStyle = color("--paper") || "#15181c";
+      c.fillRect(0, 0, canvas.width, canvas.height);
+
+      // půdorys: políčka, stěny, písmena a délky
+      const xs = walls.flatMap((w) => [w.x1, w.x2]), ys = walls.flatMap((w) => [w.y1, w.y2]);
+      const x0 = Math.min(...xs), y0 = Math.min(...ys), span = Math.max(Math.max(...xs) - x0, Math.max(...ys) - y0, 1);
+      const s = (PLAN - 170) / span;
+      const ox = P + (PLAN - (Math.max(...xs) - x0) * s) / 2, oy = P + (H - (Math.max(...ys) - y0) * s) / 2;
+      const X = (x) => ox + (x - x0) * s, Y = (y) => oy + (y - y0) * s;
+      c.fillStyle = "rgba(243,154,30,0.28)";
+      c.strokeStyle = color("--line") || "#353d45";
+      c.lineWidth = 1;
+      for (const k of state.cells) {
+        const [x, y] = k.split(",").map(Number);
+        c.fillRect(X(x), Y(y), s, s);
+        c.strokeRect(X(x) + 0.5, Y(y) + 0.5, s, s);
+      }
+      c.lineCap = "round";
+      c.font = `700 24px ${color("--font-mono") || "monospace"}`;
+      c.textAlign = "center";
+      c.textBaseline = "middle";
+      walls.forEach((w, i) => {
+        const off = state.off.has(wallKey(w));
+        c.strokeStyle = off ? color("--muted") || "#8a929a" : color("--amber") || "#f39a1e";
+        c.lineWidth = 5;
+        c.setLineDash(off ? [8, 8] : []);
+        c.beginPath();
+        c.moveTo(X(w.x1), Y(w.y1));
+        c.lineTo(X(w.x2), Y(w.y2));
+        c.stroke();
+        const [nx, ny] = [w.y2 - w.y1, w.x1 - w.x2].map(Math.sign);
+        const vertical = w.x1 === w.x2;
+        const tx = X((w.x1 + w.x2) / 2) + nx * (vertical ? 14 : 0), ty = Y((w.y1 + w.y2) / 2) + ny * 24;
+        c.textAlign = !vertical ? "center" : nx > 0 ? "left" : "right";
+        c.fillStyle = color("--ink") || "#fff";
+        c.fillText(`${letter(i)} ${fmt(wallLength(w))} m`, tx, ty);
+      });
+      c.setLineDash([]);
+
+      // 3D náhled: SVG s dopočítanými styly → obrázek
+      const svg = root.querySelector(".sc-3d");
+      const clone = svg.cloneNode(true);
+      const props = ["fill", "stroke", "stroke-width", "stroke-linecap", "stroke-linejoin", "stroke-dasharray", "opacity"];
+      const from = svg.querySelectorAll("*"), to = clone.querySelectorAll("*");
+      from.forEach((el, i) => {
+        const st = getComputedStyle(el);
+        to[i].setAttribute("style", props.map((p) => `${p}:${st.getPropertyValue(p)}`).join(";"));
+      });
+      clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+      clone.setAttribute("width", VIEW_W);
+      clone.setAttribute("height", H);
+      const img = new Image();
+      img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(new XMLSerializer().serializeToString(clone));
+      await img.decode();
+      c.fillStyle = getComputedStyle(svg).backgroundColor;
+      c.fillRect(P * 2 + PLAN, P, VIEW_W, H);
+      c.drawImage(img, P * 2 + PLAN, P, VIEW_W, H);
+      return canvas.toDataURL("image/jpeg", 0.85);
+    } catch {
+      return "";
+    }
+  }
+
   // ---------- rozhraní ----------
 
   const fmt = (n) => n.toLocaleString("cs-CZ", { maximumFractionDigits: 1 });
@@ -592,7 +670,10 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
     const { t, tm } = summary();
     const lines = [
       "Konfigurátor lešení (orientační výpočet):",
-      `- plocha lešení: ≈ ${fmt(t.area)} m² = ${t.panels} polí 3 × 2 m (${t.fields} na délku × ${t.levels} na výšku) + zábradlí ${RAIL_M} m nahoře; délka ${fmt(t.length)} m, výška ${fmt(t.height)} m`,
+      `- plocha lešení: ≈ ${fmt(t.area)} m²`,
+      `- pole 3 × 2 m: ${t.panels} (${t.fields} na délku × ${t.levels} na výšku)`,
+      `- délka lešení: ${fmt(t.length)} m`,
+      `- výška lešení: ${fmt(t.height)} m (${t.levels} ${t.levels < 5 ? "úrovně" : "úrovní"} po ${LEVEL_M} m + zábradlí ${RAIL_M} m)`,
       `- stěny: ${current.walls.map((w, i) => `${letter(i)} ${fmt(wallLength(w))} m${state.off.has(wallKey(w)) ? " (bez lešení)" : ""}`).join(", ")}`,
       `- dům: ${state.floors === 1 ? "přízemní" : `${state.floors} podlaží`}, výška k okapu ${fmt(state.height)} m, střecha ${ROOFS[state.roof].toLowerCase()}${state.overRoof ? ", práce i u střechy" : ""}`,
       `- montáž: ${SERVICES[state.service][0].toLowerCase()}`,
@@ -606,7 +687,7 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
     const button = $("[data-next]");
     button.disabled = true;
     const ok = await window.sendInquiry(
-      { sluzba: "Půjčovna lešení", jmeno: field("jmeno").value.trim(), telefon: field("telefon").value.trim(), misto: field("misto").value.trim(), email: field("email").value.trim(), zprava: lines, web: field("web").value },
+      { sluzba: "Půjčovna lešení", jmeno: field("jmeno").value.trim(), telefon: field("telefon").value.trim(), misto: field("misto").value.trim(), email: field("email").value.trim(), zprava: lines, nakres: await drawing(), web: field("web").value },
       root.dataset.to,
       status,
     );
