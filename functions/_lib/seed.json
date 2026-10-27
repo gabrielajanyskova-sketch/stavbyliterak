@@ -908,7 +908,7 @@
       "nav_label": "Lešení",
       "in_chooser": true,
       "chooser_title": "Půjčovna lešení",
-      "chooser_hint": "Rámové lešení na rodinné domy. Dovezeme ho až na místo.",
+      "chooser_hint": "Rámové lešení na rodinné domy. Dovezeme, postavíme i rozebereme.",
       "meta_title": "Půjčovna lešení Frýdek-Místek i s dopravou | Stavby Literák",
       "meta_description": "Pronájem pozinkovaného rámového lešení s českým certifikátem pro rodinné domy a menší stavby. Doprava na stavbu, stavební stojky. Frýdek-Místek a okolí.",
       "crumb": "Půjčovna lešení",
@@ -930,7 +930,7 @@
         },
         {
           "label": "Navíc",
-          "value": "Stavební stojky"
+          "value": "Montáž a demontáž, stavební stojky"
         }
       ],
       "photo": "/assets/img/foto/leseni-doprava-dodavkou.webp",
@@ -970,6 +970,10 @@
             {
               "title": "Doprava",
               "text": "až na stavbu"
+            },
+            {
+              "title": "Montáž a demontáž",
+              "text": "postavíme i rozebereme"
             },
             {
               "title": "Řešení na míru",
@@ -1042,8 +1046,8 @@
               "text": "Především na rodinné domy, rekonstrukce a menší stavební projekty. Využít ho lze například při opravách a zateplování fasády, omítání, nátěrech, pracích u střech nebo dalších činnostech kolem objektu."
             },
             {
-              "title": "Mohu si lešení pouze půjčit, nebo zajišťujete i dopravu?",
-              "text": "Lešení je možné pronajmout a podle dohody zajistíme také jeho dopravu na místo stavby."
+              "title": "Mohu si lešení pouze půjčit, nebo zajišťujete i dopravu a montáž?",
+              "text": "Obojí. Lešení si můžete jen pronajmout, nebo podle dohody zajistíme i jeho dopravu na místo stavby, montáž a po skončení prací demontáž."
             },
             {
               "title": "Je možné zapůjčit i stavební stojky?",
