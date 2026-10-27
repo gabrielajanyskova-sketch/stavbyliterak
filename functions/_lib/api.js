@@ -265,7 +265,7 @@ const ITEM_FIELDS = {
   steps: ['title', 'text'],
   grid: ['title', 'text'],
   faq: ['title', 'text'],
-  catalog: ['title', 'text', 'spec', 'count', 'photo', 'price_weekend', 'price_day', 'deposit'],
+  catalog: ['title', 'text', 'spec', 'warn', 'count', 'photo', 'price_weekend', 'price_day', 'deposit'],
   gallery: ['src', 'caption'],
   table: ['title', 'text'],
 };

@@ -76,7 +76,7 @@ const BLOCK_TYPES = {
   faq: { label: "Časté otázky", fields: [["title", "Otázka"], ["text", "Odpověď", "area"]], add: "+ otázka" },
   catalog: {
     label: "Katalog (půjčovna)",
-    fields: [["title", "Název"], ["text", "Popis", "area"], ["spec", "Parametry (rozměry, objem…)"], ["count", "Počet kusů (např. 2 ks)"], ["photo", "Fotka (nepovinné)", "photo"],
+    fields: [["title", "Název"], ["text", "Popis", "area"], ["spec", "Parametry (rozměry, objem…)"], ["warn", "Upozornění (na webu zvýrazněné, nepovinné)"], ["count", "Počet kusů (např. 2 ks)"], ["photo", "Fotka (nepovinné)", "photo"],
       ["price_weekend", "Cena za víkend za 1 ks (Kč) — na webu se nezobrazuje"], ["price_day", "Cena za 1 den za 1 ks (Kč) — na webu se nezobrazuje"], ["deposit", "Záloha za 1 ks (Kč) — na webu se nezobrazuje"]],
     add: "+ položka",
   },
