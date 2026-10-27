@@ -56,6 +56,23 @@ function thumb(src) {
 }
 const isPdf = (src) => /\.pdf$/i.test(src);
 
+// Náhled fotky jako <img>; u fotek z repozitáře (foto/sm/*.webp) navíc menší AVIF verze,
+// kterou si prohlížeč vezme, když ji umí (všechny současné). Fotky nahrané v adminu jsou jen WebP.
+const avifOf = (src) => (/^\/assets\/img\/foto\/sm\/[^/]+\.webp$/.test(src) ? src.replace(/\.webp$/, '.avif') : null);
+function pictureTag(src, attrs) {
+  const t = thumb(src);
+  const img = `<img src="${esc(t)}" ${attrs}>`;
+  const avif = avifOf(t);
+  return avif ? `<picture><source type="image/avif" srcset="${esc(avif)}">${img}</picture>` : img;
+}
+function preloadPhoto(src) {
+  const t = thumb(src);
+  const avif = avifOf(t);
+  return avif
+    ? `<link rel="preload" href="${esc(avif)}" as="image" type="image/avif" fetchpriority="high">\n`
+    : `<link rel="preload" href="${esc(t)}" as="image" fetchpriority="high">\n`;
+}
+
 // Ceny půjčovny (víkend, jeden den, záloha) se zadávají v adminu u položek katalogu.
 // Na stránce se nikdy nevypisují — celkovou cenu spočítá server (/api/gastro-quote).
 export const catalogItems = (p) => (p.blocks || []).filter((b) => b.type === 'catalog').flatMap((b) => b.items || []);
@@ -373,7 +390,7 @@ const BLOCKS = {
   catalog: (b) =>
     list('ul', 'catalog', items(b).map((i) =>
       `<li data-item="${esc(i.title)}"${i.warn ? ` data-warn="${esc(plain(i.warn))}"` : ''}>${i.photo
-        ? `<a class="catalog-photo" href="${esc(safeUrl(i.photo))}" data-lightbox><img src="${esc(thumb(i.photo))}" alt="${esc(i.title)}" loading="lazy" decoding="async"></a>`
+        ? `<a class="catalog-photo" href="${esc(safeUrl(i.photo))}" data-lightbox>${pictureTag(i.photo, `alt="${esc(i.title)}" loading="lazy" decoding="async"`)}</a>`
         : '<span class="catalog-photo" aria-hidden="true"></span>'}<h3>${esc(i.title)}</h3><div><p>${inline(i.text)}</p>${i.spec ? `<p class="spec">${esc(i.spec)}</p>` : ''}${i.warn ? `<p class="warn">${inline(i.warn)}</p>` : ''}</div><div class="catalog-side">${
         i.count ? `<span class="count">K zapůjčení: ${esc(i.count)}</span>` : ''}${pick(i)}</div></li>`)),
   // řádek bez hodnoty = nadpis skupiny
@@ -390,11 +407,11 @@ const BLOCKS = {
     list(`div`, `gallery${b.fit === 'contain' ? ' is-contain' : ''}`, items(b).filter((i) => i.src).map((i) =>
       isPdf(i.src)
         ? `<a class="gallery-item is-doc" href="${esc(safeUrl(i.src))}" target="_blank" rel="noopener"><span class="doc" aria-hidden="true">PDF</span><span class="caption">${esc(i.caption || 'Dokument')}</span></a>`
-        : `<a class="gallery-item" href="${esc(safeUrl(i.src))}" data-lightbox><img src="${esc(thumb(i.src))}" alt="${esc(i.caption)}" loading="lazy" decoding="async">${
+        : `<a class="gallery-item" href="${esc(safeUrl(i.src))}" data-lightbox>${pictureTag(i.src, `alt="${esc(i.caption)}" loading="lazy" decoding="async"`)}${
             i.caption ? `<span class="caption">${esc(i.caption)}</span>` : ''}</a>`)),
   image: (b) =>
     b.src
-      ? `<figure class="content-photo"><img src="${esc(thumb(b.src))}" alt="${esc(b.caption)}" loading="lazy" decoding="async">${
+      ? `<figure class="content-photo">${pictureTag(b.src, `alt="${esc(b.caption)}" loading="lazy" decoding="async"`)}${
           b.caption ? `<figcaption class="label">${esc(b.caption)}</figcaption>` : ''}</figure>`
       : '',
 };
@@ -410,7 +427,7 @@ function pageHero(p) {
     : '';
   const thermal = p.theme === 'thermal';
   const photo = p.photo
-    ? `<figure class="hero-photo"><img src="${esc(thumb(p.photo))}" alt="${esc(p.photo_caption || p.title)}" fetchpriority="high">${
+    ? `<figure class="hero-photo">${pictureTag(p.photo, `alt="${esc(p.photo_caption || p.title)}" fetchpriority="high"`)}${
         p.photo_caption ? `<figcaption class="label">${esc(p.photo_caption)}</figcaption>` : ''}</figure>`
     : '';
   return `<section class="page-hero${thermal ? ' thermal' : ''}">
@@ -490,7 +507,7 @@ function showcase(pages) {
 <div class="wrap">
 <div class="section-head is-stacked reveal"><span class="label">Z našich zakázek</span><h2>Práce, za kterou si stojíme</h2></div>
 <div class="showcase-grid reveal">
-${tiles.map(({ p, src }) => `<a class="showcase-item" href="${pageUrl(p.slug)}"><img src="${esc(thumb(src))}" alt="${esc(p.chooser_title || p.title)}" loading="lazy" decoding="async"><span>${esc(p.chooser_title || p.title)} <i aria-hidden="true">→</i></span></a>`).join('\n')}
+${tiles.map(({ p, src }) => `<a class="showcase-item" href="${pageUrl(p.slug)}">${pictureTag(src, `alt="${esc(p.chooser_title || p.title)}" loading="lazy" decoding="async"`)}<span>${esc(p.chooser_title || p.title)} <i aria-hidden="true">→</i></span></a>`).join('\n')}
 </div>
 </div>
 </section>`;
@@ -581,7 +598,7 @@ export function renderPage(ctx, p) {
       path,
       image: p.photo,
       schema: pageSchema(ctx, p),
-      preload: p.photo ? `<link rel="preload" href="${esc(thumb(p.photo))}" as="image" fetchpriority="high">\n` : '',
+      preload: p.photo ? preloadPhoto(p.photo) : '',
     }) +
     header(ctx, p.slug) +
     pageHero(p) +
@@ -624,12 +641,12 @@ export function renderHome(ctx) {
       description,
       path: '/',
       schema,
-      preload: h.hero_photo ? `<link rel="preload" href="${esc(thumb(h.hero_photo))}" as="image" fetchpriority="high">\n` : '',
+      preload: h.hero_photo ? preloadPhoto(h.hero_photo) : '',
     }) +
     header(ctx, '') +
     `<section class="hero">
 <div class="hero-panel">
-${h.hero_photo ? `<img class="hero-bg" src="${esc(thumb(h.hero_photo))}" alt="${esc(h.hero_photo_alt)}" fetchpriority="high">\n` : ''}<h1>${esc(h.hero_title)} <span>${esc(h.hero_accent)}</span></h1>
+${h.hero_photo ? `${pictureTag(h.hero_photo, `class="hero-bg" alt="${esc(h.hero_photo_alt)}" fetchpriority="high"`)}\n` : ''}<h1>${esc(h.hero_title)} <span>${esc(h.hero_accent)}</span></h1>
 <p class="hero-meta">${String(h.hero_meta || '').split(' · ').map(esc).join(' <i aria-hidden="true">·</i> ')}</p>
 ${RIDGE}
 </div>
@@ -663,7 +680,7 @@ ${promo ? `<section class="section promo">
 ${paragraphs(h.promo_text)}
 <a class="btn" href="${pageUrl(promo.slug)}">${esc(h.promo_button || 'Více')}</a>
 </div>
-${h.promo_photo ? `<img src="${esc(thumb(h.promo_photo))}" alt="${esc(h.promo_photo_alt || h.promo_title)}" loading="lazy" decoding="async">` : ''}
+${h.promo_photo ? `${pictureTag(h.promo_photo, `alt="${esc(h.promo_photo_alt || h.promo_title)}" loading="lazy" decoding="async"`)}` : ''}
 </div>
 </div>
 </section>` : ''}` +

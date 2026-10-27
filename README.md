@@ -153,6 +153,7 @@ Pozdější změny se dělají v administraci, ne v tomto souboru.
   (certifikáty).
 - Fotky přidané přímo do repozitáře patří do `public/assets/img/foto/` (max. 1400 px, WebP)
   a ke každé musí existovat zmenšenina se stejným názvem v `foto/sm/` (800 px) —
-  web v galeriích a hlavičkách načítá právě ji. Aby je šlo vybrat v adminu, přidat je
+  web v galeriích a hlavičkách načítá právě ji. Vedle ní patří i AVIF verze se stejným názvem
+  (`foto/sm/název.avif`, kvalita ~50) — je zhruba o třetinu menší a prohlížeče ji berou přednostně. Aby je šlo vybrat v adminu, přidat je
   do `BUILTIN_IMAGES` v `assets/js/admin.js`.
 

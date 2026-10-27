@@ -257,6 +257,9 @@ p, li, figcaption { text-wrap: pretty; }
 .hero-panel h1 { position: relative; z-index: 2; max-width: 11ch; }
 
 /* Volitelná fotka na pozadí úvodu — ztmavená, aby nadpis zůstal čitelný */
+/* <picture> kolem fotek (AVIF + WebP) se v rozvržení nesmí projevit — chová se jako samotný <img> */
+picture { display: contents; }
+picture > source { display: none; }
 .hero-bg { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; }
 .hero-panel:has(.hero-bg)::before {
   content: "";
@@ -358,7 +361,7 @@ p, li, figcaption { text-wrap: pretty; }
 .promo-card p { max-width: 56ch; margin-inline: auto; color: #d3d8dc; font-size: 1.05rem; line-height: 1.65; }
 .promo-card .btn { margin-top: 8px; }
 /* volitelná fotka na pozadí karty — ztmavená kvůli čitelnosti textu */
-.promo-card > img { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; }
+.promo-card > img, .promo-card > picture > img { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; }
 .promo-card.has-photo::before {
   content: "";
   position: absolute;
