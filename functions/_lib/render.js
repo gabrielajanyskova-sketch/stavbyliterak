@@ -561,7 +561,7 @@ function booking(site, p) {
 <div class="booking-warn" data-warn-box hidden>
 <span class="label">Upozornění k vybranému vybavení</span>
 <ul data-warn-list></ul>
-<p>Při porušení můžeme požadovat náhradu vzniklé škody a nákladů na vyčištění nebo uvedení zařízení do původního stavu.</p>
+<p>Při porušení bude účtována smluvní pokuta a náhrada nákladů na vyčištění nebo uvedení zařízení do původního stavu.</p>
 <label class="check"><input type="checkbox" name="souhlas"> Beru na vědomí podmínky použití</label>
 </div>
 <div hidden><label for="b-web">Nevyplňujte</label><input id="b-web" name="web" tabindex="-1" autocomplete="off"></div>
