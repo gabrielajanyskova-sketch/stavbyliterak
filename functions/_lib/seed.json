@@ -1216,8 +1216,7 @@
         },
         {
           "type": "heading",
-          "text": "Certifikace",
-          "level": 3
+          "text": "Certifikace"
         },
         {
           "type": "gallery",
@@ -1239,8 +1238,7 @@
         },
         {
           "type": "heading",
-          "text": "Časté otázky",
-          "level": 3
+          "text": "Časté otázky"
         },
         {
           "type": "faq",

@@ -233,7 +233,7 @@ function head(ctx, { title, description, path, image, schema, preload = '', cano
   if (image && !/\.(jpe?g|png)$/i.test(image)) image = '';
   const img = abs(ctx.noindex && ctx.origin ? ctx.origin : ctx.base, image || OG_IMAGE);
   return `<!doctype html>
-<html lang="cs" data-theme="dark">
+<html lang="cs">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">

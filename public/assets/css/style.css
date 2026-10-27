@@ -3,18 +3,19 @@
    Hrany jsou záměrně ostré — technický list, ne aplikace. */
 
 :root {
+  color-scheme: dark;
   --graphite: #1d2126;
   --graphite-2: #2a3037;
-  --ink: #1b1f24;
-  --muted: #5b636c;
-  --concrete: #e5e9ec;
-  --concrete-2: #d6dadc;
-  --paper: #f4f6f8;
-  --line: #c3c8cc;
+  --ink: #e6e9ec;
+  --muted: #a2aab1;
+  --concrete: #1b1f24;
+  --concrete-2: #2a3037;
+  --paper: #15181c;
+  --line: #353d45;
   --amber: #f39a1e;
-  --amber-deep: #a35800;
+  --amber-deep: var(--amber);
   --white: #ffffff;
-  --surface: #ffffff; /* karty a dlaždice na světlém pozadí */
+  --surface: #22272d; /* karty a dlaždice */
 
   --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
   --font-body: "IBM Plex Sans", system-ui, sans-serif;
@@ -22,19 +23,6 @@
 
   --wrap: 1180px;
   --gutter: clamp(16px, 4vw, 40px);
-}
-
-/* Tmavý režim (přepínač v hlavičce): stejné rozvržení, jen tmavé plochy a světlý text */
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --ink: #e6e9ec;
-  --muted: #a2aab1;
-  --paper: #15181c;
-  --concrete: #1b1f24;
-  --concrete-2: #2a3037;
-  --surface: #22272d;
-  --line: #353d45;
-  --amber-deep: var(--amber);
 }
 
 *,
@@ -444,9 +432,8 @@ picture > source { display: none; }
 .page-hero .lead {
   font-size: clamp(1.1rem, 1.8vw, 1.3rem);
   max-width: 46ch;
-  color: #3a4148;
+  color: #c3c9ce;
 }
-[data-theme="dark"] .page-hero .lead { color: #c3c9ce; }
 
 .page-hero-grid {
   display: grid;
@@ -622,17 +609,15 @@ picture > source { display: none; }
 .faq details[open] summary::after { content: "–"; }
 .faq details p { color: var(--muted); padding-right: 40px; }
 
-/* Poznámka pro klienta k doplnění (před spuštěním odstranit) */
+/* Poznámka „k doplnění“ (jen na náhledu) a šedá informační poznámka */
 .todo {
-  background: #fff4d6;
+  background: rgb(243 154 30 / 0.12);
   border-left: 4px solid var(--amber);
   padding: 10px 14px;
   font-size: 0.9rem;
-  color: #6a4a00;
+  color: #f5c77e;
 }
-.todo.is-info { background: #eef0f1; border-color: var(--muted); color: #3a4148; }
-[data-theme="dark"] .todo { background: rgb(243 154 30 / 0.12); color: #f5c77e; }
-[data-theme="dark"] .todo.is-info { background: var(--surface); color: var(--muted); }
+.todo.is-info { background: var(--surface); border-color: var(--muted); color: var(--muted); }
 
 /* ---------- Kontakt ---------- */
 
@@ -685,8 +670,8 @@ picture > source { display: none; }
 
 /* ---------- Patička ---------- */
 
-[data-theme="dark"] .site-footer { border-top: 1px solid var(--line); }
 .site-footer {
+  border-top: 1px solid var(--line);
   background: #15181c;
   color: #9aa3ab;
   padding: 24px 0 20px;
