@@ -9,6 +9,7 @@
   const CELL_M = 3; // jedno políčko mřížky = jedno pole lešení (standardní podlážka 3 m)
   const FIELD_M = 3; // délka pole lešení — lešení u stěny se skládá z celých polí
   const LEVEL_M = 2; // výška jedné úrovně lešení (rámu)
+  const RAIL_M = 1; // zábradlí nad nejvyšší podlážkou
   const FLOOR_M = 3; // výška jednoho podlaží k okapu
   const DAY = 864e5;
   const ROOFS = { sedlova: "Sedlová", valbova: "Valbová", plocha: "Plochá / pultová" };
@@ -95,7 +96,7 @@
     const length = fields * FIELD_M;
     // výška po celých úrovních lešení (rám 2 m) — pole lešení je 3 × 2 m = 6 m²
     const levels = Math.max(1, Math.ceil((state.height + (state.overRoof ? 1 : 0)) / LEVEL_M - 1e-9));
-    const height = levels * LEVEL_M;
+    const height = levels * LEVEL_M + RAIL_M; // nahoře vždy zábradlí
     return { fields, levels, panels: fields * levels, length, height, area: length * height, walls: on.length, all: walls.length };
   }
 
@@ -441,7 +442,7 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
       ["Pole 3 × 2 m", t ? `${t.panels} (${t.fields} na délku × ${t.levels} na výšku)` : "—"],
       ["Délka lešení", t ? `${fmt(t.length)} m = ${t.fields} ${fieldWord(t.fields)} po ${FIELD_M} m` : "—"],
       ["Stěny s lešením", t ? `${t.walls} z ${t.all}` : "—"],
-      ["Výška lešení", t ? `${fmt(t.height)} m = ${t.levels} ${t.levels < 5 ? "úrovně" : "úrovní"} po ${LEVEL_M} m` : "—"],
+      ["Výška lešení", t ? `${fmt(t.height)} m = ${t.levels} ${t.levels < 5 ? "úrovně" : "úrovní"} po ${LEVEL_M} m + zábradlí ${RAIL_M} m` : "—"],
       ["Střecha", ROOFS[state.roof]],
       ["Montáž", SERVICES[state.service][0]],
       ["Doprava", state.transport === "dovoz" ? "dovoz na stavbu" : "vlastní odvoz"],
@@ -591,7 +592,7 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
     const { t, tm } = summary();
     const lines = [
       "Konfigurátor lešení (orientační výpočet):",
-      `- plocha lešení: ≈ ${fmt(t.area)} m² = ${t.panels} polí 3 × 2 m (${t.fields} na délku × ${t.levels} na výšku, délka ${fmt(t.length)} m, výška ${fmt(t.height)} m)`,
+      `- plocha lešení: ≈ ${fmt(t.area)} m² = ${t.panels} polí 3 × 2 m (${t.fields} na délku × ${t.levels} na výšku) + zábradlí ${RAIL_M} m nahoře; délka ${fmt(t.length)} m, výška ${fmt(t.height)} m`,
       `- stěny: ${current.walls.map((w, i) => `${letter(i)} ${fmt(wallLength(w))} m${state.off.has(wallKey(w)) ? " (bez lešení)" : ""}`).join(", ")}`,
       `- dům: ${state.floors === 1 ? "přízemní" : `${state.floors} podlaží`}, výška k okapu ${fmt(state.height)} m, střecha ${ROOFS[state.roof].toLowerCase()}${state.overRoof ? ", práce i u střechy" : ""}`,
       `- montáž: ${SERVICES[state.service][0].toLowerCase()}`,
