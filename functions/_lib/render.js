@@ -131,6 +131,13 @@ function postalAddress(address) {
     : { '@type': 'PostalAddress', streetAddress: address, addressCountry: 'CZ' };
 }
 
+// Fotka služby v ukázkách prací na úvodu: vybraná v adminu, jinak první fotka z galerie, jinak fotka z hlavičky
+export function showcasePhoto(p) {
+  if (p.showcase_photo) return p.showcase_photo;
+  const g = (p.blocks || []).find((b) => b.type === 'gallery' && b.fit !== 'contain' && (b.items || []).some((i) => i.src && !isPdf(i.src)));
+  return g ? g.items.find((i) => i.src && !isPdf(i.src)).src : p.photo || '';
+}
+
 // Odkaz na recenze v Mapách Google (dlouhá adresa s „0x…:0x…“) → trvalý odkaz na profil firmy (?cid=)
 function profileUrl(url) {
   const m = String(url || '').match(/0x[0-9a-f]+:0x([0-9a-f]+)/i);
@@ -512,12 +519,8 @@ ${links ? `<div class="reviews-links reveal">${links}</div>` : ''}
 function showcase(pages) {
   const tiles = pages
     .filter((p) => p.in_chooser)
-    .map((p) => {
-      const g = (p.blocks || []).find((b) => b.type === 'gallery' && b.fit !== 'contain' && (b.items || []).some((i) => i.src && !isPdf(i.src)));
-      const src = g ? g.items.find((i) => i.src && !isPdf(i.src)).src : p.photo;
-      return src ? { p, src } : null;
-    })
-    .filter(Boolean)
+    .map((p) => ({ p, src: showcasePhoto(p) }))
+    .filter((t) => t.src)
     .slice(0, 4);
   if (tiles.length < 2) return '';
   return `<section class="section showcase">

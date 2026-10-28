@@ -146,6 +146,12 @@ function markClean(text = "Vše uloženo.") {
 const isPdf = (url) => /\.pdf$/i.test(url);
 // náhled: zmenšenina (stejná konvence jako na webu), PDF jako dlaždice
 const thumbUrl = (url) => url.replace(/^(\/assets\/img\/foto\/|\/img\/)(?!sm\/)/, "$1sm/");
+// stejná logika jako na webu (render.js → showcasePhoto)
+function showcasePhoto(p) {
+  if (p.showcase_photo) return p.showcase_photo;
+  const g = (p.blocks || []).find((b) => b.type === "gallery" && b.fit !== "contain" && (b.items || []).some((i) => i.src && !isPdf(i.src)));
+  return g ? g.items.find((i) => i.src && !isPdf(i.src)).src : p.photo || "";
+}
 const preview = (url, alt = "") => (isPdf(url) ? h("div", { class: "none" }, "PDF") : h("img", { src: thumbUrl(url), alt, loading: "lazy" }));
 
 const lines = (text) => text.split("\n").map((s) => s.trim()).filter(Boolean);
@@ -490,6 +496,7 @@ function pageView(p) {
       text(p, "nav_label", "Název v menu a v patičce"),
       check(p, "in_chooser", "Zobrazit v rozcestníku na úvodní stránce"),
       h("div", { class: "grid2" }, text(p, "chooser_title", "Název v rozcestníku"), text(p, "chooser_hint", "Popis v rozcestníku")),
+      photoField(p, "showcase_photo", "Fotka v ukázkách prací na úvodní stránce (nepovinné — jinak první fotka z galerie)"),
     ),
     h("div", { class: "panel" },
       h("h3", {}, "Hlavička stránky"),
@@ -549,6 +556,17 @@ function homeView(s) {
       text(hm, "hero_photo_alt", "Co je na fotce (pro vyhledávače a nevidomé)"),
       text(hm, "chooser_label", "Nadpis rozcestníku služeb"),
       h("p", { class: "hint" }, "Které služby jsou v rozcestníku a v jakém pořadí, nastavíte u jednotlivých stránek (a šipkami v levém menu)."),
+    ),
+    h("div", { class: "panel" },
+      h("h3", {}, "Ukázky prací (fotky služeb)"),
+      h("p", { class: "hint", style: "margin:0 0 14px" }, "Dlaždice s fotkami pod rozcestníkem. Ukazují se první 4 služby z rozcestníku, které mají fotku (služba bez fotky se přeskočí). Fotku změníte tlačítkem Změnit u dané služby, v části Základ."),
+      h("div", { class: "gallery" },
+        ...content.pages.filter((p) => p.in_chooser).map((p) => {
+          const src = showcasePhoto(p);
+          return h("figure", {},
+            src ? preview(src, p.title) : h("div", { class: "none", style: "height:120px;display:grid;place-items:center" }, "bez fotky"),
+            h("figcaption", {}, h("span", {}, p.chooser_title || p.title), h("button", { class: "btn btn-line btn-small", onclick: () => open("page", p.slug) }, "Změnit")));
+        })),
     ),
     h("div", { class: "panel" },
       h("h3", {}, "Jak pracuji"),

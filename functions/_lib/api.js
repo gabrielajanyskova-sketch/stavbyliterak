@@ -459,6 +459,7 @@ function cleanPage(p) {
     in_chooser: bool(p.in_chooser),
     chooser_title: str(p.chooser_title, 100).trim(),
     chooser_hint: str(p.chooser_hint, 200).trim(),
+    showcase_photo: str(p.showcase_photo, 500).trim(),
     meta_title: str(p.meta_title, 200).trim(),
     meta_description: str(p.meta_description, 400).trim(),
     crumb: str(p.crumb, 100).trim(),
