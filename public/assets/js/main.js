@@ -167,8 +167,8 @@
     });
   }
 
-  // Půjčovna: počty kusů v katalogu → seznam v poptávce, termín víkend / jeden den, orientační cena.
-  // Více dní se domlouvá individuálně — odkaz vyplní hlavní kontaktní formulář.
+  // Půjčovna: počty kusů v katalogu → seznam v poptávce, termín víkend / jeden den / více dní, orientační cena.
+  // Více dní: datum vyzvednutí i vrácení, cenu pronájmu stanoví pan Literák individuálně.
   const booking = document.querySelector(".booking-form");
   if (booking) {
     const qty = new Map(); // název → počet
@@ -184,7 +184,10 @@
     const kc = (n) => `${Math.round(n).toLocaleString("cs-CZ")} Kč`;
     const picked = () => [...qty].filter(([, n]) => n > 0);
     let quote = null;
-    const typLabel = () => (booking.typ.value === "den" ? "na 1 den" : "na víkend");
+    const typLabel = () => ({ den: "na 1 den", vice: "na více dní" })[booking.typ.value] || "na víkend";
+    const multi = () => booking.typ.value === "vice";
+    const dateTo = booking.do;
+    const multiOnly = booking.querySelector("[data-multi-only]");
 
     // součty počítá server, ceny jednotlivých položek na stránce nejsou
     let quoteTimer;
@@ -208,13 +211,15 @@
           renderList();
           return;
         }
+        priceBox.querySelector("[data-price-head]").textContent = multi() ? "Cena pronájmu" : "Orientační cena";
         priceBox.querySelector("[data-price-typ]").textContent = typLabel();
-        priceBox.querySelector("[data-rent]").textContent = quote.missing.length && !quote.rent ? "doplníme" : kc(quote.rent);
+        priceBox.querySelector("[data-rent]").textContent = multi() ? "individuálně" : quote.missing.length && !quote.rent ? "doplníme" : kc(quote.rent);
         priceBox.querySelector("[data-deposit]").textContent = kc(quote.deposit);
         const notes = [];
-        if (quote.missing.length) notes.push(`Cenu za ${quote.missing.join(", ")} doplníme v odpovědi.`);
+        if (multi()) notes.push("Cenu pronájmu na více dní stanovíme individuálně podle délky pronájmu a pošleme vám ji.");
+        else if (quote.missing.length) notes.push(`Cenu za ${quote.missing.join(", ")} doplníme v odpovědi.`);
         if (booking.dovoz.checked) notes.push("Dovoz a sestavení se účtuje zvlášť podle vzdálenosti.");
-        notes.push("Cena je orientační, potvrdíme ji spolu s termínem.");
+        notes.push(multi() ? "Záloha je orientační, potvrdíme ji spolu s termínem." : "Cena je orientační, potvrdíme ji spolu s termínem.");
         priceBox.querySelector("[data-price-note]").textContent = notes.join(" ");
         priceBox.hidden = false;
         renderList();
@@ -241,7 +246,7 @@
       const total = rows.reduce((sum, [, n]) => sum + n, 0);
       bar.querySelector("[data-count]").textContent = total;
       // orientační cena i v plovoucí liště, ať ji zákazník vidí už při vybírání
-      const showPrice = !!quote && total > 0 && quote.rent > 0;
+      const showPrice = !!quote && total > 0 && quote.rent > 0 && !multi();
       bar.querySelector("[data-bar-price]").hidden = !showPrice;
       if (showPrice) {
         bar.querySelector("[data-bar-rent]").textContent = kc(quote.rent);
@@ -270,38 +275,40 @@
     let barOff = false;
     new IntersectionObserver(([e]) => { barOff = e.isIntersecting; renderList(); }).observe(document.querySelector("#rezervace"));
 
-    // Více dní → hlavní kontaktní formulář s vybraným vybavením
-    booking.querySelector("[data-multi]").addEventListener("click", () => {
-      const contact = document.querySelector("#poptavka");
-      if (!contact) return;
-      const option = [...contact.sluzba.options].find((o) => /gastro/i.test(o.text));
-      if (option) contact.sluzba.value = option.value;
-      const rows = picked();
-      contact.zprava.value = [
-        "Chci si půjčit vybavení na více dní, od … do … .",
-        ...(rows.length ? ["", "Vybavení:", ...rows.map(([name, n]) => `- ${name}: ${n}×`)] : []),
-      ].join("\n");
-      contact.querySelector("[data-status]").textContent = "Cenu pronájmu na více dní stanovíme individuálně. Doplňte termín a pošlete poptávku, ozveme se s nabídkou.";
-      setTimeout(() => contact.jmeno.focus({ preventScroll: true }), 400);
-    });
-
-    // víkend = vyzvednutí v pátek, jeden den = pondělí až čtvrtek
+    // víkend = vyzvednutí v pátek, jeden den = pondělí až čtvrtek, více dní = od–do podle domluvy
     const checkDate = () => {
       const weekend = booking.typ.value === "vikend";
       const d = date.value ? new Date(`${date.value}T12:00`) : null;
       let msg = "";
       if (!d) msg = "Vyberte datum vyzvednutí.";
       else if (d < new Date(Date.now() - DAY)) msg = "Datum už proběhlo.";
+      else if (multi()) {
+        const e = dateTo.value ? new Date(`${dateTo.value}T12:00`) : null;
+        const days = e ? Math.round((e - d) / DAY) + 1 : 0;
+        if (!e) msg = "Vyberte datum vrácení.";
+        else if (days < 2) msg = "Datum vrácení musí být až po dni vyzvednutí.";
+        date.setCustomValidity("");
+        dateTo.setCustomValidity(msg);
+        range.textContent = msg || `${fmt(d)} – ${fmt(e)} (${days} ${days < 5 ? "dny" : "dní"})`;
+        return { ok: !msg, text: msg ? "" : `více dní ${range.textContent}` };
+      }
       else if (weekend && d.getDay() !== 5) msg = "Víkendový pronájem začíná v pátek. Vyberte prosím pátek.";
       else if (!weekend && (d.getDay() < 1 || d.getDay() > 4)) msg = "Jednodenní pronájem je možný od pondělí do čtvrtka.";
       date.setCustomValidity(msg);
+      dateTo.setCustomValidity("");
       range.textContent = msg || (weekend ? `${fmt(d)} – ${fmt(new Date(d.getTime() + 2 * DAY))}` : `${fmt(d)}, na 24 hodin`);
       return { ok: !msg, text: msg ? "" : `${weekend ? "víkend" : "jeden den"} ${range.textContent}` };
     };
-    date.min = new Date(Date.now() + DAY).toISOString().slice(0, 10);
+    date.min = dateTo.min = new Date(Date.now() + DAY).toISOString().slice(0, 10);
     date.addEventListener("change", checkDate);
+    dateTo.addEventListener("change", () => { if (date.value) checkDate(); });
+    date.addEventListener("change", () => { dateTo.min = date.value || date.min; });
     booking.addEventListener("change", (e) => {
-      if (e.target.name === "typ" && date.value) checkDate();
+      if (e.target.name === "typ") {
+        multiOnly.hidden = !multi();
+        dateTo.required = multi();
+        if (date.value) checkDate();
+      }
       if (e.target.name === "typ" || e.target.name === "dovoz") updateQuote();
     });
 
@@ -314,8 +321,8 @@
       if (!term.ok || !booking.reportValidity()) return;
       const d = new FormData(booking);
       const price = quote && !priceBox.hidden
-        ? [`Orientační cena pronájmu: ${priceBox.querySelector("[data-rent]").textContent}`, `Vratná záloha: ${kc(quote.deposit)}`]
-        : [];
+        ? [multi() ? "Cena pronájmu: stanoví se individuálně" : `Orientační cena pronájmu: ${priceBox.querySelector("[data-rent]").textContent}`, `Vratná záloha: ${kc(quote.deposit)}`]
+        : multi() ? ["Cena pronájmu: stanoví se individuálně"] : [];
       const zprava = [
         "Vybavení:",
         ...items.map(([name, n]) => `- ${name}: ${n}×`),
@@ -330,6 +337,8 @@
       const fields = { sluzba: booking.dataset.service, jmeno: d.get("jmeno"), telefon: d.get("telefon"), email: d.get("email"), misto: d.get("misto"), zprava, web: d.get("web") };
       if (await send(fields, booking.dataset.to, status)) {
         booking.reset();
+        multiOnly.hidden = true;
+        dateTo.required = false;
         range.textContent = "";
         qty.clear();
         document.querySelectorAll(".catalog li[data-item]").forEach((li) => {
