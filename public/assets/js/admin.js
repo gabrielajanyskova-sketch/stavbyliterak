@@ -38,7 +38,7 @@ const BUILTIN_IMAGES = [
   { url: "/assets/img/foto/leseni-ramova-sestava.webp", name: "Rámová sestava lešení (schéma)" },
   { url: "/assets/img/foto/sklopny-privesnik-debon.webp", name: "Sklopný přívěs Debon PW3.6 3500 Electric" },
   { url: "/assets/img/foto/leseni-stit-rodinny-dum.webp", name: "Lešení u štítu rodinného domu" },
-  { url: "/assets/img/foto/leseni-rodinny-dum-fasada.webp", name: "Rámové lešení u rodinného domu" },
+  { url: "/assets/img/foto/leseni-rodinny-dum-fasada.webp", name: "Rodinný dům (fasáda)" },
   { url: "/assets/img/foto/stavebni-koupelna-obklady.webp", name: "Koupelna — obklady, sprchový kout a osvětlení" },
   { url: "/assets/img/foto/stavebni-pokladka-dlazby.webp", name: "Pokládka velkoformátové dlažby" },
   { url: "/assets/img/foto/stavebni-obklad-niky-kamna.webp", name: "Obklad niky a dlažba pod krbová kamna" },
