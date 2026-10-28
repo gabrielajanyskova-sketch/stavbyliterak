@@ -752,6 +752,9 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
   .catalog-photo { grid-row: 1; }
   .catalog li > h3 { grid-column: 2; grid-row: 1; align-self: center; overflow-wrap: break-word; }
   .catalog li > div:not(.catalog-side) { grid-column: 1 / -1; grid-row: 2; max-width: none; }
+  /* položka bez fotky: nadpis přes celou šířku, ne odsazený za prázdným místem */
+  .catalog span.catalog-photo { display: none; }
+  .catalog li:has(> span.catalog-photo) > h3 { grid-column: 1 / -1; }
   .catalog-side { grid-column: 1 / -1; grid-row: 3; display: flex; justify-content: space-between; align-items: center; }
   .catalog .count { align-self: center; border: 0; padding: 0; font-size: 0.78rem; color: var(--muted); }
   .js .pick { grid-template-columns: 44px 40px 44px; }
@@ -930,6 +933,9 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
   box-shadow: 0 6px 20px rgb(0 0 0 / 0.25);
 }
 .booking-bar[hidden] { display: none; }
+.booking-bar [hidden] { display: none; }
+.booking-price dt span { color: var(--amber); }
+@media (max-width: 480px) { .booking-bar .bar-long { display: none; } }
 @media (max-width: 700px) {
   .booking-bar { bottom: calc(64px + env(safe-area-inset-bottom)); transition: bottom 0.25s ease; }
   .callbar-away .booking-bar { bottom: calc(12px + env(safe-area-inset-bottom)); }

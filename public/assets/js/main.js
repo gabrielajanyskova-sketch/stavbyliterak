@@ -184,6 +184,7 @@
     const kc = (n) => `${Math.round(n).toLocaleString("cs-CZ")} Kč`;
     const picked = () => [...qty].filter(([, n]) => n > 0);
     let quote = null;
+    const typLabel = () => (booking.typ.value === "den" ? "na 1 den" : "na víkend");
 
     // součty počítá server, ceny jednotlivých položek na stránce nejsou
     let quoteTimer;
@@ -192,7 +193,7 @@
       clearTimeout(quoteTimer);
       quoteTimer = setTimeout(async () => {
         const rows = picked();
-        if (!rows.length) { quote = null; priceBox.hidden = true; return; }
+        if (!rows.length) { quote = null; priceBox.hidden = true; renderList(); return; }
         try {
           const res = await fetch("/api/gastro-quote", {
             method: "POST",
@@ -204,8 +205,10 @@
         } catch {
           quote = null;
           priceBox.hidden = true;
+          renderList();
           return;
         }
+        priceBox.querySelector("[data-price-typ]").textContent = typLabel();
         priceBox.querySelector("[data-rent]").textContent = quote.missing.length && !quote.rent ? "doplníme" : kc(quote.rent);
         priceBox.querySelector("[data-deposit]").textContent = kc(quote.deposit);
         const notes = [];
@@ -214,6 +217,7 @@
         notes.push("Cena je orientační, potvrdíme ji spolu s termínem.");
         priceBox.querySelector("[data-price-note]").textContent = notes.join(" ");
         priceBox.hidden = false;
+        renderList();
       }, 250);
     };
 
@@ -236,6 +240,13 @@
       empty.hidden = rows.length > 0;
       const total = rows.reduce((sum, [, n]) => sum + n, 0);
       bar.querySelector("[data-count]").textContent = total;
+      // orientační cena i v plovoucí liště, ať ji zákazník vidí už při vybírání
+      const showPrice = !!quote && total > 0 && quote.rent > 0;
+      bar.querySelector("[data-bar-price]").hidden = !showPrice;
+      if (showPrice) {
+        bar.querySelector("[data-bar-rent]").textContent = kc(quote.rent);
+        bar.querySelector("[data-bar-typ]").textContent = typLabel();
+      }
       bar.hidden = total === 0 || barOff;
     };
 
@@ -270,6 +281,7 @@
         "Chci si půjčit vybavení na více dní, od … do … .",
         ...(rows.length ? ["", "Vybavení:", ...rows.map(([name, n]) => `- ${name}: ${n}×`)] : []),
       ].join("\n");
+      contact.querySelector("[data-status]").textContent = "Cenu pronájmu na více dní stanovíme individuálně. Doplňte termín a pošlete poptávku, ozveme se s nabídkou.";
       setTimeout(() => contact.jmeno.focus({ preventScroll: true }), 400);
     });
 

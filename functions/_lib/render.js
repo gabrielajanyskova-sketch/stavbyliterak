@@ -558,12 +558,12 @@ function booking(site, p) {
 <legend>Na jak dlouho</legend>
 <label><input type="radio" name="typ" value="vikend" checked><span><strong>Víkend</strong>pátek–neděle</span></label>
 <label><input type="radio" name="typ" value="den"><span><strong>Jeden den</strong>pondělí–čtvrtek, 24 hodin</span></label>
-<a class="seg-link" href="#kontakt" data-multi><span><strong>Více dní</strong>domluvíme se individuálně →</span></a>
+<a class="seg-link" href="#kontakt" data-multi><span><strong>Více dní</strong>cenu stanovíme individuálně →</span></a>
 </fieldset>
 <div><label for="b-datum">Datum vyzvednutí</label><input id="b-datum" name="datum" type="date" required><p class="hint" data-range></p></div>
 <label class="check"><input type="checkbox" name="dovoz"> Chci dovoz, sestavení a zprovoznění</label>
 <div class="booking-price" data-price hidden>
-<dl><div><dt>Orientační cena pronájmu</dt><dd data-rent></dd></div><div><dt>Vratná záloha</dt><dd data-deposit></dd></div></dl>
+<dl><div><dt>Orientační cena <span data-price-typ></span></dt><dd data-rent></dd></div><div><dt>Vratná záloha</dt><dd data-deposit></dd></div></dl>
 <p class="hint" data-price-note></p>
 </div>
 <div class="row">
@@ -586,7 +586,7 @@ function booking(site, p) {
 <p class="note" data-status role="status">Jde o nezávaznou poptávku. Dostupnost a cenu vám potvrdíme telefonicky nebo e-mailem.</p>
 </form>
 </section>
-<a class="booking-bar" href="#rezervace" hidden>Vybráno <strong data-count>0</strong> ks · Pokračovat k poptávce ↓</a>`;
+<a class="booking-bar" href="#rezervace" hidden>Vybráno <strong data-count>0</strong> ks<span data-bar-price hidden> · ≈ <strong data-bar-rent></strong> <span data-bar-typ></span></span> · <span class="bar-long">Pokračovat k poptávce </span>↓</a>`;
 }
 
 export function renderPage(ctx, p) {
