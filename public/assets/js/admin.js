@@ -22,7 +22,7 @@ const BUILTIN_IMAGES = [
   // hliníkový program
   { url: "/assets/img/foto/zimni-zahrada-rodinny-dum.webp", name: "Zimní zahrada u rodinného domu" },
   { url: "/assets/img/foto/zasklena-terasa-dreveny-dum.webp", name: "Zasklená terasa u dřevěného domu" },
-  { url: "/assets/img/foto/zasklena-pergola-dreveny-dum.webp", name: "Zasklená terasa u dřevěného domu — pohled z boku" },
+  { url: "/assets/img/foto/zasklena-pergola-dreveny-dum.webp", name: "Zasklená terasa u dřevěného domu — z boku" },
   { url: "/assets/img/foto/zimni-zahrada-interier.webp", name: "Zasklená terasa u dřevěného domu — zevnitř" },
   { url: "/assets/img/foto/zaskleni-pergoly.webp", name: "Zasklení pergoly" },
   { url: "/assets/img/foto/zaskleni-terasy.webp", name: "Zasklení terasy" },
