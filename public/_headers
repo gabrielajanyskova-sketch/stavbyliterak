@@ -10,6 +10,10 @@
   ! Cache-Control
   Cache-Control: public, max-age=31536000, immutable
 
+/assets/js/leseni.js
+  ! Cache-Control
+  Cache-Control: public, max-age=31536000, immutable
+
 /assets/css/*
   Cache-Control: no-cache
 

@@ -381,7 +381,7 @@ ${links}
 <a href="#kontakt">Poptávka</a>
 </nav>
 <script src="/assets/js/main.js${ctx.assets?.js ? `?v=${ctx.assets.js}` : ''}" defer></script>
-${ctx.scaffold ? '<script src="/assets/js/leseni.js" defer></script>\n' : ''}
+${ctx.scaffold ? `<script src="/assets/js/leseni.js${ctx.assets?.scaffold ? `?v=${ctx.assets.scaffold}` : ''}" defer></script>\n` : ''}
 </body>
 </html>
 `;

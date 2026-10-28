@@ -79,21 +79,24 @@ function guessOldUrl(path, pages) {
 }
 
 // Styly se vkládají přímo do stránky (žádný požadavek navíc, který by blokoval vykreslení)
-// a main.js dostane v adrese otisk obsahu, takže se může ukládat do mezipaměti na rok.
+// a main.js i leseni.js dostanou v adrese otisk obsahu, takže se můžou ukládat do mezipaměti na rok
+// (po změně má soubor novou adresu a prohlížeč si ho stáhne znovu).
 // Načte se jednou na instanci Workeru — po novém nasazení vzniká instance nová.
 let assetsPromise;
 function loadAssets(env, origin) {
   const get = (path) => env.ASSETS.fetch(new Request(origin + path)).then((r) => (r.ok ? r.text() : ''));
-  assetsPromise ??= Promise.all([get('/assets/css/fonts.css'), get('/assets/css/style.css'), get('/assets/js/main.js')])
-    .then(async ([fonts, style, js]) => {
-      const digest = await crypto.subtle.digest('SHA-1', new TextEncoder().encode(js));
-      const hash = [...new Uint8Array(digest)].slice(0, 5).map((b) => b.toString(16).padStart(2, '0')).join('');
+  const hashOf = async (text) => {
+    const digest = await crypto.subtle.digest('SHA-1', new TextEncoder().encode(text));
+    return [...new Uint8Array(digest)].slice(0, 5).map((b) => b.toString(16).padStart(2, '0')).join('');
+  };
+  assetsPromise ??= Promise.all([get('/assets/css/fonts.css'), get('/assets/css/style.css'), get('/assets/js/main.js'), get('/assets/js/leseni.js')])
+    .then(async ([fonts, style, js, scaffold]) => {
       const css = (fonts + style)
         .replace(/\/\*[\s\S]*?\*\//g, '')
         .replace(/\s+/g, ' ')
         .replace(/\s*([{};])\s*/g, '$1')
         .trim();
-      return { css: fonts && style ? css : '', js: js ? hash : '' };
+      return { css: fonts && style ? css : '', js: js ? await hashOf(js) : '', scaffold: scaffold ? await hashOf(scaffold) : '' };
     })
     .catch(() => {
       assetsPromise = undefined;
