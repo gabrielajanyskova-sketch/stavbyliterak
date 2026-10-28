@@ -31,6 +31,11 @@
   .topbar .spacer { flex: 1; }
   .topbar a, .topbar button { color: #d9dde0; background: none; border: 0; cursor: pointer; text-decoration: none; font-size: .95rem; }
   .topbar a:hover, .topbar button:hover { color: var(--amber); }
+  @media (max-width: 520px) {
+    .topbar { gap: 12px; padding: 8px 14px; }
+    .topbar img { width: 64px; }
+    .topbar .title { display: none; }
+  }
 
   .layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); min-height: calc(100vh - 66px); }
   .side { background: var(--concrete); border-right: 1px solid var(--line); padding: 20px 14px; }
