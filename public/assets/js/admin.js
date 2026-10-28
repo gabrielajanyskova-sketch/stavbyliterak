@@ -612,6 +612,7 @@ function settingsView(s) {
         text(s, "ico", "IČ"),
       ),
       text(s, "address", "Adresa"),
+      text(s, "geo", "Poloha (GPS)", { placeholder: "49.675854, 18.343376", hint: "Pro vyhledávače. Najdete ji v Mapách Google: pravým tlačítkem na značku firmy, první řádek nabídky." }),
       text(s, "name", "Název webu", { hint: "Používá se v titulcích a popiscích obrázků." }),
     ),
     h("div", { class: "panel" },

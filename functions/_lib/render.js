@@ -131,6 +131,12 @@ function postalAddress(address) {
     : { '@type': 'PostalAddress', streetAddress: address, addressCountry: 'CZ' };
 }
 
+// „49.675854, 18.343376“ → GeoCoordinates (poloha firmy pro vyhledávače a mapy)
+function geoOf(v) {
+  const m = String(v || '').match(/(-?\d{1,2}(?:\.\d+)?)\s*[,;]\s*(-?\d{1,3}(?:\.\d+)?)/);
+  return m ? { '@type': 'GeoCoordinates', latitude: Number(m[1]), longitude: Number(m[2]) } : undefined;
+}
+
 function businessNode(ctx) {
   const { site, pages, base } = ctx;
   const m = String(site.address || '').match(/\d{3}\s?\d{2}\s+(.+)$/);
@@ -147,7 +153,10 @@ function businessNode(ctx) {
     founder: { '@type': 'Person', name: site.owner },
     identifier: { '@type': 'PropertyValue', propertyID: 'IČO', value: site.ico },
     areaServed: m ? [{ '@type': 'City', name: m[1] }, { '@type': 'AdministrativeArea', name: `okres ${m[1]}` }] : undefined,
-    hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address)}`,
+    geo: geoOf(site.geo),
+    hasMap: /^https:\/\/(maps\.google\.|www\.google\.[a-z.]+\/maps)/.test(site.reviews?.google_url || '')
+      ? site.reviews.google_url
+      : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address)}`,
     sameAs: site.reviews?.google_url ? [site.reviews.google_url] : undefined,
     knowsAbout: pages.filter(isService).map((p) => p.title),
     hasOfferCatalog: {

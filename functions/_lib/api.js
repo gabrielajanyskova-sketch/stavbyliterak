@@ -490,6 +490,7 @@ function cleanSite(s) {
     email: str(s.email, 100).trim(),
     address: str(s.address, 200).trim(),
     ico: str(s.ico, 20).trim(),
+    geo: str(s.geo, 60).trim(),
     home: {
       meta_title: str(h.meta_title, 200),
       meta_description: str(h.meta_description, 400),
