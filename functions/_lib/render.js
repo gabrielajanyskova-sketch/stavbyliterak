@@ -264,6 +264,7 @@ function head(ctx, { title, description, path, image, schema, preload = '', cano
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
 <meta name="robots" content="${ctx.noindex ? 'noindex' : 'index, follow, max-image-preview:large, max-snippet:-1'}">
+<meta name="seznam-wmt" content="G8ITHKrtd7wdgEyorTWf7T2QsnVPBz4y">
 ${canonical ? `<link rel="canonical" href="${esc(url)}">\n` : ''}<meta property="og:type" content="website">
 <meta property="og:locale" content="cs_CZ">
 <meta property="og:site_name" content="${esc(ctx.site.name)}">
