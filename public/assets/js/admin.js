@@ -654,12 +654,21 @@ function imagesView() {
                 },
               }, "✕")))),
       );
-      if (!images.length) gallery.replaceChildren(h("p", {}, "Zatím žádné nahrané fotky."));
+      if (!images.length) gallery.replaceChildren(h("p", { class: "hint", style: "grid-column:1/-1;margin:0" }, "Zatím žádné fotky nahrané přes administraci."));
     } catch (e) {
       gallery.replaceChildren(h("p", { class: "error" }, e.message));
     }
   };
-  wrap.append(h("div", { class: "panel" }, uploadControl(() => load()), h("div", { style: "height:16px" }), gallery));
+  // fotky, které jsou součástí webu (v kódu) — jen k prohlédnutí, smazat ani přepsat se odsud nedají
+  const builtin = h("div", { class: "gallery" },
+    ...BUILTIN_IMAGES.map((img) => h("figure", {}, preview(img.url, img.name), h("figcaption", {}, h("span", { title: img.name }, img.name)))));
+  wrap.append(
+    h("div", { class: "panel" }, h("h3", {}, "Nahrané fotky"), uploadControl(() => load()), h("div", { style: "height:16px" }), gallery),
+    h("div", { class: "panel" },
+      h("h3", {}, `Fotky webu (${BUILTIN_IMAGES.length})`),
+      h("p", { class: "hint", style: "margin:0 0 14px" }, "Fotky, se kterými byl web vytvořen. Jdou vybrat u stránky stejně jako nahrané, ale smazat se tady nedají. Když nějakou nechcete, odeberte ji u dané stránky."),
+      builtin),
+  );
   load();
   return wrap;
 }
