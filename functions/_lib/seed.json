@@ -1444,7 +1444,7 @@
             },
             {
               "title": "Bluetooth reproduktor JBL — partybox",
-              "text": "Posezení bez hudby? To prostě není ono. Reproduktor zvládne akci zhruba pro 50 lidí, ať posloucháte cokoli. Karaoke? Jasně, možno včetně 2 ks bezdrátových mikrofonů JBL (viz položka níže).",
+              "text": "Posezení bez hudby? To prostě není ono. Reproduktor zvládne akci zhruba pro 50 lidí, ať posloucháte cokoli. Karaoke? Jasně, možno včetně 2 ks bluetooth mikrofonů (viz položka níže).",
               "spec": "400 W RMS · baterie až 15 hodin, nebo ze sítě",
               "count": "1 ks",
               "photo": "/assets/img/foto/gastro-reproduktor-jbl.webp",
@@ -1453,8 +1453,8 @@
               "deposit": "10000"
             },
             {
-              "title": "Bezdrátové mikrofony JBL — 2 ks",
-              "text": "Dva bezdrátové mikrofony k reproduktoru JBL partybox. Na karaoke, proslovy i moderování oslavy.",
+              "title": "Bluetooth mikrofony — 2 ks",
+              "text": "Dva bluetooth mikrofony k reproduktoru JBL partybox. Na karaoke, proslovy i moderování oslavy.",
               "spec": "",
               "count": "1 sada",
               "photo": "",
