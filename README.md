@@ -61,8 +61,13 @@ wrangler.toml               napojení D1/KV, SITE_URL
   výchozím obsahem samy při první návštěvě webu.
 - Heslo do adminu je Secret `ADMIN_PASSWORD` v dashboardu
   (Pages → stavbyliterak → Settings → Variables and Secrets) — do repozitáře nepatří.
-- Doména: Custom domains → `stavbyliterak.cz` a `www.stavbyliterak.cz`
-  (DNS domény musí být na Cloudflare — přesun z Webnode).
+- Doména `stavbyliterak.cz` je registrovaná u WEDOS (účet pana Literáka), nameservery
+  ukazují na Cloudflare. V Pages → Custom domains jsou `www.stavbyliterak.cz` (hlavní)
+  a `stavbyliterak.cz` (přesměruje se na www).
+- DNS v Cloudflare: web (CNAME na Pages, proxied), pošta Seznam Email Profi (2× MX,
+  SPF `include:spf.seznam.cz`, DKIM `szn1–3._domainkey`), Resend (`send`, `rsend`,
+  `resend._domainkey`, ověřovací TXT), `_dmarc` (zatím `p=none`), ověření Google Search Console.
+  Všechny pomocné záznamy jsou „DNS only“.
 
 ### Našeptávač adres (Mapy.com)
 
@@ -141,11 +146,11 @@ Pozdější změny se dělají v administraci, ne v tomto souboru.
 
 ## Co ještě zbývá
 
-- [ ] Termovize — průběh měření a výstup (žlutá poznámka na stránce, čeká na klienta)
-- [ ] Stavební práce — které drobné práce dál nabízet (žlutá poznámka na stránce)
-- [ ] Fotky z termovize a ze stavebních prací
-- [ ] Převod domény od Webnode, Custom domains v Pages, adresa info@stavbyliterak.cz
-      (Cloudflare Email Routing), Resend, Google Search Console a Seznam Webmaster
+- [ ] Od klienta: cena CO₂ sady k výčepu, cena dovozu a sestavení gastra, potvrzení ceny pivního setu
+- [ ] Rekonstrukce bytů: pokud je dělá, doplnit do Stavebních prací (Google na to web už zobrazuje)
+- [ ] Google profil: skutečná otevírací doba místo „24 hodin“, web `https://www.stavbyliterak.cz/`
+- [ ] Seznam Webmaster a Bing Webmaster Tools, profil na Firmy.cz
+- [ ] Za pár týdnů DMARC na `p=quarantine`, Webnode projekt vyprší 2. 2. 2027 (obnovení zrušené)
 
 ## Fotky
 
