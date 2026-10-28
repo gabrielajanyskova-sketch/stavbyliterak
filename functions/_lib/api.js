@@ -415,7 +415,7 @@ const ITEM_FIELDS = {
   grid: ['title', 'text'],
   faq: ['title', 'text'],
   catalog: ['title', 'text', 'spec', 'warn', 'count', 'photo', 'price_weekend', 'price_day', 'deposit'],
-  gallery: ['src', 'caption'],
+  gallery: ['src', 'caption', 'alt'],
   table: ['title', 'text'],
 };
 

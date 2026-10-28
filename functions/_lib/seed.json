@@ -444,23 +444,28 @@
             },
             {
               "src": "/assets/img/foto/zemni-podklad-zpevnene-plochy.webp",
-              "caption": "Štěrkový podklad"
+              "caption": "Štěrkový podklad",
+              "alt": "Štěrkový podklad pro zpevněnou plochu"
             },
             {
               "src": "/assets/img/foto/zemni-bazen-vykop-obezdivka.webp",
-              "caption": "Výkop pro bazén"
+              "caption": "Výkop pro bazén",
+              "alt": "Výkop a obezdívka pro bazén"
             },
             {
               "src": "/assets/img/foto/terenni-upravy-operna-zed.webp",
-              "caption": "Opěrná zeď"
+              "caption": "Opěrná zeď",
+              "alt": "Terénní úpravy a opěrná zeď"
             },
             {
               "src": "/assets/img/foto/minibagr-a-traktor-kubota.webp",
-              "caption": "Minibagr a traktor"
+              "caption": "Minibagr a traktor",
+              "alt": "Minibagr a traktor Kubota"
             },
             {
               "src": "/assets/img/foto/traktor-kubota-celni-nakladac.webp",
-              "caption": "Čelní nakladač"
+              "caption": "Čelní nakladač",
+              "alt": "Traktor Kubota s čelním nakladačem"
             }
           ]
         },
@@ -645,7 +650,8 @@
             },
             {
               "src": "/assets/img/foto/zakladac-zpracovani-pudy.webp",
-              "caption": "Zpracování půdy"
+              "caption": "Zpracování půdy",
+              "alt": "Zpracování půdy zakladačem"
             }
           ]
         },
@@ -779,19 +785,23 @@
           "items": [
             {
               "src": "/assets/img/foto/zimni-zahrada-rodinny-dum.webp",
-              "caption": "Zimní zahrada"
+              "caption": "Zimní zahrada",
+              "alt": "Hliníková zimní zahrada u rodinného domu"
             },
             {
               "src": "/assets/img/foto/zasklena-terasa-dreveny-dum.webp",
-              "caption": "Zasklená terasa"
+              "caption": "Zasklená terasa",
+              "alt": "Zasklená terasa u dřevěného domu"
             },
             {
               "src": "/assets/img/foto/zasklena-pergola-dreveny-dum.webp",
-              "caption": "Zasklená pergola"
+              "caption": "Zasklená pergola",
+              "alt": "Zasklená terasa u dřevěného domu — pohled z boku"
             },
             {
               "src": "/assets/img/foto/zimni-zahrada-interier.webp",
-              "caption": "Zimní zahrada zevnitř"
+              "caption": "Zimní zahrada zevnitř",
+              "alt": "Zasklená terasa u dřevěného domu — zevnitř"
             },
             {
               "src": "/assets/img/foto/zaskleni-pergoly.webp",
@@ -807,19 +817,23 @@
             },
             {
               "src": "/assets/img/foto/zimni-zahrada-zahrada.webp",
-              "caption": "Zimní zahrada"
+              "caption": "Zimní zahrada",
+              "alt": "Hliníková zimní zahrada na zahradě rodinného domu"
             },
             {
               "src": "/assets/img/foto/hlinikove-zabradli-dum.webp",
-              "caption": "Zábradlí balkonu"
+              "caption": "Zábradlí balkonu",
+              "alt": "Hliníkové zábradlí balkonu"
             },
             {
               "src": "/assets/img/foto/hlinikove-zabradli-terasa.webp",
-              "caption": "Zábradlí terasy"
+              "caption": "Zábradlí terasy",
+              "alt": "Hliníkové zábradlí na terase přístavby"
             },
             {
               "src": "/assets/img/foto/hlinikove-zabradli-balkon.webp",
-              "caption": "Zábradlí terasy"
+              "caption": "Zábradlí terasy",
+              "alt": "Hliníkové zábradlí na terase přístavby — z druhé strany"
             }
           ]
         },
@@ -995,19 +1009,18 @@
           "items": [
             {
               "src": "/assets/img/foto/leseni-fasada-rodinny-dum.webp",
-              "caption": "Lešení na fasádě"
-            },
-            {
-              "src": "/assets/img/foto/leseni-stit-rodinny-dum.webp",
-              "caption": "Lešení u štítu"
+              "caption": "Lešení na fasádě",
+              "alt": "Lešení na fasádě rodinného domu"
             },
             {
               "src": "/assets/img/foto/leseni-ramove-pozinkovane.webp",
-              "caption": "Rámové lešení"
+              "caption": "Rámové lešení",
+              "alt": "Rámové pozinkované lešení"
             },
             {
               "src": "/assets/img/foto/leseni-ramova-sestava.webp",
-              "caption": "Sestava lešení (schéma)"
+              "caption": "Sestava lešení (schéma)",
+              "alt": "Rámová sestava lešení (schéma)"
             }
           ]
         },
@@ -1175,27 +1188,38 @@
           "items": [
             {
               "src": "/assets/img/foto/stavebni-koupelna-obklady.webp",
-              "caption": "Koupelna"
+              "caption": "Koupelna",
+              "alt": "Koupelna — obklady, sprchový kout a osvětlení"
             },
             {
               "src": "/assets/img/foto/stavebni-pokladka-dlazby.webp",
-              "caption": "Velkoformátová dlažba"
+              "caption": "Velkoformátová dlažba",
+              "alt": "Pokládka velkoformátové dlažby s nivelačním systémem"
             },
             {
               "src": "/assets/img/foto/stavebni-operna-zed-bazen.webp",
-              "caption": "Opěrná zeď u bazénu"
+              "caption": "Opěrná zeď u bazénu",
+              "alt": "Opěrná zeď a podklad zpevněné plochy u bazénu"
             },
             {
               "src": "/assets/img/foto/stavebni-obklad-niky-kamna.webp",
-              "caption": "Obklad u krbových kamen"
+              "caption": "Obklad u krbových kamen",
+              "alt": "Obklad niky a dlažba pod krbová kamna"
             },
             {
               "src": "/assets/img/foto/stavebni-sdk-podhled.webp",
-              "caption": "Sádrokartonový podhled"
+              "caption": "Sádrokartonový podhled",
+              "alt": "Konstrukce sádrokartonového podhledu"
             },
             {
               "src": "/assets/img/foto/leseni-rodinny-dum-fasada.webp",
-              "caption": "Rodinný dům"
+              "caption": "Rodinný dům",
+              "alt": "Rodinný dům s lešením"
+            },
+            {
+              "src": "/assets/img/foto/leseni-stit-rodinny-dum.webp",
+              "caption": "Rodinný dům",
+              "alt": "Rodinný dům — pohled z boku"
             }
           ]
         },

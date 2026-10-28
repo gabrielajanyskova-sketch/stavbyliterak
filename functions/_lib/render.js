@@ -432,7 +432,7 @@ const BLOCKS = {
     list(`div`, `gallery${b.fit === 'contain' ? ' is-contain' : ''}`, items(b).filter((i) => i.src).map((i) =>
       isPdf(i.src)
         ? `<a class="gallery-item is-doc" href="${esc(safeUrl(i.src))}" target="_blank" rel="noopener"><span class="doc" aria-hidden="true">PDF</span><span class="caption">${esc(i.caption || 'Dokument')}</span></a>`
-        : `<a class="gallery-item" href="${esc(safeUrl(i.src))}" data-lightbox>${pictureTag(i.src, `alt="${esc(i.caption)}" loading="lazy" decoding="async"`)}${
+        : `<a class="gallery-item" href="${esc(safeUrl(i.src))}" data-lightbox>${pictureTag(i.src, `alt="${esc(i.alt || i.caption)}" loading="lazy" decoding="async"`)}${
             i.caption ? `<span class="caption">${esc(i.caption)}</span>` : ''}</a>`)),
   image: (b) =>
     b.src
