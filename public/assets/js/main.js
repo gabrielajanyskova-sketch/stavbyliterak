@@ -196,7 +196,7 @@
       clearTimeout(quoteTimer);
       quoteTimer = setTimeout(async () => {
         const rows = picked();
-        if (!rows.length) { quote = null; priceBox.hidden = true; renderList(); return; }
+        if (!rows.length) { quote = null; priceBox.hidden = true; return; }
         try {
           const res = await fetch("/api/gastro-quote", {
             method: "POST",
@@ -208,7 +208,6 @@
         } catch {
           quote = null;
           priceBox.hidden = true;
-          renderList();
           return;
         }
         priceBox.querySelector("[data-price-head]").textContent = multi() ? "Cena pronájmu" : "Orientační cena";
@@ -222,7 +221,6 @@
         notes.push(multi() ? "Záloha je orientační, potvrdíme ji spolu s termínem." : "Cena je orientační, potvrdíme ji spolu s termínem.");
         priceBox.querySelector("[data-price-note]").textContent = notes.join(" ");
         priceBox.hidden = false;
-        renderList();
       }, 250);
     };
 
@@ -245,13 +243,6 @@
       empty.hidden = rows.length > 0;
       const total = rows.reduce((sum, [, n]) => sum + n, 0);
       bar.querySelector("[data-count]").textContent = total;
-      // orientační cena i v plovoucí liště, ať ji zákazník vidí už při vybírání
-      const showPrice = !!quote && total > 0 && quote.rent > 0 && !multi();
-      bar.querySelector("[data-bar-price]").hidden = !showPrice;
-      if (showPrice) {
-        bar.querySelector("[data-bar-rent]").textContent = kc(quote.rent);
-        bar.querySelector("[data-bar-typ]").textContent = typLabel();
-      }
       bar.hidden = total === 0 || barOff;
     };
 

@@ -590,7 +590,7 @@ function booking(site, p) {
 <p class="note" data-status role="status">Jde o nezávaznou poptávku. Dostupnost a cenu vám potvrdíme telefonicky nebo e-mailem.</p>
 </form>
 </section>
-<a class="booking-bar" href="#rezervace" hidden>Vybráno <strong data-count>0</strong> ks<span data-bar-price hidden> · ≈ <strong data-bar-rent></strong> <span data-bar-typ></span></span> · <span class="bar-long">Pokračovat k poptávce </span>↓</a>`;
+<a class="booking-bar" href="#rezervace" hidden>Vybráno <strong data-count>0</strong> ks · Pokračovat k poptávce ↓</a>`;
 }
 
 export function renderPage(ctx, p) {
