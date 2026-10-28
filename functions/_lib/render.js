@@ -131,6 +131,13 @@ function postalAddress(address) {
     : { '@type': 'PostalAddress', streetAddress: address, addressCountry: 'CZ' };
 }
 
+// Odkaz na recenze v Mapách Google (dlouhá adresa s „0x…:0x…“) → trvalý odkaz na profil firmy (?cid=)
+function profileUrl(url) {
+  const m = String(url || '').match(/0x[0-9a-f]+:0x([0-9a-f]+)/i);
+  if (m) return `https://maps.google.com/?cid=${BigInt('0x' + m[1])}`;
+  return /^https:\/\/maps\.google\.[a-z.]+\/\?cid=\d+$/.test(String(url || '')) ? url : null;
+}
+
 // „49.675854, 18.343376“ → GeoCoordinates (poloha firmy pro vyhledávače a mapy)
 function geoOf(v) {
   const m = String(v || '').match(/(-?\d{1,2}(?:\.\d+)?)\s*[,;]\s*(-?\d{1,3}(?:\.\d+)?)/);
@@ -154,10 +161,8 @@ function businessNode(ctx) {
     identifier: { '@type': 'PropertyValue', propertyID: 'IČO', value: site.ico },
     areaServed: m ? [{ '@type': 'City', name: m[1] }, { '@type': 'AdministrativeArea', name: `okres ${m[1]}` }] : undefined,
     geo: geoOf(site.geo),
-    hasMap: /^https:\/\/(maps\.google\.|www\.google\.[a-z.]+\/maps)/.test(site.reviews?.google_url || '')
-      ? site.reviews.google_url
-      : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address)}`,
-    sameAs: site.reviews?.google_url ? [site.reviews.google_url] : undefined,
+    hasMap: profileUrl(site.reviews?.google_url) || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address)}`,
+    sameAs: site.reviews?.google_url ? [profileUrl(site.reviews.google_url) || site.reviews.google_url] : undefined,
     knowsAbout: pages.filter(isService).map((p) => p.title),
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
