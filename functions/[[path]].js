@@ -16,6 +16,7 @@ const SECURITY_HEADERS = {
 
 // Stránka smí spouštět jen vlastní skripty a jeden vložený (podle otisku) — případně
 // podstrčený kód v obsahu by se nespustil. Styly jsou vložené přímo, proto 'unsafe-inline'.
+// Výjimka: měření návštěvnosti Cloudflare Web Analytics (bez cookies) — skript a odesílání dat.
 let headScriptHash;
 async function csp() {
   headScriptHash ??= crypto.subtle
@@ -23,11 +24,11 @@ async function csp() {
     .then((d) => btoa(String.fromCharCode(...new Uint8Array(d))));
   return [
     "default-src 'self'",
-    `script-src 'self' 'sha256-${await headScriptHash}'`,
+    `script-src 'self' 'sha256-${await headScriptHash}' https://static.cloudflareinsights.com`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data:",
     "font-src 'self'",
-    "connect-src 'self'",
+    "connect-src 'self' https://cloudflareinsights.com",
     "object-src 'none'",
     "base-uri 'none'",
     "form-action 'self' mailto:",

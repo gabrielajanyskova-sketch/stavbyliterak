@@ -118,7 +118,8 @@ zablokuje; přihlášení platí 30 dní. Poptávkový formulář přijme z jedn
 5 zpráv za 10 minut (ochrana proti spamu a vyčerpání Resendu).
 
 Bezpečnostní hlavičky: stránky posílá router s Content-Security-Policy (jen vlastní
-skripty + otisk jediného vloženého skriptu `HEAD_SCRIPT` v `render.js`), HSTS
+skripty + otisk jediného vloženého skriptu `HEAD_SCRIPT` v `render.js` + měření
+Cloudflare Web Analytics, zapnuté v Pages → Metrics, bez cookies), HSTS
 a Permissions-Policy; admin má vlastní CSP v `_headers`.
 
 Žluté poznámky „k doplnění“ (blok Poznámka, styl Úkol) se zobrazují jen na náhledu
@@ -149,7 +150,7 @@ Pozdější změny se dělají v administraci, ne v tomto souboru.
 - [ ] Od klienta: cena CO₂ sady k výčepu, cena dovozu a sestavení gastra, potvrzení ceny pivního setu
 - [ ] Rekonstrukce bytů: pokud je dělá, doplnit do Stavebních prací (Google na to web už zobrazuje)
 - [ ] Google profil: skutečná otevírací doba místo „24 hodin“, web `https://www.stavbyliterak.cz/`
-- [ ] Seznam Webmaster a Bing Webmaster Tools, profil na Firmy.cz
+- [ ] Bing Webmaster Tools, profil na Firmy.cz
 - [ ] Za pár týdnů DMARC na `p=quarantine`, Webnode projekt vyprší 2. 2. 2027 (obnovení zrušené)
 
 ## Fotky

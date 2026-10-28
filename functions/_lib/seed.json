@@ -1777,7 +1777,7 @@
         },
         {
           "type": "text",
-          "text": "Tento web nepoužívá sledovací ani reklamní cookies a neměří návštěvnost nástroji třetích stran. Písma i obrázky jsou uložené přímo na webu, takže se při jeho prohlížení nepředávají údaje Googlu ani jiným službám. Výjimkou je našeptávač adres: když ve formuláři začnete psát adresu, napsaný text se přes náš server pošle službě Mapy.com (Seznam.cz), aby vám mohla nabídnout odpovídající adresy. Vaše IP adresa ani jiné údaje se jí nepředávají. Proto se vás web na souhlas s cookies neptá."
+          "text": "Tento web nepoužívá sledovací ani reklamní cookies. Návštěvnost měří anonymně službou Cloudflare Web Analytics, která cookies nepoužívá, neukládá IP adresy a nesleduje návštěvníky napříč weby. Vidíme jen souhrnná čísla, například počet návštěv a nejčtenější stránky. Písma i obrázky jsou uložené přímo na webu, takže se při jeho prohlížení nepředávají údaje Googlu ani jiným službám. Výjimkou je našeptávač adres: když ve formuláři začnete psát adresu, napsaný text se přes náš server pošle službě Mapy.com (Seznam.cz), aby vám mohla nabídnout odpovídající adresy. Vaše IP adresa ani jiné údaje se jí nepředávají. Proto se vás web na souhlas s cookies neptá."
         },
         {
           "type": "heading",
