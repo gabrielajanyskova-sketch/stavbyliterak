@@ -91,47 +91,69 @@ function messageSections(text) {
 const MAIL_FONT = "font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
+// Barvy e-mailu: tmavé jako web (pan Literák má rád tmavý režim). Barvy jsou přímo v atributech,
+// aby je pošta nepřebarvovala; meta color-scheme říká klientům, že e-mail už tmavý je.
+const M = { bg: '#101316', card: '#1d2126', panel: '#262b31', line: '#353d45', text: '#e6e9ec', muted: '#9aa3ab', amber: '#f39a1e' };
+
 function mailRow(label, value) {
-  if (!label) return `<tr><td colspan="2" style="padding:7px 0;border-bottom:1px solid #e6e8eb;color:#1d2125;white-space:pre-wrap">${value}</td></tr>`;
-  return `<tr><td valign="top" style="padding:7px 16px 7px 0;border-bottom:1px solid #e6e8eb;color:#6b737b;width:130px">${esc(cap(label))}</td><td valign="top" style="padding:7px 0;border-bottom:1px solid #e6e8eb;color:#1d2125;font-weight:600">${value}</td></tr>`;
+  const cell = `padding:9px 0;border-bottom:1px solid ${M.line};vertical-align:top`;
+  if (!label) return `<tr><td colspan="2" style="${cell};color:${M.text};white-space:pre-wrap">${value}</td></tr>`;
+  return `<tr><td style="${cell};padding-right:16px;color:${M.muted};width:130px">${esc(cap(label))}</td><td style="${cell};color:${M.text};font-weight:600">${value}</td></tr>`;
 }
 
+// Řádky, které se ukážou nahoře jako výrazné dlaždice (plocha, termín, cena…)
+const KEY_ROWS = /^(plocha lešení|termín|orientační cena pronájmu|cena pronájmu|vratná záloha)$/i;
+
 function inquiryHtml(q, withImage) {
+  const phoneDigits = q.phone.replace(/[^\d+]/g, '');
+  const callable = phoneDigits.replace(/\D/g, '').length >= 9; // „vrána“ ani překlep nedělá tlačítko Zavolat
+  const link = (href, text) => `<a href="${href}" style="color:${M.text};text-decoration:underline">${text}</a>`;
   const contact = [
     ['Jméno', esc(q.name)],
-    q.email ? ['E-mail', `<a href="mailto:${esc(q.email)}" style="color:#1d2125">${esc(q.email)}</a>`] : null,
-    q.phone ? ['Telefon', `<a href="tel:${esc(q.phone.replace(/\s+/g, ''))}" style="color:#1d2125">${esc(q.phone)}</a>`] : null,
+    q.email ? ['E-mail', link(`mailto:${esc(q.email)}`, esc(q.email))] : null,
+    q.phone ? ['Telefon', callable ? link(`tel:${esc(phoneDigits)}`, esc(q.phone)) : esc(q.phone)] : null,
     q.place ? ['Místo', esc(q.place)] : null,
   ].filter(Boolean);
-  const heading = (t) => `<p style="margin:26px 0 6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#b86e0c;font-weight:700">${esc(t)}</p>`;
+  const heading = (t) => `<p style="margin:28px 0 8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:${M.amber};font-weight:700">${esc(t)}</p>`;
   const table = (rows) => `<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;font-size:15px;line-height:1.45">${rows.join('')}</table>`;
-  const sections = messageSections(q.message)
-    .filter((s) => !/^-?\s*e-mail$/i.test(s.title))
-    .map((s) => {
-      const rows = s.rows.filter(([k]) => !/^e-mail$/i.test(k)).map(([k, v]) => mailRow(k, esc(v)));
-      return (s.title ? heading(s.title) : heading('Zpráva')) + (rows.length ? table(rows) : '');
+  const sections = messageSections(q.message).filter((sec) => !/^-?\s*e-mail$/i.test(sec.title));
+  const keys = sections.flatMap((sec) => sec.rows.filter(([k]) => KEY_ROWS.test(k)));
+  const tiles = keys.length
+    ? `<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin-top:24px;border-collapse:separate;border-spacing:0 8px"><tr>${keys
+        .slice(0, 3)
+        .map(([k, v]) => `<td style="background:${M.panel};border-left:3px solid ${M.amber};padding:12px 14px;vertical-align:top;width:${Math.floor(100 / Math.min(3, keys.length))}%"><p style="margin:0;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:${M.muted}">${esc(cap(k))}</p><p style="margin:4px 0 0;font-size:17px;line-height:1.3;font-weight:700;color:${M.amber}">${esc(v)}</p></td>`)
+        .join('<td style="width:8px"></td>')}</tr></table>`
+    : '';
+  const body = sections
+    .map((sec) => {
+      const rows = sec.rows.filter(([k]) => !/^e-mail$/i.test(k)).map(([k, v]) => mailRow(k, esc(v)));
+      return heading(sec.title || 'Zpráva') + (rows.length ? table(rows) : '');
     })
     .join('');
   const image = withImage
     ? heading('Nákres') +
-      `<img src="cid:nakres" alt="Půdorys domu a náhled lešení" width="560" style="display:block;width:100%;max-width:560px;height:auto;border:0;border-radius:6px">` +
-      `<p style="margin:6px 0 0;font-size:13px;color:#6b737b">Půdorys se stěnami a orientační náhled lešení, jak ho zákazník naklikal.</p>`
+      `<img src="cid:nakres" alt="Půdorys domu a náhled lešení" width="544" style="display:block;width:100%;max-width:544px;height:auto;border:1px solid ${M.line}">` +
+      `<p style="margin:8px 0 0;font-size:13px;color:${M.muted}">Půdorys se stěnami a orientační náhled lešení, jak ho zákazník naklikal.</p>`
     : '';
   const button = (href, label, primary) =>
-    `<a href="${href}" style="display:inline-block;margin:0 8px 8px 0;padding:11px 18px;border-radius:4px;text-decoration:none;font-weight:700;font-size:15px;${primary ? 'background:#f39a1e;color:#15181c' : 'background:#eef0f2;color:#1d2125'}">${label}</a>`;
-  return `<!doctype html><html lang="cs"><body style="margin:0;padding:0;background:#eef0f2">
-<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#eef0f2;${MAIL_FONT}"><tr><td align="center" style="padding:24px 12px">
-<table role="presentation" width="600" cellspacing="0" cellpadding="0" style="width:100%;max-width:600px;background:#ffffff;border-radius:8px;overflow:hidden">
-<tr><td style="background:#15181c;padding:22px 28px;border-bottom:4px solid #f39a1e">
-<p style="margin:0;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#f39a1e;font-weight:700">Nová poptávka z webu</p>
-<p style="margin:6px 0 0;font-size:22px;line-height:1.25;color:#ffffff;font-weight:700">${esc(q.service || 'Poptávka')}</p>
+    `<a href="${href}" style="display:inline-block;margin:0 8px 8px 0;padding:12px 18px;text-decoration:none;font-weight:700;font-size:15px;${
+      primary ? `background:${M.amber};color:#15181c` : `background:${M.panel};color:${M.text};border:1px solid ${M.line}`
+    }">${label}</a>`;
+  return `<!doctype html><html lang="cs"><head><meta charset="utf-8"><meta name="color-scheme" content="dark"><meta name="supported-color-schemes" content="dark"></head>
+<body style="margin:0;padding:0;background:${M.bg}" bgcolor="${M.bg}">
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" bgcolor="${M.bg}" style="background:${M.bg};${MAIL_FONT}"><tr><td align="center" style="padding:24px 12px">
+<table role="presentation" width="600" cellspacing="0" cellpadding="0" bgcolor="${M.card}" style="width:100%;max-width:600px;background:${M.card}">
+<tr><td style="padding:24px 28px 20px;border-bottom:4px solid ${M.amber}">
+<p style="margin:0;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:${M.amber};font-weight:700">Nová poptávka z webu</p>
+<p style="margin:6px 0 0;font-size:24px;line-height:1.2;color:#ffffff;font-weight:800;text-transform:uppercase;letter-spacing:.02em">${esc(q.service || 'Poptávka')}</p>
 </td></tr>
-<tr><td style="padding:8px 28px 28px">
+<tr><td style="padding:4px 28px 28px">
+${tiles}
 ${heading('Zákazník')}${table(contact.map(([k, v]) => mailRow(k, v)))}
-<p style="margin:18px 0 0">${q.email ? button(`mailto:${esc(q.email)}`, 'Odpovědět e-mailem', true) : ''}${q.phone ? button(`tel:${esc(q.phone.replace(/\s+/g, ''))}`, 'Zavolat zákazníkovi', !q.email) : ''}</p>
-${sections}${image}
+<p style="margin:18px 0 0">${q.email ? button(`mailto:${esc(q.email)}`, 'Odpovědět e-mailem', true) : ''}${callable ? button(`tel:${esc(phoneDigits)}`, 'Zavolat zákazníkovi', !q.email) : ''}</p>
+${body}${image}
 </td></tr>
-<tr><td style="padding:16px 28px;background:#f6f7f8;font-size:12px;color:#6b737b">Odesláno z formuláře na webu stavbyliterak.cz.${q.email ? ' Odpověď na tento e-mail půjde přímo zákazníkovi.' : ''}</td></tr>
+<tr><td style="padding:16px 28px;background:${M.bg};font-size:12px;color:${M.muted};border-top:1px solid ${M.line}">Odesláno z formuláře na webu stavbyliterak.cz.${q.email ? ' Odpověď na tento e-mail půjde přímo zákazníkovi.' : ''}</td></tr>
 </table></td></tr></table></body></html>`;
 }
 
