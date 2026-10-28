@@ -98,7 +98,7 @@ const M = { bg: '#101316', card: '#1d2126', panel: '#262b31', line: '#353d45', t
 function mailRow(label, value) {
   const cell = `padding:9px 0;border-bottom:1px solid ${M.line};vertical-align:top`;
   if (!label) return `<tr><td colspan="2" style="${cell};color:${M.text};white-space:pre-wrap">${value}</td></tr>`;
-  return `<tr><td style="${cell};padding-right:16px;color:${M.muted};width:130px">${esc(cap(label))}</td><td style="${cell};color:${M.text};font-weight:600">${value}</td></tr>`;
+  return `<tr><td style="${cell};padding-right:16px;color:${M.muted};width:36%">${esc(cap(label))}</td><td style="${cell};color:${M.text};font-weight:600">${value}</td></tr>`;
 }
 
 // Řádky, které se ukážou nahoře jako výrazné dlaždice (plocha, termín, cena…)
@@ -132,7 +132,7 @@ function inquiryHtml(q, withImage) {
     .join('');
   const image = withImage
     ? heading('Nákres') +
-      `<img src="cid:nakres" alt="Půdorys domu a náhled lešení" width="544" style="display:block;width:100%;max-width:544px;height:auto;border:1px solid ${M.line}">` +
+      `<img src="cid:nakres" alt="Půdorys domu a náhled lešení" width="704" style="display:block;width:100%;max-width:704px;height:auto;border:1px solid ${M.line}">` +
       `<p style="margin:8px 0 0;font-size:13px;color:${M.muted}">Půdorys se stěnami a orientační náhled lešení, jak ho zákazník naklikal.</p>`
     : '';
   const button = (href, label, primary) =>
@@ -142,7 +142,7 @@ function inquiryHtml(q, withImage) {
   return `<!doctype html><html lang="cs"><head><meta charset="utf-8"><meta name="color-scheme" content="dark"><meta name="supported-color-schemes" content="dark"></head>
 <body style="margin:0;padding:0;background:${M.bg}" bgcolor="${M.bg}">
 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" bgcolor="${M.bg}" style="background:${M.bg};${MAIL_FONT}"><tr><td align="center" style="padding:24px 12px">
-<table role="presentation" width="600" cellspacing="0" cellpadding="0" bgcolor="${M.card}" style="width:100%;max-width:600px;background:${M.card}">
+<table role="presentation" width="760" cellspacing="0" cellpadding="0" bgcolor="${M.card}" style="width:100%;max-width:760px;background:${M.card}">
 <tr><td style="padding:24px 28px 20px;border-bottom:4px solid ${M.amber}">
 <p style="margin:0;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:${M.amber};font-weight:700">Nová poptávka z webu</p>
 <p style="margin:6px 0 0;font-size:24px;line-height:1.2;color:#ffffff;font-weight:800;text-transform:uppercase;letter-spacing:.02em">${esc(q.service || 'Poptávka')}</p>
