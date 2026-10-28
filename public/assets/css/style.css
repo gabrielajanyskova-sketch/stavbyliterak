@@ -838,7 +838,18 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 .sc-walls li { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--line); }
 .sc-walls .calc-check { margin: 0; }
 .sc .sc-len { display: flex; align-items: center; gap: 6px; }
-.sc .sc-len input { width: 4.6rem; padding: 6px 8px; }
+.sc .sc-len input { width: 3.8rem; padding: 6px 4px; }
+.sc-field { display: grid; gap: 6px; align-content: start; }
+.sc-field > label { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.sc-step { display: flex; align-items: stretch; }
+.sc-step input { text-align: center; -moz-appearance: textfield; appearance: textfield; min-width: 0; }
+.sc-step input::-webkit-inner-spin-button, .sc-step input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.sc-step button { flex: none; width: 40px; padding: 0; font-size: 1.2rem; line-height: 1; color: var(--ink); background: var(--surface); border: 1px solid var(--line); cursor: pointer; }
+.sc-step button:first-child { border-right: 0; }
+.sc-step button:last-child { border-left: 0; }
+.sc-step button:hover { color: var(--amber); }
+.sc-step button:focus-visible { outline: 2px solid var(--amber); outline-offset: -2px; }
+.sc-len .sc-step button { width: 32px; }
 .sc .sc-len span { font-family: var(--font-body); text-transform: none; color: var(--muted); }
 .sc .sc-len small { white-space: nowrap; font-family: var(--font-mono); font-size: 0.72rem; text-transform: none; letter-spacing: 0; color: var(--amber-deep); }
 .sc .sc-seg { margin-bottom: 4px; }

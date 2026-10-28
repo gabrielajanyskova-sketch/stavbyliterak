@@ -390,6 +390,9 @@
   // ---------- rozhraní ----------
 
   const fmt = (n) => n.toLocaleString("cs-CZ", { maximumFractionDigits: 1 });
+  // číselné pole s tlačítky − / + (na mobilu se metry naklikají bez klávesnice)
+  const stepper = (input, step, what) =>
+    `<span class="sc-step"><button type="button" data-bump="${-step}" aria-label="Méně: ${what}">−</button>${input}<button type="button" data-bump="${step}" aria-label="Více: ${what}">+</button></span>`;
   const esc = (v) => String(v).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
   const seg = (name, options, value) =>
     `<div class="seg sc-seg" role="radiogroup">${Object.entries(options).map(([v, [title, hint]]) =>
@@ -415,7 +418,7 @@
 </div>
 <div class="sc-fields">
 <label>Počet podlaží<select name="floors">${[1, 2, 3, 4].map((n) => `<option value="${n}"${n === state.floors ? " selected" : ""}>${n === 1 ? "přízemí" : `${n} podlaží`}</option>`).join("")}</select></label>
-<label>Výška k okapu (m)<input name="height" type="number" min="1" max="30" step="0.5" value="${state.height}" inputmode="decimal"></label>
+<div class="sc-field"><label for="sc-height">Výška k okapu (m)</label>${stepper(`<input id="sc-height" name="height" type="number" min="1" max="30" step="0.5" value="${state.height}" inputmode="decimal">`, 0.5, "výška k okapu")}</div>
 <label>Střecha<select name="roof">${Object.entries(ROOFS).map(([v, t]) => `<option value="${v}"${v === state.roof ? " selected" : ""}>${t}</option>`).join("")}</select></label>
 </div>
 <label class="calc-check"><input type="checkbox" name="overRoof" checked> Budu pracovat i u střechy (lešení o 1 m nad okap)</label>
@@ -433,7 +436,7 @@ ${seg("service", SERVICES, state.service)}
 ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvezeme"], sam: ["Odvezu si sám", "vyzvednutí ve Frýdku-Místku"] }, state.transport)}
 <h3>Stavební stojky</h3>
 <label class="calc-check"><input type="checkbox" name="propsOn"> Potřebuji i stavební stojky</label>
-<label class="sc-wide sc-props" hidden>Počet stojek (ks)<input name="props" type="number" min="1" step="1" value="10" inputmode="numeric"></label>
+<div class="sc-field sc-wide sc-props" hidden><label for="sc-props">Počet stojek (ks)</label>${stepper(`<input id="sc-props" name="props" type="number" min="1" step="1" value="10" inputmode="numeric">`, 1, "počet stojek")}</div>
 <label class="sc-wide">K čemu lešení potřebujete<select name="ucel"><option>Omítky a nátěry fasády</option><option>Střecha a klempířské práce</option><option>Okna a parapety</option><option>Jiné práce</option></select></label>
 </div>
 <div class="sc-panel" data-panel="3" hidden>
@@ -501,7 +504,7 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
     if (!current.walls) { list.innerHTML = ""; return; }
     list.innerHTML = current.walls.map((w, i) => {
       const k = wallKey(w);
-      return `<li><label class="calc-check"><input type="checkbox" data-wall="${k}"${state.off.has(k) ? "" : " checked"}> Stěna ${letter(i)}</label><label class="sc-len"><input type="number" min="0.5" step="0.1" inputmode="decimal" data-len="${k}" value="${+wallLength(w).toFixed(2)}" aria-label="Délka stěny ${letter(i)} v metrech"><span>m</span><small data-fields>${fieldsOf(w)} ${fieldWord(fieldsOf(w))}</small></label></li>`;
+      return `<li><label class="calc-check"><input type="checkbox" data-wall="${k}"${state.off.has(k) ? "" : " checked"}> Stěna ${letter(i)}</label><span class="sc-len">${stepper(`<input type="number" min="0.5" step="0.1" inputmode="decimal" data-len="${k}" value="${+wallLength(w).toFixed(2)}" aria-label="Délka stěny ${letter(i)} v metrech">`, 0.5, `délka stěny ${letter(i)}`)}<span>m</span><small data-fields>${fieldsOf(w)} ${fieldWord(fieldsOf(w))}</small></span></li>`;
     }).join("");
   }
 
@@ -581,13 +584,24 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
     update();
   }
 
+  root.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-bump]");
+    if (!b) return;
+    const input = b.parentElement.querySelector("input");
+    const v = parseFloat(String(input.value).replace(",", ".")) || 0;
+    let n = Math.round((v + Number(b.dataset.bump)) * 10) / 10;
+    if (input.min !== "") n = Math.max(Number(input.min), n);
+    if (input.max !== "") n = Math.min(Number(input.max), n);
+    input.value = n;
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+  });
   root.addEventListener("input", (e) => {
     const el = e.target;
     if (el.dataset.len) {
       const v = parseFloat(String(el.value).replace(",", "."));
       if (v > 0) state.lengths[el.dataset.len] = v;
       const w = current.walls.find((x) => wallKey(x) === el.dataset.len);
-      if (w) el.parentElement.querySelector("[data-fields]").textContent = `${fieldsOf(w)} ${fieldWord(fieldsOf(w))}`;
+      if (w) el.closest(".sc-len").querySelector("[data-fields]").textContent = `${fieldsOf(w)} ${fieldWord(fieldsOf(w))}`;
       refresh();
     } else if (el.name === "height") {
       state.height = Math.max(1, parseFloat(String(el.value).replace(",", ".")) || 1);
