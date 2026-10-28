@@ -22,4 +22,4 @@ SITE_URL = "https://www.stavbyliterak.cz"
 # Bez klíče formulář otevře e-mailový program návštěvníka a do adminu stačí heslo.
 MAIL_FROM = "Web Stavby Literák <web@stavbyliterak.cz>"
 NOTIFY_EMAIL = "info@stavbyliterak.cz"       # sem chodí poptávky z formuláře
-LOGIN_EMAIL = "gabriela.janyskova@email.cz"  # sem chodí kódy pro přihlášení do adminu
+LOGIN_EMAIL = "info@stavbyliterak.cz"         # sem chodí kódy pro přihlášení do adminu
