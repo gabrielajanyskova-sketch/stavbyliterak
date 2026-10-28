@@ -20,6 +20,9 @@
 /assets/img/*
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
 
+/podpis.png
+  Cache-Control: public, max-age=2592000
+
 /favicon*
   Cache-Control: public, max-age=604800
 
