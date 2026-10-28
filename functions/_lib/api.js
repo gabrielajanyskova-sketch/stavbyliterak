@@ -1,5 +1,5 @@
 // API pro poptávkový formulář a administraci (/admin).
-import { BLOCK_TYPES, esc, catalogItems, money } from './render.js';
+import { BLOCK_TYPES, esc, catalogItems, money, maxCount } from './render.js';
 import { getSite, getPages, saveSite, savePage, renamePage, deletePage, reorderPages } from './db.js';
 
 export function json(data, status = 200) {
@@ -229,9 +229,9 @@ async function gastroQuote(request, env) {
   let deposit = 0;
   const missing = [];
   for (const [title, qty] of Object.entries(b.items && typeof b.items === 'object' ? b.items : {}).slice(0, 100)) {
-    const n = Math.min(99, Math.max(0, parseInt(qty, 10) || 0));
-    const item = n && items.find((i) => i.title === title);
-    if (!item) continue;
+    const item = items.find((i) => i.title === title);
+    const n = item ? Math.min(maxCount(item), Math.max(0, parseInt(qty, 10) || 0)) : 0;
+    if (!n) continue;
     const price = money(item[key]);
     if (price === null) missing.push(title);
     else rent += price * n;

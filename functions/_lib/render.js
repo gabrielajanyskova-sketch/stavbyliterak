@@ -76,6 +76,9 @@ function preloadPhoto(src) {
 // Ceny půjčovny (víkend, jeden den, záloha) se zadávají v adminu u položek katalogu.
 // Na stránce se nikdy nevypisují — celkovou cenu spočítá server (/api/gastro-quote).
 export const catalogItems = (p) => (p.blocks || []).filter((b) => b.type === 'catalog').flatMap((b) => b.items || []);
+// Kolik kusů položky jde půjčit („5 sad“ → 5); výběr v katalogu i výpočet ceny se drží tohoto stropu.
+export const maxCount = (i) => Math.max(1, parseInt((String(i.count).match(/\d+/) || ['1'])[0], 10));
+
 export function money(v) {
   const n = parseFloat(String(v ?? '').replace(/[\s\u00a0]|kč|,-/gi, '').replace(',', '.'));
   return Number.isFinite(n) && n >= 0 ? n : null;
@@ -370,7 +373,7 @@ const list = (tag, cls, rows) => `<${tag} class="${cls}">\n${rows.join('\n')}\n<
 
 // Výběr počtu kusů do poptávky (ovládá main.js; bez JavaScriptu je skrytý)
 const pick = (i) => {
-  const max = Math.max(1, parseInt((String(i.count).match(/\d+/) || ['1'])[0], 10));
+  const max = maxCount(i);
   return `<div class="pick" data-max="${max}"><button type="button" data-step="-1" aria-label="Ubrat: ${esc(i.title)}">−</button><output aria-label="Počet: ${esc(i.title)}">0</output><button type="button" data-step="1" aria-label="Přidat: ${esc(i.title)}">+</button></div>`;
 };
 
