@@ -809,6 +809,13 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 .sc-outline { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
 .sc-outline line { stroke: var(--amber); stroke-width: 0.08; stroke-linecap: round; }
 .sc-outline line.is-off { stroke: var(--muted); stroke-dasharray: 0.12 0.12; }
+.sc-outline line.is-active { stroke: #fff; stroke-width: 0.16; }
+.sc-outline text.is-active { fill: var(--amber); font-size: 0.55px; }
+.sc-mini { width: 26px; height: 26px; flex: none; margin: 0 6px 0 2px; vertical-align: middle; }
+.sc-mini line { stroke: var(--line); stroke-width: 0.22; stroke-linecap: round; }
+.sc-mini line.is-this { stroke: var(--amber); stroke-width: 0.45; }
+.sc-walls li { transition: background 0.15s; }
+.sc-walls li:hover, .sc-walls li:focus-within { background: rgb(243 154 30 / 0.06); }
 .sc-outline text { fill: var(--ink); font-family: var(--font-mono); font-size: 0.42px; font-weight: 700; text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: var(--paper); stroke-width: 0.12px; }
 .sc-error { min-height: 1.4em; margin: 6px 0 0; font-size: 0.85rem; color: #e0603a; }
 .sc-view { margin: 0; }
@@ -832,9 +839,9 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
 .sc-fields.is-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 0; }
 .sc .sc-wide { margin-top: 12px; }
 .sc textarea { width: 100%; padding: 10px 12px; font: inherit; font-size: 1rem; text-transform: none; letter-spacing: 0; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 0; resize: vertical; }
-.sc .sc-walls { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px 16px; margin: 0; padding: 0; }
+.sc .sc-walls { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 8px 24px; margin: 0; padding: 0; }
 .sc-walls li { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--line); }
-.sc-walls .calc-check { margin: 0; }
+.sc-walls .calc-check { margin: 0; white-space: nowrap; }
 .sc .sc-len { display: flex; align-items: center; gap: 6px; }
 .sc .sc-len input { width: 3.8rem; padding: 6px 4px; }
 .sc-field { display: grid; gap: 6px; align-content: start; }
@@ -871,6 +878,9 @@ a.catalog-photo:focus-visible { outline: 3px solid var(--amber); outline-offset:
   .sc-fields { grid-template-columns: 1fr 1fr; }
   .sc-fields label:last-child:nth-child(odd) { grid-column: 1 / -1; }
   .sc-steps button { font-size: 0.64rem; letter-spacing: 0.03em; }
+  /* úzký displej: počet polí pod polem s délkou, ať se řádek stěny vejde */
+  .sc .sc-len { flex-wrap: wrap; justify-content: flex-end; row-gap: 2px; }
+  .sc .sc-len small { flex-basis: 100%; text-align: right; }
 }
 
 /* Výběr počtu kusů do poptávky (jen s JavaScriptem) */

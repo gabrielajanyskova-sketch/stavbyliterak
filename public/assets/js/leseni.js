@@ -495,16 +495,35 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
       const off = state.off.has(wallKey(w));
       const [nx, ny] = [w.y2 - w.y1, w.x1 - w.x2].map((v) => Math.sign(v) * 0.32);
       const mx = (w.x1 + w.x2) / 2 + nx, my = (w.y1 + w.y2) / 2 + ny;
-      return `<line class="${off ? "is-off" : ""}" x1="${w.x1}" y1="${w.y1}" x2="${w.x2}" y2="${w.y2}"/><text x="${mx}" y="${my}">${letter(i)}</text>`;
+      const cls = [off ? "is-off" : "", i === activeWall ? "is-active" : ""].join(" ").trim();
+      return `<line class="${cls}" x1="${w.x1}" y1="${w.y1}" x2="${w.x2}" y2="${w.y2}"/><text class="${cls}" x="${mx}" y="${my}">${letter(i)}</text>`;
     }).join("");
   }
+
+  // malý půdorys u každé stěny v seznamu — hned je vidět, kterou stěnu zákazník vyplňuje
+  function miniPlan(walls, i) {
+    const xs = walls.flatMap((w) => [w.x1, w.x2]), ys = walls.flatMap((w) => [w.y1, w.y2]);
+    const x0 = Math.min(...xs), y0 = Math.min(...ys);
+    const size = Math.max(Math.max(...xs) - x0, Math.max(...ys) - y0) + 1.2;
+    const lines = walls.map((w, j) =>
+      `<line class="${j === i ? "is-this" : ""}" x1="${w.x1}" y1="${w.y1}" x2="${w.x2}" y2="${w.y2}"/>`).join("");
+    return `<svg class="sc-mini" viewBox="${x0 - 0.6} ${y0 - 0.6} ${size} ${size}" aria-hidden="true">${lines}</svg>`;
+  }
+
+  // zvýraznění stěny v hlavním půdorysu, když je kurzor nebo fokus na jejím řádku
+  let activeWall = -1;
+  const setActiveWall = (i) => {
+    if (i === activeWall) return;
+    activeWall = i;
+    drawGrid();
+  };
 
   function drawWalls() {
     const list = $(".sc-walls");
     if (!current.walls) { list.innerHTML = ""; return; }
     list.innerHTML = current.walls.map((w, i) => {
       const k = wallKey(w);
-      return `<li><label class="calc-check"><input type="checkbox" data-wall="${k}"${state.off.has(k) ? "" : " checked"}> Stěna ${letter(i)}</label><span class="sc-len">${stepper(`<input type="number" min="0.5" step="0.1" inputmode="decimal" data-len="${k}" value="${+wallLength(w).toFixed(2)}" aria-label="Délka stěny ${letter(i)} v metrech">`, 0.5, `délka stěny ${letter(i)}`)}<span>m</span><small data-fields>${fieldsOf(w)} ${fieldWord(fieldsOf(w))}</small></span></li>`;
+      return `<li data-wall-row="${i}"><label class="calc-check"><input type="checkbox" data-wall="${k}"${state.off.has(k) ? "" : " checked"}>${miniPlan(current.walls, i)} Stěna ${letter(i)}</label><span class="sc-len">${stepper(`<input type="number" min="0.5" step="0.1" inputmode="decimal" data-len="${k}" value="${+wallLength(w).toFixed(2)}" aria-label="Délka stěny ${letter(i)} v metrech">`, 0.5, `délka stěny ${letter(i)}`)}<span>m</span><small data-fields>${fieldsOf(w)} ${fieldWord(fieldsOf(w))}</small></span></li>`;
     }).join("");
   }
 
@@ -595,6 +614,11 @@ ${seg("transport", { dovoz: ["Dovoz na stavbu", "přivezeme a po pronájmu odvez
     input.value = n;
     input.dispatchEvent(new Event("input", { bubbles: true }));
   });
+  const wallRow = (e) => e.target.closest?.("[data-wall-row]");
+  $(".sc-walls").addEventListener("mouseover", (e) => { const r = wallRow(e); if (r) setActiveWall(+r.dataset.wallRow); });
+  $(".sc-walls").addEventListener("mouseleave", () => setActiveWall(-1));
+  $(".sc-walls").addEventListener("focusin", (e) => { const r = wallRow(e); if (r) setActiveWall(+r.dataset.wallRow); });
+  $(".sc-walls").addEventListener("focusout", (e) => { if (!e.relatedTarget?.closest?.(".sc-walls")) setActiveWall(-1); });
   root.addEventListener("input", (e) => {
     const el = e.target;
     if (el.dataset.len) {
