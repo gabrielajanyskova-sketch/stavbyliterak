@@ -487,7 +487,7 @@ ${p.ask_note ? `<p class="ask-note">${inline(p.ask_note)}</p>` : ''}
 
 function stars(n) {
   const v = Math.max(0, Math.min(5, Math.round(Number(n) || 0)));
-  return `<span class="stars" aria-label="${v} z 5 hvězdiček">${'★'.repeat(v)}<span aria-hidden="true">${'★'.repeat(5 - v)}</span></span>`;
+  return `<span class="stars" role="img" aria-label="${v} z 5 hvězdiček">${'★'.repeat(v)}<span aria-hidden="true">${'★'.repeat(5 - v)}</span></span>`;
 }
 
 function reviewsSection(r) {
