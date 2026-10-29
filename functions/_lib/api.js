@@ -40,22 +40,33 @@ async function sendMail(env, { subject, html, text = null, replyTo = null, attac
 const CONTACT_LIMIT = 5;
 const CONTACT_WINDOW_MS = 10 * 60 * 1000;
 
-// Počítadlo pokusů na IP v okně (sdílí ho přihlášení do adminu i formulář, liší se předponou klíče).
+// Počítadlo pokusů na IP v okně (sdílí ho přihlášení do adminu, formulář i našeptávač,
+// liší se předponou klíče). Stav: kolik pokusů je v aktuálním okně.
+async function attemptState(env, key, windowMs) {
+  const row = await env.DB.prepare('SELECT attempt_count, window_start FROM login_attempts WHERE ip = ?').bind(key).first();
+  const active = !!row && Date.now() - new Date(row.window_start).getTime() < windowMs;
+  return { exists: !!row, active, count: active ? row.attempt_count : 0 };
+}
+
+// Započítá pokus; po uplynutí okna začne počítat znovu od jedné.
+async function countAttempt(env, key, active) {
+  if (active) {
+    await env.DB.prepare('UPDATE login_attempts SET attempt_count = attempt_count + 1 WHERE ip = ?').bind(key).run();
+    return;
+  }
+  await env.DB.prepare(
+    `INSERT INTO login_attempts (ip, attempt_count, window_start) VALUES (?, 1, ?)
+     ON CONFLICT(ip) DO UPDATE SET attempt_count = 1, window_start = excluded.window_start`
+  )
+    .bind(key, new Date().toISOString())
+    .run();
+}
+
 // Vrací true, když je limit vyčerpaný; jinak pokus započítá.
 async function overLimit(env, key, limit, windowMs) {
-  const now = Date.now();
-  const row = await env.DB.prepare('SELECT attempt_count, window_start FROM login_attempts WHERE ip = ?').bind(key).first();
-  const active = !!row && now - new Date(row.window_start).getTime() < windowMs;
-  if (active && row.attempt_count >= limit) return true;
-  if (active) await env.DB.prepare('UPDATE login_attempts SET attempt_count = attempt_count + 1 WHERE ip = ?').bind(key).run();
-  else {
-    await env.DB.prepare(
-      `INSERT INTO login_attempts (ip, attempt_count, window_start) VALUES (?, 1, ?)
-       ON CONFLICT(ip) DO UPDATE SET attempt_count = 1, window_start = excluded.window_start`
-    )
-      .bind(key, new Date(now).toISOString())
-      .run();
-  }
+  const state = await attemptState(env, key, windowMs);
+  if (state.count >= limit) return true;
+  await countAttempt(env, key, state.active);
   return false;
 }
 
@@ -341,27 +352,18 @@ async function issueSession(env) {
 async function login(request, env) {
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
   const now = Date.now();
-  const row = await env.DB.prepare('SELECT attempt_count, window_start FROM login_attempts WHERE ip = ?').bind(ip).first();
-  const windowActive = !!row && now - new Date(row.window_start).getTime() < LOGIN_ATTEMPT_WINDOW_MS;
-  if (windowActive && row.attempt_count >= LOGIN_ATTEMPT_LIMIT) return json({ error: 'too_many_attempts' }, 429);
+  // počítají se jen neúspěšné pokusy, po přihlášení se počítadlo smaže
+  const attempts = await attemptState(env, ip, LOGIN_ATTEMPT_WINDOW_MS);
+  if (attempts.count >= LOGIN_ATTEMPT_LIMIT) return json({ error: 'too_many_attempts' }, 429);
 
   const b = await body(request);
   // mezery na okrajích (častý omyl při kopírování hesla do Cloudflare) nevadí
   const ok = !!env.ADMIN_PASSWORD && typeof b.password === 'string' && sameText(b.password.trim(), String(env.ADMIN_PASSWORD).trim());
   if (!ok) {
-    if (windowActive) {
-      await env.DB.prepare('UPDATE login_attempts SET attempt_count = attempt_count + 1 WHERE ip = ?').bind(ip).run();
-    } else {
-      await env.DB.prepare(
-        `INSERT INTO login_attempts (ip, attempt_count, window_start) VALUES (?, 1, ?)
-         ON CONFLICT(ip) DO UPDATE SET attempt_count = 1, window_start = excluded.window_start`
-      )
-        .bind(ip, new Date(now).toISOString())
-        .run();
-    }
+    await countAttempt(env, ip, attempts.active);
     return json({ error: env.ADMIN_PASSWORD ? 'wrong_password' : 'not_configured' }, 401);
   }
-  if (row) await env.DB.prepare('DELETE FROM login_attempts WHERE ip = ?').bind(ip).run();
+  if (attempts.exists) await env.DB.prepare('DELETE FROM login_attempts WHERE ip = ?').bind(ip).run();
   // úklid prošlých přihlášení, kódů a starých počítadel
   const nowIso = new Date(now).toISOString();
   await env.DB.batch([
