@@ -11,6 +11,12 @@
     };
     toggle.addEventListener("click", () => setOpen(!nav.classList.contains("open")));
     nav.addEventListener("click", (e) => e.target.closest("a") && setOpen(false));
+    // Escape zavře otevřené menu a vrátí fokus na tlačítko Menu
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape" || !nav.classList.contains("open")) return;
+      setOpen(false);
+      toggle.focus();
+    });
   }
 
   // Mobilní pruh Zavolat / Poptávka: při posunu dolů se schová (jako lišta Safari), při posunu
