@@ -140,6 +140,28 @@ naplní z `seed.json`).
 
 Web pak běží na http://localhost:8788, administrace na http://localhost:8788/admin.
 
+## Záloha obsahu
+
+Obsah webu je jen v D1 (`seed.json` je výchozí obsah z doby spuštění, ne aktuální stav).
+Workflow `.github/workflows/zaloha-d1.yml` ho každé pondělí vyexportuje jako SQL (tabulky
+`site`, `pages`, `images`; přihlašovací relace a kódy ne) a uloží do Actions → běh → Artifacts
+na 90 dní. Spustit jde i ručně (Actions → Záloha obsahu (D1) → Run workflow).
+
+- Potřebné secrets v GitHubu (Settings → Secrets and variables → Actions):
+  `CLOUDFLARE_API_TOKEN` (API token s oprávněním D1) a `CLOUDFLARE_ACCOUNT_ID`.
+- Repozitář je veřejný, takže artefakty si může stáhnout kdokoli přihlášený na GitHubu.
+  Záloha obsahuje to, co je na webu, a navíc ceny gastropůjčovny zadané v adminu.
+- Fotky nahrané v adminu (Workers KV) záloha neobsahuje, jen jejich seznam.
+- GitHub vypne plánované workflow, když se v repozitáři 60 dní nic nezmění —
+  pak ho stačí v Actions znovu zapnout.
+
+Obnovení (přepíše současný obsah — nejdřív si udělejte čerstvou zálohu):
+
+```bash
+npx wrangler d1 execute stavbyliterak --remote --command "DROP TABLE site; DROP TABLE pages; DROP TABLE images;"
+npx wrangler d1 execute stavbyliterak --remote --file zaloha-RRRR-MM-DD.sql
+```
+
 ## Výchozí obsah
 
 `functions/_lib/seed.json` se použije jen pro **prázdnou** databázi (první spuštění).
