@@ -743,7 +743,9 @@ export function renderNotFound(ctx) {
 // ---------- soubory pro vyhledávače a AI ----------
 
 export function renderSitemap(ctx) {
-  const rows = [{ loc: '/', mod: null }, ...ctx.pages.map((p) => ({ loc: pageUrl(p.slug), mod: p.updated_at }))];
+  // úvod skládá obsah webu (site) i rozcestník a ukázky ze stránek → nejnovější z těchto změn
+  const home = [ctx.site.updated_at, ...ctx.pages.map((p) => p.updated_at)].filter(Boolean).sort().pop() || null;
+  const rows = [{ loc: '/', mod: home }, ...ctx.pages.map((p) => ({ loc: pageUrl(p.slug), mod: p.updated_at }))];
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${rows.map((r) => `<url><loc>${esc(ctx.base + r.loc)}</loc>${r.mod ? `<lastmod>${esc(r.mod.slice(0, 10))}</lastmod>` : ''}</url>`).join('\n')}
@@ -767,18 +769,21 @@ export function renderLlms(ctx) {
     `- Telefon: ${site.phone}`,
     `- E-mail: ${site.email}`,
     '',
-    '## Služby',
-    '',
   );
-  for (const p of pages) {
-    out.push(`### [${p.title}](${base}${pageUrl(p.slug)})`, '', plain(p.lead), '');
-    for (const f of p.facts || []) out.push(`- ${plain(f.label)}: ${plain(f.value)}`);
-    const faq = (p.blocks || []).filter((b) => b.type === 'faq').flatMap((b) => b.items || []);
-    if (faq.length) {
-      out.push('', 'Časté otázky:', '');
-      for (const q of faq) out.push(`- **${plain(q.title)}** ${plain(q.text)}`);
+  // služby zvlášť, informační stránky (certifikáty, právní informace) pod „Další stránky“
+  for (const [heading, list] of [['Služby', pages.filter(isService)], ['Další stránky', pages.filter((p) => !isService(p))]]) {
+    if (!list.length) continue;
+    out.push(`## ${heading}`, '');
+    for (const p of list) {
+      out.push(`### [${p.title}](${base}${pageUrl(p.slug)})`, '', plain(p.lead), '');
+      for (const f of p.facts || []) out.push(`- ${plain(f.label)}: ${plain(f.value)}`);
+      const faq = (p.blocks || []).filter((b) => b.type === 'faq').flatMap((b) => b.items || []);
+      if (faq.length) {
+        out.push('', 'Časté otázky:', '');
+        for (const q of faq) out.push(`- **${plain(q.title)}** ${plain(q.text)}`);
+      }
+      out.push('');
     }
-    out.push('');
   }
   return out.join('\n');
 }

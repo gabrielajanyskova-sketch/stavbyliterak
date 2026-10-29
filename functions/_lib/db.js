@@ -33,8 +33,8 @@ export async function ensureDb(env) {
 // Bez napojené databáze (např. náhled bez bindingu) web pořád běží z výchozího obsahu.
 export async function getSite(env) {
   if (!env.DB) return seed.site;
-  const row = await env.DB.prepare('SELECT data FROM site WHERE id = 1').first();
-  return row ? JSON.parse(row.data) : seed.site;
+  const row = await env.DB.prepare('SELECT data, updated_at FROM site WHERE id = 1').first();
+  return row ? Object.assign(JSON.parse(row.data), { updated_at: row.updated_at }) : seed.site;
 }
 
 export async function getPages(env, { includeDrafts = false } = {}) {
