@@ -291,6 +291,7 @@ ${image && !og ? '' : '<meta property="og:image:width" content="1200">\n<meta pr
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/assets/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/barlow-condensed-latin-ext-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 ${preload}${ctx.assets?.css ? `<style>${ctx.assets.css}</style>` : '<link rel="stylesheet" href="/assets/css/fonts.css">\n<link rel="stylesheet" href="/assets/css/style.css">'}
 <script>${HEAD_SCRIPT}</script>
 <script type="application/ld+json">${jsonLd(schema)}</script>
