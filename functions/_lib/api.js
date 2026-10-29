@@ -673,7 +673,12 @@ export async function serveImage(env, key) {
 
 export async function handleApi(request, env, path) {
   const m = request.method;
-  if (path === '/api/health') return json({ ok: true, db: !!env.DB, images: !!env.IMAGES, mail: mailConfigured(env), adresy: !!env.MAPY_API_KEY });
+  // veřejně jen to, že web běží; jestli jsou nastavené klíče (e-maily, Mapy.com), vidí jen přihlášený admin
+  if (path === '/api/health') {
+    const status = { ok: true, db: !!env.DB, images: !!env.IMAGES };
+    if (env.DB && (await isAdmin(request, env))) Object.assign(status, { mail: mailConfigured(env), adresy: !!env.MAPY_API_KEY });
+    return json(status);
+  }
   if (path === '/api/contact' && m === 'POST') return submitContact(request, env);
   if (path === '/api/gastro-quote' && m === 'POST') return gastroQuote(request, env);
   if (path === '/api/adresa' && m === 'GET') return suggestAddress(request, env);

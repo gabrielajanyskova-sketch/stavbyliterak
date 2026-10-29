@@ -79,7 +79,9 @@ přes `/api/adresa` → Mapy.com REST API (`/v1/suggest`, jen Česko). Klíč je
 `MAPY_API_KEY` v Pages (účet na developer.mapy.com, bezplatný tarif stačí). Bez klíče
 pole fungují jako obyčejný text.
 
-Kontrola: `https://<web>/api/health` vrátí `{"ok":true,"db":true,"images":true,...}`.
+Kontrola: `https://<web>/api/health` vrátí `{"ok":true,"db":true,"images":true}`. Jestli jsou
+nastavené klíče (`mail`, `adresy`), ukáže jen s přihlášením do adminu (hlavička
+`Authorization: Bearer <token>`), aby je neviděl kdokoli.
 
 ### E-maily přes Resend
 
