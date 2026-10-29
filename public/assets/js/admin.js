@@ -57,6 +57,7 @@ const BUILTIN_IMAGES = [
   { url: "/assets/img/foto/gastro-stojan-na-prilohy.webp", name: "Stojan na přílohy" },
   { url: "/assets/img/foto/gastro-pivni-set.webp", name: "Pivní set — stůl a 2 lavice" },
   { url: "/assets/img/foto/gastro-reproduktor-jbl.webp", name: "Bluetooth reproduktor JBL — partybox" },
+  { url: "/assets/img/foto/gastro-mikrofony-jbl.webp", name: "Bluetooth mikrofony JBL — 2 ks" },
   // certifikáty
   { url: "/assets/img/foto/certifikat-termografie-ctg.webp", name: "Centrum termografie — Termografická diagnostika budov (2026)" },
   { url: "/assets/img/foto/osvedceni-pyroplex.webp", name: "Pyroplex — osvědčení k montáži protipožárních systémů (2024)" },
