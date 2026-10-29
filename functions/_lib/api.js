@@ -163,19 +163,40 @@ function inquiryText(q) {
     .join('\n');
 }
 
+// Formulář odeslaný bez JavaScriptu (klasický POST) dostane místo JSON krátkou textovou odpověď.
+async function formReply(env, data, status) {
+  let text = 'Díky, poptávka odešla. Ozvu se co nejdřív.';
+  if (data.error === 'missing_fields') text = 'Vyplňte prosím jméno a e-mail nebo telefon. Vraťte se zpět a formulář doplňte.';
+  else if (data.error) {
+    const site = await getSite(env);
+    text = `Poptávku se nepodařilo odeslat. Zavolejte prosím na ${site.phone} nebo napište na ${site.email}.`;
+  }
+  return new Response(`${text}\n\nZpět na web: vraťte se v prohlížeči o stránku zpět.\n`, {
+    status,
+    headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' },
+  });
+}
+
 async function submitContact(request, env) {
-  const b = await body(request);
+  const isForm = /form/i.test(request.headers.get('Content-Type') || '');
+  const reply = (data, status = 200) => (isForm ? formReply(env, data, status) : json(data, status));
+  let b = {};
+  try {
+    b = isForm ? Object.fromEntries(await request.formData()) : await request.json();
+  } catch {
+    // poškozená data — stejně jako prázdný formulář
+  }
   const field = (k, max = 200) => String(b[k] || '').trim().slice(0, max);
   const name = field('jmeno');
   const phone = field('telefon', 40);
   const email = field('email', 120);
   // stačí jméno a e-mail nebo telefon (starší otevřené stránky posílaly jen telefon)
   const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  if (!name || (!validEmail && !phone)) return json({ error: 'missing_fields' }, 400);
-  if (field('web')) return json({ ok: true }); // past na roboty (skryté pole)
-  if (!mailConfigured(env)) return json({ error: 'mail_not_configured' }, 503);
+  if (!name || (!validEmail && !phone)) return reply({ error: 'missing_fields' }, 400);
+  if (field('web')) return reply({ ok: true }); // past na roboty (skryté pole)
+  if (!mailConfigured(env)) return reply({ error: 'mail_not_configured' }, 503);
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
-  if (env.DB && (await overLimit(env, 'contact:' + ip, CONTACT_LIMIT, CONTACT_WINDOW_MS))) return json({ error: 'too_many_requests' }, 429);
+  if (env.DB && (await overLimit(env, 'contact:' + ip, CONTACT_LIMIT, CONTACT_WINDOW_MS))) return reply({ error: 'too_many_requests' }, 429);
 
   const inquiry = {
     service: field('sluzba'),
@@ -198,9 +219,9 @@ async function submitContact(request, env) {
     });
   } catch (err) {
     console.error('contact mail failed', err);
-    return json({ error: 'send_failed' }, 502);
+    return reply({ error: 'send_failed' }, 502);
   }
-  return json({ ok: true });
+  return reply({ ok: true });
 }
 
 // ---------- našeptávač adres ----------

@@ -339,7 +339,7 @@ function contact(ctx, preselect) {
 <div><dt>Fakturační údaje</dt><dd>${esc(site.owner)} · IČ ${esc(site.ico)}</dd></div>
 </dl>
 </div>
-<form class="form reveal" id="poptavka" data-to="${esc(site.email)}">
+<form class="form reveal" id="poptavka" method="post" action="/api/contact" data-to="${esc(site.email)}">
 <div><label for="sluzba">O co jde</label><select id="sluzba" name="sluzba">${opts}</select></div>
 <div class="row">
 <div><label for="jmeno">Jméno</label><input id="jmeno" name="jmeno" autocomplete="name" required></div>
