@@ -1,5 +1,7 @@
 // Stavby Literák — mobilní menu, odhalení sekcí, galerie, poptávkový formulář
 (() => {
+  document.documentElement.classList.add("js-ready"); // vypne CSS pojistku odhalení sekcí (style.css)
+
   const toggle = document.querySelector(".nav-toggle");
   const nav = document.querySelector(".nav");
   if (toggle && nav) {

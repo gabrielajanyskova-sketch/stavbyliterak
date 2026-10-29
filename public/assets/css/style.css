@@ -709,6 +709,9 @@ picture > source { display: none; }
 /* Pomalé odhalení sekcí při posunu */
 .js .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.5s ease, transform 0.5s ease; }
 .js .reveal.in { opacity: 1; transform: none; }
+/* Pojistka: když se main.js nenačte (nespustí se a nepřidá třídu js-ready), sekce se po 3 s ukážou samy */
+.js:not(.js-ready) .reveal { animation: reveal-fallback 0s 3s forwards; }
+@keyframes reveal-fallback { to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) {
   .js .reveal { opacity: 1; transform: none; transition: none; }
   html { scroll-behavior: auto; }
