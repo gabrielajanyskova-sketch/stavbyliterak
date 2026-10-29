@@ -7,123 +7,7 @@
 <title>Administrace webu</title>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/css/fonts.css">
-<style>
-  :root {
-    /* tmavé barvy jako web */
-    color-scheme: dark;
-    --graphite: #1d2126; --graphite-2: #2a3037; --ink: #e6e9ec; --muted: #a2aab1;
-    --concrete: #1b1f24; --paper: #15181c; --surface: #22272d; --field: #181b20; --line: #353d45;
-    --amber: #f39a1e; --amber-deep: #f39a1e;
-    --danger: #ff8a80; --ok: #6fcf97;
-    --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
-    --font-body: "IBM Plex Sans", system-ui, sans-serif;
-    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.5 var(--font-body); }
-  h1, h2, h3 { font-family: var(--font-display); text-transform: uppercase; line-height: 1.05; margin: 0 0 12px; }
-  h2 { font-size: 2rem; }
-  h3 { font-size: 1.3rem; }
-  button, input, select, textarea { font: inherit; color: inherit; }
-  a { color: inherit; }
-  [hidden] { display: none !important; }
-
-  .topbar { background: var(--graphite); color: #fff; border-bottom: 3px solid var(--amber); display: flex; align-items: center; gap: 16px; padding: 10px 20px; position: sticky; top: 0; z-index: 20; }
-  .topbar img { width: 84px; }
-  .topbar .title { font-family: var(--font-display); font-size: 1.3rem; text-transform: uppercase; letter-spacing: .03em; }
-  .topbar .spacer { flex: 1; }
-  .topbar a, .topbar button { color: #d9dde0; background: none; border: 0; cursor: pointer; text-decoration: none; font-size: .95rem; }
-  .topbar a:hover, .topbar button:hover { color: var(--amber); }
-  @media (max-width: 520px) {
-    .topbar { gap: 12px; padding: 8px 14px; }
-    .topbar img { width: 64px; }
-    .topbar .title { display: none; }
-  }
-
-  .layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); min-height: calc(100vh - 66px); }
-  .side { background: var(--concrete); border-right: 1px solid var(--line); padding: 20px 14px; }
-  .side h4 { font: .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 18px 6px 8px; }
-  .side ul { list-style: none; margin: 0; padding: 0; }
-  .side li { display: flex; align-items: center; gap: 2px; }
-  .side li button.nav { flex: 1; text-align: left; background: none; border: 0; padding: 8px 8px; cursor: pointer; border-left: 3px solid transparent; }
-  .side li button.nav:hover { background: var(--surface); }
-  .side li button.nav.active { background: var(--surface); border-left-color: var(--amber); font-weight: 600; }
-  .side li .draft { font: .7rem var(--font-mono); color: var(--muted); margin-left: 6px; }
-  .side .mini { background: none; border: 0; cursor: pointer; padding: 4px 6px; color: var(--muted); }
-  .side .mini:hover { color: var(--ink); }
-  .main { padding: 28px clamp(16px, 4vw, 48px) 120px; max-width: 980px; }
-
-  @media (max-width: 800px) {
-    .layout { grid-template-columns: 1fr; }
-    .side { border-right: 0; border-bottom: 1px solid var(--line); }
-  }
-
-  .panel { background: var(--surface); border: 1px solid var(--line); padding: 20px; margin-bottom: 20px; }
-  .panel > h3 { border-bottom: 2px solid var(--line); padding-bottom: 8px; }
-  .hint { font-size: .85rem; color: var(--muted); margin: 4px 0 0; }
-  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 18px; }
-  @media (max-width: 640px) { .grid2 { grid-template-columns: 1fr; } }
-  .field { margin-bottom: 14px; }
-  .field > label, .lbl { display: block; font: .72rem var(--font-mono); text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-bottom: 5px; }
-  input[type=text], input[type=password], input[type=email], input:not([type]), select, textarea {
-    width: 100%; padding: 9px 11px; border: 1px solid var(--line); background: var(--field); border-radius: 0;
-  }
-  textarea { min-height: 90px; resize: vertical; }
-  input:focus, select:focus, textarea:focus { outline: 2px solid var(--amber); outline-offset: 0; border-color: var(--amber); }
-  .check { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; cursor: pointer; }
-  .check input { width: 18px; height: 18px; accent-color: var(--amber-deep); }
-
-  .btn { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: 9px 16px; background: var(--amber); color: var(--graphite); border: 2px solid var(--amber); cursor: pointer; text-decoration: none; }
-  .btn:hover { background: #ffb24a; border-color: #ffb24a; }
-  .btn:disabled { opacity: .5; cursor: default; }
-  .btn-line { background: transparent; color: var(--ink); border-color: var(--ink); }
-  .btn-line:hover { background: var(--ink); color: var(--graphite); border-color: var(--ink); }
-  .btn-small { font-size: .9rem; padding: 5px 10px; }
-  .btn-danger { background: transparent; color: var(--danger); border-color: var(--danger); }
-  .btn-danger:hover { background: var(--danger); color: var(--graphite); border-color: var(--danger); }
-  .row-actions { display: flex; gap: 4px; }
-  .icon { background: var(--field); color: var(--ink); border: 1px solid var(--line); width: 30px; height: 30px; cursor: pointer; display: inline-grid; place-items: center; font-size: .95rem; }
-  .icon:hover { border-color: var(--ink); }
-  .icon.del:hover { border-color: var(--danger); color: var(--danger); }
-
-  .block { border: 1px solid var(--line); border-left: 4px solid var(--amber); background: var(--concrete); padding: 14px; margin-bottom: 12px; }
-  .block-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-  .block-head .type { font: .78rem var(--font-mono); text-transform: uppercase; letter-spacing: .07em; flex: 1; }
-  .item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; padding: 10px; background: var(--surface); border: 1px solid var(--line); margin-bottom: 8px; }
-  .item .fields { display: grid; gap: 6px; }
-  .item textarea { min-height: 60px; }
-  .add-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 8px; }
-  .add-row select { width: auto; }
-
-  .savebar { position: fixed; left: 0; right: 0; bottom: 0; background: var(--graphite); color: #fff; padding: 12px 20px; display: flex; align-items: center; gap: 14px; justify-content: flex-end; z-index: 30; border-top: 3px solid var(--amber); }
-  .savebar .msg { flex: 1; font-size: .95rem; color: #c6ccd1; }
-  .savebar .msg.dirty { color: var(--amber); }
-  .savebar a { color: #d9dde0; }
-
-  .photo-pick { display: flex; gap: 12px; align-items: flex-start; }
-  .photo-pick img { width: 140px; height: 96px; object-fit: cover; border: 1px solid var(--line); background: var(--concrete); }
-  .photo-pick .none { width: 140px; height: 96px; display: grid; place-items: center; border: 1px dashed var(--line); color: var(--muted); font-size: .85rem; }
-
-  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
-  .gallery figure { margin: 0; background: var(--surface); border: 1px solid var(--line); }
-  .gallery img { width: 100%; height: 120px; object-fit: cover; display: block; background: var(--concrete); }
-  .gallery figcaption { padding: 6px 8px; font-size: .8rem; display: flex; justify-content: space-between; gap: 6px; align-items: center; }
-  .gallery figcaption span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .gallery button.pick { all: unset; cursor: pointer; display: block; }
-  .gallery button.pick:focus-visible, .gallery button.pick:hover { outline: 3px solid var(--amber); }
-
-  .modal { position: fixed; inset: 0; background: rgba(20, 23, 27, .6); display: grid; place-items: center; z-index: 50; padding: 16px; }
-  .modal-box { background: var(--paper); width: min(900px, 100%); max-height: 88vh; overflow: auto; padding: 22px; border-top: 4px solid var(--amber); }
-  .modal-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; }
-
-  .login { max-width: 380px; margin: 10vh auto; background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--amber); padding: 28px; }
-  .login img { width: 120px; background: var(--graphite); padding: 8px 12px; margin-bottom: 18px; }
-  .error { color: var(--danger); font-size: .92rem; margin: 8px 0 0; }
-  .toast { position: fixed; top: 80px; right: 20px; background: var(--graphite-2); color: #fff; padding: 10px 16px; z-index: 60; border-left: 4px solid var(--amber); }
-  .toast.err { border-left-color: var(--danger); }
-  .help { background: rgb(243 154 30 / 0.12); color: #f5c77e; border-left: 4px solid var(--amber); padding: 10px 14px; font-size: .9rem; margin-bottom: 18px; }
-  code { font-family: var(--font-mono); font-size: .85em; background: var(--concrete); padding: 1px 4px; }
-</style>
+<link rel="stylesheet" href="/assets/css/admin.css">
 </head>
 <body>
 
@@ -163,7 +47,7 @@
       </ul>
       <h4>Stránky služeb</h4>
       <ul id="page-list"></ul>
-      <div style="padding:10px 6px"><button class="btn btn-line btn-small" id="new-page">+ Nová stránka</button></div>
+      <div class="new-page"><button class="btn btn-line btn-small" id="new-page">+ Nová stránka</button></div>
     </nav>
     <main class="main" id="view"></main>
   </div>

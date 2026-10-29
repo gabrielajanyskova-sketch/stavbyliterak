@@ -6,6 +6,8 @@ import { handleApi, serveImage, json } from './_lib/api.js';
 
 const STATIC = /^\/(assets\/|admin(\.html)?$|favicon|manifest\.webmanifest$|podpis\.png$)/;
 
+// Pages posílá hlavičky z public/_headers jen se statickými soubory, ne s odpověďmi Functions,
+// proto jsou tu znovu. Při změně upravit obě místa.
 const SECURITY_HEADERS = {
   'X-Content-Type-Options': 'nosniff',
   'Referrer-Policy': 'strict-origin-when-cross-origin',

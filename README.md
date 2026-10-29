@@ -15,6 +15,7 @@ public/                     statické soubory (výstupní složka Pages)
   admin.html                administrace
   assets/css/fonts.css      písma hostovaná u nás (bez Google Fonts)
   assets/css/style.css      styly webu (do stránek se vkládají přímo, bez dalšího požadavku)
+  assets/css/admin.css      styly administrace
   assets/js/main.js         menu, animace, galerie, poptávkový formulář
   assets/js/leseni.js       konfigurátor lešení (půdorys, 3D náhled, termín) — jen na stránce s blokem „Konfigurátor lešení“
   assets/js/admin.js        logika administrace
