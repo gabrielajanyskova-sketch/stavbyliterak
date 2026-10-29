@@ -118,7 +118,8 @@ S nastaveným Resendem chce přihlášení do adminu navíc jednorázový kód z
 
 Ochrana přihlášení: po 8 špatných pokusech z jedné IP se přihlašování na 15 minut
 zablokuje; přihlášení platí 30 dní. Poptávkový formulář přijme z jedné IP nejvýš
-5 zpráv za 10 minut (ochrana proti spamu a vyčerpání Resendu).
+5 zpráv za 10 minut (ochrana proti spamu a vyčerpání Resendu). Našeptávač adres pošle
+z jedné IP na Mapy.com nejvýš 60 dotazů za 10 minut, pak pole funguje jako obyčejný text.
 
 Bezpečnostní hlavičky: stránky posílá router s Content-Security-Policy (jen vlastní
 skripty + otisk jediného vloženého skriptu `HEAD_SCRIPT` v `render.js` + měření

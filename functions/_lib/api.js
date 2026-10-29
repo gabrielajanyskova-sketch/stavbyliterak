@@ -206,10 +206,15 @@ async function submitContact(request, env) {
 // ---------- našeptávač adres ----------
 
 // Adresy z Mapy.com (klíč MAPY_API_KEY je jen na serveru). Bez klíče vrátí prázdný seznam
-// a pole funguje jako obyčejný text.
+// a pole funguje jako obyčejný text. Z jedné IP nejvýš 60 dotazů za 10 minut (kvóta Mapy.com).
+const SUGGEST_LIMIT = 60;
+const SUGGEST_WINDOW_MS = 10 * 60 * 1000;
+
 async function suggestAddress(request, env) {
   const q = (new URL(request.url).searchParams.get('q') || '').trim().slice(0, 80);
   if (!env.MAPY_API_KEY || q.length < 3) return json({ items: [] });
+  const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+  if (env.DB && (await overLimit(env, 'adresa:' + ip, SUGGEST_LIMIT, SUGGEST_WINDOW_MS))) return json({ items: [] });
   const url = new URL('https://api.mapy.com/v1/suggest');
   url.search = new URLSearchParams([
     ['query', q],
