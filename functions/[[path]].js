@@ -1,10 +1,10 @@
 // Cloudflare Pages Function: stránky se skládají z obsahu v D1 (spravuje se v /admin),
 // statické soubory (styly, písma, obrázky, admin) servíruje Pages samo přes next().
 import { ensureDb, getSite, getPages } from './_lib/db.js';
-import { renderHome, renderPage, renderNotFound, renderSitemap, renderRobots, renderLlms, pageUrl, czTypo, HEAD_SCRIPT } from './_lib/render.js';
+import { renderHome, renderPage, renderNotFound, renderSitemap, renderRobots, renderSecurity, renderLlms, pageUrl, czTypo, HEAD_SCRIPT } from './_lib/render.js';
 import { handleApi, serveImage, json } from './_lib/api.js';
 
-const STATIC = /^\/(assets\/|admin(\.html)?$|favicon|manifest\.webmanifest$|podpis\.png$|\.well-known\/security\.txt$)/;
+const STATIC = /^\/(assets\/|admin(\.html)?$|favicon|manifest\.webmanifest$|podpis\.png$)/;
 
 // Pages posílá hlavičky z public/_headers jen se statickými soubory, ne s odpověďmi Functions,
 // proto jsou tu znovu. Při změně upravit obě místa.
@@ -137,6 +137,7 @@ export async function onRequest({ request, env, next }) {
     const ctx = { site, pages, assets, base: primary.origin, origin: url.origin, noindex };
 
     if (path === '/robots.txt') return respond(renderRobots(ctx), 'text/plain');
+    if (path === '/.well-known/security.txt') return respond(renderSecurity(ctx), 'text/plain');
     if (path === '/sitemap.xml') return respond(renderSitemap(ctx), 'application/xml', { noindex });
     if (path === '/llms.txt') return respond(renderLlms(ctx), 'text/markdown', { noindex });
     if (path === '/') return respond(renderHome(ctx), 'text/html', { noindex });

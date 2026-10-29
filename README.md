@@ -155,8 +155,8 @@ Web se nesestavuje (žádný build krok, stránky skládá router), proto se kon
 title, description, canonical, Open Graph, právě jeden H1, platné JSON-LD, duplicitní id,
 `onclick=` / `style=""` / neznámé vložené skripty, alt u obrázků, rozbité odkazy, soubory
 a kotvy, robots.txt, sitemapu a validitu HTML (html-validate, pravidla v `scripts/htmlvalidate.json`).
-Hlídá i `/.well-known/security.txt` (kontakt pro hlášení bezpečnostních chyb): 30 dní před
-datem `Expires` kontrola zčervená — stačí datum v souboru posunout o rok.
+Hlídá i `/.well-known/security.txt` (kontakt pro hlášení bezpečnostních chyb, generuje ho router
+s e-mailem z adminu): 30 dní před `Expires` zčervená — stačí posunout `SECURITY_EXPIRES` v `render.js` o rok.
 Kontroluje se obsah ze `seed.json`, ne ostrý obsah z D1. Na GitHubu běží automaticky
 při každém pushi (`.github/workflows/kontrola.yml`).
 

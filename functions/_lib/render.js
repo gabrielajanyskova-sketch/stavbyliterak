@@ -757,6 +757,19 @@ ${rows.map((r) => `<url><loc>${esc(ctx.base + r.loc)}</loc>${r.mod ? `<lastmod>$
 `;
 }
 
+// security.txt (RFC 9116) — kontakt pro hlášení bezpečnostních chyb. Datum platnosti posunout
+// o rok, nejpozději k SECURITY_EXPIRES (npm run check 30 dní předem připomene).
+const SECURITY_EXPIRES = '2027-10-29T00:00:00.000Z';
+export function renderSecurity(ctx) {
+  return [
+    `Contact: mailto:${ctx.site.email}`,
+    `Expires: ${SECURITY_EXPIRES}`,
+    'Preferred-Languages: cs, en',
+    `Canonical: ${ctx.base}/.well-known/security.txt`,
+    '',
+  ].join('\n');
+}
+
 export function renderRobots(ctx) {
   if (ctx.noindex) return 'User-agent: *\nDisallow: /\n';
   return `User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\n\nSitemap: ${ctx.base}/sitemap.xml\n`;
