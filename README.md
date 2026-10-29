@@ -155,6 +155,8 @@ Web se nesestavuje (žádný build krok, stránky skládá router), proto se kon
 title, description, canonical, Open Graph, právě jeden H1, platné JSON-LD, duplicitní id,
 `onclick=` / `style=""` / neznámé vložené skripty, alt u obrázků, rozbité odkazy, soubory
 a kotvy, robots.txt, sitemapu a validitu HTML (html-validate, pravidla v `scripts/htmlvalidate.json`).
+Hlídá i `/.well-known/security.txt` (kontakt pro hlášení bezpečnostních chyb): 30 dní před
+datem `Expires` kontrola zčervená — stačí datum v souboru posunout o rok.
 Kontroluje se obsah ze `seed.json`, ne ostrý obsah z D1. Na GitHubu běží automaticky
 při každém pushi (`.github/workflows/kontrola.yml`).
 
@@ -206,7 +208,8 @@ Pozdější změny se dělají v administraci, ne v tomto souboru.
   a ke každé musí existovat zmenšenina se stejným názvem v `foto/sm/` (800 px) —
   web v galeriích a hlavičkách načítá právě ji. Vedle ní patří i AVIF verze se stejným názvem
   (`foto/sm/název.avif`, kvalita ~50) — je zhruba o třetinu menší a prohlížeče ji berou přednostně. Aby je šlo vybrat v adminu, přidat je
-  do `BUILTIN_IMAGES` v `assets/js/admin.js`.
+  do `BUILTIN_IMAGES` v `assets/js/admin.js`. Nakonec spustit `npm run images` — zapíše rozměry
+  zmenšenin do `functions/_lib/image-sizes.json` (atributy width/height); `npm run check` to hlídá.
 - Náhled při sdílení odkazu (Facebook, WhatsApp…): stránka s fotkou v hlavičce použije
   `assets/img/og/<název>.jpg` (1200×630, JPG), pokud je název fotky v `OG_PHOTOS` v `render.js`.
   Jinak se sdílí společný `assets/img/og.jpg`. Při změně fotky v hlavičce stránky stačí

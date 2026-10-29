@@ -4,7 +4,7 @@ import { ensureDb, getSite, getPages } from './_lib/db.js';
 import { renderHome, renderPage, renderNotFound, renderSitemap, renderRobots, renderLlms, pageUrl, czTypo, HEAD_SCRIPT } from './_lib/render.js';
 import { handleApi, serveImage, json } from './_lib/api.js';
 
-const STATIC = /^\/(assets\/|admin(\.html)?$|favicon|manifest\.webmanifest$|podpis\.png$)/;
+const STATIC = /^\/(assets\/|admin(\.html)?$|favicon|manifest\.webmanifest$|podpis\.png$|\.well-known\/security\.txt$)/;
 
 // Pages posílá hlavičky z public/_headers jen se statickými soubory, ne s odpověďmi Functions,
 // proto jsou tu znovu. Při změně upravit obě místa.

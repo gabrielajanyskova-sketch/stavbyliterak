@@ -4,6 +4,7 @@
   "description": "Web Stavby Literák (Cloudflare Pages + D1). Bez build kroku, závislosti se stahují přes npx.",
   "scripts": {
     "dev": "npx --yes wrangler@4.155.0 pages dev --binding ADMIN_PASSWORD=heslo",
-    "check": "node scripts/check.mjs"
+    "check": "node scripts/check.mjs",
+    "images": "node scripts/image-sizes.mjs"
   }
 }

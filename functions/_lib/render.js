@@ -1,5 +1,6 @@
 // Vykreslení stránek z obsahu v databázi (na serveru — kvůli SEO a rychlosti).
 // Text z adminu se vždy escapuje; formátování umí jen **tučně** a [odkaz](url).
+import IMAGE_SIZES from './image-sizes.json'; // rozměry zmenšenin fotek, generuje npm run images
 
 export function esc(value) {
   return String(value ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -59,9 +60,12 @@ const isPdf = (src) => /\.pdf$/i.test(src);
 // Náhled fotky jako <img>; u fotek z repozitáře (foto/sm/*.webp) navíc menší AVIF verze,
 // kterou si prohlížeč vezme, když ji umí (všechny současné). Fotky nahrané v adminu jsou jen WebP.
 const avifOf = (src) => (/^\/assets\/img\/foto\/sm\/[^/]+\.webp$/.test(src) ? src.replace(/\.webp$/, '.avif') : null);
+// U fotek z repozitáře i width/height (poměr stran pro prohlížeč, ať obsah při načítání neposkakuje);
+// fotky nahrané v adminu rozměry v tabulce nemají a obejdou se bez nich.
 function pictureTag(src, attrs) {
   const t = thumb(src);
-  const img = `<img src="${esc(t)}" ${attrs}>`;
+  const size = IMAGE_SIZES[(t.match(/^\/assets\/img\/foto\/sm\/([^/]+)$/) || [])[1]];
+  const img = `<img src="${esc(t)}" ${attrs}${size ? ` width="${size[0]}" height="${size[1]}"` : ''}>`;
   const avif = avifOf(t);
   return avif ? `<picture><source type="image/avif" srcset="${esc(avif)}">${img}</picture>` : img;
 }

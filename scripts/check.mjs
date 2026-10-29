@@ -3,7 +3,8 @@
 // platné JSON-LD, duplicitní id, inline JS a styly, rozbité odkazy, kotvy a soubory,
 // robots.txt, sitemapu a validitu HTML (html-validate). Spuštění: npm run check
 import { spawn, execFileSync } from 'node:child_process';
-import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, writeFileSync, rmSync, readFileSync } from 'node:fs';
+import { imageSizes, OUT as IMAGE_SIZES_FILE } from './image-sizes.mjs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -86,6 +87,7 @@ function checkPage(path, html, { indexable }) {
   }
   for (const img of html.match(/<img\b[^>]*>/g) || []) {
     if (attr(img, 'alt') === undefined) fail(where, `obrázek bez alt: ${img.slice(0, 80)}`);
+    if (/^\/assets\//.test(attr(img, 'src') || '') && !(attr(img, 'width') && attr(img, 'height'))) fail(where, `obrázek bez width/height: ${img.slice(0, 80)}`);
   }
 
   if (!indexable) return { title };
@@ -111,6 +113,7 @@ function linksOf(html) {
 }
 
 try {
+  if (readFileSync(IMAGE_SIZES_FILE, 'utf8') !== imageSizes()) fail('image-sizes.json', 'rozměry fotek nejsou aktuální — spusťte npm run images');
   await waitForServer();
 
   const robots = await (await get('/robots.txt')).text();
@@ -118,6 +121,12 @@ try {
   if (/^Disallow: \/$/m.test(robots)) fail('/robots.txt', 'zakazuje celý web');
   const llms = await get('/llms.txt');
   if (!llms.ok) fail('/llms.txt', `stav ${llms.status}`);
+
+  // security.txt (RFC 9116): musí existovat a nesmí vypršet — 30 dní předem kontrola připomene obnovu
+  const sec = await get('/.well-known/security.txt');
+  const expires = sec.ok ? new Date(((await sec.text()).match(/^Expires: (.+)$/m) || [])[1]) : null;
+  if (!sec.ok) fail('/.well-known/security.txt', `stav ${sec.status}`);
+  else if (!(expires > new Date(Date.now() + 30 * 864e5))) fail('/.well-known/security.txt', 'Expires chybí nebo vyprší do 30 dní — posuňte datum o rok');
 
   const sitemap = await (await get('/sitemap.xml')).text();
   const paths = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => decode(m[1]).replace(BASE, ''));
