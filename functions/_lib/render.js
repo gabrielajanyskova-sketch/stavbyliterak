@@ -95,6 +95,13 @@ const abs = (base, url) => (/^https?:\/\//.test(url) ? url : base + url);
 export const pageUrl = (slug) => (slug ? `/${slug}` : '/');
 
 const OG_IMAGE = '/assets/img/og.jpg';
+// Fotky, ke kterým existuje JPG 1200×630 pro sdílení (assets/img/og/<název>.jpg) — WebP
+// sociální sítě neberou spolehlivě. Stránka s jinou fotkou v hlavičce sdílí společný og.jpg.
+const OG_PHOTOS = new Set(['minibagr-kubota-kx016', 'zimni-zahrada-zahrada', 'leseni-doprava-dodavkou', 'zamkova-dlazba-garaz']);
+function ogImage(src) {
+  const name = (String(src || '').match(/^\/assets\/img\/foto\/([^/]+)\.webp$/) || [])[1];
+  return OG_PHOTOS.has(name) ? `/assets/img/og/${name}.jpg` : '';
+}
 
 // Jediný vložený skript (třída „js“ ještě před vykreslením — kvůli animacím a prvkům jen pro JS).
 // Router z něj počítá otisk pro Content-Security-Policy — při změně se hlavička upraví sama.
@@ -253,8 +260,10 @@ function jsonLd(graph) {
 
 function head(ctx, { title, description, path, image, schema, preload = '', canonical = true }) {
   const url = ctx.base + path;
-  // WebP neumí spolehlivě všechny sítě (LinkedIn, starší Messenger) → pak společný og.jpg
-  if (image && !/\.(jpe?g|png)$/i.test(image)) image = '';
+  // WebP neumí spolehlivě všechny sítě (LinkedIn, starší Messenger) → připravené JPG, jinak společný og.jpg
+  const og = ogImage(image);
+  if (og) image = og;
+  else if (image && !/\.(jpe?g|png)$/i.test(image)) image = '';
   const img = abs(ctx.noindex && ctx.origin ? ctx.origin : ctx.base, image || OG_IMAGE);
   return `<!doctype html>
 <html lang="cs">
@@ -272,7 +281,7 @@ ${canonical ? `<link rel="canonical" href="${esc(url)}">\n` : ''}<meta property=
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:image" content="${esc(img)}">
-${image ? '' : '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'}<meta property="og:image:alt" content="${esc(title)}">
+${image && !og ? '' : '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'}<meta property="og:image:alt" content="${esc(title)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#1d2126">
 <link rel="icon" href="/favicon.ico" sizes="48x48">

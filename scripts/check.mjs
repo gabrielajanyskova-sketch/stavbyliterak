@@ -105,6 +105,8 @@ function linksOf(html) {
   const out = new Set();
   for (const m of html.matchAll(/\s(?:href|src)="([^"]+)"/g)) out.add(decode(m[1]));
   for (const m of html.matchAll(/\ssrcset="([^"]+)"/g)) m[1].split(',').forEach((s) => out.add(decode(s.trim().split(/\s+/)[0])));
+  const og = meta(html, 'og:image'); // obrázek pro sdílení musí existovat
+  if (og?.startsWith(BASE)) out.add(decode(og.slice(BASE.length)));
   return [...out].filter((u) => u.startsWith('#') || (u.startsWith('/') && !u.startsWith('//')));
 }
 

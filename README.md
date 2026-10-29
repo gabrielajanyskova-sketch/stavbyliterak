@@ -203,4 +203,8 @@ Pozdější změny se dělají v administraci, ne v tomto souboru.
   web v galeriích a hlavičkách načítá právě ji. Vedle ní patří i AVIF verze se stejným názvem
   (`foto/sm/název.avif`, kvalita ~50) — je zhruba o třetinu menší a prohlížeče ji berou přednostně. Aby je šlo vybrat v adminu, přidat je
   do `BUILTIN_IMAGES` v `assets/js/admin.js`.
+- Náhled při sdílení odkazu (Facebook, WhatsApp…): stránka s fotkou v hlavičce použije
+  `assets/img/og/<název>.jpg` (1200×630, JPG), pokud je název fotky v `OG_PHOTOS` v `render.js`.
+  Jinak se sdílí společný `assets/img/og.jpg`. Při změně fotky v hlavičce stránky stačí
+  připravit JPG 1200×630 se stejným názvem a doplnit ho do `OG_PHOTOS`.
 
