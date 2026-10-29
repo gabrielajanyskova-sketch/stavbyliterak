@@ -190,8 +190,9 @@ Pozdější změny se dělají v administraci, ne v tomto souboru.
 
 ## Co ještě zbývá
 
-- [ ] Od klienta: cena CO₂ sady k výčepu, cena dovozu a sestavení gastra, potvrzení ceny pivního setu
-- [ ] Rekonstrukce bytů: pokud je dělá, doplnit do Stavebních prací (Google na to web už zobrazuje)
+- [ ] Od klienta: cena dovozu a sestavení gastra, potvrzení ceny pivního setu
+- [x] CO₂ sada k výčepu: cena se neuvádí (podle spotřeby plynu), na webu zůstává „účtuje se samostatně“
+- [x] Rekonstrukce bytů: doplněno do Stavebních prací (služba, častá otázka, title a description)
 - [ ] Google profil: skutečná otevírací doba místo „24 hodin“, web `https://www.stavbyliterak.cz/`
 - [ ] Bing Webmaster Tools, profil na Firmy.cz
 - [ ] Za pár týdnů DMARC na `p=quarantine`, Webnode projekt vyprší 2. 2. 2027 (obnovení zrušené)
