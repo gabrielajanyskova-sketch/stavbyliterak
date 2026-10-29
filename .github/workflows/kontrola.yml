@@ -1,0 +1,20 @@
+# Kontrola webu při každém pushi a pull requestu (npm run check: meta údaje, H1, JSON-LD,
+# odkazy, kotvy, duplicitní id, inline JS/styly, sitemap, validita HTML).
+name: Kontrola webu
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  kontrola:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm run check

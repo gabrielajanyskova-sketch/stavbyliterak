@@ -31,6 +31,9 @@ functions/
   _lib/api.js               API administrace a formuláře, přihlášení, fotky
   _lib/seed.json            výchozí obsah — nahraje se do prázdné databáze
 wrangler.toml               napojení D1/KV, SITE_URL
+package.json                npm run dev / npm run check (bez závislostí)
+scripts/check.mjs           kontrola hotového webu (viz Kontrola)
+.github/workflows/          kontrola při každém pushi, týdenní záloha obsahu D1
 ```
 
 ## SEO, schema.org a AI vyhledávače
@@ -139,6 +142,20 @@ Bindingy D1 a KV se načtou z `wrangler.toml` (lokálně jako prázdná databáz
 naplní z `seed.json`).
 
 Web pak běží na http://localhost:8788, administrace na http://localhost:8788/admin.
+Totéž spustí `npm run dev`.
+
+### Kontrola (`npm run check`)
+
+Web se nesestavuje (žádný build krok, stránky skládá router), proto se kontroluje hotový výstup:
+`npm run check` spustí web lokálně a projde všechny stránky ze sitemapy + stránku 404. Hlídá
+title, description, canonical, Open Graph, právě jeden H1, platné JSON-LD, duplicitní id,
+`onclick=` / `style=""` / neznámé vložené skripty, alt u obrázků, rozbité odkazy, soubory
+a kotvy, robots.txt, sitemapu a validitu HTML (html-validate, pravidla v `scripts/htmlvalidate.json`).
+Kontroluje se obsah ze `seed.json`, ne ostrý obsah z D1. Na GitHubu běží automaticky
+při každém pushi (`.github/workflows/kontrola.yml`).
+
+`package.json` nemá žádné závislosti (wrangler a html-validate se stáhnou přes `npx`
+v pevné verzi), takže nasazení na Cloudflare Pages nezpomalí.
 
 ## Záloha obsahu
 
