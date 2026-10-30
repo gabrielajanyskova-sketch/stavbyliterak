@@ -18,11 +18,12 @@ async function csp() {
     .then((d) => btoa(String.fromCharCode(...new Uint8Array(d))));
   return [
     "default-src 'self'",
-    `script-src 'self' 'sha256-${await headScriptHash}' https://static.cloudflareinsights.com`,
+    `script-src 'self' 'sha256-${await headScriptHash}' https://static.cloudflareinsights.com https://challenges.cloudflare.com`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data:",
     "font-src 'self'",
-    "connect-src 'self' https://cloudflareinsights.com",
+    "connect-src 'self' https://cloudflareinsights.com https://challenges.cloudflare.com",
+    "frame-src https://challenges.cloudflare.com",
     "object-src 'none'",
     "base-uri 'none'",
     "form-action 'self' mailto:",
@@ -126,7 +127,7 @@ export async function onRequest({ request, env, next }) {
     const [site, pages, assets] = await Promise.all([getSite(env), getPages(env), loadAssets(env, url.origin)]);
     // origin = adresa, na které web právě běží — obrázek pro sdílení musí jít stáhnout odsud,
     // dokud hlavní doména ještě neukazuje na Cloudflare (náhled odkazu by byl bez obrázku)
-    const ctx = { site, pages, assets, base: primary.origin, origin: url.origin, noindex };
+    const ctx = { site, pages, assets, base: primary.origin, origin: url.origin, noindex, turnstileSiteKey: env.TURNSTILE_SITE_KEY || '' };
 
     if (path === '/robots.txt') return respond(renderRobots(ctx), 'text/plain');
     if (path === '/.well-known/security.txt') return respond(renderSecurity(ctx), 'text/plain');

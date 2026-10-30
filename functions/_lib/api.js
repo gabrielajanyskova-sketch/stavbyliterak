@@ -179,6 +179,23 @@ async function formReply(env, data, status) {
   });
 }
 
+async function verifyTurnstile(request, env, token) {
+  if (!env.TURNSTILE_SECRET_KEY && !env.TURNSTILE_SITE_KEY) return true;
+  if (!env.TURNSTILE_SECRET_KEY || !env.TURNSTILE_SITE_KEY) return false;
+  if (typeof token !== 'string' || !token || token.length > 2048) return false;
+  try {
+    const data = new URLSearchParams({ secret: env.TURNSTILE_SECRET_KEY, response: token });
+    const ip = request.headers.get('CF-Connecting-IP');
+    if (ip) data.set('remoteip', ip);
+    const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST', body: data, signal: AbortSignal.timeout(10000),
+    });
+    if (!response.ok) return false;
+    const result = await response.json();
+    return result.success === true && result.action === 'contact' && result.hostname === new URL(request.url).hostname;
+  } catch { return false; }
+}
+
 async function submitContact(request, env) {
   const isForm = /form/i.test(request.headers.get('Content-Type') || '');
   const reply = (data, status = 200) => (isForm ? formReply(env, data, status) : json(data, status));
@@ -200,6 +217,8 @@ async function submitContact(request, env) {
   if (!mailConfigured(env)) return reply({ error: 'mail_not_configured' }, 503);
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
   if (env.DB && (await overLimit(env, 'contact:' + ip, CONTACT_LIMIT, CONTACT_WINDOW_MS))) return reply({ error: 'too_many_requests' }, 429);
+
+  if (!(await verifyTurnstile(request, env, b['cf-turnstile-response']))) return reply({ error: 'spam_verification_failed' }, 403);
 
   const inquiry = {
     service: field('sluzba'),

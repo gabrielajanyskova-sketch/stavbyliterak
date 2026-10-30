@@ -287,6 +287,7 @@ ${canonical ? `<link rel="canonical" href="${esc(url)}">\n` : ''}<meta property=
 <meta property="og:image" content="${esc(img)}">
 ${image && !og ? '' : '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'}<meta property="og:image:alt" content="${esc(title)}">
 <meta name="twitter:card" content="summary_large_image">
+${ctx.turnstileSiteKey ? `<meta name="turnstile-site-key" content="${esc(ctx.turnstileSiteKey)}">` : ''}
 <meta name="theme-color" content="#1d2126">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">

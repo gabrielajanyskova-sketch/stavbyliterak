@@ -215,3 +215,57 @@ test('malformed multipart returns 400 without a write',async()=>{
   const req=new Request('https://example.test/api/admin/images',{method:'POST',headers:{Origin:'https://example.test',Cookie:'__Host-stavby_admin='+token,'Content-Type':'multipart/form-data; boundary=broken'},body:'broken'});
   assert.equal((await handleApi(req,env,'/api/admin/images')).status,400);
 });
+
+test('Turnstile rejects missing, invalid and mismatched tokens before sending mail',async()=>{
+  const originalFetch=globalThis.fetch;
+  let mailCount=0, verificationCount=0;
+  let answer={success:true,action:'contact',hostname:'example.test'};
+  globalThis.fetch=async(url,options)=>{
+    if(String(url).includes('/siteverify')){
+      verificationCount++;
+      assert.equal(options.body.get('secret'),'test-secret');
+      assert.equal(options.body.get('response'),'test-token');
+      return Response.json(answer);
+    }
+    assert.equal(String(url),'https://api.resend.com/emails');mailCount++;return Response.json({id:'test'});
+  };
+  const env={TURNSTILE_SITE_KEY:'test-site',TURNSTILE_SECRET_KEY:'test-secret',RESEND_API_KEY:'test-mail',MAIL_FROM:'test@example.test',NOTIFY_EMAIL:'test@example.test'};
+  const fields={jmeno:'Test',email:'person@example.test',zprava:'Test inquiry'};
+  try{
+    assert.equal((await call(env,'/api/contact',fields)).status,403);
+    assert.equal(verificationCount,0);assert.equal(mailCount,0);
+    for(const result of [{success:false},{success:true,action:'other',hostname:'example.test'},{success:true,action:'contact',hostname:'attacker.test'}]){
+      answer=result;
+      assert.equal((await call(env,'/api/contact',{...fields,'cf-turnstile-response':'test-token'})).status,403);
+    }
+    assert.equal(mailCount,0);
+    answer={success:true,action:'contact',hostname:'example.test'};
+    assert.equal((await call(env,'/api/contact',{...fields,'cf-turnstile-response':'test-token'})).status,200);
+    assert.equal(mailCount,1);
+    assert.equal((await call({...env,TURNSTILE_SECRET_KEY:''},'/api/contact',fields)).status,403);
+    globalThis.fetch=async()=>{throw new Error('verification unavailable');};
+    assert.equal((await call(env,'/api/contact',{...fields,'cf-turnstile-response':'test-token'})).status,403);
+  }finally{globalThis.fetch=originalFetch;}
+});
+
+test('browser inquiry sends Turnstile token and does not bypass failed verification via mailto',async()=>{
+  const {runInNewContext}=await import('node:vm');
+  const source=readFileSync(new URL('../public/assets/js/main.js',import.meta.url),'utf8');
+  const start=source.indexOf('  let turnstileLoader;');
+  const end=source.indexOf('  // Po odeslání',start);
+  let challengeFails=false,serverRejects=false,requests=0,removed=0;
+  const status={textContent:'',before(){}};
+  const context={WeakSet,setTimeout,clearTimeout,Error,Promise,MAIL_FALLBACK:'fallback',location:{},
+    document:{querySelector:()=>({content:'site-key'}),createElement:()=>({remove(){}})},
+    window:{turnstile:{render(host,opts){assert.equal(opts.action,'contact');queueMicrotask(()=>challengeFails?opts['error-callback']():opts.callback('browser-token'));return 'widget';},remove(){removed++;}}},
+    fetch:async(url,options)=>{requests++;assert.equal(JSON.parse(options.body)['cf-turnstile-response'],'browser-token');return {ok:!serverRejects,status:serverRejects?403:200};},
+  };
+  runInNewContext(source.slice(start,end)+'\nglobalThis.sendTest=send;',context);
+  assert.equal(await context.sendTest({jmeno:'Test'},'test@example.test',status),true);
+  serverRejects=true;
+  assert.equal(await context.sendTest({jmeno:'Test'},'test@example.test',status),false);
+  assert.equal(context.location.href,undefined);
+  challengeFails=true;
+  assert.equal(await context.sendTest({jmeno:'Test'},'test@example.test',status),false);
+  assert.equal(requests,2);assert.equal(removed,3);
+});

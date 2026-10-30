@@ -122,14 +122,69 @@
   // Poptávky se odesílají přes /api/contact; když e-mail na serveru není nastavený nebo selže,
   // otevře se e-mailový klient s vyplněnou zprávou — poptávka se nikdy neztratí.
   const MAIL_FALLBACK = "Otevřel se vám e-mail s vyplněnou poptávkou, stačí ho odeslat. Nebo rovnou zavolejte.";
+  let turnstileLoader;
+  const pendingInquiries = new WeakSet();
+  const turnstileToken = async (status) => {
+    const sitekey = document.querySelector('meta[name="turnstile-site-key"]')?.content;
+    if (!sitekey) return null;
+    if (!window.turnstile) {
+      turnstileLoader ||= new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+        script.async = true;
+        const timeout = setTimeout(() => reject(new Error("Turnstile timeout")), 15000);
+        script.onload = () => { clearTimeout(timeout); window.turnstile ? resolve() : reject(new Error("Turnstile unavailable")); };
+        script.onerror = () => { clearTimeout(timeout); reject(new Error("Turnstile unavailable")); };
+        document.head.append(script);
+      }).catch(err => { turnstileLoader = null; throw err; });
+      await turnstileLoader;
+    }
+    const host = document.createElement("div");
+    status.before(host);
+    let widget;
+    try {
+      return await new Promise((resolve, reject) => {
+        const timeout = setTimeout(() => reject(new Error("Turnstile timeout")), 120000);
+        const finish = (err, token) => { clearTimeout(timeout); err ? reject(err) : resolve(token); };
+        try { widget = window.turnstile.render(host, {
+          sitekey, action: "contact", language: "cs", theme: "auto",
+          callback: token => finish(null, token),
+          "error-callback": () => finish(new Error("Turnstile failed")),
+          "expired-callback": () => finish(new Error("Turnstile expired")),
+        }); } catch (err) { finish(err); }
+      });
+    } finally {
+      if (widget !== undefined) window.turnstile.remove(widget);
+      host.remove();
+    }
+  };
   const send = async (fields, to, status) => {
+    if (pendingInquiries.has(status)) return false;
+    pendingInquiries.add(status);
+    try { return await sendVerified(fields, to, status); }
+    finally { pendingInquiries.delete(status); }
+  };
+  const sendVerified = async (fields, to, status) => {
+    let token;
+    try {
+      status.textContent = "Ověřuji ochranu proti spamu…";
+      token = await turnstileToken(status);
+    } catch {
+      status.textContent = "Ověření proti spamu se nezdařilo. Zkuste odeslání znovu.";
+      return false;
+    }
+
     status.textContent = "Odesílám…";
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(fields),
+        body: JSON.stringify({ ...fields, ...(token ? { "cf-turnstile-response": token } : {}) }),
       });
+      if (res.status === 403) {
+        status.textContent = "Ověření proti spamu se nezdařilo. Zkuste odeslání znovu.";
+        return false;
+      }
       if (!res.ok) throw new Error(res.status);
       return true;
     } catch {
