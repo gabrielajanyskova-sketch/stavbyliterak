@@ -97,8 +97,8 @@ const BLOCK_TYPES = {
   gallery: { label: "Galerie (fotky, certifikáty)" },
 };
 
-let token = null;
-try { token = localStorage.getItem(TOKEN_KEY); } catch {}
+// Remove the previous bearer token; sessions now use an HttpOnly cookie.
+try { localStorage.removeItem(TOKEN_KEY); } catch {}
 
 let content = { site: null, pages: [] };
 let current = null; // { kind: 'page'|'home'|'settings'|'reviews'|'images', slug, draft }
@@ -184,16 +184,15 @@ const ERRORS = {
 
 async function api(path, { method = "GET", body, form } = {}) {
   const headers = {};
-  if (token) headers.Authorization = "Bearer " + token;
   if (body !== undefined) headers["Content-Type"] = "application/json";
   const res = await fetch("/api/admin/" + path, {
     method,
+    credentials: "same-origin",
     headers,
     body: form || (body !== undefined ? JSON.stringify(body) : undefined),
   });
   const data = await res.json().catch(() => ({}));
-  if (res.status === 401 && token && !path.startsWith("login") && !path.startsWith("verify")) {
-    setToken(null);
+  if (res.status === 401 && !path.startsWith("login") && !path.startsWith("verify")) {
     showLogin();
     throw new Error("Přihlášení vypršelo.");
   }
@@ -203,11 +202,6 @@ async function api(path, { method = "GET", body, form } = {}) {
     throw err;
   }
   return data;
-}
-
-function setToken(t) {
-  token = t;
-  try { t ? localStorage.setItem(TOKEN_KEY, t) : localStorage.removeItem(TOKEN_KEY); } catch {}
 }
 
 // ---------- formulářová pole (zapisují rovnou do objektu) ----------
@@ -880,8 +874,7 @@ $("#login-form").addEventListener("submit", async (e) => {
       $("#code-form").hidden = false;
       $("#code").focus();
     } else {
-      setToken(res.token);
-      showApp();
+      await showApp();
     }
   } catch (ex) {
     err.textContent = ex.message;
@@ -894,10 +887,9 @@ $("#code-form").addEventListener("submit", async (e) => {
   const err = $("#code-error");
   err.hidden = true;
   try {
-    const res = await api("verify-code", { method: "POST", body: { loginId, code: $("#code").value } });
-    setToken(res.token);
+    await api("verify-code", { method: "POST", body: { loginId, code: $("#code").value } });
     $("#code").value = "";
-    showApp();
+    await showApp();
   } catch (ex) {
     err.textContent = ex.message;
     err.hidden = false;
@@ -907,14 +899,12 @@ $("#code-form").addEventListener("submit", async (e) => {
 
 $("#logout").addEventListener("click", async () => {
   if (!confirmLeave()) return;
-  try { await api("logout", { method: "POST" }); } catch {}
-  setToken(null);
+  try { await api("logout", { method: "POST" }); } catch (e) { toast(e.message, true); return; }
   dirty = false;
   showLogin();
 });
 
 (async () => {
-  if (!token) return showLogin();
   try {
     await showApp();
   } catch {

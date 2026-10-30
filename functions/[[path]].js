@@ -3,19 +3,11 @@
 import { ensureDb, getSite, getPages } from './_lib/db.js';
 import { renderHome, renderPage, renderNotFound, renderSitemap, renderRobots, renderSecurity, renderLlms, pageUrl, czTypo, HEAD_SCRIPT } from './_lib/render.js';
 import { handleApi, serveImage, json } from './_lib/api.js';
+import { SECURITY_HEADERS } from './_lib/security.js';
 
 const STATIC = /^\/(assets\/|admin(\.html)?$|favicon|manifest\.webmanifest$|podpis\.png$)/;
 
-// Pages posílá hlavičky z public/_headers jen se statickými soubory, ne s odpověďmi Functions,
-// proto jsou tu znovu. Při změně upravit obě místa.
-const SECURITY_HEADERS = {
-  'X-Content-Type-Options': 'nosniff',
-  'Referrer-Policy': 'strict-origin-when-cross-origin',
-  'X-Frame-Options': 'SAMEORIGIN',
-  'Strict-Transport-Security': 'max-age=31536000',
-  'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
-};
-
+// Statické odpovědi používají public/_headers; Functions sdílejí _lib/security.js.
 // Stránka smí spouštět jen vlastní skripty a jeden vložený (podle otisku) — případně
 // podstrčený kód v obsahu by se nespustil. Styly jsou vložené přímo, proto 'unsafe-inline'.
 // Výjimka: měření návštěvnosti Cloudflare Web Analytics (bez cookies) — skript a odesílání dat.
@@ -129,7 +121,7 @@ export async function onRequest({ request, env, next }) {
 
     if (path.startsWith('/api/')) return await handleApi(request, env, path);
     if (path.startsWith('/img/')) return await serveImage(env, decodeURIComponent(path.slice(5)));
-    if (request.method !== 'GET' && request.method !== 'HEAD') return new Response('Method not allowed', { status: 405 });
+    if (request.method !== 'GET' && request.method !== 'HEAD') return new Response('Method not allowed', { status: 405, headers: SECURITY_HEADERS });
 
     const [site, pages, assets] = await Promise.all([getSite(env), getPages(env), loadAssets(env, url.origin)]);
     // origin = adresa, na které web právě běží — obrázek pro sdílení musí jít stáhnout odsud,

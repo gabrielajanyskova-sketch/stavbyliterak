@@ -9,14 +9,18 @@ Rozsah: lokální checkout, serverové Pages Functions, přihlášení a API, vy
 3. **Střední, integrita dat: poškozený JSON při ukládání.** Parser dříve nahrazoval neplatný JSON prázdným objektem, který mohl přepsat nastavení. Nově chybný JSON, null, pole a primitivní hodnoty dostanou 400 před uložením. Null v kontaktním formuláři už nezpůsobí serverovou chybu. Toto není kontrola všech povinných polí jinak platného objektu.
 4. **Funkčnost: zastaralá cena půjčovny.** Starší pomalejší odpověď mohla přepsat novější cenu a při čekání se používal starý součet. Verze požadavků nyní ignoruje staré úspěchy i chyby; při změně výběru se starý součet zneplatní. Rozložení, styly a texty zůstávají stejné.
 
-## Další doporučení bez změn v této větvi
+## Navazující opravy na stejné větvi
 
-- **Priorita 1: limit velikosti požadavků před parsováním.** JSON a multipart se načítají celé do paměti; limit obrázku se kontroluje až po formData(). Zavést čtení s limitem skutečného počtu bajtů (samotný Content-Length nestačí), s odlišným limitem pro obsah, poptávku s nákresem a upload. Otestovat chybové odpovědi i běžné velké galerie. Autentizace uploadu už probíhá před parsováním.
-- **Priorita 2: kontrola obsahu nahraných souborů.** API důvěřuje deklarovanému MIME typu. Ověřovat signatury podporovaných obrázků a PDF, u zmenšenin přijímat pouze obrázky. Riziko je omezené přihlášením a hlavičkou nosniff; samotná MIME hodnota ale neprokazuje správný soubor.
-- **Priorita 2: ochrana relací.** Admin ukládá bearer token do localStorage a D1 jej ukládá v původní podobě. Zvážit hash tokenu v databázi a přesun relace do Secure/HttpOnly/SameSite cookie s odpovídající CSRF ochranou. Vyžaduje koordinovanou změnu klienta a serveru; neprovádět izolovanou výměnu úložiště.
-- **Priorita 2: důsledná validace ukládání a atomické přejmenování.** Platný prázdný objekt zatím může vymazat nastavení; ověřovat požadovanou strukturu. Přejmenování stránky a uložení obsahu jsou dva zápisy; spojit do transakčního D1 batch a ověřit konflikt názvů i zachování aliasů.
-- **Priorita 3: sjednotit bezpečnostní hlavičky API, obrázků a chybových odpovědí.** HTML má CSP a ochranu proti vložení; JSON má no-store, ale ne všechny společné hlavičky HTML. Doplňovat podle typu odpovědi a nepřepsat cache obrázků.
-- **Provozní kontrola:** ověřit skutečné druhé přihlášení e-mailem, scoped Cloudflare tokeny pro zálohu, obnovitelnost D1 i KV a DMARC reporting. Nastavení DNS neměnit podle samotného screenshotu; nasazení přísnějšího DMARC vyžaduje ověřené odesílatele. Žádná produkční pošta nebyla odeslána.
+- **Limity před parsováním:** čtení skutečných bajtů ze streamu; Content-Length není jediným zdrojem kontroly. Limity jsou 64 KiB pro malé požadavky, 2 MiB pro obsah a kontaktní formulář s nákresem a 21 MiB pro multipart se dvěma soubory do 10 MiB. Upload se autentizuje před čtením těla. Překročení vrací 413, poškozený multipart 400.
+- **Nahrávání:** kontrola signatur JPEG, PNG, WebP, GIF, AVIF a PDF. Zmenšenina musí být obrázek; velikost i signatura obou souborů se ověří před zápisem do KV. Jde o kontrolu formátu, nikoli plný mediální dekodér nebo antivir.
+- **Relace:** token se neposílá v JSON ani neukládá do localStorage; server jej předá přes HttpOnly, SameSite=Strict cookie. Na HTTPS je cookie Secure s prefixem __Host-. Pro lokální HTTP vývoj je samostatná cookie. D1 uchovává SHA-256 otisk náhodného tokenu. Změnové admin požadavky vyžadují Origin shodný s adresou požadavku, včetně přihlášení a odhlášení. Staré bearer relace nejsou přijímány; po nasazení je potřeba znovu se přihlásit. Není nutná změna schématu D1. Staré řádky relací dožijí do pravidelného úklidu, nejsou ale použitelné starým tokenem.
+- **Ukládání:** validace povinných polí a struktury nastavení, bloků a pořadí stránek. Prázdný objekt nastavení se odmítá. Přejmenování a uložení obsahu stránky proběhne jedním SQL UPDATE; konflikt adresy zachová původní řádek a vrací 409.
+- **Hlavičky:** společné ochranné hlavičky jsou v jednom modulu a používají je HTML, JSON API, odpovědi formuláře a KV soubory. Souborům z KV se přidává omezující CSP, cache obrázků se zachovává. Statické soubory si ponechávají public/_headers.
+- **Odhlášení:** při neúspěšné serverové revokaci se klient netváří jako úspěšně odhlášený.
+
+### Zbývající provozní ověření
+
+Ověřit skutečné druhé přihlášení e-mailem, scoped Cloudflare tokeny pro zálohu, obnovitelnost D1 i KV a DMARC reporting. Nastavení DNS neměnit podle samotného screenshotu; nasazení přísnějšího DMARC vyžaduje ověřené odesílatele. Žádná produkční pošta nebyla odeslána. Tyto úkony vyžadují produkční přístupy a nejsou součástí lokálních změn kódu.
 
 ## Snímky auditu: rychlost a soukromí
 
@@ -26,9 +30,10 @@ Aktuální kód již používá WebP/AVIF, rozměry obrázků z repozitáře, p�
 
 Výchozí obsah již má publikovanou stránku `/pravni-informace` s oddílem `#osobni-udaje` a renderer přidává odkaz u formuláře. Kontrola nenalezeného GDPR odkazu na snímku tedy není pro výchozí obsah reprodukována. Produkční D1 může mít jiný obsah než seed; ověřit publikování této stránky v administraci. Právní text nebyl upravován ani právně posuzován.
 
-## Ověření
+## Ověření finálního stavu
 
-- `node --experimental-vm-modules scripts/security-test.mjs`: **8/8 testů prošlo**. Skutečný API modul a SQLite: 30 souběžných přihlášení propustí 8 pokusů, obnovení okna, 20 souběžných ověření kódu založí jednu relaci, maximálně 5 pokusů o kód, expirace, odmítnutí poškozeného JSON bez zápisu a null formulář. Klientský test simuluje odpovědi cen v opačném pořadí i starou chybu. Render a datové helpery jsou v těchto úzkých testech nahrazené; nejde o kompletní browser E2E test. Test vyžaduje Node s node:sqlite (ověřeno Node 24.19.0).
-- `WRANGLER_SEND_METRICS=false npm run check`: **10 stránek a 209 odkazů/souborů prošlo**, včetně validace HTML, sitemap, robots, llms a security.txt.
-- Lokální Wrangler/D1: přihlášení skutečným API, odmítnutí poškozeného PUT s 400 a následné načtení zachovaného obsahu prošlo.
-- Produkční LCP/CLS, mobilní browser E2E, Resend, Mapy.com a produkční nastavení nebyly testovány. Bez nasazení a bez změn na main.
+- `node --experimental-vm-modules scripts/security-test.mjs`: **17/17 testů prošlo**. Souběžné limity a OTP, expirace, neplatný JSON bez zápisu, null formulář, pořadí odpovědí ceny, cookie a hash relace, revokace, CSRF Origin, stream bez Content-Length, signatury a upload bez dílčího zápisu, atomický konflikt přejmenování, odmítnutí starého bearer tokenu, nadlimitní data a poškozený multipart. Používá se skutečný API modul a SQLite; render a část datových helperů jsou v úzkých testech nahrazené. Test vyžaduje Node s node:sqlite (ověřeno Node 24.19.0 a Node 22).
+- Bezpečnostní testy jsou také součástí `.github/workflows/kontrola.yml` pod Node 22.
+- `WRANGLER_SEND_METRICS=false npm run check`: **10 stránek a 209 odkazů/souborů prošlo**, včetně validace HTML, sitemap, robots, llms a security.txt. Není build krok.
+- `node scripts/admin-browser-test.mjs` se spuštěným `npm run dev`: skutečný Chromium a lokální Wrangler/D1/KV. Prošlo přihlášení z formuláře, HttpOnly cookie nedostupná JavaScriptu, nepřítomnost tokenu v localStorage, obnova stránky se zachovanou relací, uložení skutečného site obsahu, vytvoření/přejmenování/smazání testovací stránky se zachovaným aliasem, upload/načtení/smazání skutečného WebP a odhlášení s následnou 401. Bez JavaScriptových výjimek. Test vyžaduje systémový Chromium, port 9223 a lokální server na 8788; pro testovací data používat lokální vývojové prostředí.
+- Produkční LCP/CLS, Resend, Mapy.com a produkční nastavení nebyly testovány. Texty ani CSS nebyly upraveny. Bez nasazení a bez změn na main.

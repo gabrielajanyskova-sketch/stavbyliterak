@@ -1,17 +1,21 @@
 // API pro poptávkový formulář a administraci (/admin).
 import { BLOCK_TYPES, esc, catalogItems, money, maxCount } from './render.js';
-import { getSite, getPages, saveSite, savePage, renamePage, deletePage, reorderPages } from './db.js';
+import { getSite, getPages, saveSite, savePage, renameAndSavePage, deletePage, reorderPages } from './db.js';
+
+import { SECURITY_HEADERS, RequestError, boundedRequest, requireFields, matchesFileType } from './security.js';
 
 export function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' },
+    headers: { ...SECURITY_HEADERS, 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' },
   });
 }
 
 async function body(request) {
-  const data = await request.json();
-  if (!data || typeof data !== 'object' || Array.isArray(data)) throw new SyntaxError('Expected JSON object');
+  let data;
+  try { data = await request.json(); }
+  catch { throw new RequestError('invalid_json'); }
+  if (!data || typeof data !== 'object' || Array.isArray(data)) throw new RequestError('invalid_json');
   return data;
 }
 
@@ -171,7 +175,7 @@ async function formReply(env, data, status) {
   }
   return new Response(`${text}\n\nZpět na web: vraťte se v prohlížeči o stránku zpět.\n`, {
     status,
-    headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' },
+    headers: { ...SECURITY_HEADERS, 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' },
   });
 }
 
@@ -254,7 +258,7 @@ async function suggestAddress(request, env) {
       .map((i) => [i.name, String(i.location || '').replace(/,?\s*Česko$/, '')].filter(Boolean).join(', '))
       .filter((v, i, all) => v && all.indexOf(v) === i);
     return new Response(JSON.stringify({ items }), {
-      headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'public, max-age=86400' },
+      headers: { ...SECURITY_HEADERS, 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'public, max-age=86400' },
     });
   } catch (err) {
     console.error('address suggest failed', err);
@@ -313,28 +317,44 @@ function sameText(a, b) {
   return diff === 0;
 }
 
-function bearer(request) {
-  return (request.headers.get('Authorization') || '').replace(/^Bearer\s+/i, '');
+function cookieName(request) {
+  return new URL(request.url).protocol === 'https:' ? '__Host-stavby_admin' : 'stavby_admin_local';
+}
+
+function sessionToken(request) {
+  const name = cookieName(request) + '=';
+  return (request.headers.get('Cookie') || '').split(';').map(v => v.trim()).find(v => v.startsWith(name))?.slice(name.length) || '';
+}
+
+async function tokenHash(token) {
+  return [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(token)))].map(v => v.toString(16).padStart(2, '0')).join('');
+}
+
+function sessionCookie(request, token, age = SESSION_TTL_MS / 1000) {
+  const secure = new URL(request.url).protocol === 'https:';
+  return `${cookieName(request)}=${token}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${age}${secure ? '; Secure' : ''}`;
 }
 
 async function isAdmin(request, env) {
-  const token = bearer(request);
-  if (!token) return false;
-  const row = await env.DB.prepare('SELECT expires_at FROM admin_sessions WHERE token = ?').bind(token).first();
+  const token = sessionToken(request);
+  if (!/^[a-f0-9]{64}$/.test(token)) return false;
+  const hash = await tokenHash(token);
+  const row = await env.DB.prepare('SELECT expires_at FROM admin_sessions WHERE token = ?').bind(hash).first();
   if (!row) return false;
-  if (new Date(row.expires_at).getTime() < Date.now()) {
-    await env.DB.prepare('DELETE FROM admin_sessions WHERE token = ?').bind(token).run();
+  if (!(new Date(row.expires_at).getTime() > Date.now())) {
+    await env.DB.prepare('DELETE FROM admin_sessions WHERE token = ?').bind(hash).run();
     return false;
   }
   return true;
 }
 
-async function issueSession(env) {
+async function issueSession(request, env) {
   const token = randomToken();
   await env.DB.prepare('INSERT INTO admin_sessions (token, expires_at) VALUES (?, ?)')
-    .bind(token, new Date(Date.now() + SESSION_TTL_MS).toISOString())
-    .run();
-  return token;
+    .bind(await tokenHash(token), new Date(Date.now() + SESSION_TTL_MS).toISOString()).run();
+  const response = json({ ok: true });
+  response.headers.set('Set-Cookie', sessionCookie(request, token));
+  return response;
 }
 
 async function login(request, env) {
@@ -361,7 +381,7 @@ async function login(request, env) {
   // Druhý krok e-mailem, pokud je nastavené odesílání — samotné uniklé heslo pak nestačí.
   if (!mailConfigured(env)) {
     await env.DB.prepare('DELETE FROM login_attempts WHERE ip = ?').bind(ip).run();
-    return json({ ok: true, token: await issueSession(env) });
+    return issueSession(request, env);
   }
 
   const loginId = crypto.randomUUID();
@@ -402,13 +422,15 @@ async function verifyCode(request, env) {
     'DELETE FROM login_codes WHERE login_id = ? AND code = ? RETURNING login_id'
   ).bind(loginId, code).first();
   if (!consumed) return json({ error: 'invalid_code' }, 401);
-  return json({ ok: true, token: await issueSession(env) });
+  return issueSession(request, env);
 }
 
 async function logout(request, env) {
-  const token = bearer(request);
-  if (token) await env.DB.prepare('DELETE FROM admin_sessions WHERE token = ?').bind(token).run();
-  return json({ ok: true });
+  const token = sessionToken(request);
+  if (/^[a-f0-9]{64}$/.test(token)) await env.DB.prepare('DELETE FROM admin_sessions WHERE token = ?').bind(await tokenHash(token)).run();
+  const response = json({ ok: true });
+  response.headers.set('Set-Cookie', sessionCookie(request, '', 0));
+  return response;
 }
 
 // ---------- čištění obsahu z adminu ----------
@@ -555,7 +577,16 @@ async function getContent(env) {
 }
 
 async function putSite(request, env) {
-  await saveSite(env, cleanSite(await body(request)));
+  const data = await body(request);
+  requireFields(data, ['name', 'owner', 'phone', 'email', 'address', 'ico'], [], ['home', 'contact', 'reviews']);
+  requireFields(data.home, ['hero_title', 'hero_accent'], ['principles']);
+  requireFields(data.contact, ['title', 'text'], ['services']);
+  requireFields(data.reviews, ['title'], ['items']);
+  for (const item of data.home.principles) requireFields(item, ['label', 'title', 'text']);
+  for (const item of data.reviews.items) requireFields(item, ['name', 'stars', 'date', 'text']);
+  if (data.contact.services.some(v => typeof v !== 'string')) throw new RequestError('invalid_fields');
+  if (!data.name.trim() || !data.owner.trim()) throw new RequestError('invalid_fields');
+  await saveSite(env, cleanSite(data));
   return json({ ok: true });
 }
 
@@ -581,6 +612,16 @@ async function createPage(request, env) {
 
 async function updatePage(request, env, slug) {
   const b = await body(request);
+  requireFields(b, ['title'], ['blocks', 'aliases']);
+  if (!b.title.trim() || typeof b.published !== 'boolean' || b.aliases.some(v => typeof v !== 'string') || b.blocks.some(v => !v || !BLOCK_TYPES.includes(v.type))) throw new RequestError('invalid_fields');
+  for (const block of b.blocks) {
+    if (['heading', 'text', 'note'].includes(block.type)) requireFields(block, ['text']);
+    else if (block.type === 'image') requireFields(block, ['src']);
+    else if (block.type !== 'scaffold') {
+      requireFields(block, [], ['items']);
+      for (const item of block.items) requireFields(item, [], [], []);
+    }
+  }
   const row = await env.DB.prepare('SELECT position FROM pages WHERE slug = ?').bind(slug).first();
   if (!row) return json({ error: 'not_found' }, 404);
   let target = slug;
@@ -588,12 +629,17 @@ async function updatePage(request, env, slug) {
   if (newSlug && newSlug !== slug) {
     if (!SLUG_RE.test(newSlug) || RESERVED.has(newSlug)) return json({ error: 'invalid_slug' }, 400);
     if (await env.DB.prepare('SELECT 1 FROM pages WHERE slug = ?').bind(newSlug).first()) return json({ error: 'slug_exists' }, 409);
-    await renamePage(env, slug, newSlug);
     target = newSlug;
     // stará adresa dál funguje jako přesměrování
-    b.aliases = [...new Set([...(Array.isArray(b.aliases) ? b.aliases : []), '/' + slug])];
+    b.aliases = [...new Set(['/' + slug, ...b.aliases])];
   }
-  await savePage(env, target, cleanPage(b), row.position);
+  if (target !== slug) {
+    try { await renameAndSavePage(env, slug, target, cleanPage(b)); }
+    catch (err) {
+      if (/UNIQUE constraint failed: pages.slug/i.test(String(err))) return json({ error: 'slug_exists' }, 409);
+      throw err;
+    }
+  } else await savePage(env, target, cleanPage(b), row.position);
   return json({ ok: true, slug: target });
 }
 
@@ -604,7 +650,8 @@ async function removePage(env, slug) {
 
 async function orderPages(request, env) {
   const b = await body(request);
-  const slugs = (Array.isArray(b.slugs) ? b.slugs : []).map((s) => str(s, 60)).filter((s) => SLUG_RE.test(s));
+  if (!Array.isArray(b.slugs) || b.slugs.length > 1000 || b.slugs.some(s => typeof s !== 'string' || !SLUG_RE.test(s)) || new Set(b.slugs).size !== b.slugs.length) throw new RequestError('invalid_fields');
+  const slugs = b.slugs;
   await reorderPages(env, slugs);
   return json({ ok: true });
 }
@@ -622,18 +669,27 @@ async function listImages(env) {
 
 async function uploadImage(request, env) {
   if (!env.IMAGES) return json({ error: 'images_not_configured' }, 503);
-  const form = await request.formData();
+  let form;
+  try { form = await request.formData(); }
+  catch { throw new RequestError('invalid_fields'); }
   const file = form.get('file');
   if (!file || typeof file === 'string') return json({ error: 'missing_file' }, 400);
   const ext = FILE_TYPES[file.type];
   if (!ext) return json({ error: 'unsupported_type' }, 415);
   if (file.size > MAX_FILE_BYTES) return json({ error: 'too_large' }, 413);
-  const key = `${Date.now()}-${crypto.randomUUID().slice(0, 8)}.${ext}`;
-  await env.IMAGES.put(key, await file.arrayBuffer(), { metadata: { contentType: file.type } });
+  const bytes = await file.arrayBuffer();
+  if (!matchesFileType(bytes, file.type)) return json({ error: 'unsupported_type' }, 415);
   const thumb = form.get('thumb');
-  if (thumb && typeof thumb !== 'string' && FILE_TYPES[thumb.type] && thumb.size <= MAX_FILE_BYTES) {
-    await env.IMAGES.put('sm/' + key, await thumb.arrayBuffer(), { metadata: { contentType: thumb.type } });
+  let thumbBytes;
+  if (thumb !== null) {
+    if (typeof thumb === 'string' || !thumb.type.startsWith('image/') || !FILE_TYPES[thumb.type]) return json({ error: 'unsupported_type' }, 415);
+    if (thumb.size > MAX_FILE_BYTES) return json({ error: 'too_large' }, 413);
+    thumbBytes = await thumb.arrayBuffer();
+    if (!matchesFileType(thumbBytes, thumb.type)) return json({ error: 'unsupported_type' }, 415);
   }
+  const key = `${Date.now()}-${crypto.randomUUID().slice(0, 8)}.${ext}`;
+  await env.IMAGES.put(key, bytes, { metadata: { contentType: file.type } });
+  if (thumbBytes) await env.IMAGES.put('sm/' + key, thumbBytes, { metadata: { contentType: thumb.type } });
   const name = str(form.get('name') || file.name, 200);
   await env.DB.prepare('INSERT INTO images (key, name, content_type, size, created_at) VALUES (?, ?, ?, ?, ?)')
     .bind(key, name, file.type, file.size, new Date().toISOString())
@@ -648,16 +704,17 @@ async function deleteImage(env, key) {
 }
 
 export async function serveImage(env, key) {
-  if (!env.IMAGES) return new Response('Not found', { status: 404 });
+  if (!env.IMAGES) return new Response('Not found', { status: 404, headers: SECURITY_HEADERS });
   let obj = await env.IMAGES.getWithMetadata(key, 'arrayBuffer');
   // starší soubory bez zmenšeniny → plná velikost
   if ((!obj || !obj.value) && key.startsWith('sm/')) obj = await env.IMAGES.getWithMetadata(key.slice(3), 'arrayBuffer');
-  if (!obj || !obj.value) return new Response('Not found', { status: 404 });
+  if (!obj || !obj.value) return new Response('Not found', { status: 404, headers: SECURITY_HEADERS });
   return new Response(obj.value, {
     headers: {
+      ...SECURITY_HEADERS,
+      'Content-Security-Policy': "default-src 'none'; frame-ancestors 'self'; sandbox",
       'Content-Type': (obj.metadata && obj.metadata.contentType) || 'application/octet-stream',
       'Cache-Control': 'public, max-age=31536000, immutable',
-      'X-Content-Type-Options': 'nosniff',
     },
   });
 }
@@ -668,13 +725,26 @@ export async function handleApi(request, env, path) {
   try {
     return await routeApi(request, env, path);
   } catch (err) {
-    if (err instanceof SyntaxError) return json({ error: 'invalid_json' }, 400);
+    if (err instanceof RequestError) return json({ error: err.code }, err.status);
     throw err;
   }
 }
 
 async function routeApi(request, env, path) {
   const m = request.method;
+  if (path.startsWith('/api/admin/') && !['GET', 'HEAD'].includes(m)) {
+    if (request.headers.get('Origin') !== new URL(request.url).origin) return json({ error: 'forbidden' }, 403);
+  }
+  // Check upload authentication before reading a potentially large body.
+  if (path === '/api/admin/images' && m === 'POST') {
+    if (!env.DB || !(await isAdmin(request, env))) return json({ error: 'unauthorized' }, 401);
+  }
+  if (!['GET', 'HEAD'].includes(m)) {
+    const limit = path === '/api/admin/images' ? 21 * 1024 * 1024
+      : path === '/api/contact' ? 2 * 1024 * 1024
+      : path === '/api/admin/site' || /^\/api\/admin\/pages\//.test(path) ? 2 * 1024 * 1024 : 64 * 1024;
+    request = await boundedRequest(request, limit);
+  }
   // veřejně jen to, že web běží; jestli jsou nastavené klíče (e-maily, Mapy.com), vidí jen přihlášený admin
   if (path === '/api/health') {
     const status = { ok: true, db: !!env.DB, images: !!env.IMAGES };

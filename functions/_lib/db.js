@@ -60,8 +60,10 @@ export async function savePage(env, slug, data, position) {
     .run();
 }
 
-export async function renamePage(env, oldSlug, newSlug) {
-  await env.DB.prepare('UPDATE pages SET slug = ? WHERE slug = ?').bind(newSlug, oldSlug).run();
+export async function renameAndSavePage(env, oldSlug, newSlug, data) {
+  // One statement preserves the old row if the new slug already exists.
+  await env.DB.prepare('UPDATE pages SET slug = ?, data = ?, updated_at = ? WHERE slug = ?')
+    .bind(newSlug, JSON.stringify(data), new Date().toISOString(), oldSlug).run();
 }
 
 export async function deletePage(env, slug) {
