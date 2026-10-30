@@ -10,11 +10,9 @@ export function json(data, status = 200) {
 }
 
 async function body(request) {
-  try {
-    return await request.json();
-  } catch {
-    return {};
-  }
+  const data = await request.json();
+  if (!data || typeof data !== 'object' || Array.isArray(data)) throw new SyntaxError('Expected JSON object');
+  return data;
 }
 
 function mailConfigured(env) {
@@ -42,32 +40,21 @@ const CONTACT_WINDOW_MS = 10 * 60 * 1000;
 
 // Počítadlo pokusů na IP v okně (sdílí ho přihlášení do adminu, formulář i našeptávač,
 // liší se předponou klíče). Stav: kolik pokusů je v aktuálním okně.
-async function attemptState(env, key, windowMs) {
-  const row = await env.DB.prepare('SELECT attempt_count, window_start FROM login_attempts WHERE ip = ?').bind(key).first();
-  const active = !!row && Date.now() - new Date(row.window_start).getTime() < windowMs;
-  return { exists: !!row, active, count: active ? row.attempt_count : 0 };
-}
-
-// Započítá pokus; po uplynutí okna začne počítat znovu od jedné.
-async function countAttempt(env, key, active) {
-  if (active) {
-    await env.DB.prepare('UPDATE login_attempts SET attempt_count = attempt_count + 1 WHERE ip = ?').bind(key).run();
-    return;
-  }
-  await env.DB.prepare(
-    `INSERT INTO login_attempts (ip, attempt_count, window_start) VALUES (?, 1, ?)
-     ON CONFLICT(ip) DO UPDATE SET attempt_count = 1, window_start = excluded.window_start`
-  )
-    .bind(key, new Date().toISOString())
-    .run();
-}
-
 // Vrací true, když je limit vyčerpaný; jinak pokus započítá.
 async function overLimit(env, key, limit, windowMs) {
-  const state = await attemptState(env, key, windowMs);
-  if (state.count >= limit) return true;
-  await countAttempt(env, key, state.active);
-  return false;
+  // D1 provede kontrolu i zvýšení v jediném zápisu; paralelní požadavky
+  // tak nemohou všechny projít se stejným původním počtem pokusů.
+  const now = new Date().toISOString();
+  const cutoff = new Date(Date.now() - windowMs).toISOString();
+  const row = await env.DB.prepare(
+    `INSERT INTO login_attempts (ip, attempt_count, window_start) VALUES (?, 1, ?)
+     ON CONFLICT(ip) DO UPDATE SET
+       attempt_count = CASE WHEN window_start <= ? THEN 1 ELSE attempt_count + 1 END,
+       window_start = CASE WHEN window_start <= ? THEN excluded.window_start ELSE window_start END
+     WHERE window_start <= ? OR attempt_count < ?
+     RETURNING attempt_count`
+  ).bind(key, now, cutoff, cutoff, cutoff, limit).first();
+  return !row;
 }
 
 // Text poptávky z formulářů je po řádcích: „Nadpis:“ začíná oddíl, „- klíč: hodnota“
@@ -197,6 +184,7 @@ async function submitContact(request, env) {
   } catch {
     // poškozená data — stejně jako prázdný formulář
   }
+  if (!b || typeof b !== 'object' || Array.isArray(b)) return reply({ error: 'missing_fields' }, 400);
   const field = (k, max = 200) => String(b[k] || '').trim().slice(0, max);
   const name = field('jmeno');
   const phone = field('telefon', 40);
@@ -352,18 +340,16 @@ async function issueSession(env) {
 async function login(request, env) {
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
   const now = Date.now();
-  // počítají se jen neúspěšné pokusy, po přihlášení se počítadlo smaže
-  const attempts = await attemptState(env, ip, LOGIN_ATTEMPT_WINDOW_MS);
-  if (attempts.count >= LOGIN_ATTEMPT_LIMIT) return json({ error: 'too_many_attempts' }, 429);
+  // Rezervujeme pokus před ověřením, včetně souběžných požadavků.
+  if (await overLimit(env, ip, LOGIN_ATTEMPT_LIMIT, LOGIN_ATTEMPT_WINDOW_MS)) return json({ error: 'too_many_attempts' }, 429);
 
   const b = await body(request);
   // mezery na okrajích (častý omyl při kopírování hesla do Cloudflare) nevadí
   const ok = !!env.ADMIN_PASSWORD && typeof b.password === 'string' && sameText(b.password.trim(), String(env.ADMIN_PASSWORD).trim());
   if (!ok) {
-    await countAttempt(env, ip, attempts.active);
     return json({ error: env.ADMIN_PASSWORD ? 'wrong_password' : 'not_configured' }, 401);
   }
-  if (attempts.exists) await env.DB.prepare('DELETE FROM login_attempts WHERE ip = ?').bind(ip).run();
+
   // úklid prošlých přihlášení, kódů a starých počítadel
   const nowIso = new Date(now).toISOString();
   await env.DB.batch([
@@ -373,7 +359,10 @@ async function login(request, env) {
   ]);
 
   // Druhý krok e-mailem, pokud je nastavené odesílání — samotné uniklé heslo pak nestačí.
-  if (!mailConfigured(env)) return json({ ok: true, token: await issueSession(env) });
+  if (!mailConfigured(env)) {
+    await env.DB.prepare('DELETE FROM login_attempts WHERE ip = ?').bind(ip).run();
+    return json({ ok: true, token: await issueSession(env) });
+  }
 
   const loginId = crypto.randomUUID();
   const code = randomCode();
@@ -400,17 +389,19 @@ async function verifyCode(request, env) {
   const b = await body(request);
   const loginId = String(b.loginId || '');
   const code = String(b.code || '').trim();
-  const row = await env.DB.prepare('SELECT code, expires_at, attempts FROM login_codes WHERE login_id = ?').bind(loginId).first();
-  if (!row) return json({ error: 'invalid_code' }, 401);
-  if (new Date(row.expires_at).getTime() < Date.now() || row.attempts >= LOGIN_CODE_MAX_ATTEMPTS) {
-    await env.DB.prepare('DELETE FROM login_codes WHERE login_id = ?').bind(loginId).run();
-    return json({ error: 'code_expired' }, 401);
-  }
-  if (row.code !== code) {
-    await env.DB.prepare('UPDATE login_codes SET attempts = attempts + 1 WHERE login_id = ?').bind(loginId).run();
-    return json({ error: 'invalid_code' }, 401);
-  }
-  await env.DB.prepare('DELETE FROM login_codes WHERE login_id = ?').bind(loginId).run();
+  // Každý pokus obsadí jednu pozici atomicky. Úspěšný kód spotřebuje
+  // podmíněné DELETE RETURNING, takže relaci dostane jediný požadavek.
+  const row = await env.DB.prepare(
+    `UPDATE login_codes SET attempts = attempts + 1
+     WHERE login_id = ? AND expires_at > ? AND attempts < ?
+     RETURNING code`
+  ).bind(loginId, new Date().toISOString(), LOGIN_CODE_MAX_ATTEMPTS).first();
+  if (!row) return json({ error: 'code_expired' }, 401);
+  if (!sameText(row.code, code)) return json({ error: 'invalid_code' }, 401);
+  const consumed = await env.DB.prepare(
+    'DELETE FROM login_codes WHERE login_id = ? AND code = ? RETURNING login_id'
+  ).bind(loginId, code).first();
+  if (!consumed) return json({ error: 'invalid_code' }, 401);
   return json({ ok: true, token: await issueSession(env) });
 }
 
@@ -674,6 +665,15 @@ export async function serveImage(env, key) {
 // ---------- router ----------
 
 export async function handleApi(request, env, path) {
+  try {
+    return await routeApi(request, env, path);
+  } catch (err) {
+    if (err instanceof SyntaxError) return json({ error: 'invalid_json' }, 400);
+    throw err;
+  }
+}
+
+async function routeApi(request, env, path) {
   const m = request.method;
   // veřejně jen to, že web běží; jestli jsou nastavené klíče (e-maily, Mapy.com), vidí jen přihlášený admin
   if (path === '/api/health') {

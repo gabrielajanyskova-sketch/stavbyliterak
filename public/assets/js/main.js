@@ -199,8 +199,12 @@
 
     // součty počítá server, ceny jednotlivých položek na stránce nejsou
     let quoteTimer;
+    let quoteVersion = 0;
     const updateQuote = () => {
       if (!booking.dataset.quote) return;
+      const version = ++quoteVersion;
+      quote = null;
+      priceBox.hidden = true;
       clearTimeout(quoteTimer);
       quoteTimer = setTimeout(async () => {
         const rows = picked();
@@ -212,8 +216,11 @@
             body: JSON.stringify({ slug: booking.dataset.quote, typ: booking.typ.value, items: Object.fromEntries(rows) }),
           });
           if (!res.ok) throw new Error(res.status);
-          quote = await res.json();
+          const result = await res.json();
+          if (version !== quoteVersion) return;
+          quote = result;
         } catch {
+          if (version !== quoteVersion) return;
           quote = null;
           priceBox.hidden = true;
           return;
