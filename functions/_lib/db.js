@@ -11,6 +11,9 @@ const SCHEMA = [
   `CREATE TABLE IF NOT EXISTS login_codes (login_id TEXT PRIMARY KEY, code TEXT NOT NULL, expires_at TEXT NOT NULL, attempts INTEGER NOT NULL DEFAULT 0)`,
 ];
 
+const LEGAL_SLUG = 'pravni-informace';
+const legalPage = seed.pages.find(p => p.slug === LEGAL_SLUG);
+
 let ready = false;
 
 export async function ensureDb(env) {
@@ -27,6 +30,12 @@ export async function ensureDb(env) {
     });
     await env.DB.batch(stmts);
   }
+  // Starší produkční databáze již obsahují site, takže se běžný seed přeskočí.
+  // Doplníme jen chybějící právní stránku; upravený obsah se nikdy nepřepisuje.
+  await env.DB.prepare(
+    `INSERT OR IGNORE INTO pages (slug, position, data, updated_at)
+     VALUES (?, (SELECT COALESCE(MAX(position), -1) + 1 FROM pages), ?, ?)`
+  ).bind(LEGAL_SLUG, JSON.stringify(legalPage), new Date().toISOString()).run();
   ready = true;
 }
 
@@ -43,7 +52,12 @@ export async function getPages(env, { includeDrafts = false } = {}) {
         Object.assign(JSON.parse(r.data), { slug: r.slug, position: r.position, updated_at: r.updated_at })
       )
     : seed.pages.map((p, i) => Object.assign({}, p, { position: i }));
-  return includeDrafts ? list : list.filter((p) => p.published);
+  if (includeDrafts) return list;
+  const published = list.filter(p => p.published);
+  // Právní informace zůstávají dostupné i při rozpracované neveřejné úpravě.
+  // Obsah konceptu nikdy nevystavujeme; použije se existující veřejný text ze seedu.
+  if (!published.some(p => p.slug === LEGAL_SLUG)) published.push({ ...legalPage });
+  return published;
 }
 
 export async function saveSite(env, data) {

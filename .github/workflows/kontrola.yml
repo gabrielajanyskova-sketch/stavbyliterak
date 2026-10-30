@@ -18,4 +18,5 @@ jobs:
         with:
           node-version: 22
       - run: node --experimental-vm-modules scripts/security-test.mjs
+      - run: node --experimental-vm-modules scripts/legal-test.mjs
       - run: npm run check

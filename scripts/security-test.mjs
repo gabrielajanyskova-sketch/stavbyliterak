@@ -184,7 +184,7 @@ test('file signatures accept repository media and reject mismatched MIME', () =>
 });
 
 test('atomic rename preserves data on a conflicting slug', async () => {
-  const seedModule = new SyntheticModule(['default'], function(){this.setExport('default',{});});
+  const seedModule = new SyntheticModule(['default'], function(){this.setExport('default',JSON.parse(readFileSync(new URL('../functions/_lib/seed.json',import.meta.url),'utf8')));});
   const database = new SourceTextModule(readFileSync(new URL('../functions/_lib/db.js',import.meta.url),'utf8'));
   await database.link(()=>seedModule); await database.evaluate();
   const env=environment();
